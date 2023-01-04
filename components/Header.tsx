@@ -1,11 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import goToTop from "./utils/goToTop";
 
-type Props = { goToTop: () => any };
+type Props = {};
 
-function Header({ goToTop }: Props) {
+function Header({}: Props) {
   return (
     <nav
       id="navbar"
