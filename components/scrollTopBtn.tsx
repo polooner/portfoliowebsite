@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { BsArrowUp } from "react-icons/bs";
 import goToTop from "./utils/goToTop";
 
-type Props = {};
+type Props = { goToTop: () => any };
 
-const ScrollTopBtn = ({}: Props) => {
+const ScrollTopBtn = ({ goToTop }: Props) => {
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
