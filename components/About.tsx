@@ -1,19 +1,19 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React from 'react';
+import { motion } from 'framer-motion';
 
 type Props = {};
 
-const About = (props: Props) => {
+export default function AboutSection({}: Props) {
   return (
     <article
-      id="ab"
-      className="h-screen flex flex-col relative text-center items-center mx-10 my-8 md:my-16 justify-center"
+      id='ab'
+      className='h-screen text-center items-center middle justify-center flex flex-col relative'
     >
-      <h1 className="top-[10%] tracking-tight font-extrabold text-4xl mb-[2%] bg-gradient-to-r from-black to-blue-400 bg-clip-text text-transparent">
+      <h1 className='tracking-tight font-extrabold py-16 md:text-[72px] text-4xl bg-gradient-to-r from-black to-blue-400 bg-clip-text text-transparent'>
         About
       </h1>
       <motion.p
-        className="md:max-w-[60%] max-w-[80%] text-gray-500 font-light text-md md:text-xl text-start m-[2%]"
+        className=' text-gray-500 mx-52 my-20 font-light text-md md:text-xl text-start'
         initial={{
           x: -200,
           opacity: 0,
@@ -42,6 +42,4 @@ const About = (props: Props) => {
       </motion.p>
     </article>
   );
-};
-
-export default About;
+}
