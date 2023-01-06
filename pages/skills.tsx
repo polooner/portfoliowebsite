@@ -1,9 +1,8 @@
+import React from 'react';
 import SkillsSection from '../components/SkillsSection';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Head from 'next/head';
-
-import React from 'react';
 
 type Props = {};
 
