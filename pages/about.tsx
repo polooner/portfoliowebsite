@@ -6,7 +6,7 @@ import Head from 'next/head';
 
 type Props = {};
 
-export default function ({}: Props) {
+export default function About({}: Props) {
   return (
     <div className='bg-gradient-to-br from-white via-white to-red-200'>
       <Head>
