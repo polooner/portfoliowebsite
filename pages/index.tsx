@@ -6,7 +6,7 @@ import Hero from '../components/HeroSection';
 
 export default function Home() {
   return (
-    <div className='justify-center items-center bg-gradient-to-br from-white via-white to-red-200'>
+    <div className='justify-center bg-transparent relative items-center '>
       <Head>
         <title>Filip Wojda</title>
       </Head>

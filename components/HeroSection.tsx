@@ -1,5 +1,6 @@
 import React from 'react';
-import { useTypewriter, Cursor } from 'react-simple-typewriter';
+import { useTypewriter } from 'react-simple-typewriter';
+import Spline from '@splinetool/react-spline';
 
 type Props = {};
 
@@ -18,12 +19,12 @@ function Hero({}: Props) {
   });
 
   return (
-    <article className='h-screen flex flex-col space-y-8 self-center items-center justify-center text-center overflow-hidden'>
-      <h1 className='flex py-16 md:text-[72px] text-4xl self-center bg-gradient-to-r from-purple-600 to-blue-400 bg-clip-text text-transparent tracking-tight font-black'>
+    <article className='h-screen relative flex flex-col space-y-8 self-center items-center bg-transparent justify-center text-center overflow-hidden'>
+      <h1 className='flex absolute  top-28 p-20 md:p-32 md:text-[72px] text-4xl self-center bg-gradient-to-r from-purple-600 to-blue-400 bg-clip-text text-transparent tracking-tight font-black'>
         <p>{text}</p>
-        <Cursor />
       </h1>
-      <h2 className='text-gray-500 font-light'>
+      <Spline scene='https://prod.spline.design/gS49rkuI3FyEHjuj/scene.splinecode' />
+      <h2 className='absolute bottom-34 md:bottom-42 pb-32 md:pb-52 text-gray-500 font-light'>
         Software Enginner, Computer Science Student
       </h2>
     </article>

@@ -13,7 +13,7 @@ export default function AboutSection({}: Props) {
         About
       </h1>
       <motion.p
-        className=' text-gray-500 mx-52 my-20 font-light text-md md:text-xl text-start'
+        className=' text-gray-500 md:mx-52 my-20 mx-10 font-light text-md md:text-xl text-start'
         initial={{
           x: -200,
           opacity: 0,
