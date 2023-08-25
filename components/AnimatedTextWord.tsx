@@ -44,7 +44,7 @@ const AnimatedTextWord = (props: AnimatedTextDivProps) => {
     <motion.div
       variants={container}
       initial='hidden'
-      className=' whitespace-pre sm:max-h-[400px] sm:max-w-[300px]'
+      className=' whitespace-pre max-w-4xl'
       animate='visible'
       style={{
         height: '400px',
