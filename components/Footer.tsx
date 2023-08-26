@@ -9,7 +9,10 @@ import { motion } from 'framer-motion';
 
 const Footer = () => {
   return (
-    <motion.footer animate={{}} className='flex flex-row space-x-2'>
+    <motion.footer
+      animate={{}}
+      className='flex flex-row space-x-2 left-4 bottom-4 fixed'
+    >
       <a target='_blank' href='https://twitter.com/filip_w000'>
         <TwitterLogoIcon width={25} height={25} />
       </a>
