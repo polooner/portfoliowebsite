@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import ParallaxComponent from '@/components/ParallaxText';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 export default function Home() {
   const [windowSize, setWindowSize] = useState([0, 0]);
@@ -53,10 +55,10 @@ export default function Home() {
   };
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-center'>
+    <main className='flex min-h-full flex-col items-center justify-center'>
       <div className='grid grid-cols-5 gap-4 '>
         <motion.div
-          className='col-span-2 heading col-start-2 max-w-4xl mx-auto tracking-tight '
+          className='col-span-2 sm:text-6xl text-2xl col-start-2 max-w-4xl mx-auto tracking-tight '
           variants={parent}
           initial='hidden'
           animate='visible'
@@ -70,13 +72,12 @@ export default function Home() {
         <div className='...'></div>
         <div className='...'></div>
         <Image
-          className='col-span-2 col-start-4 -mt-44'
+          className='col-span-2 col-start-4 sm:-mt-44'
           alt='motto flag'
           src={'/main.gif'}
-          width={windowSize[0] * 0.9}
-          height={windowSize[1] * 0.9}
+          width={windowSize[0]}
+          height={windowSize[1]}
         />
-        <h1></h1>
       </div>
     </main>
   );

@@ -3,6 +3,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import localFont from 'next/font/local';
+import { ParallaxProvider } from 'react-scroll-parallax';
 
 export const metadata: Metadata = {
   title: 'Wojda Labs',
