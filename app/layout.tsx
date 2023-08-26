@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ParallaxProvider } from 'react-scroll-parallax';
+import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
   title: 'Wojda Labs',
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body className='sm:px-10 sm:py-4 p-4'>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 export default function Projects() {
   return (
     <main>
-      <h1>hello</h1>
+      <h1 className='heading'>Work in progress.</h1>
     </main>
   );
 }
