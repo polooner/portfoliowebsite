@@ -1,9 +1,11 @@
 'use client';
 
 import clsx from 'clsx';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Button } from './ui/button';
 
 const navItems = [
   { name: 'projects', href: '/projects' },
@@ -13,8 +15,9 @@ const navItems = [
   { name: 'book a call', href: '/bookacall' },
 ];
 
-const Header = () => {
+const Header = ({ isAuthenticated }: { isAuthenticated: boolean }) => {
   const path = usePathname();
+  const { data: session } = useSession();
 
   return (
     <nav className='p-2 mb-24 !justify-between flex items-center flex-row '>
@@ -47,6 +50,9 @@ const Header = () => {
           );
         })}
       </div>
+      {isAuthenticated == true && (
+        <Button onClick={() => signOut()}>sign out</Button>
+      )}
     </nav>
   );
 };
