@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useId } from 'react';
 
 export default async function Projects() {
-  const posts = await db.post.findMany();
+  // const posts = await db.post.findMany();
   const session = await getServerSession();
 
   return (
