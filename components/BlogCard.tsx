@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 interface BlogCardProps {
-  htmlContent: string | undefined;
+  htmlContent: string;
   title: string | undefined;
   bannerUrl: string | undefined | null;
 }
@@ -26,13 +26,7 @@ const BlogCard = (
       <h1 className='absolute self-center sm:p-10 bg-white rounded-md p-4'>
         {props.title}
       </h1>
-      <div
-        dangerouslySetInnerHTML={
-          { __html: props.htmlContent } as
-            | { __html: string | TrustedHTML }
-            | undefined
-        }
-      />
+      <div dangerouslySetInnerHTML={{ __html: props.htmlContent }} />
     </div>
   );
 };
