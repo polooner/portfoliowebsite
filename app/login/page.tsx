@@ -1,14 +1,10 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signIn } from 'next-auth/react';
 
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
 
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Icons } from '@/components/ui/icons';

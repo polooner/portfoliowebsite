@@ -74,6 +74,6 @@
     @apply bg-background text-foreground;
   }
   .heading {
-    @apply font-medium tracking-tight leading-4 sm:text-6xl text-4xl;
+    @apply font-medium tracking-tight sm:text-6xl text-4xl;
   }
 }
