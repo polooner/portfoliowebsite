@@ -18,6 +18,7 @@ interface CardProps {
   content: string;
   datePublished: string;
   img_src?: string;
+  isAuthenticated: boolean;
 }
 
 const BlogPreviewCard = (
@@ -31,9 +32,11 @@ const BlogPreviewCard = (
           {/* TODO: add editing icon/functionality */}
           {/* TODO: add delete functionality */}
           <CardTitle className='text-2xl'>{props.title}</CardTitle>
-          <div className=''>
-            <DeleteDialog postId={props.id as string} table={table} />
-          </div>
+          {props.isAuthenticated && (
+            <div className=''>
+              <DeleteDialog postId={props.id as string} table={table} />
+            </div>
+          )}
         </CardHeader>
         <Separator className='my-4' />
         <CardContent className='flex flex-col items-center'>
