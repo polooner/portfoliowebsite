@@ -3,8 +3,6 @@ import Post from '@/components/BlogPreviewCard';
 import PostContent from '@/components/PostContent';
 import { db } from '@/lib/db';
 import { getServerSession } from 'next-auth';
-import { useSession } from 'next-auth/react';
-import { useId } from 'react';
 
 export default async function Projects() {
   const posts = await db.post.findMany();
@@ -24,6 +22,7 @@ export default async function Projects() {
               href={'/projects/' + post.id}
               content={post.content}
               key={post.id}
+              id={"'" + post.id + "'"}
             />
           );
         })}

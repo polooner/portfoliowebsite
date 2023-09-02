@@ -23,6 +23,7 @@ export default async function BlogPost({
         title={post?.title}
         bannerUrl={post?.bannerUrl}
         htmlContent={post?.content}
+        content={post.content}
       />
     </main>
   );

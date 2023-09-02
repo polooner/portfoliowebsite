@@ -9,12 +9,14 @@ import rehypeRaw from 'rehype-raw';
 interface BlogCardProps {
   htmlContent: string;
   title: string | undefined;
+  content: string;
   bannerUrl: string | undefined | null;
 }
 
 const BlogCard = (
   props: ComponentPropsWithoutRef<'div'> & BlogCardProps
 ) => {
+  console.log(props.content);
   return (
     <div className='w-full h-full'>
       <div className='bg-gradient-to-tr   from-white via-red-200 to-yellow-400'>
@@ -37,7 +39,7 @@ const BlogCard = (
         // @ts-expect-error
         rehypePlugins={[rehypeRaw]}
       >
-        {props.content as string}
+        {props.content}
       </ReactMarkdown>
     </div>
   );
