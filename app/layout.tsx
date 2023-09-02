@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Header from '@/components/Header';
 import './globals.css';
 import type { Metadata } from 'next';
@@ -34,6 +35,7 @@ export default async function RootLayout({
           <Footer />
         </NextAuthProvider>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   );
