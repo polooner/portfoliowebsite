@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 import { useId } from 'react';
 
 export default async function Projects() {
-  // const posts = await db.post.findMany();
+  const posts = await db.post.findMany();
   const session = await getServerSession();
 
   return (
@@ -16,7 +16,7 @@ export default async function Projects() {
       <p className='text-gray-500'>Source code sometimes included.</p>
       {session?.user && <PostContent />}
       <div className='flex flex-col mt-14 flex-1 flex-wrap items-center'>
-        {/* {posts.map((post) => {
+        {posts.map((post) => {
           return (
             <BlogPreviewCard
               datePublished={post.createdAt.toISOString()}
@@ -26,7 +26,7 @@ export default async function Projects() {
               key={post.id}
             />
           );
-        })} */}
+        })}
       </div>
     </main>
   );

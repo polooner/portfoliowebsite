@@ -18,12 +18,12 @@ export default async function BlogPost({
 
   return (
     <main>
-      {/* <BlogCard
+      <BlogCard
         key={post?.id}
         title={post?.title}
         bannerUrl={post?.bannerUrl}
         htmlContent={post?.content}
-      /> */}
+      />
     </main>
   );
 }
