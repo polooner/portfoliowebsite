@@ -24,13 +24,13 @@ model Post {
 }
 
 model Project {
-    id        String   @id @default(cuid())
-    title     String
-    content   String
-    bannerUrl String?
-    published Boolean  @default(false)
-    createdAt DateTime @default(now()) @map(name: "created_at")
-    updatedAt DateTime @default(now()) @map(name: "updated_at")
+    id         String   @id @default(cuid())
+    title      String
+    content    String
+    projectUrl String?
+    published  Boolean  @default(false)
+    createdAt  DateTime @default(now()) @map(name: "created_at")
+    updatedAt  DateTime @default(now()) @map(name: "updated_at")
 
     @@map(name: "projects")
 }

@@ -5,7 +5,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -29,10 +28,9 @@ import {
   FormLabel,
   FormMessage,
 } from './ui/form';
-import { UploadButton } from '@/lib/uploadthing';
+
 import { UploadFileResponse } from 'uploadthing/client';
-import Link from 'next/link';
-import { Icons } from './ui/icons';
+
 import { useRouter } from 'next/navigation';
 
 const postFormSchema = z.object({
@@ -42,19 +40,18 @@ const postFormSchema = z.object({
   content: z.string().min(2, {
     message: 'Content must be at least 2 characters.',
   }),
+  // NOTE: notice that some projects might be too private = not shared. What then?
+  projectUrl: z.string().min(2, {
+    message: 'Must supply a projectURL',
+  }),
   table: z.literal('project'),
-  // Not validating bannerUrl because it's optional in db and component props
 });
 
 export type postFormType = typeof postFormSchema.shape;
 
-interface PostContentProps {
-  edit_type?: string;
-}
-
 // TODO: make this component reusable for other db tables too
 
-const PostContent = (props: PostContentProps) => {
+const PostContentProject = () => {
   const [file, setFile] = useState<UploadFileResponse | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const router = useRouter();
@@ -64,6 +61,7 @@ const PostContent = (props: PostContentProps) => {
     defaultValues: {
       title: '',
       content: '',
+      projectUrl: '',
       table: 'project',
     },
   });
@@ -132,54 +130,22 @@ const PostContent = (props: PostContentProps) => {
                   </FormItem>
                 )}
               />
-              {/* 
-              Show link to banner once uploaded 
-              TODO: ask "Are you sure" when quitting form 
-              TODO: delete file if form was not submitted and quit
-              */}
 
-              {file && (
-                <FormItem>
-                  <Link
-                    target='_blank'
-                    className='flex flex-row p-4 rounded-md gap-x-4 ring-1 ring-slate-200'
-                    href={file.url}
-                  >
-                    <Icons.media />
-                    {file.name}
-                  </Link>
-                </FormItem>
-              )}
-              <FormItem>
-                <FormLabel>
-                  Upload banner
-                  <Button
-                    variant={'outline'}
-                    type='button'
-                    className='self-center w-full h-fit'
-                  >
-                    <UploadButton
-                      endpoint='imageUploader'
-                      onClientUploadComplete={(res) => {
-                        // Setting file to be the response object
-                        // of type UploadFileResponse[]
-                        // TODO: handle multiple file uploads,
-                        //       currently only taking first response
-                        console.log('Files: ', res);
-                        if (res) {
-                          setFile(res[0]);
-                        }
+              <FormField
+                control={form.control}
+                name='projectUrl'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Project URL</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder='content' {...field} />
+                    </FormControl>
+                    <FormDescription></FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                        alert('Upload Completed');
-                      }}
-                      onUploadError={(error: Error) => {
-                        // Alert the error
-                        alert(`ERROR! ${error.message}`);
-                      }}
-                    />
-                  </Button>
-                </FormLabel>
-              </FormItem>
               <Button type='submit'>Submit</Button>
             </form>
           </Form>
@@ -189,4 +155,4 @@ const PostContent = (props: PostContentProps) => {
   );
 };
 
-export default PostContent;
+export default PostContentProject;

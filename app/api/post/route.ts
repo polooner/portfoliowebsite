@@ -4,12 +4,13 @@ import { getServerSession } from 'next-auth';
 
 export const dynamic = 'force-dynamic';
 
-// TODO: change to infer zod form values
+// TODO: infer zod form values
 // TODO: move types to types.ts when done
 interface PostFormProps {
   title: string;
   content: string;
   table: string;
+  projectUrl?: string;
 }
 
 interface DeletePostProps {
@@ -22,7 +23,7 @@ export async function POST(req: Request, res) {
 
   // Check if there is a session
   const session = await getServerSession(authOptions);
-  console.log(session?.user);
+  console.log(body.table);
 
   if (session?.user) {
     try {
@@ -33,8 +34,10 @@ export async function POST(req: Request, res) {
             data: {
               title: body.title,
               content: body.content,
+              projectUrl: body.projectUrl,
             },
           });
+          console.log('received' + JSON.stringify(body));
           break;
         // TODO: personalize blog options
         case 'blog':

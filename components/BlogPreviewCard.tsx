@@ -1,4 +1,9 @@
-import { ComponentPropsWithoutRef } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  ComponentType,
+  IframeHTMLAttributes,
+  ImgHTMLAttributes,
+} from 'react';
 import {
   Card,
   CardContent,
@@ -21,6 +26,7 @@ interface CardProps {
   datePublished: Date;
   img_src?: string;
   isAuthenticated: boolean;
+  VisualComponent: React.ReactNode;
 }
 
 const BlogPreviewCard = (
@@ -29,18 +35,20 @@ const BlogPreviewCard = (
   // TODO: make reusable table prop
   const table = 'project';
   return (
-    <div className='relative sm:max-w-[500px] sm:w-[400px] w-[300px] sm:h-[450px] h-[350px] !max-h-[450px]'>
-      <a href={props.href} target='_blank'>
+    <div className='relative sm:w-[600px] w-[300px] sm:h-[650px] h-[450px] !max-h-[450px]'>
+      <a href={props.href} className='' target='_blank'>
         <Card>
-          <CardHeader className='flex flex-row justify-between'>
+          <CardHeader className='flex flex-row flex-wrap justify-between'>
             {/* TODO: add editing icon/functionality */}
-            {/* TODO: add delete functionality */}
-            <CardTitle className='text-2xl'>{props.title}</CardTitle>
+
+            <CardTitle className='w-full'>{props.title}</CardTitle>
           </CardHeader>
           <Separator className='my-4' />
-          <CardContent className='flex flex-col items-center'>
-            {props.img_src ? (
-              <img src={props.img_src} />
+          <CardContent className='flex flex-col items-center overflow-hidden'>
+            {props.VisualComponent ? (
+              <span className='w-full h-full overflow-hidden'>
+                {props.VisualComponent}
+              </span>
             ) : (
               <Image
                 width={150}
