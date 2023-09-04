@@ -7,13 +7,13 @@ export default async function BlogPost({
 }: {
   params: { blogid: string };
 }) {
-  const post = await db.post.findUnique({
+  const post = await db.project.findUnique({
     where: {
       id: params.blogid,
     },
   });
   if (!post) {
-    redirect('/blog');
+    redirect('/projects');
   }
 
   return (
@@ -22,7 +22,6 @@ export default async function BlogPost({
         key={post?.id}
         title={post?.title}
         bannerUrl={post?.bannerUrl}
-        htmlContent={post?.content}
         content={post.content}
       />
     </main>

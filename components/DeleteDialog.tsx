@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Icons } from './ui/icons';
 import { db } from '@/lib/db';
+import { useRouter } from 'next/navigation';
 
 interface DeleteDialogProps {
   postId: string;
@@ -20,6 +21,8 @@ interface DeleteDialogProps {
 }
 
 export function DeleteDialog(props: DeleteDialogProps) {
+  // TODO: make a hooks file
+  const router = useRouter();
   const { table, postId } = props;
   const handleDelete = async () => {
     fetch('/api/post', {
@@ -29,6 +32,7 @@ export function DeleteDialog(props: DeleteDialogProps) {
       .then(async (res) => {
         const json = await res.json();
         alert(JSON.stringify(json));
+        router.refresh();
       })
       .catch((err) => {
         alert(err);

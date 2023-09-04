@@ -7,7 +7,6 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 
 interface BlogCardProps {
-  htmlContent: string;
   title: string | undefined;
   content: string;
   bannerUrl: string | undefined | null;
@@ -19,10 +18,10 @@ const BlogCard = (
   console.log(props.content);
   return (
     <div className='w-full h-full'>
-      <div className='bg-gradient-to-tr   from-white via-red-200 to-yellow-400'>
+      <div className='bg-gradient-to-tr from-white via-red-200 to-yellow-400'>
         {props.bannerUrl && (
           <Image
-            className=' '
+            className=''
             alt={props.title as string}
             src={props.bannerUrl as string}
             width={400}
@@ -30,7 +29,7 @@ const BlogCard = (
           />
         )}
       </div>
-      <h1 className='sm:text-6xl text-3xl font-bold self-center sm:p-10 bg-white rounded-md p-4'>
+      <h1 className='self-center p-4 text-3xl font-bold bg-white rounded-md sm:text-6xl sm:p-10'>
         {props.title}
       </h1>
 

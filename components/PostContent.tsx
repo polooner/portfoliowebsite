@@ -33,6 +33,7 @@ import { UploadButton } from '@/lib/uploadthing';
 import { UploadFileResponse } from 'uploadthing/client';
 import Link from 'next/link';
 import { Icons } from './ui/icons';
+import { useRouter } from 'next/navigation';
 
 const postFormSchema = z.object({
   title: z.string().min(2, {
@@ -41,6 +42,7 @@ const postFormSchema = z.object({
   content: z.string().min(2, {
     message: 'Content must be at least 2 characters.',
   }),
+  table: z.literal('project'),
   // Not validating bannerUrl because it's optional in db and component props
 });
 
@@ -50,19 +52,23 @@ interface PostContentProps {
   edit_type?: string;
 }
 
+// TODO: make this component reusable for other db tables too
+
 const PostContent = (props: PostContentProps) => {
   const [file, setFile] = useState<UploadFileResponse | null>(null);
   const [submitted, setSubmitted] = useState<boolean>(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof postFormSchema>>({
     resolver: zodResolver(postFormSchema),
     defaultValues: {
       title: '',
       content: '',
+      table: 'project',
     },
   });
 
-  // 2. Define a submit handler.
+  // Define a submit handler.
   function onSubmit(values: z.infer<typeof postFormSchema>) {
     // Post to database
     // ✅ This will be type-safe and validated.
@@ -73,6 +79,7 @@ const PostContent = (props: PostContentProps) => {
       .then(async (res) => {
         const json = await res.json();
         alert(JSON.stringify(json));
+        router.refresh();
       })
       .catch((err) => {
         alert(err);
@@ -81,7 +88,7 @@ const PostContent = (props: PostContentProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='outline' className='w-40 mt-10 self-center'>
+        <Button variant='outline' className='self-center w-40 mt-10'>
           Post a project
         </Button>
       </DialogTrigger>
@@ -95,7 +102,7 @@ const PostContent = (props: PostContentProps) => {
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className='space-y-8 flex flex-col'
+              className='flex flex-col space-y-8'
             >
               <FormField
                 control={form.control}
@@ -135,7 +142,7 @@ const PostContent = (props: PostContentProps) => {
                 <FormItem>
                   <Link
                     target='_blank'
-                    className='flex gap-x-4 p-4 flex-row rounded-md ring-1 ring-slate-200'
+                    className='flex flex-row p-4 rounded-md gap-x-4 ring-1 ring-slate-200'
                     href={file.url}
                   >
                     <Icons.media />
@@ -149,7 +156,7 @@ const PostContent = (props: PostContentProps) => {
                   <Button
                     variant={'outline'}
                     type='button'
-                    className='h-fit w-full self-center'
+                    className='self-center w-full h-fit'
                   >
                     <UploadButton
                       endpoint='imageUploader'
