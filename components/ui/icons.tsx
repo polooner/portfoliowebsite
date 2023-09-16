@@ -1,4 +1,5 @@
 import {
+  Lightbulb,
   AlertTriangle,
   ArrowRight,
   Check,
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react';
 
 export const Icons = {
+  lightbulb: Lightbulb,
   logo: Command,
   close: X,
   spinner: Loader2,

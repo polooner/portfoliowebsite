@@ -1,9 +1,4 @@
-import {
-  ComponentPropsWithoutRef,
-  ComponentType,
-  IframeHTMLAttributes,
-  ImgHTMLAttributes,
-} from 'react';
+import { ComponentPropsWithoutRef } from 'react';
 import {
   Card,
   CardContent,
