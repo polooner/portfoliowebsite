@@ -1,32 +1,31 @@
-import BlogCard from '@/components/BlogCard';
-import { db } from '@/lib/db';
+import { MDXProvider } from '@mdx-js/react';
+import { readFileSync, readdirSync } from 'fs';
 import { redirect } from 'next/navigation';
+import React from 'react';
 
-//TODO: add metadata
+//TODO: add metadata w/ greymatter
+
+const components = {};
 
 export default async function BlogPost({
+  props,
   params,
 }: {
+  props: React.ComponentPropsWithoutRef<'div'>;
   params: { projectid: string };
 }) {
-  const post = await db.project.findUnique({
-    where: {
-      id: params.projectid,
-    },
-  });
-  if (!post) {
-    redirect('/projects');
+  let post;
+  try {
+    post = readdirSync(`../../../mdx/${params.projectid}.mdx`);
+    console.log(post);
+  } catch (err) {
+    console.log(err);
+    redirect(`/projects/${err.code}`);
   }
 
   return (
-    <main>
-      <BlogCard
-        key={post?.id}
-        title={post?.title}
-        // TODO: come up with a reusable name for this prop
-        bannerUrl={post?.projectUrl}
-        content={post.content}
-      />
-    </main>
+    <MDXProvider components={components}>
+      <main {...props} />
+    </MDXProvider>
   );
 }
