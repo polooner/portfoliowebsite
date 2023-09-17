@@ -30,7 +30,7 @@ export default function Home() {
     }),
   };
   const sntnc =
-    'My name is Filip. Hang out on my personal website, checkout my blog, projects and feel free to reach out to me about anything!';
+    'I am Filip, founder creating tools that fast-track businesses to sustainable solutions while easing go-to-market times.';
 
   const words = sntnc.split(/\s+/);
   const child = {
@@ -55,10 +55,10 @@ export default function Home() {
   };
 
   return (
-    <main className='flex min-h-full flex-col items-center justify-center'>
+    <main className='flex flex-col items-center justify-center min-h-full'>
       <div className='grid grid-cols-5 gap-4 '>
         <motion.div
-          className='col-span-2 sm:text-6xl text-2xl col-start-2 max-w-4xl mx-auto tracking-tight '
+          className='max-w-4xl col-span-2 col-start-2 mx-auto text-2xl tracking-tight sm:text-6xl '
           variants={parent}
           initial='hidden'
           animate='visible'

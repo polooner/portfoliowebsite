@@ -20,10 +20,10 @@ export default async function BlogPost({
           href='/'
           className='inline-flex flex-row items-center justify-center gap-2 text-sm duration-100 text-daw-zinc-600 hover:gap-x-6 hover:underline'
         >
-          <ArrowLeft size='18' /> Back to question list
+          <ArrowLeft size='18' /> See other projects
         </A>
       </div>
-      <h1 className='my-8 text-2xl font-black'>
+      <h1 className='my-8 text-2xl font-black sm:text-6xl'>
         <Balancer>{title}</Balancer>
       </h1>
       <div className='flex flex-row flex-wrap items-center justify-between gap-20 space-y-16 text-sm not-prose text-daw-zinc-600'>

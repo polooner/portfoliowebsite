@@ -10,7 +10,7 @@ import { Noto_Serif } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: 'Wojda Labs',
-  description: 'The ultimate consulting solutions',
+  description: 'A founder working on a faster world',
 };
 
 export const notoserif = Noto_Serif({
@@ -28,7 +28,8 @@ export default async function RootLayout({
 
   return (
     <html lang='en'>
-      <body className='sm:px-10 flex flex-col space-y-2 sm:py-4 p-4'>
+      <body className='flex flex-col p-4 space-y-2 sm:px-10 sm:py-4'>
+        <link rel='icon' href='/favicon.ico' sizes='any' />
         <NextAuthProvider>
           <Header isAuthenticated={isAuthenticated} />
           {children}

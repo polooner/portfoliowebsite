@@ -18,6 +18,8 @@ export async function getTitle(id: string) {
 export async function getContent(id: string) {
   const source = readFileSync(join(DIR, `${id}.mdx`), 'utf8');
   const { content, frontmatter } = await compileMDX<{
+    img?: string;
+    company?: string;
     title: string;
     updated: Date;
     messageContent: string;
