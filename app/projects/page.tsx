@@ -3,23 +3,19 @@ import { getAllIds, getContent } from '@/lib/get-content';
 import { formatDate } from '@/lib/utils';
 import { A } from '@/components/mdx-components';
 import Image from 'next/image';
-import { headers } from 'next/headers';
 
 async function getData(id: string) {
-  const PAGE = headers().get('x-pathname');
-  const { title, updated, company, img } = await getContent(
-    id,
-    PAGE as string
-  );
+  const { title, updated, company, img } = await getContent(id);
   return { id, title, updated, company, img };
 }
 
 //TODO: add metadata
 
 export default async function Projects() {
-  const PAGE = headers().get('x-pathname');
-  const ids = getAllIds(PAGE as string);
-  const entries = await Promise.all(ids.map(getData)).then((entries) =>
+  const ids = getAllIds();
+  const entries = await Promise.all(
+    ids.filter((id) => id.startsWith('projects')).map(getData)
+  ).then((entries) =>
     entries.sort((a, b) => a.title.localeCompare(b.title))
   );
 

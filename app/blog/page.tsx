@@ -5,22 +5,16 @@ import Image from 'next/image';
 import { Fragment } from 'react';
 import { headers } from 'next/headers';
 
-//TODO: add metadata
-
 async function getData(id: string) {
-  const PAGE = headers().get('x-pathname');
-
-  const { title, updated, company, img } = await getContent(
-    id,
-    PAGE as string
-  );
+  const { title, updated, company, img } = await getContent(id);
   return { id, title, updated, company, img };
 }
 
 export default async function Blog() {
-  const PAGE = headers().get('x-pathname');
-  const ids = getAllIds(PAGE as string);
-  const entries = await Promise.all(ids.map(getData)).then((entries) =>
+  const ids = getAllIds();
+  const entries = await Promise.all(
+    ids.filter((id) => id.startsWith('blog')).map(getData)
+  ).then((entries) =>
     entries.sort((a, b) => a.title.localeCompare(b.title))
   );
 
@@ -40,15 +34,9 @@ export default async function Blog() {
               <hr />
               <div className='-my-12 not-prose'>
                 <A
-                  href={`projects/${id}`}
+                  href={`blog/${id}`}
                   className='flex flex-col items-center gap-6 p-8 rounded-xl ring-1 ring-stone-200'
                 >
-                  <Image
-                    alt={title}
-                    width={300}
-                    height={300}
-                    src={img as string}
-                  />
                   <h1 className='text-2xl font-bold sm:text-6xl '>
                     {company}
                   </h1>

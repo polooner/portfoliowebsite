@@ -8,12 +8,11 @@ import CopyButton from '@/components/copy-button';
 
 // FIXME: repeated
 
-export default async function ProjectPost({
+export default async function BlogPost({
   params,
 }: {
   params: { id: string };
 }) {
-  const PAGE = headers().get('x-pathname');
   const { content, title, updated, messageContent } = await getContent(
     params.id
   );
