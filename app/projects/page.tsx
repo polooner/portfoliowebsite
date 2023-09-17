@@ -1,20 +1,24 @@
-import BlogPreviewCard from '@/components/BlogPreviewCard';
-
 import { Fragment } from 'react';
 import { getAllIds, getContent } from '@/lib/get-content';
 import { formatDate } from '@/lib/utils';
 import { A } from '@/components/mdx-components';
 import Image from 'next/image';
+import { headers } from 'next/headers';
 
 async function getData(id: string) {
-  const { title, updated, company, img } = await getContent(id);
+  const PAGE = headers().get('x-pathname');
+  const { title, updated, company, img } = await getContent(
+    id,
+    PAGE as string
+  );
   return { id, title, updated, company, img };
 }
 
 //TODO: add metadata
 
 export default async function Projects() {
-  const ids = getAllIds();
+  const PAGE = headers().get('x-pathname');
+  const ids = getAllIds(PAGE as string);
   const entries = await Promise.all(ids.map(getData)).then((entries) =>
     entries.sort((a, b) => a.title.localeCompare(b.title))
   );

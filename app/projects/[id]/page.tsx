@@ -3,7 +3,10 @@ import Balancer from 'react-wrap-balancer';
 import { getAllIds, getTitle, getContent } from '@/lib/get-content';
 import { formatDate } from '@/lib/utils';
 import { A } from '@/components/mdx-components';
+import { headers } from 'next/headers';
 import CopyButton from '@/components/copy-button';
+
+const page = headers().get('x-pathname');
 
 export default async function BlogPost({
   params,
@@ -11,7 +14,8 @@ export default async function BlogPost({
   params: { id: string };
 }) {
   const { content, title, updated, messageContent } = await getContent(
-    params.id
+    params.id,
+    page as string
   );
   return (
     <>
@@ -53,11 +57,11 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }) {
-  return { title: await getTitle(params.id) };
+  return { title: await getTitle(params.id, page as string) };
 }
 
 export function generateStaticParams() {
-  return getAllIds().map((id) => ({ id }));
+  return getAllIds(page as string).map((id) => ({ id }));
 }
 
 export const dynamicParams = false;

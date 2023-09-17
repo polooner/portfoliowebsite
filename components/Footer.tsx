@@ -5,7 +5,9 @@ import {
   LinkedInLogoIcon,
   GitHubLogoIcon,
 } from '@radix-ui/react-icons';
+
 import { motion } from 'framer-motion';
+import { Icons } from './ui/icons';
 
 const Footer = () => {
   return (
@@ -33,6 +35,13 @@ const Footer = () => {
         className='opacity-50 hover:opacity-100'
       >
         <GitHubLogoIcon width={25} height={25} />
+      </a>
+      <a
+        target='_blank'
+        className='opacity-50 hover:opacity-100'
+        href='https://www.tiktok.com/@wojda_labs'
+      >
+        <Icons.tikTok width={25} height={25} />
       </a>
     </motion.footer>
   );
