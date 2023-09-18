@@ -5,7 +5,6 @@ import * as z from 'zod';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +14,8 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import Cryptr from 'cryptr';
+import toast from 'react-hot-toast';
 
 const formSchema = z.object({
   firstname: z.string().min(2).max(70),
@@ -34,12 +35,24 @@ export default function Contact() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    alert(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const cryptr = new Cryptr(process.env.NEXT_PUBLIC_KEY as string);
+    values['key'] = cryptr.encrypt(KEY);
+
+    await fetch('/api/send_email', {
+      method: 'POST',
+
+      body: JSON.stringify(values),
+    })
+      .then((res) => {
+        if (res.status == 200) toast('Sent!');
+      })
+      .catch((err) => toast('Error'));
   }
+  const KEY = process.env.NEXT_PUBLIC_API_KEY as string;
 
   return (
-    <main className='w-full duration-100 h-full space-y-6 flex flex-col justify-center'>
+    <main className='flex flex-col justify-center w-full h-full space-y-6 duration-100'>
       <h1 className='heading'>A form to get in touch with me.</h1>
 
       <div>

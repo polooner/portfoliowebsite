@@ -6,14 +6,11 @@ import { A } from '@/components/mdx-components';
 import { headers } from 'next/headers';
 import CopyButton from '@/components/copy-button';
 
-// FIXME: repeated
-
 export default async function ProjectPost({
   params,
 }: {
   params: { id: string };
 }) {
-  const PAGE = headers().get('x-pathname');
   const { content, title, updated, messageContent } = await getContent(
     params.id
   );

@@ -22,7 +22,7 @@ export default async function Projects() {
   return (
     // TODO: add tags
     // TODO: add sorting
-    <main className='flex flex-col w-full h-full'>
+    <main className='flex flex-col w-full h-full pb-20'>
       <h1 className='heading'>A collection of my projects.</h1>
 
       <div className='flex flex-row flex-wrap items-baseline justify-center gap-6 space-y-20 mt-14'>

@@ -21,7 +21,7 @@ export default async function Blog() {
   return (
     // TODO: add tags
     // TODO: add sorting
-    <main className='flex flex-col'>
+    <main className='flex flex-col pb-20'>
       <h1 className='heading'>My thoughts and essays.</h1>
       <p className='text-gray-500'>
         Join me on my journeys, hear my stories, share your thoughts.

@@ -6,8 +6,6 @@ import { A } from '@/components/mdx-components';
 import { headers } from 'next/headers';
 import CopyButton from '@/components/copy-button';
 
-// FIXME: repeated
-
 export default async function BlogPost({
   params,
 }: {
@@ -46,7 +44,7 @@ export default async function BlogPost({
         </div>
       </div>
       <hr />
-      {content}
+      <div className='p-20 sm:p-40'>{content}</div>
     </>
   );
 }
