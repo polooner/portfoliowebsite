@@ -25,7 +25,7 @@ export default async function Projects() {
     <main className='flex flex-col w-full h-full pb-20'>
       <h1 className='heading'>A collection of my projects.</h1>
 
-      <div className='flex flex-row flex-wrap items-baseline justify-center gap-6 space-y-20 mt-14'>
+      <div className='flex flex-row flex-wrap items-center justify-center gap-6 space-y-20 mt-14'>
         <>
           {entries.map(({ id, title, updated, company, img }) => (
             <Fragment key={id}>
@@ -33,10 +33,11 @@ export default async function Projects() {
               <div className='-my-12 not-prose'>
                 <A
                   href={`projects/${id}`}
-                  className='flex flex-col items-center gap-6 p-8 rounded-xl ring-1 ring-stone-200'
+                  className='flex flex-col items-center justify-between gap-6 p-8 border-l-[10px] hover:from-stone-200 hover:via-white hover:to-stone-50 bg-gradient-to-br hover: duration-150 max-w-[450px] min-h-[700px] text-center'
                 >
                   <Image
                     alt={title}
+                    className='max-w-fit max-h-fit'
                     width={300}
                     height={300}
                     src={img as string}
