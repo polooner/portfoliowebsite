@@ -4,8 +4,7 @@ import './globals.css';
 import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
 import { Toaster } from 'react-hot-toast';
-import { getCurrentUser } from '@/lib/session';
-import { NextAuthProvider } from './providers';
+
 import { Noto_Serif } from 'next/font/google';
 
 export const metadata: Metadata = {
@@ -23,18 +22,15 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
-  const isAuthenticated = user ? true : false;
-
   return (
     <html lang='en'>
       <body className='flex flex-col p-4 space-y-2 sm:px-10 sm:py-4'>
         <link rel='icon' href='/favicon.ico' sizes='any' />
-        <NextAuthProvider>
-          <Header isAuthenticated={isAuthenticated} />
-          {children}
-          <Footer />
-        </NextAuthProvider>
+
+        <Header />
+        {children}
+        <Footer />
+
         <Toaster />
         <Analytics />
       </body>

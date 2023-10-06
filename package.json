@@ -64,7 +64,6 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@types/mailchimp__mailchimp_transactional": "^1.0.5",
-    "prisma": "^5.2.0"
+    "@types/mailchimp__mailchimp_transactional": "^1.0.5"
   }
 }

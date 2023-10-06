@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import ParallaxComponent from '@/components/ParallaxText';
-import { ParallaxProvider } from 'react-scroll-parallax';
+import { CodeCard } from '@/components/CodeCard';
+import { getUserData } from '@/lib/getGitHubData';
+import { getTotalContributionsForYears } from '@/lib/getTotalContributionsForYears';
 
 export default function Home() {
   const [windowSize, setWindowSize] = useState([0, 0]);
@@ -54,11 +54,19 @@ export default function Home() {
     },
   };
 
+  const userData = async () => {
+    const res = await getUserData();
+    return res;
+  };
+  const contributions = async () => {
+    const res = await getTotalContributionsForYears();
+  };
+
   return (
-    <main className='flex flex-col items-center justify-center min-h-full'>
-      <div className='grid grid-cols-5 gap-4 '>
+    <main className='flex flex-col items-center justify-center w-full min-h-full gap-6 sm:gap-10 sm:flex-row'>
+      <div className='flex flex-col '>
         <motion.div
-          className='max-w-4xl col-span-2 col-start-2 mx-auto text-2xl tracking-tight sm:text-6xl '
+          className='max-w-6xl mx-auto mt-10 text-4xl tracking-tight sm:text-6xl '
           variants={parent}
           initial='hidden'
           animate='visible'
@@ -69,18 +77,8 @@ export default function Home() {
             </motion.span>
           ))}
         </motion.div>
-        <div className='...'></div>
-        <div className='...'></div>
-        <Image
-          className='col-span-2 col-start-4 sm:-mt-44'
-          alt='motto flag'
-          src={'/main.gif'}
-          width={windowSize[0]}
-          height={windowSize[1]}
-        />
       </div>
+      <CodeCard userData={userData} contributions={contributions} />
     </main>
   );
 }
-
-//my fav drop-shadow: drop-shadow-[10px_10px_1.2px_rgba(0,0,0,0.2)]
