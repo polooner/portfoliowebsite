@@ -14,42 +14,25 @@ import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import Cryptr from 'cryptr';
-import toast from 'react-hot-toast';
+import { Textarea } from './ui/textarea';
 
 const formSchema = z.object({
-  firstname: z.string().min(2).max(70),
-  lastname: z.string().min(2).max(70),
-  email: z.string().email().min(2).max(70),
-  company: z.string().min(2).max(70).optional(),
+  body: z.string().min(1).max(2000),
+  subject: z.string().min(2).max(70),
 });
 
 export default function Contact() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstname: '',
-      lastname: '',
-      email: '',
-      company: '',
+      subject: '',
+      body: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const cryptr = new Cryptr(process.env.NEXT_PUBLIC_KEY as string);
-    values['key'] = cryptr.encrypt(KEY);
-
-    await fetch('/api/send_email', {
-      method: 'POST',
-
-      body: JSON.stringify(values),
-    })
-      .then((res) => {
-        if (res.status == 200) toast('Sent!');
-      })
-      .catch((err) => toast('Error'));
+    document.location = `mailto:wojdafilip@gmail.com?subject=${values.subject}&body=${values.body}`;
   }
-  const KEY = process.env.NEXT_PUBLIC_API_KEY as string;
 
   return (
     <main className='flex flex-col justify-center w-full h-full space-y-6 duration-100'>
@@ -71,12 +54,12 @@ export default function Contact() {
         >
           <FormField
             control={form.control}
-            name='firstname'
+            name='subject'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Subject</FormLabel>
                 <FormControl>
-                  <Input placeholder='First name' {...field} />
+                  <Input placeholder='Subject' {...field} />
                 </FormControl>
 
                 <FormMessage />
@@ -85,40 +68,12 @@ export default function Contact() {
           />
           <FormField
             control={form.control}
-            name='lastname'
+            name='body'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Last Name</FormLabel>
+                <FormLabel>Body</FormLabel>
                 <FormControl>
-                  <Input placeholder='Last name' {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='email'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>E-mail</FormLabel>
-                <FormControl>
-                  <Input placeholder='E-mail' {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='company'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Company</FormLabel>
-                <FormControl>
-                  <Input placeholder='Company' {...field} />
+                  <Textarea rows={10} placeholder='Body' {...field} />
                 </FormControl>
 
                 <FormMessage />
