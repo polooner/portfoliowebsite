@@ -12,13 +12,15 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { LucideIcon } from 'lucide-react';
+import { Icons } from './ui/icons';
 
-const navItems: { name: string; href: string }[] = [
-  { name: 'projects', href: '/projects' },
-  { name: 'contact', href: '/contact' },
-  { name: 'blog', href: '/blog' },
-  { name: 'products', href: '/products' },
-  { name: 'book a call', href: '/bookacall' },
+const navItems: { name: string; href: string; icon: LucideIcon }[] = [
+  { name: 'projects', href: '/projects', icon: Icons.hammer },
+  { name: 'blog', href: '/blog', icon: Icons.pencil },
+  { name: 'products', href: '/products', icon: Icons.cart },
+  { name: 'book a call', href: '/bookacall', icon: Icons.phone },
+  { name: 'contact', href: '/contact', icon: Icons.user },
 ];
 
 const Header = () => {
@@ -41,6 +43,7 @@ const Header = () => {
                 <NavigationMenuLink
                   className={navigationMenuTriggerStyle()}
                 >
+                  <item.icon />
                   {item.name}
                 </NavigationMenuLink>
               </Link>

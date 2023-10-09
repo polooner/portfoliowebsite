@@ -24,6 +24,10 @@ import {
   Twitter,
   User,
   X,
+  Hammer,
+  PencilLine,
+  ShoppingCart,
+  Phone,
 } from 'lucide-react';
 
 export const Icons = {
@@ -49,6 +53,10 @@ export const Icons = {
   sun: SunMedium,
   moon: Moon,
   laptop: Laptop,
+  hammer: Hammer,
+  pencil: PencilLine,
+  cart: ShoppingCart,
+  phone: Phone,
   tikTok: ({ ...props }: LucideProps) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'
