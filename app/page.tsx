@@ -7,21 +7,6 @@ import { getUserData } from '@/lib/getGitHubData';
 import { getTotalContributionsForYears } from '@/lib/getTotalContributionsForYears';
 
 export default function Home() {
-  const [windowSize, setWindowSize] = useState([0, 0]);
-
-  useEffect(() => {
-    // This code will only run in the browser environment, after the component mounts
-    const updateSize = () => {
-      setWindowSize([window.innerWidth, window.innerHeight]);
-    };
-
-    window.addEventListener('resize', updateSize);
-    updateSize(); // Set the initial size
-
-    // Cleanup listener on component unmount
-    return () => window.removeEventListener('resize', updateSize);
-  }, []);
-
   const parent = {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
@@ -60,6 +45,7 @@ export default function Home() {
   };
   const contributions = async () => {
     const res = await getTotalContributionsForYears();
+    return res;
   };
 
   return (

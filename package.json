@@ -52,6 +52,7 @@
     "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^8.0.7",
+    "react-parallax-tilt": "^1.7.170",
     "react-scroll-parallax": "^3.4.2",
     "react-wrap-balancer": "^1.1.0",
     "rehype-raw": "^7.0.0",
