@@ -14,6 +14,12 @@ import {
 } from '@/components/ui/navigation-menu';
 import { LucideIcon } from 'lucide-react';
 import { Icons } from './ui/icons';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const navItems: { name: string; href: string; icon: LucideIcon }[] = [
   { name: 'projects', href: '/projects', icon: Icons.hammer },
@@ -35,14 +41,33 @@ const Header = () => {
           W
         </Link>
       </NavigationMenuItem>
-      <NavigationMenuList>
+      <div className='self-end sm:hidden'>
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {navItems.map((item) => {
+              return (
+                <DropdownMenuItem key={item.name}>
+                  <Link href={item.href} legacyBehavior passHref>
+                    <NavigationMenuLink
+                      className={navigationMenuTriggerStyle()}
+                    >
+                      <item.icon />
+                      {item.name}
+                    </NavigationMenuLink>
+                  </Link>
+                </DropdownMenuItem>
+              );
+            })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+      <NavigationMenuList className='hidden sm:visible'>
         {navItems.map((item) => {
           return (
             <NavigationMenuItem key={item.name}>
               <Link href={item.href} legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={navigationMenuTriggerStyle()}
-                >
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   <item.icon />
                   {item.name}
                 </NavigationMenuLink>
