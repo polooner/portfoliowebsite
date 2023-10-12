@@ -6,9 +6,7 @@ import { getTitle } from '@/lib/get-content';
 export function A({ href, ...rest }: React.ComponentProps<'a'>) {
   if (href && href.startsWith('/'))
     return <Link {...rest} href={href} ref={undefined} />;
-  return (
-    <a {...rest} href={href} target='_blank' rel='noopener noreferrer' />
-  );
+  return <a {...rest} href={href} target='_blank' rel='noopener noreferrer' />;
 }
 export const a = A;
 
@@ -17,17 +15,14 @@ export function pre({ children }: React.ComponentProps<'pre'>) {
 }
 
 export function p({ children }: React.ComponentProps<'p'>) {
-  return <p className='tracking-wider'>{children}</p>;
+  return <p className='text-start text-md'>{children}</p>;
 }
 
 export function div({ children }: React.ComponentProps<'div'>) {
   return <div className='space-x-10'>{children}</div>;
 }
 
-async function __code({
-  children,
-  ...rest
-}: React.ComponentProps<'code'>) {
+async function __code({ children, ...rest }: React.ComponentProps<'code'>) {
   const language = rest.className?.replace(/language-/, '');
   if (!language || !children)
     return (

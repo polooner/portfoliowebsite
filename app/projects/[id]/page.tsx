@@ -1,8 +1,8 @@
-import { ArrowLeft, Copy, Link } from 'lucide-react';
+import { ArrowLeft, Copy, Link as Clip } from 'lucide-react';
 import Balancer from 'react-wrap-balancer';
 import { getAllIds, getTitle, getContent } from '@/lib/get-content';
 import { formatDate } from '@/lib/utils';
-import { A } from '@/components/mdx-components';
+import Link from 'next/link';
 import { headers } from 'next/headers';
 import CopyButton from '@/components/copy-button';
 
@@ -15,45 +15,37 @@ export default async function ProjectPost({
     params.id
   );
   return (
-    <>
-      <div className='not-prose'>
-        <A
-          href='/'
-          className='inline-flex flex-row items-center justify-center gap-2 text-sm duration-100 text-daw-zinc-600 hover:gap-x-6 hover:underline'
-        >
-          <ArrowLeft size='18' /> See other projects
-        </A>
-      </div>
-      <h1 className='my-8 text-2xl font-black sm:text-6xl'>
+    <div className='p-20 sm:py-30 sm: px-52'>
+      <Link
+        href='/projects'
+        className='inline-flex items-center justify-center text-sm duration-150 not-prose hover:underline'
+      >
+        <ArrowLeft size='18' /> See other projects
+      </Link>
+      <h1 className='my-8 text-2xl font-black text-center sm:text-6xl'>
         <Balancer>{title}</Balancer>
       </h1>
-      <div className='flex flex-row flex-wrap items-center justify-between gap-20 space-y-16 text-sm not-prose text-daw-zinc-600'>
+      <div className='flex flex-row flex-wrap items-baseline justify-between gap-20 space-y-16 text-sm not-prose text-daw-zinc-600'>
         <div>
           <span className='hidden sm:inline'>Last updated:</span>{' '}
           <time title={updated.toISOString()}>{formatDate(updated)}</time>
         </div>
-        <div className='flex flex-row gap-8'>
-          <CopyButton contentTemplate={messageContent}>
-            <Copy size='18' />
-            Copy message
-          </CopyButton>
+        <div className='flex flex-row gap-8 p-2'>
           <CopyButton contentTemplate='<link>'>
-            <Link size='18' />
+            <Clip size='18' />
             Copy link
           </CopyButton>
         </div>
       </div>
-      <hr />
-      {content}
-    </>
+      <hr className='w-full' />
+      <div className='items-center justify-center p-20 text-lg text-center sm:p-30'>
+        {content}
+      </div>
+    </div>
   );
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
   return { title: await getTitle(params.id) };
 }
 
