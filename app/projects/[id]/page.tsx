@@ -1,19 +1,18 @@
-import { ArrowLeft, Copy, Link as Clip } from 'lucide-react';
+import { ArrowLeft, Link as Clip } from 'lucide-react';
 import Balancer from 'react-wrap-balancer';
-import { getAllIds, getTitle, getContent } from '@/lib/get-content';
+import { getAllIds, getContent } from '@/lib/get-content';
 import { formatDate } from '@/lib/utils';
 import Link from 'next/link';
-import { headers } from 'next/headers';
+
 import CopyButton from '@/components/copy-button';
+import { Metadata } from 'next';
 
 export default async function ProjectPost({
   params,
 }: {
   params: { id: string };
 }) {
-  const { content, title, updated, messageContent } = await getContent(
-    params.id
-  );
+  const { content, title, updated } = await getContent(params.id);
   return (
     <div className='p-20 sm:py-30 sm: px-52'>
       <Link
@@ -45,8 +44,17 @@ export default async function ProjectPost({
   );
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  return { title: await getTitle(params.id) };
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { content, title, updated } = await getContent(params.id);
+  return {
+    title: title,
+    description: content.key?.toString().slice(0, 40),
+    authors: [{ name: 'Filip Wojda', url: 'https://twitter.com/filip_w000' }],
+  };
 }
 
 export function generateStaticParams() {
