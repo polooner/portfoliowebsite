@@ -16,8 +16,6 @@ async function getData(id: string) {
   return { id, title, updated, company, img };
 }
 
-//TODO: add metadata
-
 export default async function Projects() {
   const ids = getAllIds();
   const entries = await Promise.all(
