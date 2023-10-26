@@ -22,6 +22,21 @@ export function div({ children }: React.ComponentProps<'div'>) {
   return <div className='space-x-10'>{children}</div>;
 }
 
+export async function Product(
+  stripeLink: string,
+  title: string,
+  description: string
+) {
+  return (
+    <div className='flex flex-row gap-2 p-4'>
+      <h1 className=''>{title}</h1>
+      <p>{description}</p>
+      {/* TODO: make a global Tailwind button/Link style */}
+      <Link href={stripeLink} className=''></Link>
+    </div>
+  );
+}
+
 async function __code({ children, ...rest }: React.ComponentProps<'code'>) {
   const language = rest.className?.replace(/language-/, '');
   if (!language || !children)
