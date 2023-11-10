@@ -1,39 +1,6 @@
-import { ConvertBytes, ConvertNumber } from '@/lib/utils';
+import { ConvertBytes } from '@/lib/utils';
 import Link from 'next/link';
-
-const meta = {
-  title: 'Filip Wojda',
-  author: 'Filip Wojda',
-  url: 'https://filipwojda.dev',
-  themeColor: '#091430',
-  locale: 'en_US',
-  siteName: 'Igor Kowalczyk',
-  accounts: {
-    github: {
-      username: 'igorkowalczyk',
-      repo: 'igorkowalczyk.github.io',
-    },
-    twitter: {
-      username: '@wojda.labs',
-    },
-    discord: {
-      username: '1voy',
-      id: '685999672749326368',
-    },
-    instagram: {
-      username: 'how2lyck',
-    },
-  },
-};
-
-const header = {
-  title: 'Filip Wojda',
-  subtitle: 'Full-stack developer',
-
-  code: {
-    user: 'filipwojda',
-  },
-};
+import { meta, header } from '@/lib/constants';
 
 export function CodeCard({ userData, contributions }) {
   return (
@@ -56,10 +23,7 @@ export function CodeCard({ userData, contributions }) {
           >
             →
           </span>{' '}
-          <span
-            className='font-semibold text-[#66e777]'
-            aria-hidden='true'
-          >
+          <span className='font-semibold text-[#66e777]' aria-hidden='true'>
             ~/wojda
           </span>{' '}
           <span
@@ -91,10 +55,7 @@ export function CodeCard({ userData, contributions }) {
                 ? 'repositories'
                 : 'repository'}{' '}
               on Github (total size:{' '}
-              {ConvertBytes(
-                userData.userPublicRepositoriesDiskUsage * 1000
-              )}
-              )
+              {ConvertBytes(userData.userPublicRepositoriesDiskUsage * 1000)})
             </div>
             {/* <div>
               <span aria-hidden='true'> + </span>
@@ -114,10 +75,7 @@ export function CodeCard({ userData, contributions }) {
               >
                 →
               </span>{' '}
-              <span
-                className='font-semibold text-[#66e777]'
-                aria-hidden='true'
-              >
+              <span className='font-semibold text-[#66e777]' aria-hidden='true'>
                 ~/wojda
               </span>{' '}
               <span className='italic font-semibold text-gray-700 duration-200 motion-reduce:transition-none dark:text-neutral-300'>
@@ -141,10 +99,7 @@ export function CodeCard({ userData, contributions }) {
           >
             →
           </span>{' '}
-          <span
-            className='font-semibold text-[#66e777]'
-            aria-hidden='true'
-          >
+          <span className='font-semibold text-[#66e777]' aria-hidden='true'>
             ~/{header.code.user}
           </span>{' '}
           <span className='italic'>

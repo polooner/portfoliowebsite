@@ -42,12 +42,11 @@ export async function getUserData() {
    }
  }
     `,
-    // TODO: Fix hardcoded values
     {
       username: meta.accounts.github.username,
     }
   );
-
+  console.log(data);
   const { user } = data;
   const { followers, starredRepositories, repositories } = user;
   const stars = repositories.edges.reduce(
