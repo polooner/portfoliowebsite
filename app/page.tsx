@@ -1,21 +1,20 @@
 import AnimatedHeader from '@/components/AnimatedHeader';
 import { CodeCard } from '@/components/CodeCard';
 import { RepoCard } from '@/components/RepoCard';
-import { getPopular, getUserData } from '@/lib/getGitHubData';
-import { getTotalContributionsForYears } from '@/lib/getTotalContributionsForYears';
+import { getUsersRepos } from '@/lib/getGitHubData';
 import Link from 'next/link';
 
 export default async function Home() {
-  const userData = await getUserData();
-  const contributions = await getTotalContributionsForYears();
-  const repos = await getPopular();
-  const reposData = repos.repositories.edges;
+  const userData = await getUsersRepos();
 
   return (
-    <main className='flex flex-col items-center justify-center w-full min-h-full gap-6 sm:gap-10 sm:flex-row'>
+    <main className='flex flex-col items-center justify-center w-full min-h-full gap-6 sm:gap-10'>
       <AnimatedHeader />
-      <CodeCard userData={userData} contributions={contributions} />
-      <section id={'repositories'} className='pt-12 scroll-mt-20 lg:px-24'>
+      {/* <CodeCard userData={userData} contributions={contributions} /> */}
+      <section
+        id={'repositories'}
+        className='flex flex-col pt-12 scroll-mt-20 lg:px-24'
+      >
         <div
           className='relative mx-auto before:absolute before:inset-0 before:z-[-1] before:bg-[length:22px_22px] before:bg-center before:bg-repeat-space before:opacity-10 before:bg-grid-[#000] before:gradient-mask-t-0 dark:before:opacity-20 dark:before:bg-grid-[#fff]'
           id={'repositories'}
@@ -28,10 +27,25 @@ export default async function Home() {
           </h3>
           <div className='relative'>
             <div className='grid grid-cols-1 pb-4 mb-8 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 dark:text-white md:grid-cols-2 md:gap-x-10 lg:grid-cols-3'>
-              {reposData &&
-                reposData.map((repo) => {
-                  return repo.node.owner.login == 'polooner' ? (
-                    <RepoCard key={repo.node.id} {...repo.node} />
+              {userData &&
+                userData.map((repo) => {
+                  return !repo.private ? (
+                    <RepoCard
+                      stargazersUrl={repo.stargazers_url}
+                      forksCount={repo.forks_count}
+                      languagesUrl={repo.languages_url}
+                      key={repo.node_id}
+                      stargazersCount={repo.stargazers_count}
+                      watchersCount={repo.watchers_count}
+                      forksUrl={repo.forks_url}
+                      description={repo.description}
+                      language={repo.language}
+                      topics={repo.topics}
+                      repoUrl={repo.html_url}
+                      avatarUrl={repo.avatarUrl}
+                      fullName={repo.full_name}
+                      isArchived={repo.archived}
+                    />
                   ) : null;
                 })}
             </div>

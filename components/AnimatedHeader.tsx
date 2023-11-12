@@ -35,7 +35,7 @@ export default function AnimatedHeader() {
     },
   };
   return (
-    <div className='flex flex-col '>
+    <div className='flex flex-col w-screen h-screen '>
       <motion.div
         className='max-w-6xl mx-auto mt-10 text-4xl tracking-tight sm:text-6xl '
         variants={parent}
