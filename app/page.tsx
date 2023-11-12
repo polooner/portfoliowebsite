@@ -2,13 +2,15 @@ import AnimatedHeader from '@/components/AnimatedHeader';
 import { CodeCard } from '@/components/CodeCard';
 import { RepoCard } from '@/components/RepoCard';
 import { getUsersRepos } from '@/lib/getGitHubData';
+import { GitHubLogoIcon } from '@radix-ui/react-icons';
+import { GithubIcon } from 'lucide-react';
 import Link from 'next/link';
 
 export default async function Home() {
   const userData = await getUsersRepos();
 
   return (
-    <main className='flex flex-col items-center justify-center w-full min-h-full gap-6 sm:gap-10'>
+    <main className='flex flex-col items-center justify-center w-full min-h-full space-y-32'>
       <AnimatedHeader />
       {/* <CodeCard userData={userData} contributions={contributions} /> */}
       <section
@@ -19,13 +21,16 @@ export default async function Home() {
           className='relative mx-auto before:absolute before:inset-0 before:z-[-1] before:bg-[length:22px_22px] before:bg-center before:bg-repeat-space before:opacity-10 before:bg-grid-[#000] before:gradient-mask-t-0 dark:before:opacity-20 dark:before:bg-grid-[#fff]'
           id={'repositories'}
         >
-          <h3 className='m-6 text-center text-[35px] font-semibold tracking-[-0.03em] text-gray-800 duration-300 motion-reduce:transition-none dark:text-white md:text-[35px] lg:text-[37px] xl:text-[40px]'>
-            Most Popular Projects
-            <span className='bg-gradient-to-r from-[#6310ff] to-[#1491ff] box-decoration-clone bg-clip-text text-fill-transparent dark:from-[#a2facf] dark:to-[#64acff]'>
-              .
+          <h3 className='m-6 text-center font-semibold tracking-tight text-gray-800 dark:text-white md:text-[35px] lg:text-[37px] xl:text-[40px] flex justify-center items-center'>
+            My
+            <span className='flex items-center bg-gradient-to-r text-fill-transparent'>
+              <GitHubLogoIcon className='items-center inline-block mx-2' />{' '}
+              GitHub
             </span>
+            &nbsp; Projects
           </h3>
-          <div className='relative'>
+
+          <div className='relative py-20'>
             <div className='grid grid-cols-1 pb-4 mb-8 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 dark:text-white md:grid-cols-2 md:gap-x-10 lg:grid-cols-3'>
               {userData &&
                 userData.map((repo) => {
