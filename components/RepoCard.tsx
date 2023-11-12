@@ -1,5 +1,10 @@
 import { StarIcon } from '@radix-ui/react-icons';
-import { ArchiveIcon, FolderIcon, SparklesIcon } from 'lucide-react';
+import {
+  ArchiveIcon,
+  FolderIcon,
+  GithubIcon,
+  SparklesIcon,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -27,14 +32,9 @@ export function RepoCard(props: RepoCardProps) {
       className='card z-10 rounded-[10px] border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-200/50 motion-reduce:transition-none dark:border-neutral-800 dark:bg-[#161617] dark:hover:border-neutral-700 dark:hover:bg-[#202021]'
     >
       <div>
-        <Image
-          unoptimized={true}
-          src={props.avatarUrl}
-          alt={`Preview of ${props.fullName}`}
-          className='mb-4 rounded-[10px]'
-          width={720}
-          height={480}
-        />
+        {/* <div className='mb-4 rounded-[10px] items-center relative self-center w-[720px] h-[480px]'>
+          <GithubIcon size={150} className='self-center' />
+        </div> */}
         <div className='text-left'>
           <Link
             href={props.repoUrl}
