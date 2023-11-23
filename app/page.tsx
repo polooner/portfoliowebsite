@@ -1,8 +1,6 @@
 import AnimatedHeader from '@/components/AnimatedHeader';
-import { CodeCard } from '@/components/CodeCard';
 import { RepoCard } from '@/components/RepoCard';
 import { getUsersRepos } from '@/lib/getGitHubData';
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import { GithubIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,6 +10,7 @@ export default async function Home() {
   return (
     <main className='flex flex-col items-center justify-center w-full min-h-full space-y-32'>
       <AnimatedHeader />
+      {/* FIXME: CodeCard fetch */}
       {/* <CodeCard userData={userData} contributions={contributions} /> */}
       <section
         id={'repositories'}
@@ -21,10 +20,10 @@ export default async function Home() {
           className='relative mx-auto before:absolute before:inset-0 before:z-[-1] before:bg-[length:22px_22px] before:bg-center before:bg-repeat-space before:opacity-10 before:bg-grid-[#000] before:gradient-mask-t-0 dark:before:opacity-20 dark:before:bg-grid-[#fff]'
           id={'repositories'}
         >
-          <h3 className='m-6 text-center font-semibold tracking-tight text-gray-800 dark:text-white md:text-[35px] lg:text-[37px] xl:text-[40px] flex justify-center items-center'>
+          <h3 className='m-6 text-center font-semibold tracking-tight text-white md:text-[35px] lg:text-[37px] xl:text-[40px] flex justify-center items-center'>
             My
             <span className='flex items-center bg-gradient-to-r text-fill-transparent'>
-              <GitHubLogoIcon className='items-center inline-block mx-2' />{' '}
+              <GithubIcon className='items-center inline-block w-24 h-24 mx-4' />{' '}
               GitHub
             </span>
             &nbsp; Projects
@@ -58,7 +57,8 @@ export default async function Home() {
               <div className='flex flex-col items-center justify-center flex-1 duration-200 motion-reduce:transition-none'>
                 <Link
                   className='relative items-center justify-center inline-block p-2 pb-1 pl-0 pr-0 mt-5 font-semibold duration-200 pointer-events-auto arrow link group motion-reduce:transition-none'
-                  href='/repositories'
+                  href='https://github.com/polooner'
+                  target='_blank'
                 >
                   <>
                     See more repositories

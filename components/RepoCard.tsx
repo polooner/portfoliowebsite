@@ -29,7 +29,7 @@ export function RepoCard(props: RepoCardProps) {
   return (
     <div
       id={props.fullName}
-      className='card z-10 rounded-[10px] border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-200/50 motion-reduce:transition-none dark:border-neutral-800 dark:bg-[#161617] dark:hover:border-neutral-700 dark:hover:bg-[#202021]'
+      className='card z-10 rounded-[10px] ring-white ring-1 border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-100 bg-white motion-reduce:transition-none'
     >
       <div>
         {/* <div className='mb-4 rounded-[10px] items-center relative self-center w-[720px] h-[480px]'>

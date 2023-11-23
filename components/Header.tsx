@@ -29,7 +29,7 @@ const navItems: { name: string; href: string; icon: LucideIcon }[] = [
   { name: 'contact', href: '/contact', icon: Icons.user },
 ];
 
-const Header = () => {
+const Header = (props: React.ComponentProps<'div'>) => {
   return (
     <NavigationMenu>
       <NavigationMenuItem asChild>

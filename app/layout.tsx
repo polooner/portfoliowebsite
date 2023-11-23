@@ -24,7 +24,7 @@ export default async function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='flex flex-col p-4 space-y-2 sm:px-10 sm:py-4'>
+      <body className='flex flex-col p-4 space-y-2 text-white bg-black sm:px-10 sm:py-4'>
         <link rel='icon' href='/favicon.ico' sizes='any' />
 
         <Header />
