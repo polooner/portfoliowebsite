@@ -2,7 +2,13 @@ import AnimatedHeader from '@/components/AnimatedHeader';
 import { RepoCard } from '@/components/RepoCard';
 import { getUsersRepos } from '@/lib/getGitHubData';
 import { GithubIcon } from 'lucide-react';
+import { Metadata } from 'next';
 import Link from 'next/link';
+
+export const metadata: Metadata = {
+  title: 'Filip Wojda',
+  description: 'I like to bring impact.',
+};
 
 export default async function Home() {
   const userData = await getUsersRepos();

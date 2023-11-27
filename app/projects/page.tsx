@@ -28,7 +28,7 @@ export default async function Projects() {
     <main className='flex flex-col w-full h-full pb-20'>
       <h1 className='heading'>A collection of my projects.</h1>
 
-      <div className='flex flex-row justify-center gap-10 mt-14'>
+      <div className='flex flex-col sm:flex-row justify-center gap-10 mt-14'>
         <>
           {entries.map(({ id, title, updated, company, img }) => (
             <GlowEffect
