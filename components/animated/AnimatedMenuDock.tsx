@@ -1,7 +1,6 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { MoreVertical, LucideIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import PopoverSocials from '../PopoverSocials';
