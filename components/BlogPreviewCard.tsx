@@ -9,7 +9,6 @@ import {
 import { Separator } from './ui/separator';
 import Image from 'next/image';
 
-import { DeleteDialog } from './DeleteDialog';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { format } from 'date-fns';
@@ -24,9 +23,7 @@ interface CardProps {
   VisualComponent: React.ReactNode;
 }
 
-const BlogPreviewCard = (
-  props: ComponentPropsWithoutRef<'a'> & CardProps
-) => {
+const BlogPreviewCard = (props: ComponentPropsWithoutRef<'a'> & CardProps) => {
   // TODO: make reusable table prop
   const table = 'project';
   return (
@@ -48,9 +45,7 @@ const BlogPreviewCard = (
               <Image
                 width={150}
                 height={150}
-                src={
-                  'https://avatars.githubusercontent.com/u/114031148?v=4'
-                }
+                src={'https://avatars.githubusercontent.com/u/114031148?v=4'}
                 alt='wojda%apos;s GitHub avatar'
               />
             )}
@@ -76,11 +71,6 @@ const BlogPreviewCard = (
           </CardFooter>
         </Card>
       </a>
-      {props.isAuthenticated && (
-        <div className='absolute top-4 right-4'>
-          <DeleteDialog postId={props.id as string} table={table} />
-        </div>
-      )}
     </div>
   );
 };

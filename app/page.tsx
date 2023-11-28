@@ -1,6 +1,6 @@
 import AnimatedHeader from '@/components/AnimatedHeader';
 import { RepoCard } from '@/components/RepoCard';
-import { getUsersRepos } from '@/lib/getGitHubData';
+import { getUsersRepos } from '@/lib/get-github-data';
 import { GithubIcon } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
