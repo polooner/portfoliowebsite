@@ -7,11 +7,10 @@ export default function AnimatedHeader() {
     hidden: { opacity: 0 },
     visible: (i = 1) => ({
       opacity: 1,
-      transition: { staggerChildren: 0.03, delayChildren: 0.04 * i },
+      transition: { staggerChildren: 0.03, delayChildren: 0.2 * i },
     }),
   };
-  const sentence =
-    'I am Filip, founder creating tools that fast-track businesses to sustainable solutions while easing go-to-market times.';
+  const sentence = 'Filip Wojda';
 
   const words = sentence.split(/\s+/);
   const child = {
@@ -35,9 +34,14 @@ export default function AnimatedHeader() {
     },
   };
   return (
-    <div className='flex flex-col w-screen h-screen '>
+    <motion.div
+      variants={parent}
+      initial='hidden'
+      animate='visible'
+      className='flex flex-col items-start self-start justify-center gap-2 p-8 text-start bg-neutral-800 rounded-2xl h-fit w-fit '
+    >
       <motion.div
-        className='max-w-6xl mx-auto mt-10 text-4xl tracking-tight sm:text-6xl '
+        className=' max-w-6xl p-4 items-start rounded-2xl font-semibold text-5xl tracking-tight  h-[64px] sm:text-6xl '
         variants={parent}
         initial='hidden'
         animate='visible'
@@ -48,6 +52,11 @@ export default function AnimatedHeader() {
           </motion.span>
         ))}
       </motion.div>
-    </div>
+
+      <motion.div className='p-4 h-[64px] items-center text-start border-l-4 border-white '>
+        student, engineer. passionate about AI and Open Source, sometimes about
+        design.
+      </motion.div>
+    </motion.div>
   );
 }

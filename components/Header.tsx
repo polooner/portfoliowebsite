@@ -10,9 +10,8 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Menu } from 'lucide-react';
 import { Icons } from './ui/icons';
 import {
   DropdownMenu,
@@ -22,16 +21,16 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const navItems: { name: string; href: string; icon: LucideIcon }[] = [
-  { name: 'projects', href: '/projects', icon: Icons.hammer },
-  { name: 'blog', href: '/blog', icon: Icons.pencil },
-  { name: 'products', href: '/products', icon: Icons.cart },
+  // { name: 'projects', href: '/projects', icon: Icons.hammer },
+  { name: 'posts', href: '/posts', icon: Icons.pencil },
+  // { name: 'products', href: '/products', icon: Icons.cart },
   { name: 'book a call', href: '/bookacall', icon: Icons.phone },
   { name: 'contact', href: '/contact', icon: Icons.user },
 ];
 
 const Header = (props: React.ComponentProps<'div'>) => {
   return (
-    <NavigationMenu>
+    <NavigationMenu className='flex flex-row items-baseline justify-between'>
       <NavigationMenuItem asChild>
         <Link
           href={'/'}
@@ -41,41 +40,36 @@ const Header = (props: React.ComponentProps<'div'>) => {
           W
         </Link>
       </NavigationMenuItem>
-      <div className='self-end sm:hidden'>
+      <NavigationMenuItem className='flex self-end sm:hidden'>
         <DropdownMenu>
-          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuTrigger>
+            <Menu />
+          </DropdownMenuTrigger>
           <DropdownMenuContent>
             {navItems.map((item) => {
               return (
                 <DropdownMenuItem key={item.name}>
                   <Link href={item.href} legacyBehavior passHref>
-                    <NavigationMenuLink
-                      className={navigationMenuTriggerStyle()}
-                    >
+                    <div className='flex flex-row space-x-4'>
                       <item.icon />
                       {item.name}
-                    </NavigationMenuLink>
+                    </div>
                   </Link>
                 </DropdownMenuItem>
               );
             })}
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
-      <NavigationMenuList className='hidden sm:visible'>
+      </NavigationMenuItem>
+      <div className='hidden space-x-4 sm:flex'>
         {navItems.map((item) => {
           return (
-            <NavigationMenuItem key={item.name}>
-              <Link href={item.href} legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  <item.icon />
-                  {item.name}
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+            <Link key={item.href} href={item.href} className='hover:underline'>
+              {item.name}
+            </Link>
           );
         })}
-      </NavigationMenuList>
+      </div>
     </NavigationMenu>
   );
 };
@@ -96,7 +90,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className='text-sm font-medium leading-none'>{title}</div>
-          <p className='text-sm leading-snug line-clamp-2 text-muted-foreground'>
+          <p className='text-sm leading-snug text-white line-clamp-2 text-muted-foreground'>
             {children}
           </p>
         </a>

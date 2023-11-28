@@ -28,6 +28,7 @@ interface RepoCardProps {
 export function RepoCard(props: RepoCardProps) {
   return (
     <div
+      key={props.key}
       id={props.fullName}
       className='card z-10 rounded-[10px] ring-white ring-1 border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-100 bg-white motion-reduce:transition-none'
     >

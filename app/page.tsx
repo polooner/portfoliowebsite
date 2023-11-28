@@ -1,4 +1,4 @@
-import AnimatedHeader from '@/components/AnimatedHeader';
+import AnimatedHeader from '@/components/animated/AnimatedHeader';
 import { RepoCard } from '@/components/RepoCard';
 import { getUsersRepos } from '@/lib/get-github-data';
 import { GithubIcon } from 'lucide-react';
