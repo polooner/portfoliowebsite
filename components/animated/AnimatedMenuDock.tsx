@@ -40,7 +40,8 @@ export default function AnimatedMenuDock() {
           {tab.label}
         </Link>
       ))}
-      <PopoverSocials />
+      {/* FIXME: Popover pushes down the dock element */}
+      {/* <PopoverSocials /> */}
     </div>
   );
 }

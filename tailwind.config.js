@@ -74,6 +74,7 @@ module.exports = {
         noto: ['var(--font-noto)'],
       },
     },
+    mode: 'jit',
   },
   plugins: [require('tailwindcss-animate')],
 };
