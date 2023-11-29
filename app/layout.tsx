@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import type { Metadata } from 'next';
 import Footer from '@/components/Footer';
@@ -32,7 +31,6 @@ export default async function RootLayout({
         <Footer />
 
         <Toaster />
-        <Analytics />
       </body>
     </html>
   );

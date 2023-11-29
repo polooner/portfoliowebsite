@@ -4,15 +4,18 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
 import PopoverSocials from '../PopoverSocials';
+import { usePathname } from 'next/navigation';
 
 let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
-  { id: 'projects', label: 'projects' },
-  { id: 'posts', label: 'posts' },
-  { id: 'bookacall', label: 'book' },
+  { id: '/projects', label: 'projects' },
+  { id: '/posts', label: 'blog' },
+  { id: '/bookacall', label: 'book' },
 ];
 
 export default function AnimatedMenuDock() {
+  const pathname = usePathname();
+  console.log(pathname);
   let [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
@@ -29,7 +32,7 @@ export default function AnimatedMenuDock() {
             WebkitTapHighlightColor: 'transparent',
           }}
         >
-          {activeTab === tab.id && (
+          {pathname === tab.id && (
             <motion.span
               layoutId='bubble'
               className='absolute inset-0 z-10 bg-white rounded-xl mix-blend-difference'

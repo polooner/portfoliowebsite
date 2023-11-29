@@ -5,7 +5,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import remarkA11yEmoji from '@fec/remark-a11y-emoji';
 import remarkToc from 'remark-toc';
-import { mdxComponents } from '../../posts/components/markdown-components';
+import { mdxComponents } from '../../blog/components/markdown-components';
 
 export function PostBody({ children }: { children: string }) {
   return (

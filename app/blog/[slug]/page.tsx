@@ -15,7 +15,7 @@ export default async function PostPage({
   // Pass the post contents to MDX
 
   return (
-    <div className='p-4'>
+    <div className='p-8 pb-14'>
       <PostBody>{post?.body}</PostBody>
     </div>
   );
