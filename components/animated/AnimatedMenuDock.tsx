@@ -9,7 +9,7 @@ import { usePathname } from 'next/navigation';
 let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
   { id: '/projects', label: 'projects' },
-  { id: '/posts', label: 'blog' },
+  { id: '/blog', label: 'blog' },
   { id: '/bookacall', label: 'book' },
 ];
 
