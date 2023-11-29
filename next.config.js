@@ -1,8 +1,8 @@
+import withBundleAnalyzer from '@next/bundle-analyzer';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    mdxRs: true,
-  },
+  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -11,12 +11,38 @@ const nextConfig = {
       },
     ],
   },
+  reactStrictMode: true,
+  pageExtensions: ['md', 'tsx', 'ts', 'jsx', 'js', 'md', 'mdx'],
+  experimental: {
+    optimizeCss: true,
+    mdxRs: false,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/X11',
+        destination: '/blog/X11',
+        permanent: true,
+      },
+      {
+        source: '/atom',
+        destination: '/feed.xml',
+        permanent: true,
+      },
+      {
+        source: '/feed',
+        destination: '/feed.xml',
+        permanent: true,
+      },
+      {
+        source: '/rss',
+        destination: '/feed.xml',
+        permanent: true,
+      },
+    ];
+  },
 };
 
-const withMDX = require('@next/mdx')({
-  // ...
-  options: {
-    providerImportSource: '@mdx-js/react',
-  },
-});
-module.exports = withMDX(nextConfig);
+export default withBundleAnalyzer({
+  enabled: process.env.ANALYZE === 'true',
+})(nextConfig);
