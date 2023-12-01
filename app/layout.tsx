@@ -27,7 +27,7 @@ export default async function RootLayout({
         <link rel='icon' href='/favicon.ico' sizes='any' />
 
         <AnimatedMenuDock />
-        {children}
+        <div className='pb-4'>{children}</div>
         <Footer />
 
         <Toaster />

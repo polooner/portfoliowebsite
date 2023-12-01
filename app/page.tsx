@@ -38,7 +38,7 @@ const items = [
 
 export default async function Home() {
   return (
-    <main className='flex w-full min-h-screen gap-4 p-4 '>
+    <main className='flex w-full min-h-screen gap-4 p-2'>
       <div className='flex flex-col items-center w-full space-y-4'>
         <div className='flex flex-col sm:grid sm:grid-cols-[1fr_0.7fr] gap-4'>
           {items.slice(0, 2).map((item, index) => (

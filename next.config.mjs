@@ -14,32 +14,8 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ['md', 'tsx', 'ts', 'jsx', 'js', 'md', 'mdx'],
   experimental: {
-    optimizeCss: true,
+    // optimizeCss: true,
     mdxRs: false,
-  },
-  async redirects() {
-    return [
-      {
-        source: '/X11',
-        destination: '/blog/X11',
-        permanent: true,
-      },
-      {
-        source: '/atom',
-        destination: '/feed.xml',
-        permanent: true,
-      },
-      {
-        source: '/feed',
-        destination: '/feed.xml',
-        permanent: true,
-      },
-      {
-        source: '/rss',
-        destination: '/feed.xml',
-        permanent: true,
-      },
-    ];
   },
 };
 
