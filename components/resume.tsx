@@ -3,20 +3,17 @@ import Link from 'next/link';
 export default function Resume() {
   return (
     <div className='p-8 text-black bg-white'>
-      <div className='flex items-center justify-between pb-4 border-b-2 border-black'>
-        <div>
-          <h1 className='text-4xl font-bold'>Filip Wojda</h1>
-          <div className='flex flex-row justify-between'>
-            <p className='text-sm'>
-              wojdafilipdev@gmail.com | (917) 913-1450 |{' '}
-            </p>
-            <Link
-              className='text-blue-600'
-              href='www.linkedin.com/in/filip-wojda/'
-            >
-              www.linkedin.com/in/filip-wojda/
-            </Link>
-          </div>
+      <div className='flex flex-col items-center pb-4 text-center border-b-2 border-black'>
+        <h1 className='pb-4 text-4xl font-bold'>Filip Wojda</h1>
+        <div className='flex flex-row items-center justify-between'>
+          <p className='text-sm'>wojdafilipdev@gmail.com | (917) 913-1450 | </p>
+          <Link
+            className='pl-2 text-blue-600'
+            href='https://linkedin.com/in/filip-wojda/'
+            target='_blank'
+          >
+            www.linkedin.com/in/filip-wojda/
+          </Link>
         </div>
       </div>
       <section className='mt-6'>

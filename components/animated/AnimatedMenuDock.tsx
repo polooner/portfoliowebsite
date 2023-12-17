@@ -3,14 +3,15 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
-import PopoverSocials from '../PopoverSocials';
 import { usePathname } from 'next/navigation';
+import { Files } from 'lucide-react';
 
 let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
   { id: '/projects', label: 'projects' },
   // { id: '/blog', label: 'blog' },
   { id: '/bookacall', label: 'book' },
+  { id: '/resume', label: <Files /> },
 ];
 
 export default function AnimatedMenuDock() {
