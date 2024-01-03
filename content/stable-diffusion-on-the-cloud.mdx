@@ -4,9 +4,12 @@ title: Run Stable Diffusion models on the cloud
 summary: 'How to run SD on AWS SageMaker Studio notebooks'
 ---
 
-I've recently started playing a lot with the Stable Diffusion ecosystem. But my Macbook
-Pro 14 running on 16GB of memory and the (now over 2 years old!) M1 Pro chip is extremely slow
-on the tasks that things such as detailing, more steps, and bigger models like SDXL require.
-So here is how I've been running automatic1111/webui on a free but super-performant GPU:
+## Run AUTOMATIC1111/stable-diffusion-webui on the cloud, for (mostly) free
+
+I've recently started playing a lot with the Stable Diffusion ecosystem. Particularly<a className='underline text-white' href='https://github.com/AUTOMATIC1111/stable-diffusion-webui'> stable-diffusion-webui</a>
+. But my Macbook Pro 14 running on 16GB of memory and the (now over 2 years old!)
+M1 Pro chip is extremely slow on the tasks that things such as detailing, more steps,
+and bigger models like SDXL require. So here is how I've been running automatic1111/webui
+on a free but super-performant GPU:
 
 1. Sign in to <a className='underline text-white' href='https://studiolab.sagemaker.aws/'>amazon SageMaker Studio Lab</a>
