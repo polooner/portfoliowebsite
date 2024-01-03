@@ -22,6 +22,7 @@ export default async function Projects() {
         <div className='grid grid-cols-1 pb-4 mb-8 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 dark:text-white md:grid-cols-2 md:gap-x-10 lg:grid-cols-3'>
           {userData &&
             userData.map((repo) => {
+              console.log(repo.private);
               return !repo.private ? (
                 <RepoCard
                   stargazersUrl={repo.stargazers_url}
