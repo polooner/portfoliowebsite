@@ -2,6 +2,10 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    ppr: true,
+    useLightningcss: true,
+  },
   swcMinify: true,
   images: {
     remotePatterns: [

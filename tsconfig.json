@@ -33,7 +33,9 @@
     ".next/types/**/*.ts",
     ".contentlayer/generated",
     "components/animated",
-    "app/db"
+    "app/db",
+    "tailwind.config.js",
+    "tailwind.config.js"
   ],
   "exclude": ["node_modules"]
 }

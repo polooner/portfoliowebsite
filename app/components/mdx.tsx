@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { TweetComponent } from '../../../components/tweet';
+import { TweetComponent } from '../../components/tweet';
 import { highlight } from 'sugar-high';
 import React from 'react';
 
@@ -51,7 +51,7 @@ function RoundedImage(props) {
 
 function Callout(props) {
   return (
-    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm border rounded border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100'>
+    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-white border rounded border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 dark:text-white'>
       <div className='flex items-center w-4 mr-4'>{props.emoji}</div>
       <div className='w-full callout'>{props.children}</div>
     </div>
