@@ -32,7 +32,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".contentlayer/generated",
-    "components/animated"
+    "components/animated",
+    "app/db"
   ],
   "exclude": ["node_modules"]
 }

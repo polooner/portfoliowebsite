@@ -1,30 +1,55 @@
-import getPosts, { getPost } from '@/lib/get-posts';
-import { PostBody } from '../mdx/components/post-body';
-import { notFound } from 'next/navigation';
 import Link from 'next/link';
+// import { getViewsCount } from 'app/db/queries';
+import { getBlogPosts } from 'app/db/blog';
+import { ReaderIcon } from '@radix-ui/react-icons';
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
+export const metadata = {
+  title: 'Blog',
+  description: 'Read my thoughts on software development, design, and more.',
+};
 
-  return posts.map((post) => ({ slug: post.slug }));
-}
-
-export default async function PostPage() {
-  const posts = await getPosts();
+export default function BlogPage() {
+  let allBlogs = getBlogPosts();
 
   return (
-    <div className='flex flex-col space-y-8'>
-      {posts.map((post) => {
-        return (
+    <section className='flex flex-col items-center text-start'>
+      <h1 className='mb-8 text-2xl font-medium tracking-tighter'>
+        read my blog. thoughts, quick guides and more...
+      </h1>
+      {allBlogs
+        .sort((a, b) => {
+          if (
+            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
+          ) {
+            return -1;
+          }
+          return 1;
+        })
+        .map((post) => (
           <Link
-            className='px-4 border-l-4 hover:underline'
-            href={`blog/${post.slug}`}
-            key={post.title}
+            key={post.slug}
+            className='flex flex-col mb-4 space-y-1 hover:underline cl'
+            href={`/blog/${post.slug}`}
           >
-            {post.title}
+            <div className='flex flex-col w-full'>
+              <div className='flex flex-row items-center w-full space-x-2'>
+                <ReaderIcon />
+                <p className='tracking-tight text-white '>
+                  {post.metadata.title}
+                </p>
+              </div>
+              {/* <Suspense fallback={<p className='h-6' />}>
+                <Views slug={post.slug} />
+              </Suspense> */}
+            </div>
           </Link>
-        );
-      })}
-    </div>
+        ))}
+    </section>
   );
 }
+
+// async function Views({ slug }: { slug: string }) {
+//   let views = await getViewsCount();
+
+//   return <ViewCounter allViews={views} slug={slug} />;
+// }

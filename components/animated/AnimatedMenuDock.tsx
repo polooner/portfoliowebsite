@@ -11,7 +11,7 @@ let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/projects', label: 'projects' },
   // { id: '/blog', label: 'blog' },
   { id: '/bookacall', label: 'book' },
-  { id: '/resume', label: <Files /> },
+  { id: '/blog', label: 'blog' },
 ];
 
 export default function AnimatedMenuDock() {
