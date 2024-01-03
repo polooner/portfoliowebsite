@@ -10,13 +10,13 @@ let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
   { id: '/projects', label: 'projects' },
   // { id: '/blog', label: 'blog' },
-  { id: '/bookacall', label: 'book' },
+  { id: '/bookacall', label: 'bookacall' },
   { id: '/blog', label: 'blog' },
 ];
 
 export default function AnimatedMenuDock() {
   const pathname = usePathname();
-  console.log(pathname);
+  console.log(pathname.split('/')[1]);
   let [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
@@ -33,13 +33,13 @@ export default function AnimatedMenuDock() {
             WebkitTapHighlightColor: 'transparent',
           }}
         >
-          {pathname === tab.id && (
+          {'/' + pathname.split('/')[1] == tab.id ? (
             <motion.span
               layoutId='bubble'
               className='absolute inset-0 z-10 bg-white rounded-xl mix-blend-difference'
               transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
             />
-          )}
+          ) : null}
           {tab.label}
         </Link>
       ))}
