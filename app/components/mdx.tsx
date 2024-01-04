@@ -58,6 +58,19 @@ function Callout(props) {
   );
 }
 
+function CopyWord(props) {
+  return (
+    <button
+      className='p-1 rounded bg-neutral-500'
+      onClick={() => {
+        navigator.clipboard.writeText(this.state.textToCopy);
+      }}
+    >
+      {props.children}
+    </button>
+  );
+}
+
 function ProsCard({ title, pros }) {
   return (
     <div className='w-full p-6 my-4 border border-emerald-200 dark:border-emerald-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl'>
@@ -162,6 +175,7 @@ let components = {
   StaticTweet: TweetComponent,
   code: Code,
   Table,
+  // CopyWord,
 };
 
 export function CustomMDX(props) {

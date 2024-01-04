@@ -89,7 +89,7 @@ export default function Blog({ params }) {
   }
 
   return (
-    <section>
+    <section className='flex flex-col  items-center p-8'>
       <script
         type='application/ld+json'
         suppressHydrationWarning

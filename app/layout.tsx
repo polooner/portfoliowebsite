@@ -23,11 +23,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className='flex flex-col p-4 space-y-2 text-white bg-black sm:px-10 sm:py-4'>
+      <body className='flex flex-col p-8 space-y-2 text-white bg-black sm:px-10 sm:py-4'>
         <link rel='icon' href='/favicon.ico' sizes='any' />
 
         <AnimatedMenuDock />
-        <div className='pb-4'>{children}</div>
+        <div className='pb-20'>{children}</div>
         <Footer />
 
         <Toaster />

@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Filip Wojda',
-  description: 'I like to bring impact.',
+  description: 'I like to make everything.',
 };
 
 const items = [
