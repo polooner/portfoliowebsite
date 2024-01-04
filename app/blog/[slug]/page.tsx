@@ -56,7 +56,12 @@ function formatDate(date: string) {
   }
   let targetDate = new Date(date);
 
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear();
+  //TODO: make years ago/days ago/months ago
+  let daysDifference = currentDate.getDate() - targetDate.getDate();
+  let isYearsAgo = daysDifference > 365 ? true : false;
+  let yearsAgo = isYearsAgo
+    ? currentDate.getFullYear() - targetDate.getFullYear()
+    : daysDifference;
   let monthsAgo = currentDate.getMonth() - targetDate.getMonth();
   let daysAgo = currentDate.getDate() - targetDate.getDate();
 
