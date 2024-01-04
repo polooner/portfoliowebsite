@@ -3,7 +3,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    ppr: true,
+    // ppr: true,
     useLightningcss: true,
   },
   swcMinify: true,
