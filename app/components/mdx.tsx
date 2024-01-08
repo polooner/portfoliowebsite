@@ -51,7 +51,7 @@ function RoundedImage(props) {
 
 function Callout(props) {
   return (
-    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-white border rounded border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 dark:text-white'>
+    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-white border rounded border-neutral-200 dark:border-neutral-700 bg-neutral-800 '>
       <div className='flex items-center w-4 mr-4'>{props.emoji}</div>
       <div className='w-full callout'>{props.children}</div>
     </div>
@@ -73,7 +73,7 @@ function CopyWord(props) {
 
 function ProsCard({ title, pros }) {
   return (
-    <div className='w-full p-6 my-4 border border-emerald-200 dark:border-emerald-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl'>
+    <div className='w-full p-6 my-4 border border-emerald-900 bg-neutral-900 rounded-xl'>
       <span>{`You might use ${title} if...`}</span>
       <div className='mt-4'>
         {pros.map((pro) => (
@@ -102,7 +102,7 @@ function ProsCard({ title, pros }) {
 
 function ConsCard({ title, cons }) {
   return (
-    <div className='w-full p-6 my-6 border border-red-200 dark:border-red-900 bg-neutral-50 dark:bg-neutral-900 rounded-xl'>
+    <div className='w-full p-6 my-6 border border-red-900 bg-neutral-900 rounded-xl'>
       <span>{`You might not use ${title} if...`}</span>
       <div className='mt-4'>
         {cons.map((con) => (

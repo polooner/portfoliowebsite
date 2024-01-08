@@ -7,7 +7,7 @@ import { Noto_Serif } from 'next/font/google';
 import AnimatedMenuDock from '@/components/animated/AnimatedMenuDock';
 
 export const metadata: Metadata = {
-  title: 'Wojda Labs',
+  title: 'Filip Wojda',
   description: 'A founder working on a faster world',
 };
 
