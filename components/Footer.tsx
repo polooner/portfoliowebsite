@@ -13,7 +13,7 @@ const Footer = () => {
   return (
     <motion.footer
       animate={{}}
-      className='fixed flex flex-row space-x-2 left-4 bottom-4'
+      className='fixed hidden sm:flex flex-row space-x-2 left-4 bottom-4'
     >
       <a
         target='_blank'
