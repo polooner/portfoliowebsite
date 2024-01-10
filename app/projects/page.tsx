@@ -6,7 +6,7 @@ export default async function Projects() {
   const userData = await getUsersRepos();
   return (
     <div
-      className='relative mx-auto before:absolute before:inset-0 before:z-[-1] before:bg-[length:22px_22px] before:bg-center before:bg-repeat-space before:opacity-10 before:bg-grid-[#000] before:gradient-mask-t-0 dark:before:opacity-20 dark:before:bg-grid-[#fff]'
+      className='relative mx-auto before:absolute before:inset-0 before:z-[-1] before:bg-[length:22px_22px] before:bg-center before:bg-repeat-space before:opacity-10 before:bg-grid-[#000] before:gradient-mask-t-0 '
       id={'repositories'}
     >
       <h3 className='m-6 text-center font-semibold tracking-tight text-white md:text-[35px] lg:text-[37px] xl:text-[40px] flex justify-center items-center'>
@@ -19,7 +19,7 @@ export default async function Projects() {
       </h3>
 
       <div className='relative py-20'>
-        <div className='grid grid-cols-1 pb-4 mb-8 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 dark:text-white md:grid-cols-2 md:gap-x-10 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 pb-4 mb-8 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 md:grid-cols-2 md:gap-x-10 lg:grid-cols-3'>
           {userData &&
             userData.map((repo) => {
               console.log(repo.private);
