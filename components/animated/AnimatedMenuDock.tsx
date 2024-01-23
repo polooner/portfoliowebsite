@@ -10,7 +10,7 @@ let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
   { id: '/projects', label: 'projects' },
   // { id: '/blog', label: 'blog' },
-  { id: '/bookacall', label: 'bookacall' },
+  { id: '/bookacall', label: 'book a call' },
   { id: '/blog', label: 'blog' },
 ];
 
