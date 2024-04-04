@@ -22,19 +22,23 @@ export default function Projects() {
   return (
     <div className='grid grid-cols-1 pb-4 text-center text-gray-800 xl-grid-cols-4 gap-x-6 gap-y-10 md:grid-cols-2 p-20 md:gap-x-10 lg:grid-cols-3'>
       {userData
+        //@ts-expect-error
         .filter((repo) => !repo.private)
         .map((repo, idx) => (
           <PinContainer
             key={idx}
             className='ring-1 rounded-md ring-zinc-500'
             title='github.com/polooner'
+            //@ts-expect-error
             href={repo.html_url}
           >
             <div className='flex basis-full flex-col p-4 tracking-tight text-black sm:basis-1/2 w-[20rem] h-[20rem] '>
               <h3 className='max-w-xs !pb-2 !m-0 font-bold  text-base text-black'>
+                {/* @ts-expect-error */}
                 {repo.full_name}
               </h3>
               <div className='text-base !m-0 !p-0 font-normal'>
+                {/* @ts-expect-error */}
                 <span className='text-black '>{repo.description}</span>
               </div>
               {/* <p>containter here</p> */}
