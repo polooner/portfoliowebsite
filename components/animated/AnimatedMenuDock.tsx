@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { Files } from 'lucide-react';
+import { useState } from 'react';
 
 let tabs: { id: string; label: string | JSX.Element }[] = [
   { id: '/', label: 'home' },
@@ -20,15 +19,15 @@ export default function AnimatedMenuDock() {
   let [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
-    <div className='fixed bottom-0 z-50 flex self-center p-4 mb-4 space-x-1 bg-black rounded-2xl '>
+    <div className='fixed bottom-0 z-50 flex self-center p-4 mb-4 space-x-1 bg-white rounded-2xl '>
       {tabs.map((tab) => (
         <Link
           href={tab.id}
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
           className={`${
-            activeTab === tab.id ? '' : 'hover:text-white/60'
-          } relative rounded-xl px-3 py-1.5 text-sm font-medium text-white outline-sky-400 transition focus-visible:outline-2`}
+            activeTab === tab.id ? '' : 'hover:text-black/60'
+          } relative rounded-xl px-3 py-1.5 text-sm font-medium text-black outline-sky-400 transition focus-visible:outline-2`}
           style={{
             WebkitTapHighlightColor: 'transparent',
           }}

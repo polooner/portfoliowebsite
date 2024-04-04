@@ -15,10 +15,18 @@ export default function BookACall() {
     })();
   }, []);
   return (
-    <Cal
-      calLink='wojdafilip/15min'
-      style={{ width: '100%', height: '100%', overflow: 'scroll' }}
-      config={{ layout: 'month_view' }}
-    />
+    <div className='block items-center justify-center'>
+      <Cal
+        calLink='wojdafilip/15min'
+        style={{
+          width: '100%',
+          height: '100%',
+          overflow: 'scroll',
+          placeSelf: 'center',
+        }}
+        className='self-center'
+        config={{ layout: 'month_view' }}
+      />
+    </div>
   );
 }

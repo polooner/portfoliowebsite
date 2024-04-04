@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  TwitterLogoIcon,
-  LinkedInLogoIcon,
   GitHubLogoIcon,
+  LinkedInLogoIcon,
+  TwitterLogoIcon,
 } from '@radix-ui/react-icons';
 
 import { motion } from 'framer-motion';
