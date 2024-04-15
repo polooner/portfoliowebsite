@@ -37,7 +37,7 @@ export default function PopoverSocials() {
             {items.map((items) => {
               return (
                 <Link
-                  className='p-2 text-white rounded-xl hover:bg-neutral-700'
+                  className='p-2 text-black rounded-xl hover:bg-neutral-700'
                   key={items.name}
                   href={items.href}
                 >

@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import Image from 'next/image';
 import { MDXRemote } from 'next-mdx-remote/rsc';
-import { TweetComponent } from '../../components/tweet';
-import { highlight } from 'sugar-high';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
+import { highlight } from 'sugar-high';
+import { TweetComponent } from '../../components/tweet';
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -51,7 +51,7 @@ function RoundedImage(props) {
 
 function Callout(props) {
   return (
-    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-white border rounded border-neutral-200 dark:border-neutral-700 bg-neutral-800 '>
+    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-black border rounded border-neutral-200  bg-neutral-200 '>
       <div className='flex items-center w-4 mr-4'>{props.emoji}</div>
       <div className='w-full callout'>{props.children}</div>
     </div>

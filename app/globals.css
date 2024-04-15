@@ -49,7 +49,7 @@ html {
 }
 
 .prose .anchor:after {
-  @apply text-white;
+  @apply text-black;
   content: '#';
 }
 
@@ -83,11 +83,11 @@ html {
 .prose h2,
 h3,
 h4 {
-  @apply font-medium text-white tracking-tighter !important;
+  @apply font-medium text-black tracking-tighter !important;
 }
 
 .prose strong {
-  @apply font-bold text-white;
+  @apply font-bold text-black;
 }
 
 .prose > :first-child {

@@ -3,6 +3,7 @@ import { GeistSans } from 'geist/font/sans';
 import { ViewTransitions } from 'next-view-transitions';
 
 import ArrowIcon from '@/components/ui/icons';
+import { Pencil1Icon } from '@radix-ui/react-icons';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Toaster } from 'react-hot-toast';
@@ -24,13 +25,19 @@ export default async function RootLayout({
         <body className='antialiased tracking-tighter'>
           <link rel='icon' href='/favicon.ico' sizes='any' />
           <div className='flex text-start space-y-10 flex-col justify-center items-center py-20 sm:px-80 px-8 sans'>
-            <nav className='flex flex-row  items-start text-start justify-start gap-x-4'>
+            <nav className='flex flex-row  items-start text-start justify-start sm:gap-x-4 gap-x-2'>
+              <Link
+                href='/'
+                className='flex underline flex-row gap-x-1 items-center'
+              >
+                <p>home</p>
+              </Link>
               <Link
                 href='/blog'
                 className='flex underline flex-row gap-x-1 items-center'
               >
                 <p>blog</p>
-                <ArrowIcon />
+                <Pencil1Icon />
               </Link>
               <Link
                 target='_blank'

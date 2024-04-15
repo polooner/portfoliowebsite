@@ -1,10 +1,8 @@
-import type { Metadata } from 'next';
-import { Suspense, cache } from 'react';
-import { notFound } from 'next/navigation';
 import { CustomMDX } from 'app/components/mdx';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 // import { getViewsCount } from 'app/db/queries';
 import { getBlogPosts } from 'app/db/blog';
-import ViewCounter from '../view-counter';
 // import { increment } from 'app/db/actions';
 
 export async function generateMetadata({
@@ -121,14 +119,14 @@ export default function Blog({ params }) {
         {post.metadata.title}
       </h1>
       <div className='flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]'>
-        <p className='text-sm text-white'>
+        <p className='text-sm text-black'>
           {formatDate(post.metadata.publishedAt)}
         </p>
         {/* <Suspense fallback={<p className='h-5' />}>
           <Views slug={post.slug} />
         </Suspense> */}
       </div>
-      <article className='prose text-white prose-quoteless prose-neutral dark:prose-invert'>
+      <article className='prose text-black prose-quoteless prose-neutral dark:prose-invert'>
         <CustomMDX source={post.content} />
       </article>
     </section>
