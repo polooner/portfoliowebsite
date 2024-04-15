@@ -1,7 +1,7 @@
 import Link from 'next/link';
 // import { getViewsCount } from 'app/db/queries';
-import { getBlogPosts } from 'app/db/blog';
 import { ReaderIcon } from '@radix-ui/react-icons';
+import { getBlogPosts } from 'app/db/blog';
 
 export const metadata = {
   title: 'Blog',
@@ -12,8 +12,8 @@ export default function BlogPage() {
   let allBlogs = getBlogPosts();
 
   return (
-    <section className='flex flex-col items-center text-start'>
-      <h1 className='mb-8 text-2xl font-medium tracking-tighter'>
+    <section className='flex flex-col space-y-8 items-center text-start'>
+      <h1 className='underline tracking-tighter'>
         read my blog. thoughts, quick guides and more...
       </h1>
       {allBlogs
@@ -28,13 +28,13 @@ export default function BlogPage() {
         .map((post) => (
           <Link
             key={post.slug}
-            className='flex flex-col mb-4 space-y-1 hover:underline cl'
+            className='flex flex-col space-y-1 hover:underline'
             href={`/blog/${post.slug}`}
           >
             <div className='flex flex-col w-full'>
               <div className='flex flex-row items-center w-full space-x-2'>
                 <ReaderIcon />
-                <p className='tracking-tight text-white '>
+                <p className='tracking-tight text-black'>
                   {post.metadata.title}
                 </p>
               </div>

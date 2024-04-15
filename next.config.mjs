@@ -4,17 +4,10 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const nextConfig = {
   experimental: {
     // ppr: true,
-    useLightningcss: true,
+    // useLightningcss: true,
   },
-  swcMinify: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-      },
-    ],
-  },
+  // swcMinify: true,
+  images: {},
   reactStrictMode: true,
   pageExtensions: ['md', 'tsx', 'ts', 'jsx', 'js', 'md', 'mdx'],
 };
