@@ -14,36 +14,42 @@ export default function BlogPage() {
   return (
     <section className='flex flex-col space-y-8 items-center text-start'>
       <h1 className='underline tracking-tighter'>
-        read my blog. thoughts, quick guides and more...
+        read my blog. thoughts, research and more...
       </h1>
-      {allBlogs
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1;
-          }
-          return 1;
-        })
-        .map((post) => (
-          <Link
-            key={post.slug}
-            className='flex flex-col space-y-1 hover:underline'
-            href={`/blog/${post.slug}`}
-          >
-            <div className='flex flex-col w-full'>
-              <div className='flex flex-row items-center w-full space-x-2'>
-                <ReaderIcon />
-                <p className='tracking-tight text-black'>
-                  {post.metadata.title}
-                </p>
-              </div>
-              {/* <Suspense fallback={<p className='h-6' />}>
+      <div className='flex flex-col items-start space-y-8 '>
+        {allBlogs
+          .sort((a, b) => {
+            if (
+              new Date(a.metadata.publishedAt) >
+              new Date(b.metadata.publishedAt)
+            ) {
+              return -1;
+            }
+            return 1;
+          })
+          .map((post) => (
+            <Link
+              key={post.slug}
+              className='flex flex-col space-y-1 items-baseline justify-center hover:underline'
+              href={`/blog/${post.slug}`}
+            >
+              <div className='flex text-start items-start flex-col w-full'>
+                <div className='flex flex-row text-start items-center w-full space-x-2'>
+                  <ReaderIcon />
+                  <p className='tracking-tight text-start text-black'>
+                    {post.metadata.title}
+                  </p>
+                </div>
+                <span className='text-xs opacity-80'>
+                  published at: {post.metadata.publishedAt}
+                </span>
+                {/* <Suspense fallback={<p className='h-6' />}>
                 <Views slug={post.slug} />
               </Suspense> */}
-            </div>
-          </Link>
-        ))}
+              </div>
+            </Link>
+          ))}
+      </div>
     </section>
   );
 }

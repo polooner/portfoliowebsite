@@ -33,6 +33,7 @@ html {
 .prose .anchor {
   @apply absolute invisible;
 
+  color: black !important;
   margin-left: -1em;
   padding-right: 0.5em;
   width: 80%;
@@ -80,7 +81,8 @@ html {
   @apply m-0;
 }
 
-.prose h2,
+.prose h1,
+h2,
 h3,
 h4 {
   @apply font-medium text-black tracking-tighter !important;
