@@ -19,21 +19,29 @@ export default function LandingPagesPage() {
       <ToggleableComponentCard
         component={UnderscoreHeading}
         code={UnderscoreHeadingCode}
-        title="Underscore Heading"
+        title="Stop Playing Underscore"
       />
 
       <ToggleableComponentCard
         component={ZenBrowserHeading}
         code={""}
-        title="Zen Browser Heading"
+        title="Day By Day"
+        animateAble={true}
       />
     </div>
   );
 }
 
-function UnderscoreHeading() {
+interface TemplateComponentProps {
+  key: number;
+}
+
+function UnderscoreHeading({ key }: TemplateComponentProps) {
   return (
-    <div className=" flex flex-col justify-start items-center w-full min-w-full h-[75dvh]">
+    <div
+      className=" flex flex-col justify-start items-center w-full min-w-full h-[75dvh]"
+      key={key}
+    >
       <div className="flex-1 flex items-center px-2 z-30 my-3 md:my-8">
         <div className="mx-2 md:mx-6 max-w-screen min-w-fit mb-4 flex flex-col items-center ">
           <div>
