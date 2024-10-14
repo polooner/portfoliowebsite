@@ -30,7 +30,7 @@ function UnderscoreHeading() {
                   <div className="relative z-10 inline text-black">
                     If You Ask Me
                   </div>
-                  <div className="absolute bottom-0 left-0 w-full bg-primary mb-0.5 md:mb-2.5 h-1/3 md:h-1/3 bg-lime-400"></div>
+                  <div className="absolute bottom-0 left-0 w-full mb-0.5 md:mb-2.5 h-1/3 md:h-1/3 bg-lime-400"></div>
                 </div>
               </span>
             </h1>
