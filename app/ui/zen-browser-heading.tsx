@@ -32,12 +32,16 @@ export default function ZenBrowserHeading() {
           make your startup look good.
         </p>
         <div className="flex w-full flex-col justify-center md:flex-row">
-          <a href="/download">
-            <Button className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 dark:bg-white bg-black text-white shadow hover:bg-black/90 h-12 px-8 py-4 -translate-y-4 animate-fade-in gap-1  opacity-100 ease-in-out [--animation-delay:600ms] dark:text-black">
+          <Button
+            asChild
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 dark:bg-white bg-black text-white shadow hover:bg-black/90 h-12 px-8 py-4 -translate-y-4 animate-fade-in gap-1  opacity-100 ease-in-out [--animation-delay:600ms] dark:text-black"
+          >
+            <Link href="/download">
               <span>Copy This Now</span>
               <ArrowRight className="ml-1 size-4" />
-            </Button>
-          </a>
+            </Link>
+          </Button>
+
           {/* animate opacitty */}
           <Button
             asChild
@@ -45,7 +49,7 @@ export default function ZenBrowserHeading() {
             className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 px-8 py-4 mt-4 md:ml-4 md:mt-0 hover:"
           >
             <Link
-              className="-translate-y-4 animate-fade-up opacity-100 [--animation-delay:800ms]"
+              className="-translate-y-4 opacity-100 [--animation-delay:800ms]"
               href="#features"
             >
               Link To Nothing <ChevronDown className="ml-1 size-4" />

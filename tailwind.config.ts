@@ -79,16 +79,51 @@ module.exports = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        "fade-in-from-top": {
+          "0%": { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "none" },
+        },
+        "fade-up": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
+        },
+        "@keyframes shimmer": {
+          "0%, 90%, to": {
+            backgroundPosition: "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            backgroundPosition: "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
+
+        orbit: {
+          "0%": {
+            transform:
+              "rotate(0deg) translateY(calc(var(--radius) * 1px)) rotate(0deg)",
+          },
+          "100%": {
+            transform:
+              "rotate(1turn) translateY(calc(var(--radius) * 1px)) rotate(-1turn)",
+          },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+
+        "fade-in-from-top":
+          "fade-in-from-top 1s var(--animation-delay,0ms) ease forwards",
+        "fade-up": "fade-up 1s var(--animation-delay,0ms) ease forwards",
+
         "hue-shift": "animate-hue-shift 10s linear 1s infinite",
         "fade-in": "fade-in 0.5s ease-in-out",
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+        shimmer: "shimmer 8s infinite",
       },
     },
   },
