@@ -1,12 +1,16 @@
 import { Card } from "@/components/ui/card";
+import ZenBrowserHeading from "../zen-browser-heading";
 
 export default function LandingPagesPage() {
   return (
     <div className="flex flex-col gap-4 items-center">
       {/* TODO: add a description here */}
       <div>Landing Page Headings</div>
-      <Card>
+      <Card className="w-full">
         <UnderscoreHeading />
+      </Card>
+      <Card className="w-full">
+        <ZenBrowserHeading />
       </Card>
     </div>
   );
@@ -14,7 +18,7 @@ export default function LandingPagesPage() {
 
 function UnderscoreHeading() {
   return (
-    <div className=" flex flex-col justify-start items-center ">
+    <div className=" flex flex-col justify-start items-center w-full min-w-full h-screen">
       <div className="flex-1 flex items-center px-2 z-30 my-3 md:my-8">
         <div className="mx-2 md:mx-6 max-w-screen min-w-fit mb-4 flex flex-col items-center ">
           <div>
