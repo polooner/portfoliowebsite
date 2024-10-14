@@ -1,22 +1,23 @@
 "use client";
 
-import ZenBrowserHeading from "../zen-browser-heading";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
   StopPlayingUnderscore,
   StopPlayingUnderscoreCode,
-} from "../headings/stop-playing-underscore";
+} from "../../../components/headings/stop-playing-underscore";
+import DayByDay from "../../../components/headings/day-by-day";
+import { DayByDayCode } from "../../../lib/code-strings";
 
 const componentsArray = [
   {
-    title: "Underscore Heading",
+    title: "Stop Playing Underscore",
     component: StopPlayingUnderscore,
     code: StopPlayingUnderscoreCode,
   },
   {
     title: "Day By Day",
-    component: ZenBrowserHeading,
-    code: "",
+    component: DayByDay,
+    code: DayByDayCode,
     animateAble: true,
   },
 ];

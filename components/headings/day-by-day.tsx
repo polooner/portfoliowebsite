@@ -5,7 +5,7 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function ZenBrowserHeading() {
+export default function DayByDay() {
   return (
     <div className="relative mx-auto flex h-[75dvh] max-w-full flex-col justify-center text-center">
       <div className="relative">

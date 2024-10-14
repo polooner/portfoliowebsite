@@ -1,4 +1,4 @@
-import withBundleAnalyzer from '@next/bundle-analyzer';
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -9,9 +9,9 @@ const nextConfig = {
   // swcMinify: true,
   images: {},
   reactStrictMode: true,
-  pageExtensions: ['md', 'tsx', 'ts', 'jsx', 'js', 'md', 'mdx'],
+  pageExtensions: ["md", "tsx", "ts", "jsx", "js", "md", "mdx"],
 };
 
 export default withBundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
+  enabled: process.env.ANALYZE === "true",
 })(nextConfig);
