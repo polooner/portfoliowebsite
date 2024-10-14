@@ -1,14 +1,28 @@
+"use client";
+
 import { Card } from "@/components/ui/card";
 import ZenBrowserHeading from "../zen-browser-heading";
+import { ToggleableComponentCard } from "../toggleable-component-code-card";
+
+const componentsArray = [
+  {
+    title: "Underscore Heading",
+    component: UnderscoreHeading,
+    code: `<UnderscoreHeading />`,
+  },
+];
 
 export default function LandingPagesPage() {
   return (
     <div className="flex flex-col gap-4 items-center">
       {/* TODO: add a description here */}
       <div>Landing Page Headings</div>
-      <Card className="w-full">
-        <UnderscoreHeading />
-      </Card>
+      <ToggleableComponentCard
+        component={UnderscoreHeading}
+        code={`<UnderscoreHeading />`}
+        title="Underscore Heading"
+      />
+
       <Card className="w-full">
         <ZenBrowserHeading />
       </Card>

@@ -28,6 +28,7 @@
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-switch": "^1.1.1",
     "@tailwindcss/typography": "^0.5.15",
     "@types/cryptr": "^4.0.3",
     "@types/node": "22.7.5",
