@@ -6,7 +6,7 @@ import ArrowIcon from "@/components/ui/icons";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,6 +24,7 @@ export default async function RootLayout({
       <html lang="en" className={GeistSans.variable + " " + GeistMono.variable}>
         <body className="antialiased tracking-tighter">
           <link rel="icon" href="/favicon.ico" sizes="any" />
+
           <div className="flex text-start space-y-10 flex-col justify-center items-center sans w-full">
             <nav className="flex flex-row  items-center text-start justify-start sm:gap-x-4 gap-x-2 top-10 px-8 sticky ">
               <Link

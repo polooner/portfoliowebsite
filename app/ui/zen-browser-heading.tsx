@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 export default function ZenBrowserHeading() {
   return (
-    <div className="relative mx-auto flex min-h-screen max-w-full flex-col justify-center text-center">
+    <div className="relative mx-auto flex h-[75dvh] max-w-full flex-col justify-center text-center">
       <div className="relative">
         {/* animate opacitty */}
         <AnimatedText />
