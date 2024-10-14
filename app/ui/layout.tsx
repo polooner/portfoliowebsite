@@ -1,7 +1,11 @@
+"use client";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function UILayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="w-full flex-1 items-start md:grid md:grid-cols-[240px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-10 w-full">
@@ -11,7 +15,11 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
               <div className="w-full pb-20">
                 <Link
                   href="/ui/landing-page-headings"
-                  className="flex items-center gap-2 underline"
+                  className={`flex items-center gap-2 ${
+                    pathname === "/ui/landing-page-headings"
+                      ? "bg-stone-200 rounded-md p-2"
+                      : "hover:underline"
+                  }`}
                 >
                   landing page headings
                 </Link>
