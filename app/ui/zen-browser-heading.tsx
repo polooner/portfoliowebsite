@@ -1,26 +1,16 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export default function ZenBrowserHeading() {
   return (
     <div className="relative mx-auto flex min-h-screen max-w-full flex-col justify-center text-center">
       <div className="relative">
         {/* animate opacitty */}
-        <div className="relative mb-3 mt-5 -translate-y-4 animate-fade-in text-balance bg-gradient-to-br from-30% to-black/40 bg-clip-text py-6 text-5xl font-semibold leading-none tracking-tighter text-transparent opacity-100 [--animation-delay:200ms] dark:from-white dark:to-white/40 sm:text-6xl md:text-7xl lg:text-8xl">
-          <h1
-            className="pb-4 select-none"
-            style={{
-              backgroundImage: "linear-gradient(90deg, #0077e7, #01d8d1)",
-              backgroundClip: "text",
-              color: "transparent",
-              filter: "hue-rotate(0deg)",
-              animation: "animate-hue-shift 10s linear 1s infinite",
-            }}
-          >
-            Nice fade in, great ripple
-          </h1>
-        </div>
+        <AnimatedText />
         {/* animate opacitty */}
         <div className="pointer-events-none absolute right-20 top-[-5px] mt-12 hidden h-fit w-fit !rotate-[15deg] transform animate-fade-in rounded-full bg-stone-100 border-2 px-3 py-1 opacity-100 shadow [--animation-delay:400ms] md:block">
           Yessir!
@@ -60,3 +50,39 @@ export default function ZenBrowserHeading() {
     </div>
   );
 }
+
+const AnimatedText = () => {
+  const text = "Nice fade in, great ripple";
+  const words = text.split(" ");
+
+  return (
+    <div className="relative mb-3 mt-5 -translate-y-4 text-balance bg-gradient-to-br from-30% to-black/40 bg-clip-text py-6 text-5xl font-semibold leading-none tracking-tighter text-transparent opacity-100 [--animation-delay:200ms] dark:from-white dark:to-white/40 sm:text-6xl md:text-7xl lg:text-8xl text-black">
+      <h1 className="pb-4 select-none">
+        {words.map((word, index) => (
+          <motion.span
+            key={index}
+            style={{
+              backgroundImage: "linear-gradient(90deg, #0077e7, #01d8d1)",
+              backgroundClip: "text",
+              color: "transparent",
+              filter: "hue-rotate(0deg)",
+              animation: "animate-hue-shift 10s linear 1s infinite",
+              display: "inline-block",
+              marginRight: "0.25em",
+            }}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-black"
+            transition={{
+              duration: 0.2,
+              delay: index * 0.05,
+              ease: [0.6, -0.05, 0.01, 0.99],
+            }}
+          >
+            {word}
+          </motion.span>
+        ))}
+      </h1>
+    </div>
+  );
+};
