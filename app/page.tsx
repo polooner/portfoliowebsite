@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <section className="flex flex-col gap-y-10 max-w-[500px] py-20">
+    <section className="flex flex-col gap-y-10 w-full py-20 self-center items-center">
       <div className=" text-start">
         <strong>Filip Wojda</strong>
         <br />
