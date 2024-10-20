@@ -33,7 +33,7 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
       className="flex flex-col justify-center items-center w-full min-w-full h-[75dvh] flex-wrap"
       key={key}
     >
-      <div className="flex flex-col pt-[12vh] items-center self-center justify-center gap-4">
+      <div className="flex flex-col pt-[6vh] items-center self-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center self-center mx-auto md:w-8/12">
           <h1 className="text-5xl font-semibold mb-4 tracking-tighter">
             Useful for having a few different copies in the headline.
