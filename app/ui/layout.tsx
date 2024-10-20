@@ -42,7 +42,7 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
             </div>
           </ScrollArea>
         </aside>
-        <main className="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px] w-full">
+        <main className="relative py-6 lg:gap-10 lg:py-8 2xl:grid 2xl:grid-cols-[1fr_300px] w-full pr-8">
           {children}
         </main>
       </div>

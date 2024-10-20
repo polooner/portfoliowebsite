@@ -7,6 +7,7 @@ import {
 } from "../../../components/headings/stop-playing-underscore";
 import DayByDay from "../../../components/headings/day-by-day";
 import { DayByDayCode } from "../../../lib/code-strings";
+import SmoothCurveUp from "@/components/headings/smooth-curve";
 
 const componentsArray = [
   {
@@ -18,6 +19,13 @@ const componentsArray = [
     title: "Day By Day",
     component: DayByDay,
     code: DayByDayCode,
+    animateAble: true,
+  },
+  {
+    title: "Smooth curve up",
+    component: SmoothCurveUp,
+    // code: SmoothCurveUpCode,
+    code: "",
     animateAble: true,
   },
 ];

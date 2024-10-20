@@ -1,5 +1,5 @@
 export interface TemplateComponentProps {
-  key: number;
+  key?: number;
 }
 
 export function StopPlayingUnderscore({ key }: TemplateComponentProps) {
