@@ -4,6 +4,8 @@ import { useCallback, useState } from "react";
 import { TemplateComponentProps } from "./stop-playing-underscore";
 import { AnimatePresence, motion } from "framer-motion";
 import SimpleCard from "../ui/cards/simple";
+import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
 
 export default function SmoothCurveUp({ key }: TemplateComponentProps) {
   const sentences = [
@@ -31,7 +33,7 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
       className="flex flex-col justify-center items-center w-full min-w-full h-[75dvh] flex-wrap"
       key={key}
     >
-      <div className="flex flex-col pt-[12vh] items-center self-center justify-center">
+      <div className="flex flex-col pt-[12vh] items-center self-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center self-center mx-auto md:w-8/12">
           <h1 className="text-5xl font-semibold mb-4 tracking-tighter">
             Useful for having a few different copies in the headline.
@@ -69,8 +71,16 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
               ))}
             </motion.div>
           </AnimatePresence>
+          <Button
+            variant={"tiltingShadow"}
+            size={"minimal"}
+            className="self-start mt-4"
+          >
+            And now we spend <ArrowRight className="w-4 h-4" />
+          </Button>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-12">
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-8">
           <SimpleCard
             title="Featuring"
             description="good filler content"
