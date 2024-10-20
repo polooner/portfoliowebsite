@@ -86,22 +86,22 @@
 }
 
 :root {
-  --sh-class: #7aa2f7;
-  --sh-sign: #89ddff;
-  --sh-string: #9ece6a;
-  --sh-keyword: #bb9af7;
-  --sh-comment: #565f89;
-  --sh-jsxliterals: #7aa2f7;
-  --sh-property: #73daca;
-  --sh-entity: #e0af68;
+  --sh-class: #4d4d4d;
+  --sh-sign: #777777;
+  --sh-string: #333333;
+  --sh-keyword: #1a1a1a;
+  --sh-comment: #999999;
+  --sh-jsxliterals: #4d4d4d;
+  --sh-property: #404040;
+  --sh-entity: #3d3d3d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sh-class: #4c97f8;
-    --sh-identifier: white;
-    --sh-keyword: #f47067;
-    --sh-string: #0fa295;
+    --sh-class: #1a1a1a;
+    --sh-identifier: #333333;
+    --sh-keyword: #404040;
+    --sh-string: #777777;
   }
 }
 
