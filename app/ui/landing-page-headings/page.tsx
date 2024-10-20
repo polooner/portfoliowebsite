@@ -27,7 +27,6 @@ const componentsArray = [
     title: "Smooth curve up",
     component: SmoothCurveUp,
     code: SmoothCurveUpCode,
-
     animateAble: true,
   },
 ];

@@ -8,13 +8,24 @@ import { Check, Copy, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { highlight } from "sugar-high";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export const ToggleableComponentCard = ({
   component: Component,
   code,
   title,
   animateAble = false,
-}) => {
+  contentClassName,
+  componentProps,
+  ...props
+}: {
+  component: React.ComponentType<any>;
+  code: string;
+  title: string;
+  animateAble?: boolean;
+  contentClassName?: string;
+  componentProps?: Record<string, any>;
+} & React.HTMLAttributes<HTMLDivElement>) => {
   const [showCode, setShowCode] = useState(false);
   const [copied, setCopied] = useState(false);
   const [key, setKey] = useState(0);
@@ -29,7 +40,7 @@ export const ToggleableComponentCard = ({
   };
 
   return (
-    <Card className="w-full relative p-4 mb-4 max-w-full">
+    <Card className="w-full relative p-4 mb-4 max-w-full" {...props}>
       <h2 className="text-lg font-semibold mb-2">{title}</h2>
 
       <div className="absolute top-4 right-4 flex items-center space-x-2 flex-row">
@@ -66,8 +77,10 @@ export const ToggleableComponentCard = ({
           </pre>
         </div>
       ) : (
-        <div className="max-h-[75dvh] ">
-          <Component key={key} />
+        <div
+          className={cn(contentClassName ? contentClassName : "max-h-[75dvh]")}
+        >
+          <Component key={key} {...componentProps} />
         </div>
       )}
     </Card>

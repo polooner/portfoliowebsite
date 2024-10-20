@@ -13,6 +13,10 @@ const items = [
     title: "Buttons",
     href: "/ui/buttons",
   },
+  {
+    title: "Cards",
+    href: "/ui/cards",
+  },
 ];
 
 export default function UILayout({ children }: { children: React.ReactNode }) {
