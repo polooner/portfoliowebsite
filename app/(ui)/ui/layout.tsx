@@ -25,9 +25,9 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex flex-col gap-4 w-full">
-      <nav className="flex flex-row justify-between items-center w-full pt-4 px-2">
+      <nav className="flex flex-row items-center w-full pt-4 px-2">
         <MobileUISheetTrigger />
-        <div className=" flex-row  items-center text-start justify-start sm:gap-x-4 gap-x-2 top-10 px-8 flex z-50 bg-white/50 ">
+        <div className="flex flex-row items-center text-start justify-center sm:gap-x-4 gap-x-2 top-10 px-8 flex-grow z-50 bg-white/50">
           <Link
             href="/"
             className="flex underline flex-row gap-x-1 items-center"

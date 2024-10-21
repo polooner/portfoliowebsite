@@ -22,9 +22,9 @@ export default async function RootLayout({
       <body className="antialiased tracking-tighter">
         <link rel="icon" href="/favicon.ico" sizes="any" />
 
-        <div className="flex text-start space-y-10 flex-col justify-center items-center sans w-full">
-          {children}
-          <footer className="flex flex-row items-center justify-center py-16 gap-4">
+        <div className="flex flex-col min-h-screen w-full">
+          <main className="flex-grow">{children}</main>
+          <footer className="flex flex-row items-center justify-center py-16 gap-4 mt-auto">
             <Link
               target="_blank"
               href="https://twitter.com/filipwojda"
