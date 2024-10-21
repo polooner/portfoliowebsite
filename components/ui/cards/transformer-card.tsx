@@ -32,8 +32,8 @@ export default function TransformerCard({
           {showMenu ? (
             <motion.div
               key="menu"
-              initial={{ opacity: 0, scale: 0.8, x: "40%", y: "30%" }}
-              animate={{ opacity: 1, scale: 1, x: "0%", y: "0%" }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{
                 type: "spring",
@@ -43,7 +43,7 @@ export default function TransformerCard({
               }}
               className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none"
             >
-              <div className="bg-transparent p-4 rounded-lg pointer-events-auto flex flex-col">
+              <div className="bg-transparent pointer-events-auto flex flex-col">
                 <Button
                   variant="ghost"
                   size="minimal"
@@ -87,7 +87,7 @@ export default function TransformerCard({
           </div>
         </motion.div>
 
-        <div className="text-base font-medium cursor-pointer box-border antialiased content-center self-stretch flex flex-row items-center flex-nowrap gap-1 h-min justify-start overflow-hidden relative w-auto will-change-transform bg-white opacity-100 rounded-b-2xl">
+        <div className="text-base font-medium cursor-pointer box-border antialiased content-center self-stretch flex flex-row items-center flex-nowrap gap-1 h-min justify-start overflow-hidden relative w-auto will-change-transform bg-white opacity-100 p-1">
           <motion.span
             className="flex-1"
             animate={{
