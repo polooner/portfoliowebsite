@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 import { TemplateComponentProps } from "./stop-playing-underscore";
 import { AnimatePresence, motion } from "framer-motion";
-import SimpleCard from "../ui/cards/simple";
+import SimpleCard from "../ui/cards/simple-card";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
 

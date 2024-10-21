@@ -70,6 +70,11 @@ module.exports = {
         mono: ["var(--font-geist-mono)"],
         sans: ["var(--font-geist-sans)"],
       },
+      boxShadow: {
+        "tv-inner-shadow": "inset 0 -12px 12px 0 rgb(0 0 0 / 0.05)",
+        "highlight-upper-shadow": "inset 0 2px 0px 0 rgb(0 0 0 / 0.05)",
+      },
+
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
