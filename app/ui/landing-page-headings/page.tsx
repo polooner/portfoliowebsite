@@ -14,20 +14,30 @@ import SmoothCurveUp, {
 const componentsArray = [
   {
     title: "Stop Playing Underscore",
-    component: StopPlayingUnderscore,
-    code: StopPlayingUnderscoreCode,
+    components: [
+      {
+        component: StopPlayingUnderscore,
+        code: StopPlayingUnderscoreCode,
+      },
+    ],
   },
   {
     title: "Day By Day",
-    component: DayByDay,
-    code: DayByDayCode,
-    animateAble: true,
+    components: [
+      {
+        component: DayByDay,
+        code: DayByDayCode,
+      },
+    ],
   },
   {
     title: "Smooth curve up",
-    component: SmoothCurveUp,
-    code: SmoothCurveUpCode,
-    animateAble: true,
+    components: [
+      {
+        component: SmoothCurveUp,
+        code: SmoothCurveUpCode,
+      },
+    ],
   },
 ];
 
@@ -36,17 +46,13 @@ export default function LandingPagesPage() {
     <div className="flex flex-col gap-4 items-center">
       {/* TODO: add a description here */}
       <div>Landing Page Headings</div>
-      {componentsArray.map(
-        ({ component: Component, code, title, animateAble }, index) => (
-          <ToggleableComponentCard
-            key={index}
-            component={Component}
-            code={code}
-            title={title}
-            animateAble={animateAble}
-          />
-        )
-      )}
+      {componentsArray.map(({ components, title }, index) => (
+        <ToggleableComponentCard
+          key={index}
+          components={components}
+          title={title}
+        />
+      ))}
     </div>
   );
 }
