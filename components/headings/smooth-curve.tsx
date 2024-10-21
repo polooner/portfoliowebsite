@@ -30,10 +30,10 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-full min-w-full h-[75dvh] flex-wrap"
+      className="flex flex-col justify-center items-center w-full min-w-full h-[80dvh] flex-wrap"
       key={key}
     >
-      <div className="flex flex-col pt-[6vh] items-center self-center justify-center gap-4">
+      <div className="flex flex-col pt-[10px] items-center self-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center self-center mx-auto md:w-8/12">
           <h1 className="text-5xl font-semibold mb-4 tracking-tighter">
             Useful for having a few different copies in the headline.
@@ -80,7 +80,7 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-4">
           <SimpleCard
             title="Featuring"
             description="good filler content"
@@ -148,10 +148,10 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-full min-w-full h-[75dvh] flex-wrap"
+      className="flex flex-col justify-center items-center w-full min-w-full h-[80dvh] flex-wrap"
       key={key}
     >
-      <div className="flex flex-col pt-[6vh] items-center self-center justify-center gap-4">
+      <div className="flex flex-col pt-[10px] items-center self-center justify-center gap-4">
         <div className="flex flex-col items-center justify-center self-center mx-auto md:w-8/12">
           <h1 className="text-5xl font-semibold mb-4 tracking-tighter">
             Useful for having a few different copies in the headline.
@@ -198,7 +198,7 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
           </Button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pt-4">
           <SimpleCard
             title="Featuring"
             description="good filler content"

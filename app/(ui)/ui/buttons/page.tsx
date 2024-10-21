@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "lucide-react";
 
 export default function ButtonsPage() {
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-12 items-center">
       <SlightShadowButton />
     </div>
   );

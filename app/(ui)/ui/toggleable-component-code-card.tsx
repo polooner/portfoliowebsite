@@ -130,14 +130,14 @@ export const ToggleableComponentCard = ({
               )}
             </Button>
 
-            <pre className="p-4 bg-stone-200 rounded-md overflow-x-auto whitespace-pre-wrap max-h-[75dvh] min-h-[75dvh]">
+            <pre className="p-4 bg-stone-200 rounded-md overflow-x-auto whitespace-pre-wrap max-h-[80dvh] min-h-[80dvh]">
               <code dangerouslySetInnerHTML={{ __html: codeHtml }} />
             </pre>
           </div>
         ) : (
           <div
             className={cn(
-              contentClassName ? contentClassName : "max-h-[75dvh] w-full"
+              contentClassName ? contentClassName : "max-h-[80dvh] w-full"
             )}
           >
             <currentComponent.component

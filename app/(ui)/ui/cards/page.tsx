@@ -99,14 +99,14 @@ const componentsArray = [
 
 export default function CardsPage() {
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-12 items-center">
       {/* TODO: add a description here */}
       <div>Cards</div>
       {componentsArray.map(({ components, title }, index) => (
         <ToggleableComponentCard
           components={components}
           key={index}
-          contentClassName="flex items-center justify-center min-h-[35dvh] w-full"
+          contentClassName="flex items-center justify-center min-h-[35dvh] w-full p-6"
           title={title}
         />
       ))}

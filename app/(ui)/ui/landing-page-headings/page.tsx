@@ -4,9 +4,9 @@ import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
   StopPlayingUnderscore,
   StopPlayingUnderscoreCode,
-} from "../../../components/headings/stop-playing-underscore";
-import DayByDay from "../../../components/headings/day-by-day";
-import { DayByDayCode } from "../../../lib/code-strings";
+} from "../../../../components/headings/stop-playing-underscore";
+import DayByDay from "../../../../components/headings/day-by-day";
+import { DayByDayCode } from "../../../../lib/code-strings";
 import SmoothCurveUp, {
   SmoothCurveUpCode,
 } from "@/components/headings/smooth-curve";
@@ -43,7 +43,7 @@ const componentsArray = [
 
 export default function LandingPagesPage() {
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col gap-12 items-center">
       {/* TODO: add a description here */}
       <div>Landing Page Headings</div>
       {componentsArray.map(({ components, title }, index) => (

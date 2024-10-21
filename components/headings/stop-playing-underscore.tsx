@@ -5,7 +5,7 @@ export interface TemplateComponentProps {
 export function StopPlayingUnderscore({ key }: TemplateComponentProps) {
   return (
     <div
-      className=" flex flex-col justify-start items-center w-full min-w-full h-[75dvh]"
+      className=" flex flex-col justify-start items-center w-full min-w-full h-[80dvh]"
       key={key}
     >
       <div className="flex-1 flex items-center px-2 z-30 my-3 md:my-8">
