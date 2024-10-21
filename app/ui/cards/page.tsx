@@ -28,7 +28,7 @@ const componentsArray = [
     code: "",
     componentProps: {
       title: "Transformer Card",
-      footerContent: <p>Footer Content</p>,
+      footerContent: <p>Last updated idk</p>,
       description:
         "Nice border difference, menu trigger that transforms the card into a menu.",
       mainContent: (
