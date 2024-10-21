@@ -80,7 +80,7 @@ export default function TransformerCard({
           <h3 className="text-lg font-semibold whitespace-pre-wrap text-start self-start">
             {title}
           </h3>
-          <div className="text-xs font-sans cursor-pointer box-border antialiased flex-none h-[216px] overflow-hidden relative w-[270px] will-change-transform opacity-100 items-center justify-center text-center flex max-h-[216px] z-10">
+          <div className="text-xs font-sans cursor-pointer box-border antialiased flex-none h-[216px] overflow-hidden relative sm:w-[270px] w-[150px] will-change-transform opacity-100 items-center justify-center text-center flex max-h-[216px] z-10">
             <div className="[--mask-height:216px] [mask-image:linear-gradient(to_bottom,black_calc(100%_-_var(--mask-height)),transparent)] mt-auto h-[232px] overflow-hidden">
               {mainContent}
             </div>

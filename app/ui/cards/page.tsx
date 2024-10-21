@@ -65,7 +65,7 @@ export default function CardsPage() {
           <ToggleableComponentCard
             key={index}
             component={Component}
-            contentClassName="flex items-center justify-center min-h-[35dvh]"
+            contentClassName="flex items-center justify-center min-h-[35dvh] w-full"
             code={code}
             title={title}
             animateAble={animateAble}

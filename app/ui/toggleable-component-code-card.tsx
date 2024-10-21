@@ -40,7 +40,7 @@ export const ToggleableComponentCard = ({
   };
 
   return (
-    <Card className="w-full relative p-4 mb-4 max-w-full" {...props}>
+    <Card className="w-full relative p-4 mb-4 max-w-full w-full" {...props}>
       <h2 className="text-lg font-semibold mb-2">{title}</h2>
 
       <div className="absolute top-4 right-4 flex items-center space-x-2 flex-row">
@@ -78,7 +78,9 @@ export const ToggleableComponentCard = ({
         </div>
       ) : (
         <div
-          className={cn(contentClassName ? contentClassName : "max-h-[75dvh]")}
+          className={cn(
+            contentClassName ? contentClassName : "max-h-[75dvh] w-full"
+          )}
         >
           <Component key={key} {...componentProps} />
         </div>
