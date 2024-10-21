@@ -106,7 +106,7 @@ export default async function RootLayout({
                 </DropdownMenuContent>
               </DropdownMenu>
             </nav>
-            <nav className=" flex-row  items-center text-start justify-start sm:gap-x-4 gap-x-2 top-10 px-8 sticky sm:flex hidden">
+            <nav className=" flex-row  items-center text-start justify-start sm:gap-x-4 gap-x-2 top-10 px-8 sm:flex hidden z-50 bg-white/50 ">
               <Link
                 href="/"
                 className="flex underline flex-row gap-x-1 items-center"

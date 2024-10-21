@@ -2,7 +2,9 @@
 
 import SimpleCard, { SimpleCardCode } from "@/components/ui/cards/simple-card";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
-import TransformerCard from "@/components/ui/cards/transformer-card";
+import TransformerCard, {
+  TransformerCardCode,
+} from "@/components/ui/cards/transformer-card";
 
 const componentsArray = [
   {
@@ -24,8 +26,7 @@ const componentsArray = [
   {
     title: "Transformer Card",
     component: TransformerCard,
-    // code: TransformerCardCode,
-    code: "",
+    code: TransformerCardCode,
     componentProps: {
       title: "Transformer Card",
       footerContent: <p className="text-xs">Last updated idk</p>,
