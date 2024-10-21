@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Check, Copy, RotateCcw } from "lucide-react";
+import {
+  Check,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  Copy,
+  RotateCcw,
+} from "lucide-react";
 import { useState } from "react";
 import { highlight } from "sugar-high";
 import { toast } from "sonner";
@@ -22,6 +28,7 @@ export const ToggleableComponentCard = ({
     component: React.ComponentType<any>;
     componentProps?: Record<string, any>;
     animateAble?: boolean;
+    variant?: string;
     code: string;
   }[];
 } & React.HTMLAttributes<HTMLDivElement>) => {
@@ -32,6 +39,8 @@ export const ToggleableComponentCard = ({
 
   const currentComponent = components[currentComponentIndex];
   const codeHtml = highlight(currentComponent.code);
+
+  console.log(currentComponent);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentComponent.code).then(() => {
@@ -46,35 +55,68 @@ export const ToggleableComponentCard = ({
       className="w-full relative p-4 mb-4 max-w-full space-y-4 flex flex-col"
       {...props}
     >
-      <div className="absolute flex items-center space-x-2 flex-row w-full max-w-[calc(100%-2rem)] justify-between z-50">
-        <h2 className="text-lg font-semibold truncate">
-          {title}{" "}
-          {components.length > 1 ? (
-            <span>
-              {currentComponentIndex + 1}/{components.length}
+      <div className="flex flex-col w-full">
+        <div className="flex items-center space-x-2 flex-row w-full justify-between z-50">
+          <h2 className="text-lg font-semibold truncate">
+            {title}{" "}
+            <span className="text-sm text-stone-600">
+              {currentComponent.variant}
             </span>
-          ) : (
-            ""
-          )}
-        </h2>
-        <div className="flex items-center space-x-2 flex-row">
-          {currentComponent.animateAble && (
-            <RotateCcw
-              className="text-black rounded-md px-2 flex items-center size-8"
-              onClick={() => setKey(key + 1)}
-            />
-          )}
-          <Label htmlFor={`code-view-toggle-${title}`}>View</Label>
+          </h2>
 
-          <Switch
-            id={`code-view-toggle-${title}`}
-            checked={showCode}
-            onCheckedChange={setShowCode}
-          />
-          <Label htmlFor={`code-view-toggle-${title}`}>Code</Label>
+          <div className="flex items-center space-x-2 flex-row self-start">
+            {currentComponent.animateAble && (
+              <RotateCcw
+                className="text-black rounded-md px-2 flex items-center size-8"
+                onClick={() => setKey(key + 1)}
+              />
+            )}
+            <Label htmlFor={`code-view-toggle-${title}`}>View</Label>
+
+            <Switch
+              id={`code-view-toggle-${title}`}
+              checked={showCode}
+              onCheckedChange={setShowCode}
+            />
+            <Label htmlFor={`code-view-toggle-${title}`}>Code</Label>
+          </div>
+        </div>
+        <div className="flex items-center justify-center w-fit">
+          {components.length > 1 ? (
+            <div className="flex items-center justify-between w-fit space-x-1 text-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() =>
+                  setCurrentComponentIndex(
+                    (prevIndex) =>
+                      (prevIndex - 1 + components.length) % components.length
+                  )
+                }
+                disabled={currentComponentIndex === 0}
+              >
+                <ChevronLeftIcon className="size-4" />
+              </Button>
+              <span className="text-sm pointer-events-none w-5 self-center mx-auto items-center">
+                {currentComponentIndex + 1}/{components.length}
+              </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() =>
+                  setCurrentComponentIndex(
+                    (prevIndex) => (prevIndex + 1) % components.length
+                  )
+                }
+                disabled={currentComponentIndex === components.length - 1}
+              >
+                <ChevronRightIcon className="size-4" />
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
-      <div className="pt-4">
+      <div>
         {showCode ? (
           <div className="relative">
             <Button

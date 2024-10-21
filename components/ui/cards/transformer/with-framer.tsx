@@ -1,12 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Button } from "../button";
+import { Button } from "../../button";
 import { DollarSign, MoreHorizontal, Pencil, Share } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-export default function TransformerCard({
+export function TransformerCardWithFramerAndMenu({
   mainContent,
   footerContent,
   title,
@@ -110,7 +110,7 @@ export default function TransformerCard({
   );
 }
 
-export const TransformerCardCode = `"use client";
+export const TransformerCardWithFramerAndMenuCode = `"use client";
 
 import { cn } from "@/lib/utils";
 import { Button } from "../button";
@@ -118,7 +118,7 @@ import { DollarSign, MoreHorizontal, Pencil, Share } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 
-export default function TransformerCard({
+export function TransformerCardWithFramerAndMenu({
   mainContent,
   footerContent,
   title,
