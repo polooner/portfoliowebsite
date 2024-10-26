@@ -3,32 +3,38 @@ import { Button } from "../ui/button";
 
 export default function MarketingAgency() {
   return (
-    <div className="relative max-w-full py-[126px] pb-[60px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1">
-      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap">
+    <div className="relative max-w-full py-[126px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1 h-[80dvh]">
+      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap space-y-12">
         <SparkleSVG />
         <DoodleStarSVG />
-        {/* TODO: add a gothic font */}
+        {/* TODO: add a gothic font, make it very bold */}
         <h1
-          className="relative text-[calc(18px+14vw)] leading-[0.7777777778] m-0 font-['gothic',sans-serif] font-black uppercase antialiased "
-          style={{ "--translate-from": "100%" } as React.CSSProperties}
+          className="relative text-[calc(18px+8vw)] leading-[0.7777777778] m-0 font-['gothic',sans-serif] font-black uppercase antialiased "
+          style={
+            {
+              "--translate-from": "100%",
+              "--from-opacity": "1",
+            } as React.CSSProperties
+          }
         >
-          {/* TODO: animate this upwards first, duration 700 */}
-          <span className="block overflow-hidden animate-fade-up duration-300 z-[1]">
+          <span className="block overflow-hidden animate-fade-up duration-300 z-[1] bg-[#f2f0ed] ease-in-out-cubic">
             <span className="font-black z-0">Pretty</span>
           </span>
-          {/* animate this with a delay of 300 or once the above is done */}
-          <span className="block overflow-hidden z-10 animate-fade-up duration-300 delay-300">
-            <span className="uppercase font-black after:content-[''] after:absolute after:right-full after:bottom-0 after:left-0 after:w-0 after:h-2 after:bg-[url(/icons/marketing-underline.svg)] after:bg-cover after:bg-center after:bg-no-repeat after:transition-all after:duration-300">
-              and{" "}
-              <span className="relative after:absolute after:right-0 after:w-full after:transition-all after:duration-150 after:delay-800 after:content-['cool.'] after:underline animate-slide-up duration-300 delay-600">
-                cool.
+
+          {/* this is currently visible intially, and then animates from below upwards. we want it to stay invisible until it's time comes */}
+          <span className="relative block overflow-hidden z-[1] bg-[#f2f0ed] h-fit">
+            <span className="block overflow-hidden z-[1] animate-fade-up duration-300 delay-300 bg-[#f2f0ed] opacity-0 ease-in-out-cubic pt-1 ">
+              <span className="uppercase font-black after:content-[''] after:absolute after:right-full after:bottom-0 after:left-0 after:w-0 after:h-2 after:bg-[url(/icons/marketing-underline.svg)] after:bg-cover after:bg-center after:bg-no-repeat after:transition-all after:duration-300">
+                and{" "}
+                <span className="relative after:absolute after:right-0 after:w-full after:transition-all after:duration-150 after:delay-800 after:content-['cool.'] after:underline animate-slide-up duration-300 delay-600">
+                  cool.
+                </span>
               </span>
             </span>
           </span>
         </h1>
-        <div className="uppercase font-black">
-          {/* TODO: animate, duration 700 delay 600 fade up */}
-          <div className="font-black uppercase">
+        <div className="uppercase font-black bg-[#f2f0ed] w-full  pt-4">
+          <div className="font-black uppercase animate-fade-up duration-300 delay-700 ease-in-out-cubic opacity-0 z-[1] ">
             <h2>
               Good for&nbsp;
               <em className="relative after:content-[''] after:absolute after:right-full after:bottom-[-8px] after:left-0 after:w-full after:h-2 after:bg-[url(/icons/marketing-underline.svg)] after:bg-cover after:bg-center after:bg-no-repeat after:transition-all after:duration-300">
@@ -40,7 +46,7 @@ export default function MarketingAgency() {
           {/* TODO: animate fade up, duration 700 delay 1000 */}
           {/* TODO: a big button. also fade up animation */}
           {/* TODO: on hover, aanimate the fill upwards, the text should also animate upwards once the background is halfway through */}
-          <div className="mt-4 space-x-2">
+          <div className="mt-4 space-x-2 pt-8">
             <Button
               variant="marketingAgency"
               size="marketingAgency"

@@ -90,7 +90,7 @@ module.exports = {
         },
         "fade-up": {
           "0%": {
-            opacity: "0",
+            opacity: "var(--from-opacity, 0)",
             transform: "translateY(var(--translate-from, 10px))",
           },
           "100%": { opacity: "1", transform: "translateY(0)" },
@@ -136,6 +136,28 @@ module.exports = {
         "fade-in": "fade-in 0.5s ease-in-out",
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
         shimmer: "shimmer 8s infinite",
+      },
+      transitionTimingFunction: {
+        "in-quad": "var(--ease-in-quad)",
+        "in-cubic": "var(--ease-in-cubic)",
+        "in-quart": "var(--ease-in-quart)",
+        "in-quint": "var(--ease-in-quint)",
+        "in-expo": "var(--ease-in-expo)",
+        "in-circ": "var(--ease-in-circ)",
+
+        "out-quad": "var(--ease-out-quad)",
+        "out-cubic": "var(--ease-out-cubic)",
+        "out-quart": "var(--ease-out-quart)",
+        "out-quint": "var(--ease-out-quint)",
+        "out-expo": "var(--ease-out-expo)",
+        "out-circ": "var(--ease-out-circ)",
+
+        "in-out-quad": "var(--ease-in-out-quad)",
+        "in-out-cubic": "var(--ease-in-out-cubic)",
+        "in-out-quart": "var(--ease-in-out-quart)",
+        "in-out-quint": "var(--ease-in-out-quint)",
+        "in-out-expo": "var(--ease-in-out-expo)",
+        "in-out-circ": "var(--ease-in-out-circ)",
       },
     },
   },
