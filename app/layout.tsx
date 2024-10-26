@@ -24,7 +24,7 @@ export default async function RootLayout({
 
         <div className="flex flex-col min-h-screen w-full">
           <main className="flex-grow">{children}</main>
-          <footer className="flex flex-row items-center justify-center py-16 gap-4 mt-auto">
+          <footer className="flex flex-row items-center justify-center py-8 gap-4 mt-auto border-t  border-black dark:border-white">
             <Link
               target="_blank"
               href="https://twitter.com/filipwojda"

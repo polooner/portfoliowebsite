@@ -10,7 +10,9 @@ import { DayByDayCode } from "../../../../lib/code-strings";
 import SmoothCurveUp, {
   SmoothCurveUpCode,
 } from "@/components/landing-page-heroes.tsx/smooth-curve";
-import MarketingAgency from "@/components/landing-page-heroes.tsx/marketing-agency";
+import MarketingAgency, {
+  MarketingAgencyCode,
+} from "@/components/landing-page-heroes.tsx/marketing-agency";
 
 const componentsArray = [
   {
@@ -45,8 +47,8 @@ const componentsArray = [
     components: [
       {
         component: MarketingAgency,
-        // code: MarketingAgencyCode,
-        code: "",
+        animateAble: true,
+        code: MarketingAgencyCode,
       },
     ],
   },
