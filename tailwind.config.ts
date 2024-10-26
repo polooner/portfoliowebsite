@@ -89,7 +89,10 @@ module.exports = {
           "100%": { opacity: "1", transform: "none" },
         },
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "0%": {
+            opacity: "0",
+            transform: "translateY(var(--translate-from, 10px))",
+          },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
 
@@ -104,6 +107,11 @@ module.exports = {
           "30%, 60%": {
             backgroundPosition: "calc(100% + var(--shimmer-width)) 0",
           },
+        },
+
+        "slide-up": {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
         },
 
         orbit: {
@@ -124,7 +132,6 @@ module.exports = {
         "fade-in-from-top":
           "fade-in-from-top 1s var(--animation-delay,0ms) ease forwards",
         "fade-up": "fade-up 1s var(--animation-delay,0ms) ease forwards",
-
         "hue-shift": "animate-hue-shift 10s linear 1s infinite",
         "fade-in": "fade-in 0.5s ease-in-out",
         orbit: "orbit calc(var(--duration)*1s) linear infinite",

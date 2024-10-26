@@ -1,4 +1,4 @@
-import { TemplateComponentProps } from "@/components/headings/stop-playing-underscore";
+import { TemplateComponentProps } from "@/components/landing-page-heroes.tsx/stop-playing-underscore";
 import { cn } from "@/lib/utils";
 
 import { HTMLAttributes } from "react";

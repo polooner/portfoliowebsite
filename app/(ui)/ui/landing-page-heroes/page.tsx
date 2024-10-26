@@ -4,12 +4,13 @@ import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
   StopPlayingUnderscore,
   StopPlayingUnderscoreCode,
-} from "../../../../components/headings/stop-playing-underscore";
-import DayByDay from "../../../../components/headings/day-by-day";
+} from "../../../../components/landing-page-heroes.tsx/stop-playing-underscore";
+import DayByDay from "../../../../components/landing-page-heroes.tsx/day-by-day";
 import { DayByDayCode } from "../../../../lib/code-strings";
 import SmoothCurveUp, {
   SmoothCurveUpCode,
-} from "@/components/headings/smooth-curve";
+} from "@/components/landing-page-heroes.tsx/smooth-curve";
+import MarketingAgency from "@/components/landing-page-heroes.tsx/marketing-agency";
 
 const componentsArray = [
   {
@@ -39,13 +40,23 @@ const componentsArray = [
       },
     ],
   },
+  {
+    title: "Marketing Agency",
+    components: [
+      {
+        component: MarketingAgency,
+        // code: MarketingAgencyCode,
+        code: "",
+      },
+    ],
+  },
 ];
 
 export default function LandingPagesPage() {
   return (
     <div className="flex flex-col gap-12 items-center">
       {/* TODO: add a description here */}
-      <div>Landing Page Headings</div>
+      <div>Landing Page Heroes</div>
       {componentsArray.map(({ components, title }, index) => (
         <ToggleableComponentCard
           key={index}

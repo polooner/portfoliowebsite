@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
 
 export const items = [
   {
-    title: "Landing Page Headings",
-    href: "/ui/landing-page-headings",
+    title: "Landing Page Heroes",
+    href: "/ui/landing-page-heroes",
   },
   {
     title: "Buttons",
