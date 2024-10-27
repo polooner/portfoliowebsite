@@ -12,7 +12,7 @@ export function FadingGrids({
   return (
     <div
       className={cn(
-        "absolute h-[200px] w-1/3 relative flex items-center justify-center overflow-hidden",
+        "h-[200px] w-1/3 relative flex items-center justify-center overflow-hidden",
         className
       )}
     >
