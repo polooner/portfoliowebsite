@@ -3,10 +3,8 @@ import { Button } from "../ui/button";
 
 export default function MarketingAgency() {
   return (
-    <div className="relative max-w-full py-[126px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1 h-[80dvh]">
-      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap space-y-12">
-        <SparkleSVG />
-        <DoodleStarSVG />
+    <div className="relative max-w-full py-[126px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1 h-[80dvh] items-center justify-center flex">
+      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap self-center space-y-12">
         <h1
           className="relative text-[calc(18px+8vw)] leading-[0.7777777778] m-0 font-['gothic',sans-serif] font-black uppercase antialiased "
           style={
@@ -16,6 +14,12 @@ export default function MarketingAgency() {
             } as React.CSSProperties
           }
         >
+          <div className="w-full flex justify-between">
+            <SparkleSVG />
+            <div className="self-end">
+              <DoodleStarSVG />
+            </div>
+          </div>
           <span className="block overflow-hidden animate-fade-up duration-300 z-[1] bg-[#f2f0ed] ease-in-out-cubic">
             <span className="font-black z-0">Pretty</span>
           </span>
@@ -31,7 +35,8 @@ export default function MarketingAgency() {
             </span>
           </span>
         </h1>
-        <div className="uppercase font-black bg-[#f2f0ed] w-full  pt-4">
+
+        <div className="uppercase font-black bg-[#f2f0ed] items-center self-center flex-row w-full  pt-4">
           <div className="font-black uppercase animate-fade-up duration-300 delay-700 ease-in-out-cubic opacity-0 z-[1] ">
             <h2>
               Good for&nbsp;
@@ -131,7 +136,6 @@ const DoodleStarSVG = () => {
       height="34"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="home-hero__burst--alt aos-init aos-animate"
       data-aos="fade-in"
     >
       <path
@@ -155,10 +159,8 @@ import { Button } from "../ui/button";
 
 export default function MarketingAgency() {
   return (
-    <div className="relative max-w-full py-[126px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1 h-[80dvh]">
-      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap space-y-12">
-        <SparkleSVG />
-        <DoodleStarSVG />
+    <div className="relative max-w-full py-[126px] bg-[#f2f0ed] text-[#171614] overflow-hidden order-1 h-[80dvh] items-center justify-center flex">
+      <div className="w-full mx-auto px-[calc(20px+2.5vw)] flex justify-between flex-wrap self-center space-y-12">
         <h1
           className="relative text-[calc(18px+8vw)] leading-[0.7777777778] m-0 font-['gothic',sans-serif] font-black uppercase antialiased "
           style={
@@ -168,6 +170,12 @@ export default function MarketingAgency() {
             } as React.CSSProperties
           }
         >
+          <div className="w-full flex justify-between">
+            <SparkleSVG />
+            <div className="self-end">
+              <DoodleStarSVG />
+            </div>
+          </div>
           <span className="block overflow-hidden animate-fade-up duration-300 z-[1] bg-[#f2f0ed] ease-in-out-cubic">
             <span className="font-black z-0">Pretty</span>
           </span>
@@ -183,7 +191,8 @@ export default function MarketingAgency() {
             </span>
           </span>
         </h1>
-        <div className="uppercase font-black bg-[#f2f0ed] w-full  pt-4">
+
+        <div className="uppercase font-black bg-[#f2f0ed] items-center self-center flex-row w-full  pt-4">
           <div className="font-black uppercase animate-fade-up duration-300 delay-700 ease-in-out-cubic opacity-0 z-[1] ">
             <h2>
               Good for&nbsp;
@@ -245,8 +254,6 @@ const SparkleSVG = () => {
       height="61"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="home-hero__burst aos-init aos-animate"
-      data-aos="fade-in"
     >
       <path
         d="M8.90924 37.3197C4.9787 37.2841 2.24789 39.3261 0 42.5398C0.525944 42.8917 0.911513 43.3652 1.31205 43.3783C2.40699 43.412 3.58054 43.4625 4.59312 43.1219C6.70626 42.4125 8.79319 41.7425 11.0523 41.6788C11.9488 41.6526 12.4411 40.6607 12.1996 39.7267C11.8028 38.1975 10.7173 37.3347 8.91111 37.3197H8.90924Z"
@@ -283,8 +290,6 @@ const DoodleStarSVG = () => {
       height="34"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="home-hero__burst--alt aos-init aos-animate"
-      data-aos="fade-in"
     >
       <path
         d="M32.8295 24.8892C33.1269 24.2062 33.0645 24.0044 32.4078 23.6627C30.9157 22.8869 29.419 22.1183 27.919 21.3578C26.4039 20.5893 24.8848 19.8305 23.3634 19.0763C22.8299 18.8119 22.2698 18.5996 21.7448 18.3202C20.1898 17.4924 18.65 16.6347 17.0953 15.8042C15.8914 15.161 14.6691 14.5519 13.4641 13.909C12.3849 13.3323 11.3206 12.7264 10.2458 12.1412C9.92589 11.967 9.57987 11.8403 9.2635 11.6611C8.09956 10.9998 6.94147 10.329 5.78494 9.65507C4.35923 8.82445 2.81667 8.1852 1.57951 7.04338C1.48594 6.9572 1.31049 6.8732 1.20495 6.90287C0.742139 7.03341 0.403293 7.33949 0.233463 7.795C0.0431185 8.3077 -0.183766 8.87316 0.242738 9.33985C0.720279 9.86297 1.21823 10.4441 1.83089 10.7495C3.17302 11.4196 4.30686 12.4228 5.68209 13.0394C6.43519 13.3767 7.1344 13.816 7.97649 13.9204C8.12473 13.939 8.24837 14.1095 8.3992 14.172C9.11375 14.4662 9.52953 15.3574 10.4223 15.1587C10.6901 15.5665 11.0657 15.8293 11.5493 15.9471C11.6306 15.9669 11.7015 16.0278 11.7823 16.0541C12.6515 16.3411 13.3451 16.914 14.0565 17.4593C14.1901 17.5614 14.3328 17.6604 14.4863 17.7253C14.8173 17.8665 15.1666 17.964 15.4921 18.1159C16.2892 18.4876 17.0773 18.8789 17.8678 19.2637C17.9942 19.3252 18.1467 19.3692 18.2344 19.4688C18.7541 20.0583 19.4243 20.4205 20.1409 20.6654C20.9448 20.9409 21.7263 21.3016 22.4637 21.6773C23.0843 21.9936 23.6517 22.4876 24.2878 22.8526C25.7155 23.6717 27.0695 24.6221 28.5153 25.404C29.3722 25.8677 30.176 26.3621 30.8214 27.0708C31.8922 26.6233 31.8986 26.6276 32.3784 25.8114C32.5515 25.5173 32.693 25.2022 32.8292 24.8881L32.8295 24.8892ZM17.7213 17.394C17.7238 17.3382 17.7267 17.2816 17.7292 17.2257C17.9748 17.2249 18.2216 17.2238 18.4672 17.223C18.4639 17.3182 18.4602 17.4141 18.4576 17.5096C18.212 17.4707 17.9672 17.4322 17.7213 17.394ZM20.691 19.008C20.606 19.0125 20.5136 18.892 20.4236 18.8271L20.8717 18.6443C20.9112 18.7045 20.9507 18.7646 20.9903 18.8248C20.8905 18.8904 20.7936 19.003 20.691 19.008Z"
@@ -300,5 +305,4 @@ const DoodleStarSVG = () => {
       ></path>
     </svg>
   );
-};
-`;
+};`;

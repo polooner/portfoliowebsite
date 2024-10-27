@@ -13,6 +13,7 @@ import SmoothCurveUp, {
 import MarketingAgency, {
   MarketingAgencyCode,
 } from "@/components/landing-page-heroes.tsx/marketing-agency";
+import { AllYouNeed } from "@/components/landing-page-heroes.tsx/all-you-need";
 
 const componentsArray = [
   {
@@ -52,12 +53,22 @@ const componentsArray = [
       },
     ],
   },
+  {
+    title: "All You Need",
+    components: [
+      {
+        component: AllYouNeed,
+
+        code: "",
+        // code: AllYouNeedCode,
+      },
+    ],
+  },
 ];
 
 export default function LandingPagesPage() {
   return (
     <div className="flex flex-col gap-12 items-center">
-      {/* TODO: add a description here */}
       <div>Landing Page Heroes</div>
       {componentsArray.map(({ components, title }, index) => (
         <ToggleableComponentCard
