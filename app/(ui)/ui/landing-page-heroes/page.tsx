@@ -14,6 +14,7 @@ import MarketingAgency, {
   MarketingAgencyCode,
 } from "@/components/landing-page-heroes.tsx/marketing-agency";
 import { AllYouNeed } from "@/components/landing-page-heroes.tsx/all-you-need";
+import { LowercaseIsKing } from "@/components/landing-page-heroes.tsx/lowercase-is-king";
 
 const componentsArray = [
   {
@@ -61,6 +62,16 @@ const componentsArray = [
 
         code: "",
         // code: AllYouNeedCode,
+      },
+    ],
+  },
+  {
+    title: "Lowercase is King",
+    components: [
+      {
+        component: LowercaseIsKing,
+
+        code: "",
       },
     ],
   },
