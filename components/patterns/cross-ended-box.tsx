@@ -12,11 +12,6 @@ export const CrossEndedBox = () => {
         </div>
         <div className="relative flex gap-6">
           <div className="py-3 group/item relative">
-            <Cross className="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2" />
-
-            <Cross className="hidden group-last/row:group-first/item:block absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
-            <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
-
             <div className="px-10 py-3 items-center flex justify-center text-heathered-gray-800"></div>
           </div>
         </div>
@@ -35,7 +30,7 @@ export const CrossEndedBox = () => {
 
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
-            <Cross className="hidden group-last/row:group-first/item:block absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
+            <Cross className="absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
@@ -46,7 +41,7 @@ export const CrossEndedBox = () => {
 
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
-            <Cross className="hidden group-last/row:group-first/item:block absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
+            <Cross className="absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 

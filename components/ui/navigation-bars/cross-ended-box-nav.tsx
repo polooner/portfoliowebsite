@@ -16,6 +16,7 @@ export const CrossEndedBoxNavigationBar = () => {
 
             <Cross className="hidden group-last/row:group-first/item:block absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
+            <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
             <a
               href="#"
@@ -128,6 +129,7 @@ export const CrossEndedBoxNavigationBar = () => {
 
             <Cross className="hidden group-last/row:group-first/item:block absolute size-[15px] fill-black/10 -bottom-2 -left-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
+            <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
             <a
               href="#"
@@ -220,5 +222,4 @@ const Cross = ({
       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
     </svg>
   );
-};
-`;
+};`;
