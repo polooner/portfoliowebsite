@@ -23,6 +23,10 @@ export const items = [
     title: "Navigation Bars",
     href: "/ui/navigation-bars",
   },
+  {
+    title: "Patterns",
+    href: "/ui/patterns",
+  },
 ];
 
 export default function UILayout({ children }: { children: React.ReactNode }) {

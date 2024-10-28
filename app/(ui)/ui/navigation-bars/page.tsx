@@ -1,15 +1,30 @@
 "use client";
 
-import SkiffNavigationBar from "@/components/ui/navigation-bars/skiff";
+import SkiffNavigationBar, {
+  SkiffNavigationBarCode,
+} from "@/components/ui/navigation-bars/skiff";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
+import {
+  CrossEndedBoxNavigationBar,
+  CrossEndedBoxNavigationBarCode,
+} from "@/components/ui/navigation-bars/cross-ended-box-nav";
 
 const componentsArray = [
   {
-    title: "Skiff navigation bar",
+    title: "Skiff Navigation Bar",
     components: [
       {
         component: SkiffNavigationBar,
-        code: "",
+        code: SkiffNavigationBarCode,
+      },
+    ],
+  },
+  {
+    title: "Cross Ended Box Navigation Bar",
+    components: [
+      {
+        component: CrossEndedBoxNavigationBar,
+        code: CrossEndedBoxNavigationBarCode,
       },
     ],
   },

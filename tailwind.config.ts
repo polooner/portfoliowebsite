@@ -33,6 +33,19 @@ module.exports = {
         },
       },
       colors: {
+        "heathered-gray": {
+          "50": "#f8f7f4",
+          "100": "#efede5",
+          "200": "#ddd9cb",
+          "300": "#bdb398",
+          "400": "#b1a286",
+          "500": "#a18e6e",
+          "600": "#947e62",
+          "700": "#7c6752",
+          "800": "#655547",
+          "900": "#53463b",
+          "950": "#2c241e",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -131,6 +144,7 @@ module.exports = {
           },
         },
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
