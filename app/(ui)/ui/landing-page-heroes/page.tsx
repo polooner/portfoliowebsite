@@ -13,8 +13,17 @@ import SmoothCurveUp, {
 import MarketingAgency, {
   MarketingAgencyCode,
 } from "@/components/landing-page-heroes.tsx/marketing-agency";
-import { AllYouNeed } from "@/components/landing-page-heroes.tsx/all-you-need";
-import { LowercaseIsKing } from "@/components/landing-page-heroes.tsx/lowercase-is-king";
+import {
+  AllYouNeed,
+  AllYouNeedCode,
+} from "@/components/landing-page-heroes.tsx/all-you-need";
+import {
+  LowercaseIsKing,
+  LowercaseIsKingCode,
+} from "@/components/landing-page-heroes.tsx/lowercase-is-king";
+import Elegant, {
+  ElegantCode,
+} from "@/components/landing-page-heroes.tsx/elegant";
 
 const componentsArray = [
   {
@@ -59,9 +68,7 @@ const componentsArray = [
     components: [
       {
         component: AllYouNeed,
-
-        code: "",
-        // code: AllYouNeedCode,
+        code: AllYouNeedCode,
       },
     ],
   },
@@ -70,8 +77,16 @@ const componentsArray = [
     components: [
       {
         component: LowercaseIsKing,
-
-        code: "",
+        code: LowercaseIsKingCode,
+      },
+    ],
+  },
+  {
+    title: "Elegant",
+    components: [
+      {
+        component: Elegant,
+        code: ElegantCode,
       },
     ],
   },
