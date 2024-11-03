@@ -20,6 +20,10 @@ export const items = [
     href: "/ui/cards",
   },
   {
+    title: "Inputs",
+    href: "/ui/inputs",
+  },
+  {
     title: "Navigation Bars",
     href: "/ui/navigation-bars",
   },

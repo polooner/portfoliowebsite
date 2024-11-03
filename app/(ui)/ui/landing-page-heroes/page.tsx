@@ -24,6 +24,10 @@ import {
 import Elegant, {
   ElegantCode,
 } from "@/components/landing-page-heroes.tsx/elegant";
+import {
+  EveryOtherStartup,
+  EveryOtherStatupCode,
+} from "@/components/landing-page-heroes.tsx/every-other-startup";
 
 const componentsArray = [
   {
@@ -87,6 +91,15 @@ const componentsArray = [
       {
         component: Elegant,
         code: ElegantCode,
+      },
+    ],
+  },
+  {
+    title: "Every Other Startup",
+    components: [
+      {
+        component: EveryOtherStartup,
+        code: EveryOtherStatupCode,
       },
     ],
   },

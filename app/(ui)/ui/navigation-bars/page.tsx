@@ -44,7 +44,3 @@ export default function NavigationBars() {
     </div>
   );
 }
-
-interface TemplateComponentProps {
-  key: number;
-}

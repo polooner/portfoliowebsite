@@ -18,11 +18,26 @@ const buttonVariants = cva(
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         marketingAgency:
-          "relative z-[1] inline-block min-w-[147px] text-black border rounded-[40px] font-['code-saver',sans-serif] text-[calc(13.5px+.125vw)] leading-[1] tracking-[1px] outline-0 text-center no-underline uppercase transition-all duration-250 ease-in-out cursor-pointer align-middle overflow-hidden before:content-[''] before:absolute before:z-[-1] before:left-0 before:top-0 before:w-full before:h-full before:bg-[var(--fill)] before:rounded-0 before:transition-[.5s_cubic-bezier(.215,.61,.355,1)] text-center items-center justify-center text-[var(--text-fill)]",
+          "relative z-[1] inline-block min-w-[147px] text-black border rounded-[40px] text-[calc(13.5px+.125vw)] leading-[1] tracking-[1px] outline-0 text-center no-underline uppercase transition-all duration-250 ease-in-out cursor-pointer align-middle overflow-hidden before:content-[''] before:absolute before:z-[-1] before:left-0 before:top-0 before:w-full before:h-full before:bg-[var(--fill)] before:rounded-0 before:transition-[.5s_cubic-bezier(.215,.61,.355,1)] text-center items-center justify-center text-[var(--text-fill)]",
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        insetShadow: "",
+        spotlight:
+          "border border-2 border-neutral-800 rounded-xl text-secondary bg-neutral-900 p-3.5 text-sm font-medium overflow-clip relative group/spotlight hover:ring-4 ring-offset-0 ring-offset-neutral-900 duration-300 transform-gpu hover:transition-all hover:ring-neutral-300",
+        bigShadow:
+          " bg-neutral-900 text-white hover:shadow-[0_0_30px_20px_rgba(0,0,0,0.2)] transition-all duration-300 rounded-xl transform-gpu",
+        threeDAngledShadowScale:
+          "rounded-xl border border-[#2E2D2E] bg-gradient-to-b from-[#3E3D3E] via-[#403E40] via-[79.91%] to-[#5E5D5E] shadow-[inset_0px_-2px_2px_0.5px_#000,inset_0px_0px_2px_1.5px_rgba(255,255,255,0.50)] text-white hover:shadow-[inset_0px_-2px_5px_0px_#000,inset_0px_0px_1px_1.5px_rgba(255,255,255,0.50)] transition-all duration-200 active:scale-95 origin-center",
+        pillShadows:
+          "rounded-xl border border-[#2E2D2E] bg-gradient-to-b from-[#3E3D3E] via-[#403E40] via-[79.91%] to-[#5E5D5E] text-white shadow-[inset_0px_-1px_2px_0.5px_#000,inset_0px_1px_2px_1.5px_rgba(255,255,255,0.50)] transition-shadow duration-200",
+        bottomStep:
+          "rounded-xl border border-[#2E2D2E] bg-gradient-to-b from-[#3E3D3E] via-[#403E40] via-[79.91%] to-[#5E5D5E] text-white shadow-[inset_0px_20px_2px_0.5px_#000,inset_0px_1px_2px_1.5px_rgba(255,255,255,0.50)] transition-shadow duration-200",
+        bottomHighlight:
+          "rounded-xl border border-[#2E2D2E] bg-gradient-to-b from-[#3E3D3E] via-[#403E40] via-[79.91%] to-[#5E5D5E] text-white shadow-[inset_0px_10px_20px_0.5px_#000,inset_0px_1px_2px_1.5px_rgba(255,255,255,0.50)] transition-shadow duration-200",
+        flatPill:
+          "rounded-xl border border-[#2E2D2E] bg-gradient-to-b from-[#3E3D3E] via-[#403E40] via-[79.91%] to-[#5E5D5E] shadow-[inset_0px_-2px_2px_0.5px_#000,inset_0px_0px_2px_1.5px_rgba(255,255,255,0.50)] text-white hover:shadow-[inset_0px_-2px_0px_0.5px_#000,inset_0px_0px_2px_1.5px_rgba(255,255,255,0.50)] transition-shadow duration-200",
       },
       size: {
         default: "h-9 px-4 py-2",
