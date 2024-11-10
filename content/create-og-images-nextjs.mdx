@@ -11,13 +11,16 @@ However, there is not enough documentation around how to do it. I wanted to add 
 enough examples on the web, and Claude 3.5 Sonnet as well as o1-preview (most capable AI models at the time I was writing this blog) struggled doing it. So here is a short
 tutorial.
 
-1. Create a `app/og/route.tsx` folder inside your app.
-2. Understanding and Implementing Dynamic OG Images
+<br />
+1. Create a <strong>app/og/route.tsx</strong> folder inside your app. 2. Understanding
+and Implementing Dynamic OG Images
 
-In Next.js 14+, the `app/og/route.tsx` file creates an API endpoint at `/og` that generates dynamic Open Graph images. This is great for creating custom social media preview images for your content.
+In Next.js 14+, the <strong>app/og/route.tsx</strong> file creates an API endpoint at <strong>/og</strong> that generates dynamic Open Graph images. This is great for creating custom social media preview images for your content.
 Personally, I am a lot more likely to click on a link that has an opengraph preview.
 
-To use this as the main image for your website's shared links, add the following to your root layout or page metadata:
+<br />
+To use this as the main image for your website's shared links, add the following
+to your root layout or page metadata:
 
 ```typescript
 // In app/layout.tsx or app/page.tsx
@@ -106,20 +109,56 @@ export async function GET(req: NextRequest) {
 This will generate a custom image whenever someone shares your website or blog posts on social media platforms.
 The image will include the title parameter you pass in the URL, styled with your custom font and background.
 
-3. Twitter (X) opengraph cache not refreshing
+<br />
 
-If you just want the TLDR:
+## 3. Twitter (X) opengraph cache not refreshing
 
-1. Check that the size of your image is `1200 x 630` and ideally below 1 megabyte (not sure what the exact limit is as it is not mentioned anywhere)
-2. Change the name of the route of the URL you are trying to share
+If you just want the <strong>TLDR</strong>:
 
-Opengraph is very easy. Define a route, style the component and we're good. However, my biggest struggle with opengraph images was X's cache. Once upon a time
-I was asked to create an opengraph image for an important URL linking to Julius' blog for a Founding Product Designer role. The "hardcoded" .png format image and specifying it
-inside of the individual route's metadata took 2 minutes. However, I committed a few mistakes that are barely mentioned anywhere on the web:
+<br />
 
-- Posted the URL beforehand to see how it looks currently. Twitter cached the image related to the URL.
-- Did not check the size of the image. No one cares about opengraph image sizes - except for Twitter. I had a 9000(ish) by 7000(ish) resolution and a total size of about 7 megabytes.
-  Turns out opengraph image won't work with Twitter above a certain size. Reducing it to the standard opengraph size of `1,200 x 630` did the trick.
+<ul>
+  <li>
+    <strong>1.</strong> Check that the size of your image is{" "}
+    <strong>1200 x 630</strong> and ideally below 1 megabyte (not sure what the
+    exact limit is as it is not mentioned anywhere - below this number has
+    worked for me)
+  </li>
+  <br />
+  <li>
+    <strong>2.</strong> Change the name of the route of the URL you are trying
+    to share to make Twitter think this is a new route
+  </li>
+</ul> <br />
+
+Opengraph is very easy. Define a route, style the component and we're good. However,
+my biggest struggle with opengraph images was X's cache. Once upon a time I was asked
+to create an opengraph image for an important URL linking to Julius' blog for a Founding
+Product Designer role. The "hardcoded" .png format image and specifying it inside
+of the individual route's metadata took 2 minutes. However, I committed a few mistakes
+that are barely mentioned anywhere on the web:
+
+<br />
+
+<div className="flex flex-row gap-2">
+  <span>-</span>{" "}
+  <span>
+    Posted the URL beforehand to see how it looks currently. Twitter cached the
+    image related to the URL.
+  </span>
+</div>
+<br />
+<div className="flex flex-row gap-2">
+  <span>-</span>{" "}
+  <span>
+    Did not check the size of the image. No one cares about opengraph image
+    sizes - except for Twitter. I had a <strong>9000(ish) by 7000(ish)</strong>{" "}
+    resolution and a total size of about 7 megabytes. Turns out opengraph image
+    won't work with Twitter above a certain size. Reducing it to the standard
+    opengraph size of <strong>1,200 x 630</strong> did the trick.
+  </span>
+</div>
+<br />
 
 I spent 4 hours trying to hunt down why was it not updating on Twitter. I redeployed the site multiple times after reducing the size of the image. The image finally worked on my dev deployment.
 But production still did not show an image. The final boss was to invalidate the cache by renaming my route to something slightly different to create a new cache for a new URL.
