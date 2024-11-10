@@ -299,7 +299,7 @@ pre code {
 }
 
 pre code > span .sh__token--identifier {
-  color: white !important;
+  color: neutral-100 !important;
 }
 
 code:not(pre code) span {
