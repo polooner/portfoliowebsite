@@ -13,12 +13,23 @@ export default function Home() {
         <strong>Filip Wojda</strong>
         <br />
 
-        <p>ai engineer</p>
+        <p>ai founder & engineer</p>
 
         <br />
         <br />
         <div>
-          currently a founding engineer at{" "}
+          currently founder & ceo @ 
+          <Link
+            className="font-bold hover:underline"
+            target="_blank" 
+            href="https://www.makeklips.ai"
+          >
+            makeklips.ai
+          </Link>
+        </div>
+        <div>
+          <br />
+          previously founding engineer & employee #6 @
           <Link
             className="font-bold hover:underline"
             target="_blank"
@@ -26,17 +37,7 @@ export default function Home() {
           >
             julius.ai
           </Link>
-        </div>
-        <div>
-          <br />
-          previously built{" "}
-          <Link
-            className="font-bold hover:underline"
-            target="_blank"
-            href="https://www.makeklips.ai"
-          >
-            makeklips.ai
-          </Link>
+          
         </div>
         <br />
         <p>i am based out of sf</p>
