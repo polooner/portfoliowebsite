@@ -142,7 +142,9 @@ const ComponentInstallSteps = ({
       {instructions.map((instruction, instructionIndex) => (
         <div className="flex flex-col items-start justify-start gap-2">
           <p>
-            <strong className="mr-2">{instructionIndex + 1}.</strong>
+            {instructions.length > 1 && (
+              <strong className="mr-2">{instructionIndex + 1}.</strong>
+            )}
             {instruction.description}
           </p>
           <h3>{instruction.file}</h3>

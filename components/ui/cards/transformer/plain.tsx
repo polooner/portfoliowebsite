@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Instruction } from "@/types";
 
 export function TransformerCard({
   mainContent,
@@ -77,3 +78,10 @@ export function TransformerCard({
     </div>
   );
 }`;
+
+export const TransformerCardWithInstructions: Instruction[] = [
+  {
+    code: TransformerCardCode,
+    file: "ui/TransformerCardWithMenu.tsx",
+  },
+];

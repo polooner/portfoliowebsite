@@ -1,23 +1,30 @@
 "use client";
 
-import SimpleCard, { SimpleCardCode } from "@/components/ui/cards/simple-card";
+import SimpleCard, {
+  SimpleCardCode,
+  SimpleCardInstructions,
+} from "@/components/ui/cards/simple-card";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
   TransformerCardWithFramerAndMenu,
   TransformerCardWithFramerAndMenuCode,
+  TransformerCardWithFramerAndMenuInstructions,
 } from "@/components/ui/cards/transformer/with-framer";
 import {
   TransformerCard,
   TransformerCardCode,
+  TransformerCardWithInstructions,
 } from "@/components/ui/cards/transformer/plain";
+import { ComponentData } from "@/types";
 
-const componentsArray = [
+const componentsArray: ComponentData[] = [
   {
     title: "Simple Card",
     components: [
       {
         component: SimpleCard,
-        code: SimpleCardCode,
+        instructions: SimpleCardInstructions,
+        // TODO: make this generic
         componentProps: {
           title: "Simple Card",
           description:
@@ -37,7 +44,7 @@ const componentsArray = [
     components: [
       {
         component: TransformerCardWithFramerAndMenu,
-        code: TransformerCardWithFramerAndMenuCode,
+        instructions: TransformerCardWithFramerAndMenuInstructions,
         variant: "with animations",
         componentProps: {
           title: "Transformer Card family",
@@ -66,7 +73,7 @@ const componentsArray = [
       },
       {
         component: TransformerCard,
-        code: TransformerCardCode,
+        instructions: TransformerCardWithInstructions,
         variant: "just a card",
         componentProps: {
           title: "Transformer Card family",
@@ -100,7 +107,6 @@ const componentsArray = [
 export default function CardsPage() {
   return (
     <div className="flex flex-col gap-12 items-center">
-      {/* TODO: add a description here */}
       <div>Cards</div>
       {componentsArray.map(({ components, title }, index) => (
         <ToggleableComponentCard

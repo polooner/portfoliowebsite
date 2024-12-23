@@ -5,6 +5,7 @@ import { Button } from "../../button";
 import { DollarSign, MoreHorizontal, Pencil, Share } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { Instruction } from "@/types";
 
 export function TransformerCardWithFramerAndMenu({
   mainContent,
@@ -222,3 +223,10 @@ export function TransformerCardWithFramerAndMenu({
   );
 }
 `;
+
+export const TransformerCardWithFramerAndMenuInstructions: Instruction[] = [
+  {
+    code: TransformerCardWithFramerAndMenuCode,
+    file: "ui/TransformerCardWithMenu.tsx",
+  },
+];

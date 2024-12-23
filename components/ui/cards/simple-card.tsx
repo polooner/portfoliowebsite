@@ -1,5 +1,6 @@
 import { TemplateComponentProps } from "@/components/landing-page-heroes.tsx/stop-playing-underscore";
 import { cn } from "@/lib/utils";
+import { Instruction } from "@/types";
 
 import { HTMLAttributes } from "react";
 
@@ -67,3 +68,10 @@ export default function SimpleCard({
     </div>
   );
 }`;
+
+export const SimpleCardInstructions: Instruction[] = [
+  {
+    code: SimpleCardCode,
+    file: "/ui/SimpleCard.tsx",
+  },
+];
