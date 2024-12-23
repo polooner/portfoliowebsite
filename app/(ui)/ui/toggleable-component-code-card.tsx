@@ -15,12 +15,7 @@ import { useState } from "react";
 import { highlight } from "sugar-high";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-
-export interface ComponentDisplayStep {
-  file: string;
-  code: string;
-  description: string;
-}
+import { ComponentData, Instruction } from "@/types";
 
 export const ToggleableComponentCard = ({
   title,
@@ -30,13 +25,7 @@ export const ToggleableComponentCard = ({
 }: {
   title: string;
   contentClassName?: string;
-  components: {
-    instructions: ComponentDisplayStep[];
-    component: () => JSX.Element;
-    componentProps?: Record<string, any>;
-    animateAble?: boolean;
-    variant?: string;
-  }[];
+  components: ComponentData[];
 } & React.HTMLAttributes<HTMLDivElement>) => {
   const [key, setKey] = useState(0);
   const [currentComponentIndex, setCurrentComponentIndex] = useState(0);
@@ -61,7 +50,7 @@ export const ToggleableComponentCard = ({
           </h2>
 
           <div className="flex items-center space-x-2 flex-row self-start">
-            {currentComponent.animateAble && (
+            {currentComponent.animatable && (
               <RotateCcw
                 className="text-black rounded-md px-2 flex items-center size-8"
                 onClick={() => setKey(key + 1)}
@@ -135,7 +124,7 @@ export const ToggleableComponentCard = ({
 const ComponentInstallSteps = ({
   instructions,
 }: {
-  instructions: ComponentDisplayStep[];
+  instructions: Instruction[];
 }) => {
   return (
     <div className="flex flex-col gap-20">

@@ -4,10 +4,15 @@ export type Instruction = {
   description?: string;
 };
 
-export type ComponentData = {
+export type ComponentData<T = {}> = {
+  component: (props: T) => JSX.Element;
+  instructions: Instruction[];
+  componentProps?: T;
+  animatable?: boolean;
+  variant?: string;
+};
+
+export type ComponentShowcase<T = {}> = {
   title: string;
-  components: {
-    component: () => JSX.Element;
-    instructions: Instruction[];
-  }[];
+  components: ComponentData<T>[];
 };

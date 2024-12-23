@@ -15,9 +15,9 @@ import {
   TransformerCardCode,
   TransformerCardWithInstructions,
 } from "@/components/ui/cards/transformer/plain";
-import { ComponentData } from "@/types";
+import { ComponentData, ComponentShowcase } from "@/types";
 
-const componentsArray: ComponentData[] = [
+const componentsArray: ComponentShowcase[] = [
   {
     title: "Simple Card",
     components: [
@@ -35,7 +35,6 @@ const componentsArray: ComponentData[] = [
             </div>
           ),
         },
-        animateAble: false,
       },
     ],
   },
@@ -69,7 +68,6 @@ const componentsArray: ComponentData[] = [
             </div>
           ),
         },
-        animateAble: false,
       },
       {
         component: TransformerCard,
@@ -98,7 +96,6 @@ const componentsArray: ComponentData[] = [
             </div>
           ),
         },
-        animateAble: false,
       },
     ],
   },

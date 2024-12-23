@@ -9,9 +9,9 @@ import {
   CrossBordersNavBar,
   CrossBordersNavBarInstructions,
 } from "@/components/ui/navigation-bars/cross-ended-box-nav";
-import { ComponentData } from "@/types";
+import { ComponentData, ComponentShowcase } from "@/types";
 
-const componentsArray: ComponentData[] = [
+const componentsArray: ComponentShowcase[] = [
   {
     title: "Skiff Navigation Bar",
     components: [

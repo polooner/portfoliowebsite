@@ -6,9 +6,9 @@ import {
   ButtonInsideInputInstructions,
 } from "@/components/inputs/button-inside";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
-import { ComponentData } from "@/types";
+import { ComponentData, ComponentShowcase } from "@/types";
 
-const componentsArray: ComponentData[] = [
+const componentsArray: ComponentShowcase[] = [
   {
     title: "Button inside",
     components: [

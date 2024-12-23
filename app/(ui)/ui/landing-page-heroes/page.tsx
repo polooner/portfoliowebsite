@@ -33,9 +33,9 @@ import {
   LandingPage as EveryOtherStartup,
   EveryOtherStartupInstructions,
 } from "@/components/landing-page-heroes.tsx/every-other-startup";
-import { ComponentData } from "@/types";
+import { ComponentData, ComponentShowcase } from "@/types";
 
-const componentsArray: ComponentData[] = [
+const componentsArray: ComponentShowcase[] = [
   {
     title: "Stop Playing Underscore",
     components: [
@@ -68,7 +68,7 @@ const componentsArray: ComponentData[] = [
     components: [
       {
         component: MarketingAgency,
-        animateAble: true,
+        animatable: true,
         instructions: MarketingAgencyLandingPageInstructions,
       },
     ],
