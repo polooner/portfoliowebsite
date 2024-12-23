@@ -1,54 +1,32 @@
 "use client";
 
-import {
-  InsetShadowButton,
-  InsetShadowButtonCode,
-} from "@/components/buttons/inset-shadow";
+import { InsetShadowButtonDisplay } from "@/components/buttons/inset-shadow";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
-import {
-  TiltedShadowButton,
-  TiltedShadowButtonCode,
-} from "@/components/buttons/tilted-shadow";
-import {
-  SpotlightButton,
-  SpotlightButtonCode,
-} from "@/components/buttons/spotlight";
-import {
-  BigShadowButton,
-  BigShadowButtonCode,
-} from "@/components/buttons/big-shadow";
-import {
-  ThreeDAngledShadowButton,
-  ThreeDAngledShadowButtonCode,
-} from "@/components/buttons/3d-angled-shadow";
+import { TiltedShadowButtonDisplay } from "@/components/buttons/tilted-shadow";
+import { SpotlightButtonDisplay } from "@/components/buttons/spotlight";
+import { BigShadowButtonDisplay } from "@/components/buttons/big-shadow";
+import { ThreeDAngledShadowButtonDisplay } from "@/components/buttons/3d-angled-shadow";
 
 const componentsArray = [
   {
     title: "Tilted Shadow",
-    components: [
-      { component: TiltedShadowButton, code: TiltedShadowButtonCode },
-    ],
+    components: [TiltedShadowButtonDisplay],
   },
   {
     title: "Inset Shadow with Border",
-    components: [{ component: InsetShadowButton, code: InsetShadowButtonCode }],
+    components: [InsetShadowButtonDisplay],
   },
   {
     title: "Spotlight",
-    components: [{ component: SpotlightButton, code: SpotlightButtonCode }],
+    components: [SpotlightButtonDisplay],
   },
   {
     title: "Big Shadow",
-    components: [{ component: BigShadowButton, code: BigShadowButtonCode }],
+    components: [BigShadowButtonDisplay],
   },
   {
     title: "3D Angled Shadow",
-    components: [
-      {
-        component: ThreeDAngledShadowButton,
-        code: ThreeDAngledShadowButtonCode,
-      },
-    ],
+    components: [ThreeDAngledShadowButtonDisplay],
   },
 ];
 

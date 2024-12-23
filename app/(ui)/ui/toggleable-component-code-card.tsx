@@ -16,6 +16,12 @@ import { highlight } from "sugar-high";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
+export interface ComponentDisplayStep {
+  file: string;
+  code: string;
+  description: string;
+}
+
 export const ToggleableComponentCard = ({
   title,
   contentClassName,
@@ -25,30 +31,20 @@ export const ToggleableComponentCard = ({
   title: string;
   contentClassName?: string;
   components: {
-    component: React.ComponentType<any>;
+    instructions: ComponentDisplayStep[];
+    component: () => JSX.Element;
     componentProps?: Record<string, any>;
     animateAble?: boolean;
     variant?: string;
-    code: string;
   }[];
 } & React.HTMLAttributes<HTMLDivElement>) => {
-  const [showCode, setShowCode] = useState(false);
-  const [copied, setCopied] = useState(false);
   const [key, setKey] = useState(0);
   const [currentComponentIndex, setCurrentComponentIndex] = useState(0);
+  const [showInstallSteps, setShowInstallSteps] = useState(false);
 
   const currentComponent = components[currentComponentIndex];
-  const codeHtml = highlight(currentComponent.code);
 
   console.log(currentComponent);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(currentComponent.code).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 5000);
-      toast.success("Code copied to clipboard!");
-    });
-  };
 
   return (
     <Card
@@ -75,8 +71,8 @@ export const ToggleableComponentCard = ({
 
             <Switch
               id={`code-view-toggle-${title}`}
-              checked={showCode}
-              onCheckedChange={setShowCode}
+              checked={showInstallSteps}
+              onCheckedChange={setShowInstallSteps}
             />
             <Label htmlFor={`code-view-toggle-${title}`}>Code</Label>
           </div>
@@ -117,23 +113,8 @@ export const ToggleableComponentCard = ({
         </div>
       </div>
       <div>
-        {showCode ? (
-          <div className="relative">
-            <Button
-              className="absolute top-4 right-4 text-white rounded-md px-2"
-              onClick={handleCopy}
-            >
-              {copied ? (
-                <Check className="size-4" />
-              ) : (
-                <Copy className="size-4" />
-              )}
-            </Button>
-
-            <pre className="p-4 bg-stone-200 rounded-md overflow-x-auto whitespace-pre-wrap max-h-[80dvh] min-h-[80dvh]">
-              <code dangerouslySetInnerHTML={{ __html: codeHtml }} />
-            </pre>
-          </div>
+        {showInstallSteps ? (
+          <ComponentInstallSteps instructions={currentComponent.instructions} />
         ) : (
           <div
             className={cn(
@@ -148,5 +129,54 @@ export const ToggleableComponentCard = ({
         )}
       </div>
     </Card>
+  );
+};
+
+const ComponentInstallSteps = ({
+  instructions,
+}: {
+  instructions: ComponentDisplayStep[];
+}) => {
+  return (
+    <div className="flex flex-col gap-20">
+      {instructions.map((instruction, instructionIndex) => (
+        <div className="flex flex-col items-start justify-start gap-2">
+          <p>
+            <strong className="mr-2">{instructionIndex + 1}.</strong>
+            {instruction.description}
+          </p>
+          <h3>{instruction.file}</h3>
+          <CodeBlock code={instruction.code} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const CodeBlock = ({ code }) => {
+  const [copied, setCopied] = useState(false);
+
+  const codeHtml = highlight(code);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 5000);
+      toast.success("Code copied to clipboard!");
+    });
+  };
+  return (
+    <div className="relative max-w-full min-w-full">
+      <Button
+        className="absolute top-2 right-2 text-white rounded-md px-2"
+        onClick={handleCopy}
+      >
+        {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+      </Button>
+
+      <pre className="bg-stone-200 rounded-md overflow-x-auto whitespace-pre-wrap max-h-[80dvh] min-h-fit max-w-full min-w-full m-0">
+        <code dangerouslySetInnerHTML={{ __html: codeHtml }} />
+      </pre>
+    </div>
   );
 };

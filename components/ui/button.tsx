@@ -23,7 +23,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        insetShadow: "",
+        insetShadow:
+          "items-center justify-center whitespace-nowrap flex flex-row text-sm font-medium hover:bg-gradient-to-b hover:from-neutral-600 hover:via-neutral-800 hover:to-neutral-950 bg-gradient-to-b from-neutral-800 via-neutral-900 to-neutral-950 border border-primary-800 text-white shadow-smInset active:outline active:outline-2 active:outline-primary-500/50 active:bg-primary-900 active:from-primary-900 active:via-primary-900 active:to-primary-900 active:shadow-none h-10 rounded-lg px-4 group relative gap-2 overflow-hidden translate-y-[-1rem] [--animation-delay:600ms] transform-gpu ring-offset-current transition-all hover:ring-2 hover:ring-neutral-400 duration-300 hover:transition-all w-fit",
         spotlight:
           "border border-2 border-neutral-800 rounded-xl text-secondary bg-neutral-900 p-3.5 text-sm font-medium overflow-clip relative group/spotlight hover:ring-4 ring-offset-0 ring-offset-neutral-900 duration-300 transform-gpu hover:transition-all hover:ring-neutral-300",
         bigShadow:
