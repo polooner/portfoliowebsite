@@ -1,3 +1,4 @@
+import { Instruction } from "@/types";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -47,3 +48,7 @@ export function ButtonInside() {
     </form>
   );
 }`;
+
+export const ButtonInsideInputInstructions: Instruction[] = [
+  { code: ButtonInsideCode, file: "ui/ButtonInsideInput.tsx" },
+];
