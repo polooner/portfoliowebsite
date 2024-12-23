@@ -20,6 +20,7 @@ import {
   PlaneIcon,
   RocketIcon,
 } from "lucide-react";
+import { Instruction } from "@/types";
 
 const items = [
   {
@@ -322,3 +323,15 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 `;
+
+export const SkiffNavigationBarInstructions: Instruction[] = [
+  {
+    code: "npx shadcn/ui add navigation-bar",
+    description: "First we need to install the shadcn navigation bar:",
+  },
+  {
+    code: SkiffNavigationBarCode,
+    file: "ui/NavigationBar.tsx",
+    description: "Then create this component",
+  },
+];

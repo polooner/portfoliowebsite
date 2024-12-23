@@ -1,5 +1,5 @@
 export type Instruction = {
-  file: string;
+  file?: string;
   code: string;
   description?: string;
 };

@@ -1,6 +1,7 @@
+import { Instruction } from "@/types";
 import { Disc, Menu } from "lucide-react";
 
-export const CrossEndedBoxNavigationBar = () => {
+export const CrossBordersNavBar = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-[30dvh] relative">
       <div className=" flex justify-between group/row isolate pt-[calc(theme(spacing.2)+1px)] last:pb-[calc(theme(spacing.2)+1px)] relative">
@@ -111,7 +112,7 @@ const Cross = ({
   );
 };
 
-export const CrossEndedBoxNavigationBarCode = `import { Disc, Menu } from "lucide-react";
+export const CrossBordersNavBarCode = `import { Disc, Menu } from "lucide-react";
 
 export const CrossEndedBoxNavigationBar = () => {
   return (
@@ -206,9 +207,9 @@ export const CrossEndedBoxNavigationBar = () => {
       </div>
     </div>
   );
-};
+};`;
 
-const Cross = ({
+const CrossCode = `const Cross = ({
   className,
   ...svgProps
 }: React.SVGProps<SVGSVGElement> & { className?: string }) => {
@@ -223,3 +224,16 @@ const Cross = ({
     </svg>
   );
 };`;
+
+export const CrossBordersNavBarInstructions: Instruction[] = [
+  {
+    code: CrossCode,
+    description: "Create this cross SVG first",
+    file: "ui/Cross.tsx",
+  },
+  {
+    code: CrossBordersNavBarCode,
+    file: "ui/CrossNavigationBar.tsx",
+    description: "Copy and paste this",
+  },
+];

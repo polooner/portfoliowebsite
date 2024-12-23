@@ -2,20 +2,22 @@
 
 import SkiffNavigationBar, {
   SkiffNavigationBarCode,
+  SkiffNavigationBarInstructions,
 } from "@/components/ui/navigation-bars/skiff";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
-  CrossEndedBoxNavigationBar,
-  CrossEndedBoxNavigationBarCode,
+  CrossBordersNavBar,
+  CrossBordersNavBarInstructions,
 } from "@/components/ui/navigation-bars/cross-ended-box-nav";
+import { ComponentData } from "@/types";
 
-const componentsArray = [
+const componentsArray: ComponentData[] = [
   {
     title: "Skiff Navigation Bar",
     components: [
       {
         component: SkiffNavigationBar,
-        code: SkiffNavigationBarCode,
+        instructions: SkiffNavigationBarInstructions,
       },
     ],
   },
@@ -23,8 +25,8 @@ const componentsArray = [
     title: "Cross Ended Box Navigation Bar",
     components: [
       {
-        component: CrossEndedBoxNavigationBar,
-        code: CrossEndedBoxNavigationBarCode,
+        component: CrossBordersNavBar,
+        instructions: CrossBordersNavBarInstructions,
       },
     ],
   },
