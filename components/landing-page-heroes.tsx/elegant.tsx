@@ -1,4 +1,6 @@
-export default function Elegant() {
+import { Instruction } from "@/types";
+
+export function LandingPage() {
   return (
     <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black rounded-xl">
       <div className="relative pt-[10dvh] opacity-100 translate-y-[0.001px] bg-black flex flex-col items-center justify-center">
@@ -26,7 +28,7 @@ export default function Elegant() {
   );
 }
 
-export const ElegantCode = `export default function Elegant() {
+export const ElegantCode = `export default function LandingPage() {
   return (
     <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black rounded-xl">
       <div className="relative pt-[10dvh] opacity-100 translate-y-[0.001px] bg-black flex flex-col items-center justify-center">
@@ -54,3 +56,7 @@ export const ElegantCode = `export default function Elegant() {
   );
 }
 `;
+
+export const ElegantCodeInstructions: Instruction[] = [
+  { code: ElegantCode, file: "ui/Elegant.tsx" },
+];

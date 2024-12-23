@@ -6,8 +6,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import SimpleCard from "../ui/cards/simple-card";
 import { Button } from "../ui/button";
 import { ArrowRight } from "lucide-react";
+import { Instruction } from "@/types";
 
-export default function SmoothCurveUp({ key }: TemplateComponentProps) {
+export function LandingPage({ key }: TemplateComponentProps) {
   const sentences = [
     "So like this is the first sentence.",
     "Here's the second one.",
@@ -116,7 +117,7 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
   );
 }
 
-export const SmoothCurveUpCode = `"use client";
+export const SmoothCurveUpLandingPageCode = `"use client";
 
 import { useCallback, useState } from "react";
 import { TemplateComponentProps } from "./stop-playing-underscore";
@@ -234,3 +235,11 @@ export default function SmoothCurveUp({ key }: TemplateComponentProps) {
   );
 }
 `;
+
+export const SmoothCurveUpInstructions: Instruction[] = [
+  {
+    code: SmoothCurveUpLandingPageCode,
+    file: "ui/LandingPage.tsx",
+    description: "Now let's use that component in the landing page",
+  },
+];

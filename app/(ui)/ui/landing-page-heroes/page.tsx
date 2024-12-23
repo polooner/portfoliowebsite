@@ -3,39 +3,45 @@
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
 import {
   StopPlayingUnderscore,
-  StopPlayingUnderscoreCode,
-} from "../../../../components/landing-page-heroes.tsx/stop-playing-underscore";
-import DayByDay from "../../../../components/landing-page-heroes.tsx/day-by-day";
-import { DayByDayCode } from "../../../../lib/code-strings";
-import SmoothCurveUp, {
-  SmoothCurveUpCode,
+  StopPlayingUnderscoreInstructions,
+} from "@/components/landing-page-heroes.tsx/stop-playing-underscore";
+import {
+  DayByDayInstructions,
+  LandingPage as DayByDay,
+} from "@/components/landing-page-heroes.tsx/day-by-day";
+import {
+  LandingPage as SmoothCurveUp,
+  SmoothCurveUpInstructions,
 } from "@/components/landing-page-heroes.tsx/smooth-curve";
-import MarketingAgency, {
-  MarketingAgencyCode,
+import {
+  LandingPage as MarketingAgency,
+  MarketingAgencyLandingPageInstructions,
 } from "@/components/landing-page-heroes.tsx/marketing-agency";
 import {
-  AllYouNeed,
-  AllYouNeedCode,
+  LandingPage as AllYouNeed,
+  AllYouNeedInstructions,
 } from "@/components/landing-page-heroes.tsx/all-you-need";
 import {
-  LowercaseIsKing,
-  LowercaseIsKingCode,
+  LandingPage as LowercaseIsKing,
+  LowercaseIsKingInstructions,
 } from "@/components/landing-page-heroes.tsx/lowercase-is-king";
-import Elegant, {
-  ElegantCode,
+import {
+  LandingPage as Elegant,
+  ElegantCodeInstructions,
 } from "@/components/landing-page-heroes.tsx/elegant";
 import {
-  EveryOtherStartup,
-  EveryOtherStatupCode,
+  LandingPage as EveryOtherStartup,
+  EveryOtherStartupInstructions,
 } from "@/components/landing-page-heroes.tsx/every-other-startup";
+import { ComponentData } from "@/types";
 
-const componentsArray = [
+const componentsArray: ComponentData[] = [
   {
     title: "Stop Playing Underscore",
     components: [
       {
         component: StopPlayingUnderscore,
-        code: StopPlayingUnderscoreCode,
+        instructions: StopPlayingUnderscoreInstructions,
       },
     ],
   },
@@ -44,7 +50,7 @@ const componentsArray = [
     components: [
       {
         component: DayByDay,
-        code: DayByDayCode,
+        instructions: DayByDayInstructions,
       },
     ],
   },
@@ -53,7 +59,7 @@ const componentsArray = [
     components: [
       {
         component: SmoothCurveUp,
-        code: SmoothCurveUpCode,
+        instructions: SmoothCurveUpInstructions,
       },
     ],
   },
@@ -63,7 +69,7 @@ const componentsArray = [
       {
         component: MarketingAgency,
         animateAble: true,
-        code: MarketingAgencyCode,
+        instructions: MarketingAgencyLandingPageInstructions,
       },
     ],
   },
@@ -72,7 +78,7 @@ const componentsArray = [
     components: [
       {
         component: AllYouNeed,
-        code: AllYouNeedCode,
+        instructions: AllYouNeedInstructions,
       },
     ],
   },
@@ -81,7 +87,7 @@ const componentsArray = [
     components: [
       {
         component: LowercaseIsKing,
-        code: LowercaseIsKingCode,
+        instructions: LowercaseIsKingInstructions,
       },
     ],
   },
@@ -90,7 +96,7 @@ const componentsArray = [
     components: [
       {
         component: Elegant,
-        code: ElegantCode,
+        instructions: ElegantCodeInstructions,
       },
     ],
   },
@@ -99,7 +105,7 @@ const componentsArray = [
     components: [
       {
         component: EveryOtherStartup,
-        code: EveryOtherStatupCode,
+        instructions: EveryOtherStartupInstructions,
       },
     ],
   },

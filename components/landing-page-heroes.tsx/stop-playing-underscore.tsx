@@ -1,3 +1,5 @@
+import { Instruction } from "@/types";
+
 export interface TemplateComponentProps {
   key?: number;
 }
@@ -130,3 +132,7 @@ export const StopPlayingUnderscoreCode = `
     );
   }
   `;
+
+export const StopPlayingUnderscoreInstructions: Instruction[] = [
+  { code: StopPlayingUnderscoreCode, file: "ui/StopPlayingLandingPage.tsx" },
+];

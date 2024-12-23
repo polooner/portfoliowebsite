@@ -1,7 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
+import { Instruction } from "@/types";
 
-export const AllYouNeed = () => {
+export const LandingPage = () => {
   return (
     <div className="w-full h-[80dvh] flex items-center justify-center">
       <div className="flex flex-col items-center max-w-2xl mx-auto text-center">
@@ -24,7 +25,7 @@ export const AllYouNeed = () => {
 export const AllYouNeedCode = `import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 
-export const AllYouNeed = () => {
+export const LandingPage = () => {
   return (
     <div className="w-full h-[80dvh] flex items-center justify-center">
       <div className="flex flex-col items-center max-w-2xl mx-auto text-center">
@@ -44,3 +45,7 @@ export const AllYouNeed = () => {
   );
 };
 `;
+
+export const AllYouNeedInstructions: Instruction[] = [
+  { code: AllYouNeedCode, file: "ui/LandingPage.tsx" },
+];
