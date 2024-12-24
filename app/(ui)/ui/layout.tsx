@@ -1,8 +1,8 @@
 "use client";
 
 import MobileUISheetTrigger from "@/components/ui/mobile-ui-sheet-trigger";
+import NavBar from "@/components/ui/NavBar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Pencil1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -37,24 +37,10 @@ export default function UILayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   return (
     <div className="flex flex-col gap-4 w-full">
-      <nav className="flex flex-row items-center w-full pt-4 px-2">
+      <NavBar>
         <MobileUISheetTrigger />
-        <div className="flex flex-row items-center text-start justify-center sm:gap-x-4 gap-x-2 top-10 px-8 flex-grow z-50 bg-white/50">
-          <Link
-            href="/"
-            className="flex underline flex-row gap-x-1 items-center"
-          >
-            <p>home</p>
-          </Link>
-          <Link
-            href="/blog"
-            className="flex underline flex-row gap-x-1 items-center"
-          >
-            <p>blog</p>
-            <Pencil1Icon />
-          </Link>
-        </div>
-      </nav>
+      </NavBar>
+
       <div className="w-full flex-1 items-start md:grid md:grid-cols-[240px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-10">
         <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block py-8 pl-4">
           <ScrollArea>
