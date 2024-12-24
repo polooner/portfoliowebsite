@@ -1,4 +1,6 @@
-export const CrossEndedBox = () => {
+import { Instruction } from "@/types";
+
+export const CrossBordersBox = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-[30dvh] relative">
       <div className=" flex justify-between group/row isolate pt-[calc(theme(spacing.2)+1px)] last:pb-[calc(theme(spacing.2)+1px)] relative">
@@ -74,7 +76,7 @@ const Cross = ({
   );
 };
 
-export const CrossEndedBoxCode = `export const CrossEndedBox = () => {
+export const CrossBordersBoxCode = `export const CrossBordersBox = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full h-[30dvh] relative">
       <div className=" flex justify-between group/row isolate pt-[calc(theme(spacing.2)+1px)] last:pb-[calc(theme(spacing.2)+1px)] relative">
@@ -132,9 +134,9 @@ export const CrossEndedBoxCode = `export const CrossEndedBox = () => {
       </div>
     </div>
   );
-};
+};`;
 
-const Cross = ({
+const CrossCode = `const Cross = ({
   className,
   ...svgProps
 }: React.SVGProps<SVGSVGElement> & { className?: string }) => {
@@ -149,3 +151,12 @@ const Cross = ({
     </svg>
   );
 };`;
+
+export const CrossCodeInstructions: Instruction[] = [
+  {
+    code: CrossCode,
+    description: "Create the cross SVG",
+    file: "ui/Cross.tsx",
+  },
+  { code: CrossBordersBoxCode, file: "ui/CrossBordersBox.tsx" },
+];

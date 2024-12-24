@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  CrossEndedBox,
-  CrossEndedBoxCode,
+  CrossBordersBox,
+  CrossCodeInstructions,
 } from "@/components/patterns/cross-ended-box";
 import { ToggleableComponentCard } from "../toggleable-component-code-card";
 
@@ -11,8 +11,8 @@ const componentsArray = [
     title: "Cross Ended Box",
     components: [
       {
-        component: CrossEndedBox,
-        code: CrossEndedBoxCode,
+        component: CrossBordersBox,
+        instructions: CrossCodeInstructions,
       },
     ],
   },
