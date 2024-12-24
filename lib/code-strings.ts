@@ -27,7 +27,7 @@ export default function DayByDay() {
             asChild
             className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 dark:bg-white bg-black text-white shadow hover:bg-black/90 h-12 px-8 py-4 -translate-y-4 animate-fade-in gap-1  opacity-100 ease-in-out [--animation-delay:600ms] dark:text-black"
           >
-            <Link href="/download">
+            <Link href="#">
               <span>Copy This Now</span>
               <ArrowRight className="ml-1 size-4" />
             </Link>
