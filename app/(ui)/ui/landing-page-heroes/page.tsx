@@ -1,30 +1,13 @@
 "use client";
 
-import { ToggleableComponentCard } from "../toggleable-component-code-card";
-import {
-  StopPlayingUnderscore,
-  StopPlayingUnderscoreInstructions,
-} from "@/components/landing-page-heroes.tsx/stop-playing-underscore";
-import {
-  DayByDayInstructions,
-  LandingPage as DayByDay,
-} from "@/components/landing-page-heroes.tsx/day-by-day";
-import {
-  LandingPage as SmoothCurveUp,
-  SmoothCurveUpInstructions,
-} from "@/components/landing-page-heroes.tsx/smooth-curve";
-import {
-  LandingPage as MarketingAgency,
-  MarketingAgencyLandingPageInstructions,
-} from "@/components/landing-page-heroes.tsx/marketing-agency";
 import {
   LandingPage as AllYouNeed,
   AllYouNeedInstructions,
 } from "@/components/landing-page-heroes.tsx/all-you-need";
 import {
-  LandingPage as LowercaseIsKing,
-  LowercaseIsKingInstructions,
-} from "@/components/landing-page-heroes.tsx/lowercase-is-king";
+  LandingPage as DayByDay,
+  DayByDayInstructions,
+} from "@/components/landing-page-heroes.tsx/day-by-day";
 import {
   LandingPage as Elegant,
   ElegantCodeInstructions,
@@ -33,7 +16,24 @@ import {
   LandingPage as EveryOtherStartup,
   EveryOtherStartupInstructions,
 } from "@/components/landing-page-heroes.tsx/every-other-startup";
-import { ComponentData, ComponentShowcase } from "@/types";
+import {
+  LandingPage as LowercaseIsKing,
+  LowercaseIsKingInstructions,
+} from "@/components/landing-page-heroes.tsx/lowercase-is-king";
+import {
+  LandingPage as MarketingAgency,
+  MarketingAgencyLandingPageInstructions,
+} from "@/components/landing-page-heroes.tsx/marketing-agency";
+import {
+  LandingPage as SmoothCurveUp,
+  SmoothCurveUpInstructions,
+} from "@/components/landing-page-heroes.tsx/smooth-curve";
+import {
+  StopPlayingUnderscore,
+  StopPlayingUnderscoreInstructions,
+} from "@/components/landing-page-heroes.tsx/stop-playing-underscore";
+import { ComponentShowcase } from "@/types";
+import { ToggleableComponentCard } from "../toggleable-component-code-card";
 
 const componentsArray: ComponentShowcase[] = [
   {

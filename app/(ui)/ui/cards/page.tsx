@@ -1,21 +1,18 @@
 "use client";
 
 import SimpleCard, {
-  SimpleCardCode,
   SimpleCardInstructions,
 } from "@/components/ui/cards/simple-card";
-import { ToggleableComponentCard } from "../toggleable-component-code-card";
-import {
-  TransformerCardWithFramerAndMenu,
-  TransformerCardWithFramerAndMenuCode,
-  TransformerCardWithFramerAndMenuInstructions,
-} from "@/components/ui/cards/transformer/with-framer";
 import {
   TransformerCard,
-  TransformerCardCode,
   TransformerCardWithInstructions,
 } from "@/components/ui/cards/transformer/plain";
-import { ComponentData, ComponentShowcase } from "@/types";
+import {
+  TransformerCardWithFramerAndMenu,
+  TransformerCardWithFramerAndMenuInstructions,
+} from "@/components/ui/cards/transformer/with-framer";
+import { ComponentShowcase } from "@/types";
+import { ToggleableComponentCard } from "../toggleable-component-code-card";
 
 const componentsArray: ComponentShowcase[] = [
   {
