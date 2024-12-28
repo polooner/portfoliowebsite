@@ -1,0 +1,105 @@
+---
+publishedAt: "2024-12-28"
+title: Create an AWS S3 Bucket with public access
+summary: "How to create an S3 bucket with content accessible by anyone"
+---
+
+AWS S3 bucket is probably the cheapest and most convenient way to create file storage for your project. However Big Tech likes to make things way too complicated and it can be very time consuming to set
+up a simple bucket. We have to handle policies, allow public access, and set up CORS policies. This is a very simple guide that will give you the commands to create a completely public S3 bucket.
+
+<br />
+
+<Callout>
+  Note: It may not be the safest idea to have a completely public bucket. If you
+  have user data that should only ever be accessible by the user, you should set
+  up custom policies that will handle access control based on user credentials.
+  For now, this guide only covers the scenario of a fully public bucket.
+</Callout>
+
+<br />
+
+<h2>Prerequisites:</h2>
+<ol>
+  <li>
+    Installed and authenticated AWS CLI (you ran the `aws configure` command)
+  </li>
+
+</ol>
+
+1. Create the bucket with this command:
+   <br />
+
+```
+aws s3api head-bucket --bucket "YOUR BUCKET NAME HERE"
+aws s3 mb "s3://${BUCKET}" --region ${REGION} --output json >/dev/null
+aws s3api put-public-access-block \
+    --bucket "${BUCKET}" \
+    --public-access-block-configuration \
+        "BlockPublicAcls=false,IgnorePublicAcls=false,BlockPublicPolicy=false,RestrictPublicBuckets=false"
+```
+
+</br>
+The passed `--public-access-block-configuration` flag sets up unapologetically public access. By default, AWS creates buckets that block all public access, making you configure ACLs and/or other sorts of 
+authentication configurations that allow secure access.
+
+2. Create an IAM policy that will allow anyone access the contents of this bucket.
+
+```
+BUCKET_POLICY='{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::'${BUCKET}'/*"
+        }
+    ]
+}'
+
+aws s3api put-bucket-policy --bucket "YOUR BUCKET NAME" --policy "$BUCKET_POLICY"
+```
+
+## Allowing an Amazon Elastic Container Service deployment access the bucket
+
+</br>
+Most of the time you will probably want to let some sort of a service put objects inside of this bucket. This example will show how to allow a container deployed on AWS' ECS access this bucket.
+For example, you may have a backend deployed on Fargate + ECS and want to let it upload files inside the bucket.
+
+<Callout>
+  This code snippet assumes you have some sort of a deployment script, let's say
+  `deploy.sh` and a `template.yml` which specifies your resources. The following
+  is just an IAM role with a policy that will allow your service to upload
+  objects into the S3 bucket. You would then attach this role to an ECS resource
+  defined in this same template.
+  </br>
+</Callout>
+
+```
+TaskExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: "sts:AssumeRole"
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+      Policies:
+        - PolicyName: S3AccessPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "arn:aws:s3:::YOUR_RESOURCE_NAME"
+                  - !Sub "arn:aws:s3:::YOUR_RESOURCE_NAME/*"
+```
