@@ -17,11 +17,23 @@ export default function Home() {
 
         <br />
         <br />
-        <div>
-          currently founder & ceo @ 
+        <div className="flex flex-row gap-1">
+          building the world's first video editing copilot
           <Link
             className="font-bold hover:underline"
-            target="_blank" 
+            target="_blank"
+            href="https://www.ekran.ai"
+          >
+            ekran.ai
+          </Link>
+        </div>
+
+        <br />
+        <div className="flex flex-row gap-1">
+          previously built an ai shorts generator
+          <Link
+            className="font-bold hover:underline"
+            target="_blank"
             href="https://www.makeklips.ai"
           >
             makeklips.ai
@@ -37,7 +49,6 @@ export default function Home() {
           >
             julius.ai
           </Link>
-          
         </div>
         <br />
         <p>i am based out of sf</p>

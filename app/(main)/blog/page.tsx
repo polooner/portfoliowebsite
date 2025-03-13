@@ -1,23 +1,24 @@
-import Link from 'next/link';
+import Link from "next/link";
 // import { getViewsCount } from 'app/db/queries';
-import { ReaderIcon } from '@radix-ui/react-icons';
-import { getBlogPosts } from 'app/db/blog';
+import { ReaderIcon } from "@radix-ui/react-icons";
+import { getBlogPosts } from "app/db/blog";
 
 export const metadata = {
-  title: 'Blog',
-  description: 'Read my thoughts on software development, design, and more.',
+  title: "Blog",
+  description: "Read my thoughts on software development, design, and more.",
 };
 
 export default function BlogPage() {
   let allBlogs = getBlogPosts();
 
   return (
-    <section className='flex flex-col space-y-8 items-center text-start'>
-      <h1 className='underline tracking-tighter'>
+    <section className="flex flex-col space-y-8 items-center text-start">
+      <h1 className="underline tracking-tighter">
         read my blog. thoughts, research and more...
       </h1>
-      <div className='flex flex-col items-start space-y-8 '>
+      <div className="flex flex-col items-start space-y-8 ">
         {allBlogs
+          .filter((post) => post.metadata.publishedAt)
           .sort((a, b) => {
             if (
               new Date(a.metadata.publishedAt) >
@@ -30,17 +31,17 @@ export default function BlogPage() {
           .map((post) => (
             <Link
               key={post.slug}
-              className='flex flex-col space-y-1 items-baseline justify-center hover:underline'
+              className="flex flex-col space-y-1 items-baseline justify-center hover:underline"
               href={`/blog/${post.slug}`}
             >
-              <div className='flex text-start items-start flex-col w-full'>
-                <div className='flex flex-row text-start items-center w-full space-x-2'>
+              <div className="flex text-start items-start flex-col w-full">
+                <div className="flex flex-row text-start items-center w-full space-x-2">
                   <ReaderIcon />
-                  <p className='tracking-tight text-start text-black'>
+                  <p className="tracking-tight text-start text-black">
                     {post.metadata.title}
                   </p>
                 </div>
-                <span className='text-xs opacity-80'>
+                <span className="text-xs opacity-80">
                   published at: {post.metadata.publishedAt}
                 </span>
                 {/* <Suspense fallback={<p className='h-6' />}>
