@@ -12,9 +12,7 @@ export default function Home() {
       <div className=" text-start">
         <strong>Filip Wojda</strong>
         <br />
-
-        <p>ai founder & engineer</p>
-
+        <p>technical founder, creative</p>
         <br />
         <br />
         <div className="flex flex-row gap-1">
@@ -27,7 +25,16 @@ export default function Home() {
             ekran.ai
           </Link>
         </div>
-
+        launched from{" "}
+        <Link
+          className="font-bold hover:underline"
+          target="_blank"
+          href="https://www.f.inc"
+        >
+          f.inc
+        </Link>{" "}
+        [ship it] in feb - mar 2025
+        <br />
         <br />
         <div className="flex flex-row gap-1">
           previously built an ai shorts generator
@@ -51,7 +58,12 @@ export default function Home() {
           </Link>
         </div>
         <br />
-        <p>i am based out of sf</p>
+        <div className="flex flex-row gap-1 max-w-sm">
+          previously previously made art, clothes, a little bit of acting in a
+          past life in new york
+        </div>
+        <br />
+        <p>i am based out of sf, visit nyc every few months</p>
         <br />
         <div>
           i like philosophy <br /> and ai <br /> and ui.
