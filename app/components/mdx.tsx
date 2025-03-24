@@ -1,9 +1,9 @@
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { highlight } from 'sugar-high';
-import { TweetComponent } from '../../components/tweet';
+import { MDXRemote } from "next-mdx-remote/rsc";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { highlight } from "sugar-high";
+import { TweetComponent } from "../../components/tweet";
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -30,30 +30,37 @@ function Table({ data }) {
 function CustomLink(props) {
   let href = props.href;
 
-  if (href.startsWith('/')) {
+  if (href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
+      <Link href={href} {...props} className="font-bold">
         {props.children}
       </Link>
     );
   }
 
-  if (href.startsWith('#')) {
-    return <a {...props} />;
+  if (href.startsWith("#")) {
+    return <a className="font-bold" {...props} />;
   }
 
-  return <a target='_blank' rel='noopener noreferrer' {...props} />;
+  return (
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+      className="font-bold"
+    />
+  );
 }
 
 function RoundedImage(props) {
-  return <Image alt={props.alt} className='rounded-lg' {...props} />;
+  return <Image alt={props.alt} className="rounded-lg" {...props} />;
 }
 
 function Callout(props) {
   return (
-    <div className='flex items-center p-1 px-4 py-3 mb-8 text-sm text-black border rounded border-neutral-200  bg-neutral-200 '>
-      <div className='flex items-center w-4 mr-4'>{props.emoji}</div>
-      <div className='w-full callout'>{props.children}</div>
+    <div className="flex items-center p-1 px-4 py-3 mb-8 text-sm text-black border rounded border-neutral-200  bg-neutral-200 ">
+      <div className="flex items-center w-4 mr-4">{props.emoji}</div>
+      <div className="w-full callout">{props.children}</div>
     </div>
   );
 }
@@ -61,7 +68,7 @@ function Callout(props) {
 function CopyWord(props) {
   return (
     <button
-      className='p-1 rounded bg-neutral-500'
+      className="p-1 rounded bg-neutral-500"
       onClick={() => {
         navigator.clipboard.writeText(this.state.textToCopy);
       }}
@@ -73,22 +80,22 @@ function CopyWord(props) {
 
 function ProsCard({ title, pros }) {
   return (
-    <div className='w-full p-6 my-4 border border-emerald-900 bg-neutral-900 rounded-xl'>
+    <div className="w-full p-6 my-4 border border-emerald-900 bg-neutral-900 rounded-xl">
       <span>{`You might use ${title} if...`}</span>
-      <div className='mt-4'>
+      <div className="mt-4">
         {pros.map((pro) => (
-          <div key={pro} className='flex items-baseline mb-2 font-medium'>
-            <div className='w-4 h-4 mr-2'>
-              <svg className='w-4 h-4 text-emerald-500' viewBox='0 0 24 24'>
+          <div key={pro} className="flex items-baseline mb-2 font-medium">
+            <div className="w-4 h-4 mr-2">
+              <svg className="w-4 h-4 text-emerald-500" viewBox="0 0 24 24">
                 <g
-                  fill='none'
-                  stroke='currentColor'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <path d='M22 11.08V12a10 10 0 11-5.93-9.14' />
-                  <path d='M22 4L12 14.01l-3-3' />
+                  <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                  <path d="M22 4L12 14.01l-3-3" />
                 </g>
               </svg>
             </div>
@@ -100,21 +107,29 @@ function ProsCard({ title, pros }) {
   );
 }
 
+function Quote({ children }) {
+  return (
+    <div className="bg-neutral-100 w-fit italic font-medium p-1 rounded-md">
+      {children}
+    </div>
+  );
+}
+
 function ConsCard({ title, cons }) {
   return (
-    <div className='w-full p-6 my-6 border border-red-900 bg-neutral-900 rounded-xl'>
+    <div className="w-full p-6 my-6 border border-red-900 bg-neutral-900 rounded-xl">
       <span>{`You might not use ${title} if...`}</span>
-      <div className='mt-4'>
+      <div className="mt-4">
         {cons.map((con) => (
-          <div key={con} className='flex items-baseline mb-2 font-medium'>
-            <div className='w-4 h-4 mr-2'>
+          <div key={con} className="flex items-baseline mb-2 font-medium">
+            <div className="w-4 h-4 mr-2">
               <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 20 20'
-                fill='currentColor'
-                className='w-4 h-4 text-red-500'
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="w-4 h-4 text-red-500"
               >
-                <path d='M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z' />
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
               </svg>
             </div>
             <span>{con}</span>
@@ -135,10 +150,10 @@ function slugify(str) {
     .toString()
     .toLowerCase()
     .trim() // Remove whitespace from both ends of a string
-    .replace(/\s+/g, '-') // Replace spaces with -
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-    .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+    .replace(/\s+/g, "-") // Replace spaces with -
+    .replace(/&/g, "-and-") // Replace & with 'and'
+    .replace(/[^\w\-]+/g, "") // Remove all non-word characters except for -
+    .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
 function createHeading(level) {
@@ -149,10 +164,10 @@ function createHeading(level) {
       `h${level}`,
       { id: slug },
       [
-        React.createElement('a', {
+        React.createElement("a", {
           href: `#${slug}`,
           key: `link-${slug}`,
-          className: 'anchor',
+          className: "anchor",
         }),
       ],
       children
@@ -167,8 +182,9 @@ let components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
+  Quote,
   Image: RoundedImage,
-  a: CustomLink,
+  CustomLink,
   Callout,
   ProsCard,
   ConsCard,

@@ -5,7 +5,7 @@ import { getBlogPosts } from "app/db/blog";
 
 export const metadata = {
   title: "Blog",
-  description: "Read my thoughts on software development, design, and more.",
+  description: "Read my thoughts on arts, software, and more.",
 };
 
 export default function BlogPage() {
@@ -13,9 +13,7 @@ export default function BlogPage() {
 
   return (
     <section className="flex flex-col space-y-8 items-center text-start">
-      <h1 className="underline tracking-tighter">
-        read my blog. thoughts, research and more...
-      </h1>
+      <h1 className="tracking-tighter">sometimes i write</h1>
       <div className="flex flex-col items-start space-y-8 ">
         {allBlogs
           .filter((post) => post.metadata.publishedAt)
@@ -36,13 +34,12 @@ export default function BlogPage() {
             >
               <div className="flex text-start items-start flex-col w-full">
                 <div className="flex flex-row text-start items-center w-full space-x-2">
-                  <ReaderIcon />
                   <p className="tracking-tight text-start text-black">
                     {post.metadata.title}
                   </p>
                 </div>
                 <span className="text-xs opacity-80">
-                  published at: {post.metadata.publishedAt}
+                  {post.metadata.publishedAt}
                 </span>
                 {/* <Suspense fallback={<p className='h-6' />}>
                 <Views slug={post.slug} />
