@@ -32,14 +32,14 @@ function CustomLink(props) {
 
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...props} className="font-bold">
+      <Link href={href} {...props} className="font-bold underline">
         {props.children}
       </Link>
     );
   }
 
   if (href.startsWith("#")) {
-    return <a className="font-bold" {...props} />;
+    return <a className="font-bold underline" {...props} />;
   }
 
   return (
@@ -47,7 +47,7 @@ function CustomLink(props) {
       target="_blank"
       rel="noopener noreferrer"
       {...props}
-      className="font-bold"
+      className="font-bold underline"
     />
   );
 }
