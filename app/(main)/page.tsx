@@ -12,7 +12,7 @@ export default function Home() {
       <div className=" text-start">
         <strong>Filip Wojda</strong>
         <br />
-        <p>technical founder, creative</p>
+        <p>founder, creative</p>
         <br />
         <br />
         <div className="flex flex-row gap-1">
