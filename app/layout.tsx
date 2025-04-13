@@ -12,19 +12,21 @@ export const metadata: Metadata = {
   description: "a creator",
 };
 
+import { haffer } from "./fonts";
+
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={GeistSans.variable + " " + GeistMono.variable}>
+    <html lang="en" className={haffer.variable}>
       <body className="antialiased tracking-tighter">
         <link rel="icon" href="/favicon.ico" sizes="any" />
 
         <div className="flex flex-col min-h-screen w-full">
           <main className="flex-grow">{children}</main>
-          <footer className="flex flex-row items-center justify-center py-8 gap-4 mt-auto border-t  border-black/10 dark:border-white">
+          <footer className="flex flex-row items-center justify-center py-2 gap-4 mt-auto  text-xs">
             <Link
               target="_blank"
               href="https://twitter.com/filipwojda"
