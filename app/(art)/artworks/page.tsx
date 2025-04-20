@@ -11,6 +11,11 @@ const artworks = {
     src: "/bridges.jpg",
     alt: "bridges",
     title: "bridges",
+  },
+  running: {
+    src: "/running.png",
+    alt: "running",
+    title: "running",
   }
 };
 
