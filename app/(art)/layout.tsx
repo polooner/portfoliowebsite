@@ -1,14 +1,10 @@
-import NavBar from "@/components/ui/NavBar";
+import NavBar from '@/components/ui/NavBar';
 
-export default function ArtLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ArtLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-y-10 w-full self-center items-center">
+    <div className="flex flex-col gap-y-10 w-full self-center items-center pb-10">
       <NavBar />
       {children}
     </div>
   );
-} 
+}

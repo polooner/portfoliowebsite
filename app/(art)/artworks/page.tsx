@@ -1,39 +1,36 @@
-import Image from "next/image";
+import Image from 'next/image';
+import Link from 'next/link';
 
-const artworks = {
-  distortedOcean: {
-    src: "/distorted_ocean.png",
-    alt: "distorted ocean",
-    title: "how does it feel to know?"
+const artworksList = [
+  {
+    id: 'wires',
+    title: 'melting ruin',
+    image: '/distorted_ocean.png',
+    date: 'April 2025',
   },
-  bridgeFoundation: {
-    src: "/bridges.jpg",
-    alt: "bridges",
-    title: "bridges",
-  },
-  running: {
-    src: "/running.png",
-    alt: "running",
-    title: "running",
-  }
-};
+];
 
 export default function Artworks() {
   return (
-    <div className="flex flex-col items-center max-w-4xl mx-auto px-4 gap-14">
-      {Object.values(artworks).map((artwork) => (
-        <div key={artwork.src} className="w-full max-w-3xl overflow-hidden">
-          <Image
-            src={artwork.src}
-            alt={artwork.alt}
-            width={1200}
-            height={800}
-            className="w-full h-auto object-cover"
-            priority
-          />
-          {artwork.title}
-        </div>
-      ))}
+    <div className="w-96  min-w-96 mx-auto px-4 py-8 gap-12 flex flex-col">
+      <h1 className="text-xl text-center">Collections of artworks.</h1>
+      <div className="flex flex-col gap-16 w-full">
+        {artworksList.map(artwork => (
+          <Link key={artwork.id} href={`/artworks/${artwork.id}`}>
+            <div className="overflow-hidden ">
+              <div className="h-72 relative">
+                <Image src={artwork.image} alt={artwork.title} fill className="object-cover" />
+              </div>
+              <div>
+                <div className="w-fit bg-black border border-black p-1">
+                  <p className="font-medium text-lg text-white ">{artwork.title}</p>
+                  <p className="text-neutral-200 text-xs">{artwork.date}</p>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
