@@ -26,38 +26,7 @@ export default async function RootLayout({
 
         <div className="flex flex-col min-h-screen w-full">
           <main className="flex-grow">{children}</main>
-          <footer className="flex flex-row items-center justify-center py-2 gap-4 mt-auto  text-xs">
-            <Link
-              target="_blank"
-              href="https://twitter.com/filipwojda"
-              className="flex underline flex-row gap-x-1 items-center"
-            >
-              <p>x</p>
-              <ArrowIcon />
-            </Link>
-            <Link
-              target="_blank"
-              href="https://www.linkedin.com/in/filip-wojda/"
-              className="flex flex-row gap-x-1 underline items-center"
-            >
-              <p>linkedin</p>
-              <ArrowIcon />
-            </Link>
-            <Link
-              href="https://github.com/polooner"
-              className="flex underline flex-row gap-x-1 items-center"
-            >
-              <p>github</p>
-              <ArrowIcon />
-            </Link>
-            <Link
-              href="mailto:wojdafilipdev@gmail.com"
-              className="flex underline flex-row gap-x-1 items-center"
-            >
-              <p>email</p>
-              <ArrowIcon />
-            </Link>
-          </footer>
+          
         </div>
         <Toaster />
       </body>

@@ -1,72 +1,101 @@
-import { Metadata } from "next";
-import Link from "next/link";
+import ArrowIcon from '@/components/ui/icons';
+import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: "Filip Wojda",
-  description: "I like to build.",
+  title: 'Filip Wojda',
+  description: 'I like to build.',
 };
 
 export default function Home() {
   return (
-    <section className="flex flex-col gap-y-10 w-full py-20 self-center items-center">
-      <div className=" text-start">
-        <strong>Filip Wojda</strong>
-        <br />
-        <p>founder, creative</p>
-        <br />
-        <br />
-        <div className="flex flex-row gap-1">
-          building the world's first video editing copilot
-          <Link
-            className="font-bold hover:underline"
-            target="_blank"
-            href="https://www.ekran.ai"
-          >
-            ekran.ai
-          </Link>
-        </div>
-        launched from{" "}
-        <Link
-          className="font-bold hover:underline"
-          target="_blank"
-          href="https://www.f.inc"
-        >
-          f.inc
-        </Link>{" "}
-        [ship it] in feb - mar 2025
-        <br />
-        <br />
-        <div className="flex flex-row gap-1">
-          previously built an ai shorts generator
-          <Link
-            className="font-bold hover:underline"
-            target="_blank"
-            href="https://www.makeklips.ai"
-          >
-            makeklips.ai
-          </Link>
-        </div>
+    <section className="flex flex-col gap-y-10 w-72 py-20 self-center items-center ">
+      <div className="w-72 gap-4 text-start flex flex-col">
         <div>
+          <strong>Filip Wojda</strong>
           <br />
-          previously founding engineer & employee #6 @
+          <p>artist, ex-founder, technologist</p>
+          <br />
+          <div>
+            <p>i am based out of nyc.</p>
+          </div>
+
+          <div>
+            i like philosophy <br /> and ai <br /> and ui.
+          </div>
+        </div>
+        <br />
+        <br />
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-1">
+            <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
+              ekran.ai
+            </Link>
+            <div>a video editing copilot. chat to edit videos.</div>
+            <div>
+              launched from{' '}
+              <Link className="font-bold hover:underline" target="_blank" href="https://www.f.inc">
+                f.inc
+              </Link>{' '}
+              [ship it] in march 2025
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <Link
+              className="font-bold hover:underline"
+              target="_blank"
+              href="https://www.julius.ai"
+            >
+              julius.ai
+            </Link>
+            previously founding engineer & employee #6.
+          </div>
+          <div className="flex flex-col gap-1">
+            <Link
+              className="font-bold hover:underline"
+              target="_blank"
+              href="https://www.makeklips.ai"
+            >
+              makeklips.ai
+            </Link>
+            ai shorts generator.
+          </div>
+        </div>
+        <br />
+        <br />
+        <div className="text-start gap-2 items-start ">
+          <strong className="mono">Contact</strong>
           <Link
-            className="font-bold hover:underline"
             target="_blank"
-            href="https://www.julius.ai"
+            href="https://twitter.com/filipwojda"
+            className="flex hover:underline flex-row gap-x-1 items-center"
           >
-            julius.ai
+            <p>twitter (x)</p>
+            <ArrowIcon />
           </Link>
-        </div>
-        <br />
-        <div className="flex flex-row gap-1 max-w-sm">
-          previously previously made art, clothes, a little bit of acting in a
-          past life in new york
-        </div>
-        <br />
-        <p>i am based out of sf, visit nyc every few months</p>
-        <br />
-        <div>
-          i like philosophy <br /> and ai <br /> and ui.
+          <Link
+            target="_blank"
+            href="https://www.linkedin.com/in/filip-wojda/"
+            className="flex flex-row gap-x-1 hover:underline items-center"
+          >
+            <p>linkedin</p>
+            <ArrowIcon />
+          </Link>
+          <Link
+            href="https://github.com/polooner"
+            className="flex hover:underline flex-row gap-x-1 items-center"
+          >
+            <p>github</p>
+            <ArrowIcon />
+          </Link>
+          <Link
+            href="mailto:wojdafilipdev@gmail.com"
+            className="flex hover:underline flex-row gap-x-1 items-center"
+          >
+            <p>email</p>
+            <ArrowIcon />
+          </Link>
         </div>
       </div>
     </section>
