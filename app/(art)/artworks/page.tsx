@@ -4,9 +4,15 @@ import Link from 'next/link';
 const artworksList = [
   {
     id: 'wires',
-    title: 'melting ruin',
+    title: '"melting ruin"',
     image: '/distorted_ocean.png',
     date: 'April 2025',
+  },
+  {
+    id: '2022drawings',
+    title: 'collections of drawings from 2022',
+    image: '/placeholder.jpg',
+    date: 'January - February 2022',
   },
 ];
 
