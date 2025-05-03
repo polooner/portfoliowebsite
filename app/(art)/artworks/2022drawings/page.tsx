@@ -2,27 +2,27 @@ import Image from 'next/image';
 
 const artworks = {
   drawing1: {
-    src: '/2022drawings/2022_1.jpg',
+    src: '/2022drawings/2022_1.JPG',
     alt: 'drawing 1',
     title: 'untitled 1',
   },
   drawing2: {
-    src: '/2022drawings/2022_2.jpg',
+    src: '/2022drawings/2022_2.JPG',
     alt: 'drawing 2',
     title: 'untitled 2',
   },
   drawing3: {
-    src: '/2022drawings/2022_3.jpg',
+    src: '/2022drawings/2022_3.JPG',
     alt: 'drawing 3',
     title: 'untitled 3',
   },
   drawing4: {
-    src: '/2022drawings/2022_4.jpg',
+    src: '/2022drawings/2022_4.JPG',
     alt: 'drawing 4',
     title: 'untitled 4',
   },
   drawing5: {
-    src: '/2022drawings/2022_5.jpg',
+    src: '/2022drawings/2022_5.JPG',
     alt: 'drawing 5',
     title: 'untitled 5',
   },
