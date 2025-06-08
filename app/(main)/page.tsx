@@ -15,7 +15,19 @@ export default function Home() {
           <strong>Filip Wojda</strong>
           <br />
           <p>artist, ex-founder, technologist</p>
+          <div>
+            currently a product engineer @{' '}
+            <Link
+              className="font-bold hover:underline"
+              target="_blank"
+              href={'https://florafauna.ai'}
+            >
+              FLORA
+            </Link>
+          </div>
           <br />
+          <br />
+
           <div>
             <p>i am based out of nyc.</p>
           </div>
@@ -49,7 +61,7 @@ export default function Home() {
             >
               julius.ai
             </Link>
-            previously founding engineer & employee #6.
+            previously founding engineer
           </div>
           <div className="flex flex-col gap-1">
             <Link
