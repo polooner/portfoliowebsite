@@ -20,13 +20,13 @@ export const CrossBordersNavBar = () => {
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
-            <a
+            <Link
               href="#"
               className="px-4 py-3 items-center flex justify-center text-heathered-gray-800"
             >
               Disc Company
               <Disc className="ml-2 w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </div>
         <nav className="relative hidden lg:flex">
@@ -37,12 +37,12 @@ export const CrossBordersNavBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="/pricing"
             >
               Pricing
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2" />
@@ -69,23 +69,23 @@ export const CrossBordersNavBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="/blog"
             >
               Blog
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
             <div className="flex items-center px-4 py-3 text-base font-medium rounded-xl p-1 ">
-              <a
+              <Link
                 className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800 rounded-2xl text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
                 href="#"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
@@ -128,13 +128,13 @@ export const CrossEndedBoxNavigationBar = () => {
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -top-2 -right-2" />
 
-            <a
+            <Link
               href="#"
               className="px-4 py-3 items-center flex justify-center text-heathered-gray-800"
             >
               Disc Company
               <Disc className="ml-2 w-4 h-4" />
-            </a>
+            </Link>
           </div>
         </div>
         <nav className="relative hidden lg:flex">
@@ -145,12 +145,12 @@ export const CrossEndedBoxNavigationBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="/pricing"
             >
               Pricing
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2" />
@@ -161,12 +161,12 @@ export const CrossEndedBoxNavigationBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="#"
             >
               Tools
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2" />
@@ -177,23 +177,23 @@ export const CrossEndedBoxNavigationBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="/blog"
             >
               Blog
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
             <div className="flex items-center px-4 py-3 text-base font-medium rounded-xl p-1 ">
-              <a
+              <Link
                 className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800 rounded-2xl text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
                 href="#"
               >
                 Login
-              </a>
+              </Link>
             </div>
           </div>
         </nav>
