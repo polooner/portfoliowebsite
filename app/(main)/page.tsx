@@ -12,44 +12,58 @@ export default function Home() {
     <section className="flex flex-col gap-y-10 w-72 py-20 self-center items-center ">
       <div className="w-72 gap-4 text-start flex flex-col">
         <div>
-          <strong>Filip Wojda</strong>
+          <strong className="text-2xl">Filip Wojda</strong>
           <br />
-          <p>artist, ex-founder, technologist</p>
+          <p>product engineering, design, art</p>
+
+          <br />
+          <br />
+
           <div>
-            currently a product engineer @{' '}
+            <p>currently based out of nyc.</p>
+          </div>
+
+          <div>
+            i like philosophy, ai and ui.
+            <br />
+            <br />
+          </div>
+          <div>i am the most helpful on engineering/product, design, web performance.</div>
+        </div>
+        <br />
+        <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-1">
             <Link
               className="font-bold hover:underline"
               target="_blank"
-              href={'https://florafauna.ai'}
+              href="https://www.florafauna.ai"
             >
-              FLORA
+              <div className="flex flex-row justify-between">
+                FLORA <span className="font-mono">present</span>
+              </div>
             </Link>
+            <i className="font-thin">product engineering</i>
+            <div>the world's most powerful creative tool</div>
+            <div className="text-neutral-500">
+              on a mission to bring the creative control in a world optimizing for one-shot AI.
+              creative workflows on an infinite AI canvas.
+            </div>
           </div>
-          <br />
-          <br />
-
-          <div>
-            <p>i am based out of nyc.</p>
-          </div>
-
-          <div>
-            i like philosophy <br /> and ai <br /> and ui.
-          </div>
-        </div>
-        <br />
-        <br />
-        <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-1">
             <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
-              ekran.ai
+              <div className="flex flex-row justify-between">EKRAN</div>
             </Link>
+            <i className="font-thin">founder, engineer, designer</i>
             <div>a video editing copilot. chat to edit videos.</div>
-            <div>
+            <div className="text-neutral-500">
+              video editor with a chat. reads transcripts, visually annotates videos + performs
+              vector search using top open source research implementation. <br />
+              <br />
               launched from{' '}
               <Link className="font-bold hover:underline" target="_blank" href="https://www.f.inc">
                 f.inc
               </Link>{' '}
-              [ship it] in march 2025
+              [ship it]
             </div>
           </div>
 
@@ -59,9 +73,13 @@ export default function Home() {
               target="_blank"
               href="https://www.julius.ai"
             >
-              julius.ai
+              <div className="flex flex-row justify-between">Julius.ai</div>
             </Link>
-            previously founding engineer
+            <i className="font-thin">founding engineer</i>
+            AI data scientist
+            <div className="text-neutral-500">
+              fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
+            </div>
           </div>
           <div className="flex flex-col gap-1">
             <Link
@@ -71,7 +89,8 @@ export default function Home() {
             >
               makeklips.ai
             </Link>
-            ai shorts generator.
+            <i className="font-thin">founder, engineer, designer</i>
+            AI shorts generator
           </div>
         </div>
         <br />

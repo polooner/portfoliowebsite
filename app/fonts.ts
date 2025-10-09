@@ -1,6 +1,10 @@
-import localFont from "next/font/local";
+import localFont from 'next/font/local';
 
-export const haffer = localFont({
-  src: "../public/HafferVF.woff2",
-  variable: "--font-haffer",
+export const booton = localFont({
+  src: '../public/BootonVF.woff2',
+  variable: '--font-booton',
+});
+export const azeret = localFont({
+  src: '../public/AzeretVF.ttf',
+  variable: '--font-mono',
 });

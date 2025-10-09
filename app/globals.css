@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: var(--font-haffer);
+  font-family: var(--font-booton);
 }
 
 @layer base {
@@ -12,7 +12,9 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
     font-size: 13.8px;
   }
 }
@@ -91,7 +93,9 @@ body {
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 }
 
@@ -169,7 +173,7 @@ html {
 
 .prose .anchor:after {
   @apply text-black;
-  content: "#";
+  content: '#';
 }
 
 .prose *:hover > .anchor {
@@ -226,8 +230,8 @@ pre {
 }
 
 /* Remove Safari input shadow on mobile */
-input[type="text"],
-input[type="email"] {
+input[type='text'],
+input[type='email'] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -298,7 +302,7 @@ pre {
 }
 
 code {
-  font-family: "Menlo", "Monaco", "Courier New", monospace;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
   font-size: 14px;
   padding: 0.2em 0.4em;
   border-radius: 0.3em;
