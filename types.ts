@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 export type Instruction = {
   file?: string;
   code: string;
