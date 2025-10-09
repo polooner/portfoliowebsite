@@ -1,21 +1,15 @@
-"use client";
+'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import {
-  Check,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  Copy,
-  RotateCcw,
-} from "lucide-react";
-import { useState } from "react";
-import { highlight } from "sugar-high";
-import { toast } from "sonner";
-import { cn } from "@/lib/utils";
-import { ComponentData, Instruction } from "@/types";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Check, ChevronLeftIcon, ChevronRightIcon, Copy, RotateCcw } from 'lucide-react';
+import { useState } from 'react';
+import { highlight } from 'sugar-high';
+import { toast } from 'sonner';
+import { cn } from '@/lib/utils';
+import { ComponentData, Instruction } from '@/types';
 
 export const ToggleableComponentCard = ({
   title,
@@ -36,17 +30,11 @@ export const ToggleableComponentCard = ({
   console.log(currentComponent);
 
   return (
-    <Card
-      className="w-full relative p-4 mb-4 max-w-full space-y-4 flex flex-col"
-      {...props}
-    >
+    <Card className="w-full relative p-4 mb-4 max-w-full space-y-4 flex flex-col" {...props}>
       <div className="flex flex-col w-full">
         <div className="flex items-center space-x-2 flex-row w-full justify-between z-50">
           <h2 className="text-lg font-semibold truncate">
-            {title}{" "}
-            <span className="text-sm text-stone-600">
-              {currentComponent.variant}
-            </span>
+            {title} <span className="text-sm text-stone-600">{currentComponent.variant}</span>
           </h2>
 
           <div className="flex items-center space-x-2 flex-row self-start">
@@ -74,8 +62,7 @@ export const ToggleableComponentCard = ({
                 size="icon"
                 onClick={() =>
                   setCurrentComponentIndex(
-                    (prevIndex) =>
-                      (prevIndex - 1 + components.length) % components.length
+                    prevIndex => (prevIndex - 1 + components.length) % components.length
                   )
                 }
                 disabled={currentComponentIndex === 0}
@@ -89,9 +76,7 @@ export const ToggleableComponentCard = ({
                 variant="ghost"
                 size="icon"
                 onClick={() =>
-                  setCurrentComponentIndex(
-                    (prevIndex) => (prevIndex + 1) % components.length
-                  )
+                  setCurrentComponentIndex(prevIndex => (prevIndex + 1) % components.length)
                 }
                 disabled={currentComponentIndex === components.length - 1}
               >
@@ -105,15 +90,8 @@ export const ToggleableComponentCard = ({
         {showInstallSteps ? (
           <ComponentInstallSteps instructions={currentComponent.instructions} />
         ) : (
-          <div
-            className={cn(
-              contentClassName ? contentClassName : "max-h-[80dvh] w-full"
-            )}
-          >
-            <currentComponent.component
-              key={key}
-              {...currentComponent.componentProps}
-            />
+          <div className={cn(contentClassName ? contentClassName : 'max-h-[80dvh] w-full')}>
+            <currentComponent.component key={key} {...currentComponent.componentProps} />
           </div>
         )}
       </div>
@@ -121,19 +99,13 @@ export const ToggleableComponentCard = ({
   );
 };
 
-const ComponentInstallSteps = ({
-  instructions,
-}: {
-  instructions: Instruction[];
-}) => {
+const ComponentInstallSteps = ({ instructions }: { instructions: Instruction[] }) => {
   return (
     <div className="flex flex-col gap-20">
       {instructions.map((instruction, instructionIndex) => (
-        <div className="flex flex-col items-start justify-start gap-2">
+        <div className="flex flex-col items-start justify-start gap-2" key={instructionIndex}>
           <p>
-            {instructions.length > 1 && (
-              <strong className="mr-2">{instructionIndex + 1}.</strong>
-            )}
+            {instructions.length > 1 && <strong className="mr-2">{instructionIndex + 1}.</strong>}
             {instruction.description}
           </p>
           <h3>{instruction.file}</h3>
@@ -153,15 +125,12 @@ const CodeBlock = ({ code }) => {
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 5000);
-      toast.success("Code copied to clipboard!");
+      toast.success('Code copied to clipboard!');
     });
   };
   return (
     <div className="relative max-w-full min-w-full">
-      <Button
-        className="absolute top-2 right-2 text-white rounded-md px-2"
-        onClick={handleCopy}
-      >
+      <Button className="absolute top-2 right-2 text-white rounded-md px-2" onClick={handleCopy}>
         {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
       </Button>
 

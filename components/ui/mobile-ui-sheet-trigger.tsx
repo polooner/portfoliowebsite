@@ -1,17 +1,17 @@
-import { usePathname } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
-import Link from "next/link";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "./sheet";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import { items } from "@/app/(ui)/ui/layout";
-import { useState } from "react";
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
+import Link from 'next/link';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from './sheet';
+import { ScrollArea } from '@radix-ui/react-scroll-area';
+import { items } from '@/app/(ui)/ui/layout';
+import { useState } from 'react';
 
 const MobileUISheetTrigger = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!pathname.startsWith("/ui")) return null;
+  if (!pathname.startsWith('/ui')) return null;
 
   return (
     <div className="md:hidden flex">
@@ -25,23 +25,18 @@ const MobileUISheetTrigger = () => {
           </Button>
         </SheetTrigger>
 
-        <SheetContent
-          side="left"
-          className="py-20 h-[calc(100vh-1rem)] mt-[0.5rem] rounded-r-xl"
-        >
+        <SheetContent side="left" className="py-20 h-[calc(100vh-1rem)] mt-[0.5rem] rounded-r-xl">
           <ScrollArea>
-            <div style={{ minWidth: "100%", display: "table" }}>
+            <div style={{ minWidth: '100%', display: 'table' }}>
               <div className="w-full pb-20">
-                {items.map((item) => (
-                  <SheetClose asChild>
+                {items.map((item, idx) => (
+                  <SheetClose asChild key={idx}>
                     <Link
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center p-2 gap-2 ${
-                        pathname === item.href
-                          ? "bg-stone-200 rounded-md "
-                          : "hover:underline"
+                        pathname === item.href ? 'bg-stone-200 rounded-md ' : 'hover:underline'
                       }`}
                     >
                       {item.title}

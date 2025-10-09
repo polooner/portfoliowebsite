@@ -1,5 +1,6 @@
-import { Instruction } from "@/types";
-import { Disc, Menu } from "lucide-react";
+import { Instruction } from '@/types';
+import { Disc, Menu } from 'lucide-react';
+import Link from 'next/link';
 
 export const CrossBordersNavBar = () => {
   return (
@@ -52,12 +53,12 @@ export const CrossBordersNavBar = () => {
 
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
 
-            <a
+            <Link
               className="flex items-center px-4 py-3 text-base font-medium hover:text-heathered-gray-800 text-heathered-gray-800/50"
               href="#"
             >
               Tools
-            </a>
+            </Link>
           </div>
           <div className="relative flex group/item">
             <Cross className="hidden group-first/item:block absolute size-[15px] fill-black/10 -top-2 -left-2" />
@@ -101,12 +102,7 @@ const Cross = ({
   ...svgProps
 }: React.SVGProps<SVGSVGElement> & { className?: string }) => {
   return (
-    <svg
-      viewBox="0 0 15 15"
-      aria-hidden="true"
-      className={className}
-      {...svgProps}
-    >
+    <svg viewBox="0 0 15 15" aria-hidden="true" className={className} {...svgProps}>
       <path d="M8 0H7V7H0V8H7V15H8V8H15V7H8V0Z"></path>
     </svg>
   );
@@ -228,12 +224,12 @@ const CrossCode = `const Cross = ({
 export const CrossBordersNavBarInstructions: Instruction[] = [
   {
     code: CrossCode,
-    description: "Create this cross SVG first",
-    file: "ui/Cross.tsx",
+    description: 'Create this cross SVG first',
+    file: 'ui/Cross.tsx',
   },
   {
     code: CrossBordersNavBarCode,
-    file: "ui/CrossNavigationBar.tsx",
-    description: "Copy and paste this",
+    file: 'ui/CrossNavigationBar.tsx',
+    description: 'Copy and paste this',
   },
 ];
