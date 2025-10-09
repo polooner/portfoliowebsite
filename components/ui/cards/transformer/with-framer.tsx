@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { Button } from "../../button";
-import { DollarSign, MoreHorizontal, Pencil, Share } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-import { Instruction } from "@/types";
+import { cn } from '@/lib/utils';
+import { Button } from '../../button';
+import { DollarSign, MoreHorizontal, Pencil, Share } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
+import { Instruction } from '@/types';
 
 export function TransformerCardWithFramerAndMenu({
   mainContent,
@@ -22,7 +22,7 @@ export function TransformerCardWithFramerAndMenu({
   return (
     <div
       className={cn(
-        "content-center items-center cursor-pointer flex flex-col flex-nowrap gap-0 h-min justify-start overflow-hidden relative no-underline w-min will-change-transform border border-solid border-[rgb(235,235,235)] bg-white rounded-2xl shadow-none opacity-100 text-xs font-sans box-border antialiased flex-none hover:shadow-2xl hover:shadow-neutral-200 transition-all duration-300 p-4",
+        'content-center items-center cursor-pointer flex flex-col flex-nowrap gap-0 h-min justify-start overflow-hidden relative no-underline w-min will-change-transform border border-solid border-[rgb(235,235,235)] bg-white rounded-2xl shadow-none opacity-100 text-xs font-sans box-border antialiased flex-none hover:shadow-2xl hover:shadow-neutral-200 transition-all duration-300 p-4',
         className
       )}
     >
@@ -35,10 +35,10 @@ export function TransformerCardWithFramerAndMenu({
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 duration: 0.3,
                 bounce: 0.1,
-                ease: "easeInOut",
+                ease: 'easeInOut',
               }}
               className="absolute top-0 left-0 w-full h-full z-20 flex items-center justify-center pointer-events-none"
             >
@@ -71,7 +71,7 @@ export function TransformerCardWithFramerAndMenu({
 
         <motion.div
           animate={{
-            filter: showMenu ? "blur(4px)" : "blur(0px)",
+            filter: showMenu ? 'blur(4px)' : 'blur(0px)',
             opacity: showMenu ? 0.2 : 1,
           }}
           transition={{ duration: 0.3 }}
@@ -91,7 +91,7 @@ export function TransformerCardWithFramerAndMenu({
             className="flex-1"
             animate={{
               opacity: showMenu ? 0.2 : 1,
-              filter: showMenu ? "blur(2px)" : "blur(0px)",
+              filter: showMenu ? 'blur(2px)' : 'blur(0px)',
             }}
             transition={{ duration: 0.3 }}
           >
@@ -227,6 +227,6 @@ export function TransformerCardWithFramerAndMenu({
 export const TransformerCardWithFramerAndMenuInstructions: Instruction[] = [
   {
     code: TransformerCardWithFramerAndMenuCode,
-    file: "ui/TransformerCardWithMenu.tsx",
+    file: 'ui/TransformerCardWithMenu.tsx',
   },
 ];
