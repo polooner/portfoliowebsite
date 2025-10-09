@@ -43,7 +43,7 @@ export default function Home() {
               </div>
             </Link>
             <i className="font-thin">product engineering</i>
-            <div>the world's most powerful creative tool</div>
+            <div>the world&apos;s most powerful creative tool</div>
             <div className="text-neutral-500">
               on a mission to bring the creative control in a world optimizing for one-shot AI.
               creative workflows on an infinite AI canvas.
