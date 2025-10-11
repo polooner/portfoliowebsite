@@ -14,25 +14,56 @@ const texts = [
 
 export function StreamingTextCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
+  const [previousIndex, setPreviousIndex] = useState<number | null>(null);
 
   const handleNext = () => {
-    setDirection(1);
+    setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev + 1) % texts.length);
   };
 
   const handlePrevious = () => {
-    setDirection(-1);
+    setPreviousIndex(currentIndex);
     setCurrentIndex(prev => (prev - 1 + texts.length) % texts.length);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
-      <div className="relative h-48 flex items-center justify-center w-[500px] overflow-hidden">
-        <AnimatePresence mode="wait" custom={direction}>
+      <div className="relative h-64 flex items-center justify-center w-[500px]">
+        <AnimatePresence mode="popLayout">
+          {previousIndex !== null && (
+            <motion.div
+              key={`prev-${previousIndex}`}
+              initial={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+              }}
+              animate={{
+                opacity: 0.4,
+                y: -80,
+                scale: 0.7,
+              }}
+              exit={{
+                opacity: 0,
+                y: -100,
+                scale: 0.6,
+              }}
+              transition={{
+                duration: 0.3,
+                y: { ease: [0.22, 1, 0.36, 1] }, // Smooth upward motion
+                scale: { ease: [0.65, 0, 0.35, 1] }, // Delayed scale creates arc effect
+                opacity: { ease: 'easeOut' },
+              }}
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            >
+              <p className="text-2xl font-medium text-center px-8 w-[400px] min-w-full">
+                {texts[previousIndex]}
+              </p>
+            </motion.div>
+          )}
+
           <motion.div
-            key={currentIndex}
-            custom={direction}
+            key={`current-${currentIndex}`}
             initial={{
               opacity: 0,
               y: 10,
@@ -44,9 +75,9 @@ export function StreamingTextCarousel() {
               scale: 1,
             }}
             exit={{
-              opacity: 0,
-              y: -50,
-              scale: 0.8,
+              opacity: 1,
+              y: 0,
+              scale: 1,
             }}
             transition={{
               duration: 0.3,
@@ -54,7 +85,7 @@ export function StreamingTextCarousel() {
             }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <p className="text-2xl font-medium text-center px-8 w-[400px] min-w-full ">
+            <p className="text-2xl font-medium text-center px-8 w-[400px] min-w-full">
               {texts[currentIndex]}
             </p>
           </motion.div>
@@ -81,7 +112,6 @@ export function StreamingTextCarousel() {
           <button
             key={index}
             onClick={() => {
-              setDirection(index > currentIndex ? 1 : -1);
               setCurrentIndex(index);
             }}
             className={`w-2 h-2 rounded-full transition-all ${
