@@ -78,7 +78,7 @@ export function StreamingTextCarousel() {
         </div>
         <div className="self-start text-left flex flex-col">
           <span className="font-mono font-medium ">Blurred streaming carousel</span>
-          <span className="text-xs">Commonly used for AI thinking sections</span>
+          <span className="text-xs">Perfect for AI thinking sections</span>
         </div>
       </div>
     </>
