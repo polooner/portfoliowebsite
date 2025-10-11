@@ -42,8 +42,8 @@ export default function Home() {
                 FLORA <span className="font-mono">present</span>
               </div>
             </Link>
-            <i className="font-thin">product engineering</i>
-            <div>the world&apos;s most powerful creative tool</div>
+            <i className="font-thin text-xs">product engineering</i>
+            <div className="text-sm">the world&apos;s most powerful creative tool</div>
             <div className="text-neutral-500">
               on a mission to bring the creative control in a world optimizing for one-shot AI.
               creative workflows on an infinite AI canvas.
@@ -53,7 +53,7 @@ export default function Home() {
             <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
               <div className="flex flex-row justify-between">EKRAN</div>
             </Link>
-            <i className="font-thin">founder, engineer, designer</i>
+            <i className="font-thin text-xs">founder, engineer, designer</i>
             <div>a video editing copilot. chat to edit videos.</div>
             <div className="text-neutral-500">
               video editor with a chat. reads transcripts, visually annotates videos + performs
@@ -75,7 +75,7 @@ export default function Home() {
             >
               <div className="flex flex-row justify-between">Julius.ai</div>
             </Link>
-            <i className="font-thin">founding engineer</i>
+            <i className="font-thin text-xs">founding engineer</i>
             AI data scientist
             <div className="text-neutral-500">
               fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
@@ -89,7 +89,7 @@ export default function Home() {
             >
               makeklips.ai
             </Link>
-            <i className="font-thin">founder, engineer, designer</i>
+            <i className="font-thin text-xs">founder, engineer, designer</i>
             AI shorts generator
           </div>
         </div>
