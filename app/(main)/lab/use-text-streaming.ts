@@ -72,9 +72,6 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
 
     const streamNextCharacter = () => {
       if (currentCharIndexRef.current >= charactersRef.current.length) {
-        if (currentLineRef.current.trim()) {
-          completeLine();
-        }
         if (timerRef.current !== null) {
           window.clearInterval(timerRef.current);
           timerRef.current = null;
