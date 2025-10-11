@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { blurInAnimation, texts, DEFAULT_CONFIG } from './streaming-text-carousel-constants';
+import { texts, DEFAULT_CONFIG } from './streaming-text-carousel-constants';
 import { useTextStreaming } from './use-text-streaming';
 import { CompletedLineComponent } from './completed-line-component';
 
@@ -13,8 +13,6 @@ export function StreamingTextCarousel() {
 
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: blurInAnimation }} />
-
       <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
         <div className="relative h-64 flex items-center justify-center w-[500px]">
           <span
@@ -57,7 +55,7 @@ export function StreamingTextCarousel() {
                   <span
                     key={id}
                     style={{
-                      animationName: 'ft-blurIn',
+                      animationName: 'blurIn',
                       animationDuration: '0.2s',
                       animationTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
                       animationIterationCount: '1',
