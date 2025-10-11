@@ -13,8 +13,8 @@ export function StreamingTextCarousel() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
-        <div className="relative h-64 flex items-center justify-center w-[500px]">
+      <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full ">
+        <div className="relative h-48 flex items-center justify-center w-[500px] bg-neutral-50 rounded-2xl">
           <span
             ref={measureRef}
             className="absolute invisible text-base font-medium px-8 whitespace-nowrap"
@@ -75,6 +75,10 @@ export function StreamingTextCarousel() {
               </p>
             </motion.div>
           </AnimatePresence>
+        </div>
+        <div className="self-start text-left flex flex-col">
+          <span className="font-mono font-medium ">Blurred streaming carousel</span>
+          <span className="text-xs">Commonly used for AI thinking sections</span>
         </div>
       </div>
     </>
