@@ -166,8 +166,8 @@ const CompletedLineComponent = ({
   const yOffset = -40 - index * 20; // Stack lines upward
   const opacity = Math.max(0, 0.3 - index * 1.5); // Fade older lines more aggressively
 
-  // Progressive blur - increases with each line index
-  const blurAmount = index * 3; // 0px, 3px, 6px, 9px...
+  // Progressive blur - starts immediately and increases with each line
+  const blurAmount = (index + 1) * 2.5; // 2.5px, 5px, 7.5px, 10px...
 
   // Only new lines (index 0) should start from center, others continue from their position
   const isNewLine = index === 0;
@@ -257,7 +257,7 @@ export function StreamingTextCarousel() {
           className="absolute inset-0 pointer-events-none rounded-xl"
           style={{
             background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.05) 100%)',
+              'linear-gradient(to bottom, rgba(0,0,0,0.01) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.01) 100%)',
             maskImage:
               'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
             WebkitMaskImage:
@@ -313,36 +313,6 @@ export function StreamingTextCarousel() {
             </p>
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      <div className="flex gap-4">
-        <button
-          onClick={handlePrevious}
-          className="px-6 py-2 rounded-lg bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
-        >
-          Previous
-        </button>
-        <button
-          onClick={handleNext}
-          className="px-6 py-2 rounded-lg bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
-        >
-          Next
-        </button>
-      </div>
-
-      <div className="flex gap-2">
-        {texts.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleDotClick(index)}
-            className={`w-2 h-2 rounded-full transition-all ${
-              index === currentIndex
-                ? 'bg-neutral-900 dark:bg-neutral-100 w-6'
-                : 'bg-neutral-300 dark:bg-neutral-700'
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
       </div>
     </div>
   );
