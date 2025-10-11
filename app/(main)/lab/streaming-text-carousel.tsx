@@ -3,12 +3,26 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// CSS animation for character fade-in
+const blurInAnimation = `
+@keyframes ft-blurIn {
+  from {
+    opacity: 0;
+    filter: blur(0.3px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+`;
+
 const texts = [
   'Until you make the unconscious conscious, it will direct your life and you will call it fate. Your visions will become clear only when you can look into your own heart. Who looks outside, dreams; who looks inside, awakes.',
 ];
 
 interface StreamingConfig {
-  streamingSpeed: number; // ms per word
+  streamingSpeed: number; // ms per character
   maxWidth: number; // px
   maxLines: number; // max completed lines to show
   scaleFactorPerLine: number; // scale reduction per line
@@ -19,32 +33,38 @@ interface CompletedLine {
   id: number;
 }
 
+interface AnimatedChar {
+  char: string;
+  id: number;
+}
+
 const DEFAULT_CONFIG: StreamingConfig = {
-  streamingSpeed: 100,
+  streamingSpeed: 30,
   maxWidth: 400,
   maxLines: 4,
   scaleFactorPerLine: 0.85,
 };
 
 function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG) {
-  const [currentLine, setCurrentLine] = useState('');
+  const [currentLineChars, setCurrentLineChars] = useState<AnimatedChar[]>([]);
   const [completedLines, setCompletedLines] = useState<CompletedLine[]>([]);
   const [isComplete, setIsComplete] = useState(false);
   const [isStreaming, setIsStreaming] = useState(false);
 
   const measureRef = useRef<HTMLSpanElement>(null);
-  const wordsRef = useRef<string[]>([]);
-  const currentWordIndexRef = useRef(0);
+  const charactersRef = useRef<string[]>([]);
+  const currentCharIndexRef = useRef(0);
   const lineIdCounterRef = useRef(0);
+  const charIdCounterRef = useRef(0);
   const timerRef = useRef<number | null>(null);
-  const currentLineRef = useRef(''); // Store current line in ref to avoid re-render loops
+  const currentLineRef = useRef(''); // Store current line text for width measurement
 
-  // Measure if adding a word would exceed max width
+  // Measure if adding text would exceed max width
   const wouldExceedWidth = useCallback(
-    (currentText: string, newWord: string): boolean => {
+    (currentText: string, additionalText: string): boolean => {
       if (!measureRef.current) return false;
 
-      const testText = currentText ? `${currentText} ${newWord}` : newWord;
+      const testText = currentText + additionalText;
       measureRef.current.textContent = testText;
       const width = measureRef.current.offsetWidth;
 
@@ -52,6 +72,25 @@ function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG
     },
     [config.maxWidth]
   );
+
+  // Get the next complete word starting from the current character index
+  const getNextWord = useCallback((startIndex: number): string => {
+    let word = '';
+    let i = startIndex;
+
+    // Skip leading spaces
+    while (i < charactersRef.current.length && /\s/.test(charactersRef.current[i])) {
+      i++;
+    }
+
+    // Collect word characters
+    while (i < charactersRef.current.length && !/\s/.test(charactersRef.current[i])) {
+      word += charactersRef.current[i];
+      i++;
+    }
+
+    return word;
+  }, []);
 
   // Reset streaming when text changes
   useEffect(() => {
@@ -62,16 +101,17 @@ function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG
     }
 
     // Reset state
-    setCurrentLine('');
+    setCurrentLineChars([]);
     currentLineRef.current = '';
     setCompletedLines([]);
     setIsComplete(false);
     setIsStreaming(true);
 
-    // Prepare words
-    wordsRef.current = text.split(/\s+/).filter(word => word.length > 0);
-    currentWordIndexRef.current = 0;
+    // Prepare characters
+    charactersRef.current = text.split('');
+    currentCharIndexRef.current = 0;
     lineIdCounterRef.current = 0;
+    charIdCounterRef.current = 0;
 
     // Complete the current line and move it up
     const completeLine = () => {
@@ -82,14 +122,14 @@ function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG
           // Keep only maxLines
           return newLines.slice(0, config.maxLines);
         });
-        setCurrentLine('');
+        setCurrentLineChars([]);
         currentLineRef.current = '';
       }
     };
 
-    // Stream next word
-    const streamNextWord = () => {
-      if (currentWordIndexRef.current >= wordsRef.current.length) {
+    // Stream next character
+    const streamNextCharacter = () => {
+      if (currentCharIndexRef.current >= charactersRef.current.length) {
         // Streaming complete
         if (currentLineRef.current.trim()) {
           completeLine();
@@ -103,28 +143,46 @@ function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG
         return;
       }
 
-      const nextWord = wordsRef.current[currentWordIndexRef.current];
+      const nextChar = charactersRef.current[currentCharIndexRef.current];
       const currentText = currentLineRef.current;
 
-      // Check if adding this word would exceed width
-      if (currentText && wouldExceedWidth(currentText, nextWord)) {
-        // Complete current line first, then add word to new line
+      // If we're at the start of a word (not a space and either at start or previous was space)
+      const isStartOfWord =
+        !/\s/.test(nextChar) &&
+        (currentCharIndexRef.current === 0 ||
+          /\s/.test(charactersRef.current[currentCharIndexRef.current - 1]));
+
+      // If starting a new word, check if the entire word fits
+      if (isStartOfWord && currentText.length > 0) {
+        const nextWord = getNextWord(currentCharIndexRef.current);
+
+        // If the word won't fit, complete the line first
+        if (nextWord && wouldExceedWidth(currentText, nextWord)) {
+          completeLine();
+          return; // Don't increment - add this word on the next cycle
+        }
+      }
+
+      // Check if adding just this character would exceed width (safety check)
+      if (currentText && wouldExceedWidth(currentText, nextChar)) {
         completeLine();
-        // Don't increment word index - we'll add this word in the next cycle
         return;
       }
 
-      // Add word to current line
-      const newLine = currentText ? `${currentText} ${nextWord}` : nextWord;
+      // Add character to current line
+      const newLine = currentText + nextChar;
       currentLineRef.current = newLine;
-      setCurrentLine(newLine);
-      currentWordIndexRef.current++;
+
+      // Add animated character
+      setCurrentLineChars(prev => [...prev, { char: nextChar, id: charIdCounterRef.current++ }]);
+
+      currentCharIndexRef.current++;
     };
 
     // Start streaming
-    if (wordsRef.current.length > 0) {
+    if (charactersRef.current.length > 0) {
       timerRef.current = window.setInterval(() => {
-        streamNextWord();
+        streamNextCharacter();
       }, config.streamingSpeed);
     }
 
@@ -135,10 +193,10 @@ function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG
         timerRef.current = null;
       }
     };
-  }, [text, config.streamingSpeed, config.maxLines, wouldExceedWidth]);
+  }, [text, config.streamingSpeed, config.maxLines, wouldExceedWidth, getNextWord]);
 
   return {
-    currentLine,
+    currentLineChars,
     completedLines,
     isStreaming,
     isComplete,
@@ -161,8 +219,7 @@ const CompletedLineComponent = ({
   const yOffset = -40 - index * 20; // Stack lines upward
   const opacity = Math.max(0, 0.3 - index * 1.5); // Fade older lines more aggressively
 
-  // Progressive blur - starts immediately and increases with each line
-  const blurAmount = (index + 1) * 2.5; // 2.5px, 5px, 7.5px, 10px...
+  const blurAmount = (index + 1) * 3.5; // 2.5px, 5px, 7.5px, 10px...
 
   // Only new lines (index 0) should start from center, others continue from their position
   const isNewLine = index === 0;
@@ -216,7 +273,7 @@ export function StreamingTextCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [key, setKey] = useState(0); // Force remount on navigation
 
-  const { currentLine, completedLines, measureRef } = useTextStreaming(
+  const { currentLineChars, completedLines, measureRef } = useTextStreaming(
     texts[currentIndex],
     DEFAULT_CONFIG
   );
@@ -239,76 +296,87 @@ export function StreamingTextCarousel() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
-      <div className="relative h-64 flex items-center justify-center w-[500px]">
-        {/* Hidden measurement element */}
-        <span
-          ref={measureRef}
-          className="absolute invisible text-2xl font-medium px-8 whitespace-nowrap"
-          aria-hidden="true"
-        />
-        {/* Gradient overlay for additional blur depth */}
-        <div
-          className="absolute inset-0 pointer-events-none rounded-xl"
-          style={{
-            background:
-              'linear-gradient(to bottom, rgba(0,0,0,0.01) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.01) 100%)',
-            maskImage:
-              'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
-            WebkitMaskImage:
-              'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
-          }}
-        />
+    <>
+      {/* Inject CSS animation */}
+      <style dangerouslySetInnerHTML={{ __html: blurInAnimation }} />
 
-        <AnimatePresence mode="sync">
-          {/* Completed lines stack */}
-          {completedLines.map((line, index) => (
-            <CompletedLineComponent
-              key={line.id}
-              line={line}
-              index={index}
-              scaleFactor={DEFAULT_CONFIG.scaleFactorPerLine}
-            />
-          ))}
+      <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
+        <div className="relative h-64 flex items-center justify-center w-[500px]">
+          {/* Hidden measurement element */}
+          <span
+            ref={measureRef}
+            className="absolute invisible text-2xl font-medium px-8 whitespace-nowrap"
+            aria-hidden="true"
+          />
+          {/* Gradient overlay for additional blur depth */}
+          <div
+            className="absolute inset-0 pointer-events-none rounded-xl"
+            style={{
+              background:
+                'linear-gradient(to bottom, rgba(0,0,0,0.01) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.01) 100%)',
+              maskImage:
+                'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
+              WebkitMaskImage:
+                'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
+            }}
+          />
 
-          {/* Current streaming line */}
-          <motion.div
-            key={`streaming-${key}`}
-            initial={{
-              opacity: 0,
-              y: 10,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.3,
-              ease: 'easeInOut',
-            }}
-            className="absolute inset-0 flex items-center justify-center"
-          >
-            <p className="text-2xl font-medium text-center px-8 w-[400px] min-h-[2.5rem]">
-              {currentLine}
-              {currentLine && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{
-                    duration: 0.8,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                  className="inline-block w-0.5 h-6 bg-current ml-1 align-middle"
-                />
-              )}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+          <AnimatePresence mode="sync">
+            {/* Completed lines stack */}
+            {completedLines.map((line, index) => (
+              <CompletedLineComponent
+                key={line.id}
+                line={line}
+                index={index}
+                scaleFactor={DEFAULT_CONFIG.scaleFactorPerLine}
+              />
+            ))}
+
+            {/* Current streaming line */}
+            <motion.div
+              key={`streaming-${key}`}
+              initial={{
+                opacity: 0,
+                y: 10,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                duration: 0.3,
+                ease: 'easeInOut',
+              }}
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <p className="text-2xl font-medium text-center px-8 w-[400px] min-h-[2.5rem]">
+                {currentLineChars.map(({ char, id }) => (
+                  <span
+                    key={id}
+                    style={{
+                      animationName: 'ft-blurIn',
+                      animationDuration: '0.2s',
+                      animationTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+                      animationIterationCount: '1',
+                      animationFillMode: 'both',
+                      whiteSpace: 'pre',
+                      display: 'inline-block',
+                      willChange: 'opacity, filter',
+                      transform: 'translateZ(0)',
+                      backfaceVisibility: 'hidden',
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
