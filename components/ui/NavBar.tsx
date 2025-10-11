@@ -28,7 +28,7 @@ export default function NavBar({ children }: { children?: React.ReactNode }) {
           href="/lab"
           className="flex hover:bg-black text-black hover:text-white flex-row items-center px-4"
         >
-          <p>ui lab</p>
+          <p>lab</p>
         </Link>
         <Link
           href="/artworks"
