@@ -4,12 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const texts = [
-  'The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.',
-  'Design is not just what it looks like',
-  'Simplicity is the ultimate sophistication',
-  'Less is more, but more is fun',
-  'Code is poetry in motion',
-  'Every pixel tells a story',
+  'Until you make the unconscious conscious, it will direct your life and you will call it fate. Your visions will become clear only when you can look into your own heart. Who looks outside, dreams; who looks inside, awakes.',
 ];
 
 interface StreamingConfig {
