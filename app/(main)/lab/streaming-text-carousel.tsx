@@ -75,9 +75,8 @@ export function StreamingTextCarousel() {
               scale: 1,
             }}
             exit={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
+              opacity: 0,
+              transition: { duration: 0 },
             }}
             transition={{
               duration: 0.3,
