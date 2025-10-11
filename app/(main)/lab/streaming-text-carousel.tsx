@@ -163,7 +163,7 @@ const CompletedLineComponent = ({
 }) => {
   const scale = Math.pow(scaleFactor, index + 1);
   const yOffset = -100 - index * 60; // Stack lines upward
-  const opacity = Math.max(0.3, 1 - index * 0.2); // Fade older lines
+  const opacity = Math.max(0.1, 0.4 - index * 0.8); // Fade older lines more aggressively
 
   return (
     <motion.div
