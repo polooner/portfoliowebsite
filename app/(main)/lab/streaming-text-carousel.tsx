@@ -13,8 +13,8 @@ export function StreamingTextCarousel() {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full ">
-        <div className="relative h-48 flex items-center justify-center w-[500px] bg-neutral-50 rounded-2xl">
+      <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center ">
+        <div className="relative h-48 flex items-center justify-center min-w-[250px] w-[500px] bg-neutral-50 rounded-2xl">
           <span
             ref={measureRef}
             className="absolute invisible text-base font-medium px-8 whitespace-nowrap"
