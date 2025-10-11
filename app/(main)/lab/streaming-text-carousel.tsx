@@ -310,18 +310,6 @@ export function StreamingTextCarousel() {
             className="absolute invisible text-2xl font-medium px-8 whitespace-nowrap"
             aria-hidden="true"
           />
-          {/* Gradient overlay for additional blur depth */}
-          <div
-            className="absolute inset-0 pointer-events-none rounded-xl"
-            style={{
-              background:
-                'linear-gradient(to bottom, rgba(0,0,0,0.01) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.01) 100%)',
-              maskImage:
-                'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
-              WebkitMaskImage:
-                'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
-            }}
-          />
 
           <AnimatePresence mode="sync">
             {/* Completed lines stack */}
