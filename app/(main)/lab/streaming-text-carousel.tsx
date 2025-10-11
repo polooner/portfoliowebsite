@@ -9,10 +9,12 @@ const blurInAnimation = `
   from {
     opacity: 0;
     filter: blur(0.3px);
+    transform: translateX(2px) translateZ(0);
   }
   to {
     opacity: 1;
     filter: blur(0px);
+    transform: translateX(0) translateZ(0);
   }
 }
 `;
@@ -364,9 +366,10 @@ export function StreamingTextCarousel() {
                       animationFillMode: 'both',
                       whiteSpace: 'pre',
                       display: 'inline-block',
-                      willChange: 'opacity, filter',
+                      willChange: 'opacity, filter, transform',
                       transform: 'translateZ(0)',
                       backfaceVisibility: 'hidden',
+                      transition: 'transform 0.08s ease-out',
                     }}
                   >
                     {char}
