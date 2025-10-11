@@ -13,7 +13,7 @@ export const CompletedLineComponent = ({
   maxVisibleCompletedLines: number;
 }) => {
   const scale = Math.pow(scaleFactor, index + 1);
-  const yOffset = -35 - index * 15;
+  const yOffset = -31 - index * 13;
   const opacity = Math.max(0, 0.5 - index * (0.5 / maxVisibleCompletedLines));
 
   const blurAmount = (index + 1) * 3.5;
@@ -43,7 +43,7 @@ export const CompletedLineComponent = ({
         filter: `blur(${blurAmount}px)`,
         transition: {
           duration: 0.4,
-          y: { ease: [0.22, 1, 0.36, 1] },
+          y: { ease: [0.25, 0.8, 0.4, 0.95] },
           scale: { ease: scaleEasing as any },
           opacity: { ease: 'easeOut' },
           filter: { ease: 'easeOut', duration: 0.4 },
@@ -59,7 +59,7 @@ export const CompletedLineComponent = ({
       }}
       className="absolute inset-0 flex items-center justify-center pointer-events-none"
     >
-      <p className="text-lg font-medium text-center px-8">{line.text}</p>
+      <p className="text-base font-medium text-center px-8">{line.text}</p>
     </motion.div>
   );
 };
