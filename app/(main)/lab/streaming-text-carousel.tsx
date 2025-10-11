@@ -161,25 +161,39 @@ const CompletedLineComponent = ({
   index: number;
   scaleFactor: number;
 }) => {
+  // Calculate position along circular path
   const scale = Math.pow(scaleFactor, index + 1);
-  const yOffset = -100 - index * 60; // Stack lines upward
-  const opacity = Math.max(0.1, 0.4 - index * 0.8); // Fade older lines more aggressively
+  const yOffset = -40 - index * 20; // Stack lines upward
+  const opacity = Math.max(0, 0.3 - index * 1.5); // Fade older lines more aggressively
+
+  // Only new lines (index 0) should start from center, others continue from their position
+  const isNewLine = index === 0;
+
+  // New lines get delayed scale curve for arc effect, existing lines get immediate scaling
+  const scaleEasing = isNewLine ? [0.65, 0, 0.35, 1] : [0.2, 0.25, 0.4, 0.8];
 
   return (
     <motion.div
       key={line.id}
-      initial={{
-        opacity: 1,
-        y: 0,
-        scale: 1,
-      }}
+      layout // Enable layout animations for smooth transitions
+      initial={
+        isNewLine
+          ? {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+            }
+          : false // Don't use initial for existing lines, let them animate from current position
+      }
       animate={{
         opacity,
         y: yOffset,
         scale,
         transition: {
           duration: 0.4,
-          ease: [0.22, 1, 0.36, 1],
+          y: { ease: [0.22, 1, 0.36, 1] }, // Smooth upward motion
+          scale: { ease: scaleEasing as any }, // Conditional: delayed for new, immediate for existing
+          opacity: { ease: 'easeOut' },
         },
       }}
       exit={{
