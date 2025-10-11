@@ -11,7 +11,7 @@ export const CompletedLineComponent = ({
   scaleFactor: number;
 }) => {
   const scale = Math.pow(scaleFactor, index + 1);
-  const yOffset = -40 - index * 20;
+  const yOffset = -35 - index * 15;
   const opacity = Math.max(0, 0.3 - index * 1.5);
 
   const blurAmount = (index + 1) * 3.5;
@@ -57,7 +57,7 @@ export const CompletedLineComponent = ({
       }}
       className="absolute inset-0 flex items-center justify-center pointer-events-none"
     >
-      <p className="text-2xl font-medium text-center px-8">{line.text}</p>
+      <p className="text-lg font-medium text-center px-8">{line.text}</p>
     </motion.div>
   );
 };
