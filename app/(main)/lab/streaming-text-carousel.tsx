@@ -42,17 +42,21 @@ export function StreamingTextCarousel() {
                 opacity: 0.4,
                 y: -80,
                 scale: 0.7,
+                transition: {
+                  duration: 0.3,
+                  y: { ease: [0.22, 1, 0.36, 1] }, // Smooth upward motion
+                  scale: { ease: [0.65, 0, 0.35, 1] }, // Delayed scale creates arc effect
+                  opacity: { ease: 'easeOut' },
+                },
               }}
               exit={{
                 opacity: 0,
-                y: -100,
-                scale: 0.6,
-              }}
-              transition={{
-                duration: 0.3,
-                y: { ease: [0.22, 1, 0.36, 1] }, // Smooth upward motion
-                scale: { ease: [0.65, 0, 0.35, 1] }, // Delayed scale creates arc effect
-                opacity: { ease: 'easeOut' },
+                y: -80,
+                scale: 0.7,
+                transition: {
+                  duration: 0.15,
+                  ease: 'easeOut',
+                },
               }}
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
             >
