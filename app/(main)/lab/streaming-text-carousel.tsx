@@ -166,6 +166,9 @@ const CompletedLineComponent = ({
   const yOffset = -40 - index * 20; // Stack lines upward
   const opacity = Math.max(0, 0.3 - index * 1.5); // Fade older lines more aggressively
 
+  // Progressive blur - increases with each line index
+  const blurAmount = index * 3; // 0px, 3px, 6px, 9px...
+
   // Only new lines (index 0) should start from center, others continue from their position
   const isNewLine = index === 0;
 
@@ -182,6 +185,7 @@ const CompletedLineComponent = ({
               opacity: 1,
               y: 0,
               scale: 1,
+              filter: 'blur(0px)',
             }
           : false // Don't use initial for existing lines, let them animate from current position
       }
@@ -189,17 +193,21 @@ const CompletedLineComponent = ({
         opacity,
         y: yOffset,
         scale,
+        filter: `blur(${blurAmount}px)`,
         transition: {
           duration: 0.4,
           y: { ease: [0.22, 1, 0.36, 1] }, // Smooth upward motion
           scale: { ease: scaleEasing as any }, // Conditional: delayed for new, immediate for existing
           opacity: { ease: 'easeOut' },
+          filter: { ease: 'easeOut', duration: 0.4 }, // Smooth blur transition
         },
       }}
       exit={{
         opacity: 0,
+        filter: 'blur(12px)',
         transition: {
           duration: 0.2,
+          filter: { ease: 'easeIn' },
         },
       }}
       className="absolute inset-0 flex items-center justify-center pointer-events-none"
@@ -243,6 +251,18 @@ export function StreamingTextCarousel() {
           ref={measureRef}
           className="absolute invisible text-2xl font-medium px-8 whitespace-nowrap"
           aria-hidden="true"
+        />
+        {/* Gradient overlay for additional blur depth */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded-xl"
+          style={{
+            background:
+              'linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.05) 100%)',
+            maskImage:
+              'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
+            WebkitMaskImage:
+              'linear-gradient(to bottom, black 0%, transparent 30%, transparent 70%, black 100%)',
+          }}
         />
 
         <AnimatePresence mode="sync">
