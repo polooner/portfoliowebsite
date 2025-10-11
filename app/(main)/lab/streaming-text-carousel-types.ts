@@ -3,6 +3,7 @@ export interface StreamingConfig {
   maxWidth: number;
   maxLines: number;
   scaleFactorPerLine: number;
+  maxVisibleCompletedLines: number; // Range: 2-6
 }
 
 export interface CompletedLine {

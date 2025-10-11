@@ -5,14 +5,16 @@ export const CompletedLineComponent = ({
   line,
   index,
   scaleFactor,
+  maxVisibleCompletedLines,
 }: {
   line: CompletedLine;
   index: number;
   scaleFactor: number;
+  maxVisibleCompletedLines: number;
 }) => {
   const scale = Math.pow(scaleFactor, index + 1);
   const yOffset = -35 - index * 15;
-  const opacity = Math.max(0, 0.3 - index * 1.5);
+  const opacity = Math.max(0, 0.5 - index * (0.5 / maxVisibleCompletedLines));
 
   const blurAmount = (index + 1) * 3.5;
 

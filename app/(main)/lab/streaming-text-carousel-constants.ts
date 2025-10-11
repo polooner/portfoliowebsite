@@ -9,4 +9,5 @@ export const DEFAULT_CONFIG: StreamingConfig = {
   maxWidth: 400,
   maxLines: 4,
   scaleFactorPerLine: 0.85,
+  maxVisibleCompletedLines: 2,
 };

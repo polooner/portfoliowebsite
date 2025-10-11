@@ -28,6 +28,7 @@ export function StreamingTextCarousel() {
                 line={line}
                 index={index}
                 scaleFactor={DEFAULT_CONFIG.scaleFactorPerLine}
+                maxVisibleCompletedLines={DEFAULT_CONFIG.maxVisibleCompletedLines}
               />
             ))}
 
