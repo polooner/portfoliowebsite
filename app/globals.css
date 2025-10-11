@@ -329,3 +329,16 @@ code:not(pre code) span {
 pre code span {
   font-weight: 500;
 }
+
+@keyframes blurIn {
+  from {
+    opacity: 0;
+    filter: blur(0.3px);
+    transform: translateX(2px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateX(0) translateZ(0);
+  }
+}
