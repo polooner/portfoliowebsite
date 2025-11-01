@@ -20,15 +20,18 @@ export default function Home() {
           <br />
 
           <div>
-            <p>currently based out of nyc.</p>
+            <p>Currently based out of NYC.</p>
           </div>
 
           <div>
-            i like philosophy, ai and ui.
+            I like philosophy, AI and UI.
             <br />
             <br />
           </div>
-          <div>i am the most helpful on engineering/product, design, web performance.</div>
+          <div>
+            I am the most helpful on the topics of AI engineering/product, design, web performance.
+          </div>
+          <div>I occasionally advise select companies on the above.</div>
         </div>
         <br />
         <div className="flex flex-col gap-10">
@@ -45,7 +48,7 @@ export default function Home() {
             <i className="font-thin text-xs">product engineering</i>
             <div className="text-sm">the world&apos;s most powerful creative tool</div>
             <div className="text-neutral-500">
-              on a mission to bring the creative control in a world optimizing for one-shot AI.
+              On a mission to bring the creative control in a world optimizing for one-shot AI.
               creative workflows on an infinite AI canvas.
             </div>
           </div>
@@ -56,7 +59,7 @@ export default function Home() {
             <i className="font-thin text-xs">founder, engineer, designer</i>
             <div>a video editing copilot. chat to edit videos.</div>
             <div className="text-neutral-500">
-              video editor with a chat. reads transcripts, visually annotates videos + performs
+              Video editor with a chat. reads transcripts, visually annotates videos + performs
               vector search using top open source research implementation. <br />
               <br />
               launched from{' '}
@@ -78,7 +81,7 @@ export default function Home() {
             <i className="font-thin text-xs">founding engineer</i>
             AI data scientist
             <div className="text-neutral-500">
-              fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
+              Fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
             </div>
           </div>
           <div className="flex flex-col gap-1">
