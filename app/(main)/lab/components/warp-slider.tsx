@@ -114,6 +114,7 @@ export function WarpSlider() {
         <span className="font-mono font-medium">Limit-aware warping slider</span>
         <span className="text-xs">
           Lively responds to hitting its limits. I wish more products utilized some version of this.
+          Inspired by Apple.
         </span>
       </div>
     </div>
