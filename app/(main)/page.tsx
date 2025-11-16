@@ -41,12 +41,11 @@ export default function Home() {
               target="_blank"
               href="https://www.florafauna.ai"
             >
-              <div className="flex flex-row justify-between">
-                FLORA <span className="font-mono">present</span>
+              <div className="flex flex-row ">
+                FLORA <span className="font-mono font-thin text-sm">&nbsp; (present)</span>
               </div>
             </Link>
             <i className="font-thin text-xs">product engineering</i>
-            <div className="text-sm">the world&apos;s most powerful creative tool</div>
             <div className="text-neutral-500">
               On a mission to bring the creative control in a world optimizing for one-shot AI.
               creative workflows on an infinite AI canvas.
@@ -57,7 +56,6 @@ export default function Home() {
               <div className="flex flex-row justify-between">EKRAN</div>
             </Link>
             <i className="font-thin text-xs">founder, engineer, designer</i>
-            <div>a video editing copilot. chat to edit videos.</div>
             <div className="text-neutral-500">
               Video editor with a chat. reads transcripts, visually annotates videos + performs
               vector search using top open source research implementation. <br />
@@ -79,7 +77,6 @@ export default function Home() {
               <div className="flex flex-row justify-between">Julius.ai</div>
             </Link>
             <i className="font-thin text-xs">founding engineer</i>
-            AI data scientist
             <div className="text-neutral-500">
               Fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
             </div>
@@ -93,7 +90,7 @@ export default function Home() {
               makeklips.ai
             </Link>
             <i className="font-thin text-xs">founder, engineer, designer</i>
-            AI shorts generator
+            AI shorts generator.
           </div>
         </div>
         <br />
