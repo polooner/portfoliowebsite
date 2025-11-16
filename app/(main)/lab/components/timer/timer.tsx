@@ -66,7 +66,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
                     key={char}
                     initial={{
                       y: -40,
-                      scale: 0.9,
+                      scale: 0.5,
                       filter: 'blur(8px)',
                       opacity: 0,
                     }}
@@ -78,7 +78,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
                     }}
                     exit={{
                       y: 40,
-                      scale: 0.9,
+                      scale: 0.5,
                       filter: 'blur(8px)',
                       opacity: 0,
                     }}
