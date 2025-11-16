@@ -1,5 +1,5 @@
+import { CompletedLine } from '@/app/(main)/lab/components/streaming-text-carousel/streaming-text-carousel-types';
 import { motion } from 'framer-motion';
-import type { CompletedLine } from './streaming-text-carousel-types';
 
 export const CompletedLineComponent = ({
   line,

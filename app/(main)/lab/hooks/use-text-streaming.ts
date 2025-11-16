@@ -1,6 +1,10 @@
+import { DEFAULT_CONFIG } from '@/app/(main)/lab/components/streaming-text-carousel/streaming-text-carousel-constants';
+import {
+  AnimatedChar,
+  CompletedLine,
+  StreamingConfig,
+} from '@/app/(main)/lab/components/streaming-text-carousel/streaming-text-carousel-types';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import type { StreamingConfig, CompletedLine, AnimatedChar } from './streaming-text-carousel-types';
-import { DEFAULT_CONFIG } from './streaming-text-carousel-constants';
 
 export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG) {
   const [currentLineChars, setCurrentLineChars] = useState<AnimatedChar[]>([]);

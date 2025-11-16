@@ -1,5 +1,5 @@
-import { WarpSlider } from '@/app/(main)/lab/components/warp-slider';
-import { StreamingTextCarousel } from './streaming-text-carousel';
+import { StreamingTextCarousel } from '@/app/(main)/lab/components/streaming-text-carousel/streaming-text-carousel';
+import { WarpSlider } from '@/app/(main)/lab/components/warp-slider/warp-slider';
 
 export default function Page() {
   return (
