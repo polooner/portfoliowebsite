@@ -51,14 +51,14 @@ export function Timer({ duration = 10000 }: TimerProps) {
   }, [duration]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center">
+    <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full self-center">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-50 rounded-2xl">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-0">
             {formattedTime.split('').map((char, index) => (
               <div
                 key={index}
-                className="relative h-16 flex items-center justify-center overflow-hidden"
+                className="relative h-32 flex items-center justify-center overflow-hidden"
                 style={{ width: char === ':' ? '1rem' : '2rem' }}
               >
                 <AnimatePresence mode="wait" initial={false}>
@@ -97,7 +97,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 -mt-4">
             <Button variant="outline" size="sm" onClick={handleStartPause} className="min-w-[80px]">
               {isRunning ? 'Pause' : timeRemaining <= 0 ? 'Restart' : 'Start'}
             </Button>
