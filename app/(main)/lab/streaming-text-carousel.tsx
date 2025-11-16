@@ -57,16 +57,16 @@ export function StreamingTextCarousel() {
                     key={id}
                     style={{
                       animationName: 'blurIn',
-                      animationDuration: '0.2s',
-                      animationTimingFunction: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
+                      animationDuration: '0.35s',
+                      animationTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                       animationIterationCount: '1',
                       animationFillMode: 'both',
                       whiteSpace: 'pre',
                       display: 'inline-block',
-                      willChange: 'opacity, filter, transform',
+                      willChange: 'opacity, transform',
                       transform: 'translateZ(0)',
                       backfaceVisibility: 'hidden',
-                      transition: 'transform 0.08s ease-out',
+                      transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
                     }}
                   >
                     {char}
