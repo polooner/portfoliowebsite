@@ -61,7 +61,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
                 className="relative h-32 flex items-center justify-center overflow-hidden"
                 style={{ width: char === ':' ? '1rem' : '2rem' }}
               >
-                <AnimatePresence mode="wait" initial={false}>
+                <AnimatePresence mode="popLayout" initial={false}>
                   <motion.div
                     key={char}
                     initial={{
