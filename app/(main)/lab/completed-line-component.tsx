@@ -59,7 +59,7 @@ export const CompletedLineComponent = ({
       }}
       className="absolute inset-0 flex items-center justify-center pointer-events-none"
     >
-      <p className="text-base font-medium text-center px-8">{line.text}</p>
+      <p className="sm:text-base text-xs font-medium text-center sm:px-8 px-px">{line.text}</p>
     </motion.div>
   );
 };

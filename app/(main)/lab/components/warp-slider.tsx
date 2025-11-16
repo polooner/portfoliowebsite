@@ -11,6 +11,7 @@ const MAX_WARP_MAGNITUDE = 120;
 export function WarpSlider() {
   const [value, setValue] = useState([50]);
   const [isDragging, setIsDragging] = useState(false);
+  const [sliderWidth, setSliderWidth] = useState(SLIDER_WIDTH);
   const warpMagnitude = useMotionValue(0);
   const warpDirection = useRef<'left' | 'right' | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -31,6 +32,22 @@ export function WarpSlider() {
   );
 
   useEffect(() => {
+    const updateSliderWidth = () => {
+      if (sliderRef.current) {
+        const width = sliderRef.current.offsetWidth;
+        setSliderWidth(width);
+      }
+    };
+
+    updateSliderWidth();
+    window.addEventListener('resize', updateSliderWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateSliderWidth);
+    };
+  }, []);
+
+  useEffect(() => {
     const handlePointerMove = (e: PointerEvent) => {
       if (!isDragging || !sliderRef.current) return;
 
@@ -43,11 +60,13 @@ export function WarpSlider() {
       if (relativeX < 0) {
         direction = 'left';
         const overflow = Math.abs(relativeX);
-        magnitude = Math.min(MAX_WARP_MAGNITUDE, overflow * 0.6);
-      } else if (relativeX > SLIDER_WIDTH) {
+        // Non-linear scaling for faster warp response
+        magnitude = Math.min(MAX_WARP_MAGNITUDE, Math.pow(overflow * 1.2, 1.3));
+      } else if (relativeX > sliderWidth) {
         direction = 'right';
-        const overflow = relativeX - SLIDER_WIDTH;
-        magnitude = Math.min(MAX_WARP_MAGNITUDE, overflow * 0.6);
+        const overflow = relativeX - sliderWidth;
+        // Non-linear scaling for faster warp response
+        magnitude = Math.min(MAX_WARP_MAGNITUDE, Math.pow(overflow * 1.2, 1.3));
       }
 
       warpDirection.current = direction;
@@ -69,7 +88,7 @@ export function WarpSlider() {
       window.removeEventListener('pointermove', handlePointerMove);
       window.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [isDragging, warpMagnitude]);
+  }, [isDragging, warpMagnitude, sliderWidth]);
 
   const currentWarpTranslate =
     warpDirection.current === 'left'
@@ -80,16 +99,17 @@ export function WarpSlider() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center">
-      <div className="relative h-48 flex items-center justify-center min-w-[250px] w-[500px]">
+      <div className="relative h-48 flex items-center justify-center w-full max-w-[500px]">
         <motion.div
           ref={sliderRef}
           style={{
             scaleX: warpStretch,
             scaleY: warpCompress,
             x: currentWarpTranslate,
-            width: SLIDER_WIDTH,
+            touchAction: 'none',
           }}
           onPointerDown={() => setIsDragging(true)}
+          className="w-full max-w-[300px]"
         >
           <Slider
             value={value}
@@ -110,7 +130,7 @@ export function WarpSlider() {
         </motion.div>
       </div>
 
-      <div className="self-start text-left flex flex-col">
+      <div className="w-full max-w-[500px] text-left flex flex-col">
         <span className="font-mono font-medium">Limit-aware warping slider</span>
         <span className="text-xs">
           Lively responds to hitting its limits. I wish more products utilized some version of this.

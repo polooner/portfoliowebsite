@@ -14,10 +14,10 @@ export function StreamingTextCarousel() {
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center ">
-        <div className="relative h-48 flex items-center justify-center min-w-[250px] w-[500px] bg-neutral-50 rounded-2xl">
+        <div className="relative h-48 flex items-center justify-center min-w-[150px] w-full max-w-[500px] bg-neutral-50 rounded-2xl">
           <span
             ref={measureRef}
-            className="absolute invisible text-base font-medium px-8 whitespace-nowrap"
+            className="absolute invisible text-xs sm:text-base font-medium sm:px-8 px-2 whitespace-nowrap"
             aria-hidden="true"
           />
 
@@ -51,7 +51,7 @@ export function StreamingTextCarousel() {
               }}
               className="absolute inset-0 flex items-center justify-center"
             >
-              <p className="text-base font-medium text-center px-8 w-[400px] min-h-[2.5rem]">
+              <p className="font-medium text-center px-2 sm:px-8 w-[400px] text-xs sm:text-base min-h-[2.5rem]">
                 {currentLineChars.map(({ char, id }) => (
                   <span
                     key={id}
