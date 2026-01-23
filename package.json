@@ -10,7 +10,8 @@
     "preinstall": "npx only-allow pnpm",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "npx tsc --noEmit"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.1",
