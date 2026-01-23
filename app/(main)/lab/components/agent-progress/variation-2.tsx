@@ -224,18 +224,13 @@ export function AgentProgressVariation2() {
   };
 
   return (
-    <div className="border border-neutral-200/90 p-1 rounded-[1rem] w-44 m-10 bg-neutral-100 flex flex-col">
-      <span className='tracking-tight font-medium text-neutral-700 text-xs p-1 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: add feature</span>
-      <div className='bg-neutral-50 p-2 rounded-xl'>
+    <div className="border border-neutral-200/90 rounded-nest-xl-1 w-44 m-10 bg-neutral-100 flex flex-col">
+      <span className='tracking-tight font-medium text-neutral-700 text-xs p-2 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: add feature</span>
+      <div className='bg-neutral-50 p-2 border border-neutral-200 rounded-nest-xl-1 mx-[-1px] mb-[-1px] gap-3 flex flex-col'>
         {steps.map((step, index) => (
-          <div key={index}>
+          <div key={index} >
             <AgentStep status={getStatus(index)} step={step} />
-            {index < steps.length - 1 && (
-              <ConnectingLine
-                status={getStatus(index)}
-                nextStatus={getStatus(index + 1)}
-              />
-            )}
+
           </div>
         ))}
       </div>
