@@ -2,10 +2,11 @@
 
 import SnapEaseCarousel from '@/components/design-experiments/snap-ease-carousel';
 import ColumnCarousel from '@/components/design-experiments/column-carousel';
+import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
 export function EaseCarousel() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
+    <div className="lab-item">
       <div className="relative flex flex-col items-center justify-center gap-6 w-full max-w-[500px] bg-neutral-50 rounded-2xl py-8 px-4">
         {/* Snap ease carousel */}
         <div className="flex items-center gap-2 text-xl select-none font-medium">
@@ -33,12 +34,10 @@ export function EaseCarousel() {
         </div>
       </div>
 
-      <div className="w-full max-w-[500px] text-left flex flex-col">
-        <span className="font-mono font-medium">Snap-ease text carousel</span>
-        <span className="text-xs">
-          Custom easing with slow-fast-slow transitions. Top: single word swap. Bottom: column with visible neighbors.
-        </span>
-      </div>
+      <LabItemFooter
+        title="Snap-ease text carousel"
+        description="Custom easing with slow-fast-slow transitions. Top: single word swap. Bottom: column with visible neighbors."
+      />
     </div>
   );
 }

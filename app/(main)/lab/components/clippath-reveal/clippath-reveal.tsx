@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
 export function ClipPathReveal() {
   const [animate, setAnimate] = useState(false);
@@ -35,7 +36,7 @@ export function ClipPathReveal() {
   const statement = 'a new era requires a new creative class.';
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
+    <div className="lab-item">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-900 rounded-2xl overflow-hidden">
         <div className="relative overflow-hidden rounded-xl">
           <div className="p-6">
@@ -81,12 +82,10 @@ export function ClipPathReveal() {
         )}
       </div>
 
-      <div className="w-full max-w-[500px] text-left flex flex-col">
-        <span className="font-mono font-medium">Clip-path reveal</span>
-        <span className="text-xs">
-          Text inverts from light to dark using CSS clip-path animation. Clean reveal effect.
-        </span>
-      </div>
+      <LabItemFooter
+        title="Clip-path reveal"
+        description="Text inverts from light to dark using CSS clip-path animation. Clean reveal effect."
+      />
     </div>
   );
 }

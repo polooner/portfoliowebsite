@@ -24,7 +24,7 @@ export default function Home() {
           </div>
 
           <div>
-            I like philosophy, AI and UI.
+            I like AI/UI and creative tools.
             <br />
             <br />
           </div>

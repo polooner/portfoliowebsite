@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { texts, DEFAULT_CONFIG } from './streaming-text-carousel-constants';
 import { CompletedLineComponent } from '@/app/(main)/lab/components/streaming-text-carousel/completed-line-component';
 import { useTextStreaming } from '@/app/(main)/lab/hooks/use-text-streaming';
+import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
 export function StreamingTextCarousel() {
   const { currentLineChars, completedLines, measureRef, reset } = useTextStreaming(
@@ -12,7 +13,7 @@ export function StreamingTextCarousel() {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center ">
+    <div className="lab-item">
       <div className="relative h-48 flex items-center justify-center min-w-[150px] w-full max-w-[500px] bg-neutral-50 rounded-2xl">
         <span
           ref={measureRef}
@@ -82,10 +83,10 @@ export function StreamingTextCarousel() {
           replay
         </button>
       </div>
-      <div className="self-start text-left flex flex-col">
-        <span className="font-mono font-medium ">Blurred streaming carousel</span>
-        <span className="text-xs">Perfect for AI thinking sections</span>
-      </div>
+      <LabItemFooter
+        title="Blurred streaming carousel"
+        description="Perfect for AI thinking sections"
+      />
     </div>
   );
 }

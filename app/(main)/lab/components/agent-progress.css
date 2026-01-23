@@ -1,0 +1,71 @@
+@keyframes spinner-fade {
+  0% {
+    opacity: 1;
+  }
+  12.5% {
+    opacity: 0.7;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  37.5% {
+    opacity: 0.25;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes checkmark-draw {
+  from {
+    stroke-dashoffset: 20;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.spinner-line {
+  transform-origin: center;
+  animation: spinner-fade 1.4s linear infinite;
+}
+
+.spinner-line-0 {
+  transform: rotate(0deg);
+  animation-delay: -1.225s;
+}
+.spinner-line-1 {
+  transform: rotate(45deg);
+  animation-delay: -1.05s;
+}
+.spinner-line-2 {
+  transform: rotate(90deg);
+  animation-delay: -0.875s;
+}
+.spinner-line-3 {
+  transform: rotate(135deg);
+  animation-delay: -0.7s;
+}
+.spinner-line-4 {
+  transform: rotate(180deg);
+  animation-delay: -0.525s;
+}
+.spinner-line-5 {
+  transform: rotate(225deg);
+  animation-delay: -0.35s;
+}
+.spinner-line-6 {
+  transform: rotate(270deg);
+  animation-delay: -0.175s;
+}
+.spinner-line-7 {
+  transform: rotate(315deg);
+  animation-delay: 0s;
+}
+
+.checkmark-path {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  animation: checkmark-draw 0.6s ease-out forwards;
+}

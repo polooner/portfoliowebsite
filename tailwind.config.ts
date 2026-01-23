@@ -178,6 +178,21 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-animate'),
+    // Lab item container utility
+    function ({ addUtilities }: any) {
+      addUtilities({
+        '.lab-item': {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minHeight: '250px',
+          gap: '1rem',
+          width: '100%',
+          alignSelf: 'center',
+        },
+      });
+    },
     // thanks to aceternity ui!
     // https://ui.aceternity.com/components/grid-and-dot-backgrounds
     function ({ matchUtilities, theme }: any) {

@@ -3,6 +3,7 @@ import { WarpSlider } from '@/app/(main)/lab/components/warp-slider/warp-slider'
 import { Timer } from '@/app/(main)/lab/components/timer/timer';
 import { ClipPathReveal } from '@/app/(main)/lab/components/clippath-reveal/clippath-reveal';
 import { EaseCarousel } from '@/app/(main)/lab/components/ease-carousel/ease-carousel';
+import { AgentProgress } from '@/app/(main)/lab/components/agent-progress';
 
 export default function Page() {
   return (
@@ -12,6 +13,7 @@ export default function Page() {
       <Timer />
       <EaseCarousel />
       <ClipPathReveal />
+      <AgentProgress />
     </div>
   );
 }

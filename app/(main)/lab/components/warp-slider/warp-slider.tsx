@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import { Slider } from '@/components/ui/slider';
+import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
 const SLIDER_WIDTH = 300;
 const MAX_TRANSLATE = 8;
@@ -98,7 +99,7 @@ export function WarpSlider() {
         : 0;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
+    <div className="lab-item">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px]">
         <motion.div
           ref={sliderRef}
@@ -130,13 +131,10 @@ export function WarpSlider() {
         </motion.div>
       </div>
 
-      <div className="w-full max-w-[500px] text-left flex flex-col">
-        <span className="font-mono font-medium">Limit-aware warping slider</span>
-        <span className="text-xs">
-          Lively responds to hitting its limits. I wish more products utilized some version of this.
-          Inspired by Apple.
-        </span>
-      </div>
+      <LabItemFooter
+        title="Limit-aware warping slider"
+        description="Lively responds to hitting its limits. I wish more products utilized some version of this. Inspired by Apple."
+      />
     </div>
   );
 }

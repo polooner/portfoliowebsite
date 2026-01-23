@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
 interface TimerProps {
   duration?: number;
@@ -51,7 +52,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
   }, [duration]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[300px] gap-4 w-full self-center">
+    <div className="lab-item min-h-[300px]">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-50 rounded-2xl">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-0">
@@ -108,12 +109,10 @@ export function Timer({ duration = 10000 }: TimerProps) {
         </div>
       </div>
 
-      <div className="w-full max-w-[500px] text-left flex flex-col">
-        <span className="font-mono font-medium">Animated countdown timer</span>
-        <span className="text-xs">
-          Numbers cascade and blur as they change, creating a smooth carousel effect.
-        </span>
-      </div>
+      <LabItemFooter
+        title="Animated countdown timer"
+        description="Numbers cascade and blur as they change, creating a smooth carousel effect."
+      />
     </div>
   );
 }
