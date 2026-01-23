@@ -27,7 +27,7 @@ export function TextCarousel() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full">
+    <div className="flex flex-col items-center justify-center min-h-[300px] gap-4 w-full">
       <div className="relative h-64 flex items-center justify-center w-[500px]">
         <AnimatePresence mode="popLayout">
           {previousIndex !== null && (

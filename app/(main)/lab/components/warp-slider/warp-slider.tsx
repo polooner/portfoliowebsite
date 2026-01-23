@@ -98,7 +98,7 @@ export function WarpSlider() {
         : 0;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center">
+    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px]">
         <motion.div
           ref={sliderRef}

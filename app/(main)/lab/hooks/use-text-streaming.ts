@@ -9,6 +9,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT_CONFIG) {
   const [currentLineChars, setCurrentLineChars] = useState<AnimatedChar[]>([]);
   const [completedLines, setCompletedLines] = useState<CompletedLine[]>([]);
+  const [resetKey, setResetKey] = useState(0);
 
   const measureRef = useRef<HTMLSpanElement>(null);
   const charactersRef = useRef<string[]>([]);
@@ -125,11 +126,16 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
         timerRef.current = null;
       }
     };
-  }, [text, config.streamingSpeed, config.maxLines, wouldExceedWidth, getNextWord]);
+  }, [text, config.streamingSpeed, config.maxLines, wouldExceedWidth, getNextWord, resetKey]);
+
+  const reset = useCallback(() => {
+    setResetKey(k => k + 1);
+  }, []);
 
   return {
     currentLineChars,
     completedLines,
     measureRef,
+    reset,
   };
 }

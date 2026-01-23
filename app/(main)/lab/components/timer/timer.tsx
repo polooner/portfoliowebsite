@@ -51,7 +51,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
   }, [duration]);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[300px] gap-8 w-full self-center">
+    <div className="flex flex-col items-center justify-center min-h-[300px] gap-4 w-full self-center">
       <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-50 rounded-2xl">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-0">

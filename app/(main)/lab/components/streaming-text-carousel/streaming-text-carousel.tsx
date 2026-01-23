@@ -6,13 +6,13 @@ import { CompletedLineComponent } from '@/app/(main)/lab/components/streaming-te
 import { useTextStreaming } from '@/app/(main)/lab/hooks/use-text-streaming';
 
 export function StreamingTextCarousel() {
-  const { currentLineChars, completedLines, measureRef } = useTextStreaming(
+  const { currentLineChars, completedLines, measureRef, reset } = useTextStreaming(
     texts[0],
     DEFAULT_CONFIG
   );
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[250px] gap-8 w-full self-center ">
+    <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center ">
       <div className="relative h-48 flex items-center justify-center min-w-[150px] w-full max-w-[500px] bg-neutral-50 rounded-2xl">
         <span
           ref={measureRef}
@@ -74,6 +74,13 @@ export function StreamingTextCarousel() {
             </p>
           </motion.div>
         </AnimatePresence>
+
+        <button
+          onClick={reset}
+          className="absolute bottom-3 right-3 rounded-full bg-black/5 px-3 py-1 text-[10px] lowercase tracking-widest text-neutral-500 transition-colors hover:bg-black/10 hover:text-neutral-700"
+        >
+          replay
+        </button>
       </div>
       <div className="self-start text-left flex flex-col">
         <span className="font-mono font-medium ">Blurred streaming carousel</span>
