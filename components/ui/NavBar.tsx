@@ -30,12 +30,7 @@ export default function NavBar({ children }: { children?: React.ReactNode }) {
         >
           <p>lab</p>
         </Link>
-        <Link
-          href="/artworks"
-          className="flex hover:bg-black text-black hover:text-white flex-row items-center px-4"
-        >
-          <p>artworks</p>
-        </Link>
+        
       </div>
     </nav>
   );
