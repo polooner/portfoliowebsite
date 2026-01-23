@@ -227,9 +227,9 @@ export function AgentProgress() {
 
   return (
     <div className="lab-item">
-      <div className="border border-neutral-200/90 p-1 rounded-[1rem] w-44 m-10 bg-neutral-50 flex flex-col">
+      <div className="border border-neutral-200/90 p-1 rounded-[1rem] w-44 m-10 bg-neutral-100 flex flex-col">
         <span className='tracking-tight font-medium text-neutral-700 text-xs p-1 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: research issue</span>
-        <div className='bg-neutral-100 p-2 rounded-xl'>
+        <div className='bg-neutral-50 p-2 rounded-xl'>
           {steps.map((step, index) => (
             <div key={index}>
               <AgentStep status={getStatus(index)} step={step} />
