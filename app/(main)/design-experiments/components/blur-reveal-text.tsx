@@ -40,12 +40,12 @@ export function BlurRevealText({
   };
 
   return (
-    <div className="flex flex-col items-center gap-8">
-      <div className={`flex flex-wrap max-w-[600px] ${className}`}>
+    <div className="flex flex-col items-start gap-8">
+      <div className={`flex flex-wrap justify-start w-[600px] ${className}`}>
         {characters.map((char) => {
           const blurAmount = calculateBlur(char.index);
-          const opacity =
-            blurAmount > 0 ? 0.7 + 0.3 * (1 - blurAmount / maxBlur) : 1;
+          const blurRatio = blurAmount / maxBlur;
+          const opacity = blurAmount > 0 ? 1 - blurRatio : 1;
 
           return (
             <motion.span
