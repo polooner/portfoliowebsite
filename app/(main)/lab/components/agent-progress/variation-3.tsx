@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import '../agent-progress.css';
 
@@ -159,7 +159,7 @@ const ConnectingLine = ({
   const showSolid = status === 'completed' && nextStatus !== 'pending';
 
   return (
-    <div className="py-1 pl-[7px]">
+    <div className="px-1 pl-[16px]">
       <div className="h-3 relative">
         <div className="w-px h-full border-l border-dashed border-neutral-300" />
         {showSolid && (
@@ -175,7 +175,7 @@ const ConnectingLine = ({
   );
 };
 
-const AgentStep = ({
+const AgentStepBase = ({
   status,
   step,
 }: {
@@ -183,20 +183,36 @@ const AgentStep = ({
   step: Step;
 }) => {
   return (
-    <div className="flex flex-row items-center gap-2">
+    <div className="flex flex-row items-center gap-2 p-2 rounded-xl">
       <div className="size-4 flex items-center justify-center text-neutral-500">
         {status === 'pending' && <PendingIcon />}
         {status === 'in-progress' && <SpinnerIcon />}
         {status === 'completed' && <CheckmarkIcon />}
       </div>
       <span
-        className={`text-xs transition-colors duration-300 ${status === 'pending'
-          ? 'text-neutral-500'
-          : status === 'in-progress'
-            ? 'text-neutral-800'
-            : 'text-neutral-400'
-          }`}
+        className={`text-xs ${status === 'completed' ? 'text-neutral-400' : 'text-neutral-500'}`}
       >
+        {status === 'completed' ? step.completed : step.active}
+      </span>
+    </div>
+  );
+};
+
+const AgentStepOverlay = ({
+  status,
+  step,
+}: {
+  status: StepStatus;
+  step: Step;
+}) => {
+  return (
+    <div className="flex flex-row items-center gap-2 p-2 rounded-xl">
+      <div className="size-4 flex items-center justify-center text-neutral-500">
+        {status === 'pending' && <PendingIcon />}
+        {status === 'in-progress' && <SpinnerIcon />}
+        {status === 'completed' && <CheckmarkIcon />}
+      </div>
+      <span className="text-xs text-neutral-800">
         {status === 'completed' ? step.completed : step.active}
       </span>
     </div>
@@ -205,6 +221,9 @@ const AgentStep = ({
 
 export function AgentProgressVariation3() {
   const [currentStep, setCurrentStep] = useState(0);
+  const clipPathRef = useRef<HTMLDivElement>(null);
+  const highlightRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (currentStep >= steps.length) return;
@@ -216,6 +235,38 @@ export function AgentProgressVariation3() {
     return () => clearTimeout(timer);
   }, [currentStep]);
 
+  useEffect(() => {
+    const clipPathContainer = clipPathRef.current;
+    const highlightBox = highlightRef.current;
+    const activeStepElement = stepRefs.current[currentStep];
+
+    if (clipPathContainer && activeStepElement && currentStep < steps.length) {
+      const containerHeight = clipPathContainer.offsetHeight;
+      const stepTop = activeStepElement.offsetTop;
+      const stepHeight = activeStepElement.offsetHeight;
+
+      const clipTop = (stepTop / containerHeight) * 100;
+      const clipBottom = 100 - ((stepTop + stepHeight) / containerHeight) * 100;
+
+      clipPathContainer.style.clipPath = `inset(${clipTop.toFixed(1)}% 0 ${clipBottom.toFixed(1)}% 0 round 12px)`;
+
+      // Position the highlight box
+      if (highlightBox) {
+        highlightBox.style.transform = `translateY(${stepTop}px)`;
+        highlightBox.style.height = `${stepHeight}px`;
+        highlightBox.style.opacity = '1';
+      }
+    } else if (currentStep >= steps.length) {
+      // Hide overlay when all steps are completed
+      if (clipPathContainer) {
+        clipPathContainer.style.clipPath = `inset(100% 0 0% 0 round 12px)`;
+      }
+      if (highlightBox) {
+        highlightBox.style.opacity = '0';
+      }
+    }
+  }, [currentStep]);
+
   const getStatus = (index: number): StepStatus => {
     if (index < currentStep) return 'completed';
     if (index === currentStep) return 'in-progress';
@@ -225,18 +276,39 @@ export function AgentProgressVariation3() {
   return (
     <div className="border border-neutral-200/90 p-1 rounded-[1rem] w-44 m-10 bg-neutral-100 flex flex-col">
       <span className='tracking-tight font-medium text-neutral-700 text-xs p-1 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: fix bug</span>
-      <div className='bg-neutral-50 p-2 rounded-xl'>
-        {steps.map((step, index) => (
-          <div key={index}>
-            <AgentStep status={getStatus(index)} step={step} />
-            {index < steps.length - 1 && (
-              <ConnectingLine
-                status={getStatus(index)}
-                nextStatus={getStatus(index + 1)}
-              />
-            )}
-          </div>
-        ))}
+      <div className="relative rounded-xl">
+        {/* Highlight box - moves to current step */}
+        <div
+          ref={highlightRef}
+          className="absolute inset-x-0 top-0 bg-neutral-50 border border-neutral-200 rounded-xl transition-all duration-300 ease-out pointer-events-none"
+          style={{ opacity: 0, height: 0 }}
+        />
+
+        {/* Base layer - muted styling */}
+        <div className="rounded-xl">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              ref={(el) => { stepRefs.current[index] = el; }}
+            >
+              <AgentStepBase status={getStatus(index)} step={step} />
+            </div>
+          ))}
+        </div>
+
+        {/* Overlay layer - darker text revealed by clip-path */}
+        <div
+          ref={clipPathRef}
+          aria-hidden
+          className="absolute inset-0 rounded-xl transition-[clip-path] duration-300 ease-out pointer-events-none"
+          style={{ clipPath: 'inset(0% 0 100% 0 round 12px)' }}
+        >
+          {steps.map((step, index) => (
+            <div key={index}>
+              <AgentStepOverlay status={getStatus(index)} step={step} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
