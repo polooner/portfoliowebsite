@@ -69,3 +69,7 @@
   stroke-dashoffset: 20;
   animation: checkmark-draw 0.6s ease-out forwards;
 }
+
+.thoughts-scroll::-webkit-scrollbar {
+  display: none;
+}

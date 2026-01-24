@@ -6,12 +6,14 @@ import { VariationsSwitch } from '@/components/variations-switch';
 import { AgentProgressVariation1 } from './agent-progress/variation-1';
 import { AgentProgressVariation2 } from './agent-progress/variation-2';
 import { AgentProgressVariation3 } from './agent-progress/variation-3';
+import { AgentProgressVariation4 } from '@/app/(main)/lab/components/agent-progress/variation-4';
 import './agent-progress.css';
 
 const variations = [
   AgentProgressVariation1,
   AgentProgressVariation2,
   AgentProgressVariation3,
+  AgentProgressVariation4,
 ];
 
 export function AgentProgress() {
@@ -28,7 +30,7 @@ export function AgentProgress() {
   };
 
   return (
-    <div className="lab-item">
+    <div className="lab-item relative">
       <div className="h-[280px] flex items-center justify-center">
         <CurrentVariation key={currentVariation} />
       </div>
