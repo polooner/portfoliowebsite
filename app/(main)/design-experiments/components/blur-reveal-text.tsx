@@ -60,7 +60,8 @@ export function BlurRevealText({
                 stiffness: 300,
                 damping: 30,
               }}
-              className="inline-block whitespace-pre text-2xl font-medium text-neutral-900"
+              className="inline-block whitespace-pre text-2xl font-medium text-neutral-900 will-change-[filter,opacity]"
+              style={{ transform: 'translateZ(0)' }}
             >
               {char.char}
             </motion.span>
