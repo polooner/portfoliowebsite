@@ -13,7 +13,7 @@ const variations = [
   AgentProgressVariation1,
   AgentProgressVariation2,
   AgentProgressVariation3,
-  AgentProgressVariation4,
+  // AgentProgressVariation4,
 ];
 
 export function AgentProgress() {
