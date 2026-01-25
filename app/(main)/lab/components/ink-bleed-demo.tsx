@@ -5,7 +5,15 @@ import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 import { InkBleedFilter } from '@/components/design-experiments/ink-bleed-filter';
 import { type InkBleedConfig, THRESHOLD_TABLE } from '@/lib/ink-bleed-utils';
 
-const ANIMATION_DURATION = 750;
+// Phase 1: Typewriter - characters appear one by one
+const TYPEWRITER_WORDS = ['new', 'web', 'aesthetics'];
+const TYPEWRITER_TEXT = TYPEWRITER_WORDS.join('\n');
+const TYPEWRITER_CHAR_INTERVAL = 150;  // ms between each character appearing
+
+// Phase 2: Ink bleed intensification
+const INK_BLEED_DURATION = 750;
+
+// Phase 4: Showcase rotation
 const SHOWCASE_ROTATION_INTERVAL = 300;
 const SHOWCASE_ROTATION_COUNT = 5;
 
@@ -31,23 +39,45 @@ function getThresholdForIntensity(intensity: number): string {
   return THRESHOLD_TABLE[Math.max(0, Math.min(100, snapped))] || THRESHOLD_TABLE[50];
 }
 
-type Phase = 'inkBleed' | 'flipped' | 'showcase';
+type Phase = 'typewriter' | 'inkBleed' | 'flipped' | 'showcase';
 
 export function InkBleedDemo() {
-  const [progress, setProgress] = useState(0);
-  const [phase, setPhase] = useState<Phase>('inkBleed');
+  const [phase, setPhase] = useState<Phase>('typewriter');
+  const [visibleCharCount, setVisibleCharCount] = useState(0);
+  const [inkBleedProgress, setInkBleedProgress] = useState(0);
   const [rotationIndex, setRotationIndex] = useState(0);
   const animationRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
+  const chars = TYPEWRITER_TEXT.split('');
+
   const resetAnimation = useCallback(() => {
-    setProgress(0);
-    setPhase('inkBleed');
+    setPhase('typewriter');
+    setVisibleCharCount(0);
+    setInkBleedProgress(0);
     setRotationIndex(0);
     startTimeRef.current = null;
   }, []);
 
-  // Phase 1: Ink bleed animation
+  // Phase 1: Typewriter - characters appear one by one
+  useEffect(() => {
+    if (phase !== 'typewriter') return;
+
+    if (visibleCharCount >= chars.length) {
+      // All characters visible, move to ink bleed phase
+      setPhase('inkBleed');
+      startTimeRef.current = null;
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setVisibleCharCount((prev) => prev + 1);
+    }, TYPEWRITER_CHAR_INTERVAL);
+
+    return () => clearTimeout(timeout);
+  }, [phase, visibleCharCount, chars.length]);
+
+  // Phase 2: Ink bleed intensification
   useEffect(() => {
     if (phase !== 'inkBleed') return;
 
@@ -57,9 +87,9 @@ export function InkBleedDemo() {
       }
 
       const elapsed = timestamp - startTimeRef.current;
-      const newProgress = Math.min(elapsed / ANIMATION_DURATION, 1);
+      const newProgress = Math.min(elapsed / INK_BLEED_DURATION, 1);
 
-      setProgress(newProgress);
+      setInkBleedProgress(newProgress);
 
       if (newProgress < 1) {
         animationRef.current = requestAnimationFrame(animate);
@@ -77,18 +107,18 @@ export function InkBleedDemo() {
     };
   }, [phase]);
 
-  // Phase 2: Flipped -> transition to showcase after a brief moment
+  // Phase 3: Flipped -> transition to showcase after holding
   useEffect(() => {
     if (phase !== 'flipped') return;
 
     const timeout = setTimeout(() => {
       setPhase('showcase');
-    }, 100);
+    }, 1000);
 
     return () => clearTimeout(timeout);
   }, [phase]);
 
-  // Phase 3: Showcase rotation
+  // Phase 4: Showcase rotation
   useEffect(() => {
     if (phase !== 'showcase') return;
 
@@ -114,25 +144,25 @@ export function InkBleedDemo() {
     return rotated;
   }, [rotationIndex]);
 
-  // Main ink bleed config (for phase 1)
+  // Main ink bleed config (for ink bleed phase)
   const config: InkBleedConfig = useMemo(() => {
-    const eased = 1 - Math.pow(1 - progress, 3);
+    const eased = 1 - Math.pow(1 - inkBleedProgress, 3);
 
     return {
       blur: END_CONFIG.maxBlur * eased,
       thresholdTable: getThresholdForIntensity(eased),
       filterId: 'ink-bleed-demo',
     };
-  }, [progress]);
+  }, [inkBleedProgress]);
 
   const textStyle: CSSProperties = useMemo(() => {
-    if (progress === 0) return {};
+    if (inkBleedProgress === 0) return {};
 
     return {
       filter: `blur(${config.blur}px) url(#ink-bleed-demo)`,
       WebkitFilter: `blur(${config.blur}px) url(#ink-bleed-demo)`,
     };
-  }, [config.blur, progress]);
+  }, [config.blur, inkBleedProgress]);
 
   const getShowcaseStyle = useCallback((intensity: number, index: number): CSSProperties => {
     if (intensity === 0) {
@@ -157,7 +187,7 @@ export function InkBleedDemo() {
       <InkBleedFilter config={config} />
       {rotatedIntensities.map((intensity, index) => (
         <InkBleedFilter
-          key={index}
+          key={`showcase-${index}`}
           config={{
             blur: END_CONFIG.maxBlur * intensity,
             thresholdTable: getThresholdForIntensity(intensity),
@@ -166,7 +196,7 @@ export function InkBleedDemo() {
         />
       ))}
       <div
-        className="h-[380px] flex items-center justify-center rounded-2xl w-full relative overflow-hidden"
+        className="h-[380px] flex items-center justify-center w-full relative overflow-hidden"
         style={{ backgroundColor: isFlipped ? 'rgb(0, 0, 0)' : 'transparent' }}
       >
         {phase === 'showcase' ? (
@@ -193,17 +223,35 @@ export function InkBleedDemo() {
               </span>
             ))}
           </div>
+        ) : phase === 'typewriter' ? (
+          <div className="flex flex-col items-center text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight select-none text-black">
+            {(() => {
+              const visibleText = chars.slice(0, visibleCharCount).join('');
+              const lines = visibleText.split('\n');
+              return lines.map((line, lineIndex) => (
+                <div key={lineIndex}>
+                  {line.split('').map((char, charIndex) => (
+                    <span key={charIndex} className="inline-block">
+                      {char}
+                    </span>
+                  ))}
+                </div>
+              ));
+            })()}
+          </div>
         ) : (
-          <span
-            className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight select-none relative"
+          <div
+            className="flex flex-col items-center text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight select-none relative"
             style={{
               ...textStyle,
               color: isFlipped ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)',
             }}
           >
-            new aesthetics
-            <span
-              className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-50"
+            {TYPEWRITER_WORDS.map((word, index) => (
+              <span key={index}>{word}</span>
+            ))}
+            <div
+              className="absolute inset-0 flex flex-col items-center pointer-events-none mix-blend-overlay opacity-50"
               style={{
                 backgroundImage: 'url(/noise.avif)',
                 backgroundSize: '150px',
@@ -213,9 +261,11 @@ export function InkBleedDemo() {
               }}
               aria-hidden="true"
             >
-              new aesthetics
-            </span>
-          </span>
+              {TYPEWRITER_WORDS.map((word, index) => (
+                <span key={index}>{word}</span>
+              ))}
+            </div>
+          </div>
         )}
       </div>
       <LabItemFooter
