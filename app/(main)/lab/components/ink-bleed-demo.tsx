@@ -7,12 +7,12 @@ import { type InkBleedConfig } from '@/lib/ink-bleed-utils';
 
 const ANIMATION_DURATION = 3000;
 
-// Extreme preset end values
+// Extreme preset end values - doubled for dramatic effect
 const END_CONFIG = {
-  blur: 2.5,
+  blur: 5,
   baseFrequency: 0.08,
   numOctaves: 3,
-  scale: 5,
+  scale: 10,
 };
 
 export function InkBleedDemo() {
