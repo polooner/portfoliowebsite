@@ -42,11 +42,11 @@ export const CompletedLineComponent = ({
         scale,
         filter: `blur(${blurAmount}px)`,
         transition: {
-          duration: 0.4,
-          y: { ease: [0.25, 0.8, 0.4, 0.95] },
+          duration: 0.6,
+          y: { ease: [0.32, 0.72, 0, 1], duration: 0.7 },
           scale: { ease: scaleEasing as any },
           opacity: { ease: 'easeOut' },
-          filter: { ease: 'easeOut', duration: 0.4 },
+          filter: { ease: 'easeOut', duration: 0.5 },
         },
       }}
       exit={{
