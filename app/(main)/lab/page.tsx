@@ -4,10 +4,12 @@ import { Timer } from '@/app/(main)/lab/components/timer/timer';
 import { ClipPathReveal } from '@/app/(main)/lab/components/clippath-reveal/clippath-reveal';
 import { EaseCarousel } from '@/app/(main)/lab/components/ease-carousel/ease-carousel';
 import { AgentProgress } from '@/app/(main)/lab/components/agent-progress';
+import { InkBleedDemo } from '@/app/(main)/lab/components/ink-bleed-demo';
 
 export default function Page() {
   return (
     <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
+      <InkBleedDemo />
       <StreamingTextCarousel />
       <WarpSlider />
       <Timer />
