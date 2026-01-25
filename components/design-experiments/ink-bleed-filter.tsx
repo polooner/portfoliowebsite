@@ -7,7 +7,7 @@ interface InkBleedFilterProps {
 }
 
 export function InkBleedFilter({ config }: InkBleedFilterProps) {
-  const { threshold, turbulence, filterId } = config;
+  const { thresholdTable, filterId } = config;
 
   if (!filterId) return null;
 
@@ -19,30 +19,11 @@ export function InkBleedFilter({ config }: InkBleedFilterProps) {
     >
       <defs>
         <filter id={filterId} colorInterpolationFilters="sRGB">
-          {turbulence && (
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency={turbulence.baseFrequency}
-              numOctaves={turbulence.numOctaves}
-              seed={turbulence.seed ?? 0}
-              result="turbulence"
-            />
-          )}
-          {turbulence && (
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="turbulence"
-              scale={turbulence.scale}
-              xChannelSelector="R"
-              yChannelSelector="G"
-              result="displaced"
-            />
-          )}
-          <feComponentTransfer in={turbulence ? 'displaced' : 'SourceGraphic'}>
-            <feFuncR type="linear" slope={threshold[1]} intercept={threshold[0]} />
-            <feFuncG type="linear" slope={threshold[2]} intercept={threshold[0]} />
-            <feFuncB type="linear" slope={threshold[3]} intercept={threshold[0]} />
-            <feFuncA type="linear" slope={1.5} intercept={0} />
+          <feComponentTransfer>
+            <feFuncR type="discrete" tableValues={thresholdTable} />
+            <feFuncG type="discrete" tableValues={thresholdTable} />
+            <feFuncB type="discrete" tableValues={thresholdTable} />
+            <feFuncA type="discrete" tableValues={thresholdTable} />
           </feComponentTransfer>
         </filter>
       </defs>
