@@ -6,11 +6,24 @@ import { CompletedLineComponent } from '@/app/(main)/lab/components/streaming-te
 import { useTextStreaming } from '@/app/(main)/lab/hooks/use-text-streaming';
 import { LabItemFooter } from '@/app/(main)/lab/components/lab-item-footer';
 
+const MAX_BLUR = 6;
+const BLUR_WINDOW_SIZE = 5;
+
 export function StreamingTextCarousel() {
-  const { currentLineChars, completedLines, measureRef, reset } = useTextStreaming(
+  const { currentLineChars, completedLines, measureRef, reset, isComplete } = useTextStreaming(
     texts[0],
     DEFAULT_CONFIG
   );
+
+  const cursorIndex = currentLineChars.length - 1;
+
+  const calculateBlur = (charIndex: number): number => {
+    if (isComplete) return 0;
+    const distance = cursorIndex - charIndex;
+    if (distance < 0) return MAX_BLUR;
+    if (distance >= BLUR_WINDOW_SIZE) return 0;
+    return MAX_BLUR * (1 - distance / BLUR_WINDOW_SIZE);
+  };
 
   return (
     <div className="lab-item">
@@ -51,27 +64,25 @@ export function StreamingTextCarousel() {
             }}
             className="absolute inset-0 flex items-center justify-center"
           >
-            <p className="font-medium text-center px-2 sm:px-8 w-[400px] text-xs sm:text-base min-h-[2.5rem]">
-              {currentLineChars.map(({ char, id }) => (
-                <span
-                  key={id}
-                  style={{
-                    animationName: 'blurIn',
-                    animationDuration: '0.35s',
-                    animationTimingFunction: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                    animationIterationCount: '1',
-                    animationFillMode: 'both',
-                    whiteSpace: 'pre',
-                    display: 'inline-block',
-                    willChange: 'opacity, transform',
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    transition: 'transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                  }}
-                >
-                  {char}
-                </span>
-              ))}
+            <p className="font-medium text-left px-2 sm:px-8 w-[400px] text-xs sm:text-base min-h-[2.5rem]">
+              {currentLineChars.map(({ char, id }, index) => {
+                const blurAmount = calculateBlur(index);
+                const blurRatio = blurAmount / MAX_BLUR;
+                const opacity = blurAmount > 0 ? 1 - blurRatio * 0.5 : 1;
+
+                return (
+                  <span
+                    key={id}
+                    className="inline-block whitespace-pre transition-[filter,opacity] duration-150 ease-out"
+                    style={{
+                      filter: `blur(${blurAmount}px)`,
+                      opacity,
+                    }}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
             </p>
           </motion.div>
         </AnimatePresence>

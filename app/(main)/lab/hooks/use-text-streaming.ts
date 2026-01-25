@@ -10,6 +10,7 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
   const [currentLineChars, setCurrentLineChars] = useState<AnimatedChar[]>([]);
   const [completedLines, setCompletedLines] = useState<CompletedLine[]>([]);
   const [resetKey, setResetKey] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   const measureRef = useRef<HTMLSpanElement>(null);
   const charactersRef = useRef<string[]>([]);
@@ -57,6 +58,7 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
     setCurrentLineChars([]);
     currentLineRef.current = '';
     setCompletedLines([]);
+    setIsComplete(false);
 
     charactersRef.current = text.split('');
     currentCharIndexRef.current = 0;
@@ -81,6 +83,7 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
           window.clearInterval(timerRef.current);
           timerRef.current = null;
         }
+        setIsComplete(true);
         return;
       }
 
@@ -137,5 +140,6 @@ export function useTextStreaming(text: string, config: StreamingConfig = DEFAULT
     completedLines,
     measureRef,
     reset,
+    isComplete,
   };
 }
