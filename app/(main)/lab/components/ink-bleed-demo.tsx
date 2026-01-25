@@ -7,12 +7,13 @@ import { type InkBleedConfig } from '@/lib/ink-bleed-utils';
 
 const ANIMATION_DURATION = 3000;
 
-// Extreme preset end values - doubled for dramatic effect
+// Extreme preset end values - high displacement, sharp contrast
 const END_CONFIG = {
-  blur: 5,
+  blur: 1.5,           // Lower blur to keep edges sharp
   baseFrequency: 0.08,
   numOctaves: 3,
-  scale: 10,
+  scale: 20,           // Cranked up for heavy distortion
+  threshold: [0, 1, 1, 1] as [number, number, number, number], // Neutral - keeps black
 };
 
 export function InkBleedDemo() {
@@ -52,7 +53,8 @@ export function InkBleedDemo() {
 
     return {
       blur: END_CONFIG.blur * eased,
-      threshold: [0, 1, 1, 1],
+      // Keep threshold constant so color stays consistent (blue)
+      threshold: END_CONFIG.threshold,
       turbulence: {
         // Keep frequency constant so the noise pattern stays in place
         // This makes the effect grow "from within" rather than flow directionally
