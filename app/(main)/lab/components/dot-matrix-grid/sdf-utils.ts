@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 import type { InfluencePoint } from './dot-matrix-grid-types';
-import { GAUSSIAN_K } from './dot-matrix-grid-constants';
+import { GAUSSIAN_K, CURSOR_INFLUENCE_RADIUS } from './dot-matrix-grid-constants';
 
 /**
  * Calculates ripple influence (expanding ring)
@@ -20,6 +20,21 @@ function calculateRippleInfluence(
 }
 
 /**
+ * Calculates cursor influence (filled circle with radial falloff)
+ */
+function calculateCursorInfluence(
+  dotPos: Vector3,
+  point: InfluencePoint
+): number {
+  const dist = dotPos.distanceTo(point.position);
+
+  if (dist > CURSOR_INFLUENCE_RADIUS) return 0;
+
+  const normalizedDist = dist / CURSOR_INFLUENCE_RADIUS;
+  return Math.exp(-GAUSSIAN_K * normalizedDist ** 2) * point.strength;
+}
+
+/**
  * Calculates the maximum influence on a dot from all active influence points
  */
 export function calculateInfluence(
@@ -29,7 +44,14 @@ export function calculateInfluence(
   let maxInfluence = 0;
 
   for (const point of points) {
-    const influence = calculateRippleInfluence(dotPos, point);
+    let influence = 0;
+
+    if (point.type === 'cursor') {
+      influence = calculateCursorInfluence(dotPos, point);
+    } else {
+      influence = calculateRippleInfluence(dotPos, point);
+    }
+
     maxInfluence = Math.max(maxInfluence, influence);
   }
 

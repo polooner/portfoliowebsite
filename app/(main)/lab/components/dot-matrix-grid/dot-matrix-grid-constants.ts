@@ -18,5 +18,8 @@ export const WAVE_CONFIG: WaveConfig = {
 
 export const GAUSSIAN_K = 2.5;
 
+export const CURSOR_INFLUENCE_RADIUS = 80;
+export const CURSOR_FADE_SPEED = 1.5;
+
 export const CONTAINER_WIDTH = 500;
 export const CONTAINER_HEIGHT = 192;

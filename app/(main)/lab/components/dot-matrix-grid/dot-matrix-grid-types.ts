@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-export type WaveType = 'ripple';
+export type WaveType = 'ripple' | 'cursor';
 
 /** Fit mode for image masks */
 export enum MaskFitMode {

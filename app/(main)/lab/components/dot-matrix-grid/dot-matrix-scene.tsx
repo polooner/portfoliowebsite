@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useMemo, useState, useEffect } from 'react';
+import { useRef, useMemo, useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { useFrame } from '@react-three/fiber';
 import {
   InstancedMesh,
@@ -18,8 +18,14 @@ import {
 } from './dot-matrix-grid-constants';
 import { calculateInfluence } from './sdf-utils';
 import { useInfluencePoints } from './use-influence-points';
+import { useCursorInfluence } from './use-cursor-influence';
 import { createMask } from './grid-mask';
 import type { MaskInput, MaskResult } from './dot-matrix-grid-types';
+
+export interface DotMatrixSceneHandle {
+  updateCursorPosition: (x: number, y: number) => void;
+  handleMouseLeave: () => void;
+}
 
 const vertexShader = `
   attribute float influence;
@@ -56,11 +62,22 @@ interface DotMatrixSceneProps {
 
 const DEFAULT_MASK: MaskInput = { type: 'text', content: 'grid core' };
 
-export function DotMatrixScene({ mask = DEFAULT_MASK }: DotMatrixSceneProps) {
+export const DotMatrixScene = forwardRef<DotMatrixSceneHandle, DotMatrixSceneProps>(
+  function DotMatrixScene({ mask = DEFAULT_MASK }, ref) {
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = useMemo(() => new Object3D(), []);
   const { updatePoints } = useInfluencePoints();
+  const {
+    updateCursorPosition,
+    handleMouseLeave,
+    updateCursorInfluence,
+  } = useCursorInfluence();
   const [maskResult, setMaskResult] = useState<MaskResult | null>(null);
+
+  useImperativeHandle(ref, () => ({
+    updateCursorPosition,
+    handleMouseLeave,
+  }), [updateCursorPosition, handleMouseLeave]);
 
   // Create mask on client side (async for image support)
   useEffect(() => {
@@ -160,8 +177,12 @@ export function DotMatrixScene({ mask = DEFAULT_MASK }: DotMatrixSceneProps) {
     const currentTime = performance.now();
     const activePoints = updatePoints(delta, currentTime);
 
+    // Update and include cursor influence
+    const cursorPoint = updateCursorInfluence(delta);
+    const allPoints = cursorPoint ? [...activePoints, cursorPoint] : activePoints;
+
     positions.forEach((pos, i) => {
-      const influence = calculateInfluence(pos, activePoints);
+      const influence = calculateInfluence(pos, allPoints);
       const maskIntensity = maskResult?.intensities[i] ?? 0;
       const baseScale = 1 + maskIntensity * 0.6; // Scale up for masked areas
       const scale = baseScale + influence * (GRID_CONFIG.maxScale - 1);
@@ -190,4 +211,4 @@ export function DotMatrixScene({ mask = DEFAULT_MASK }: DotMatrixSceneProps) {
       </primitive>
     </instancedMesh>
   );
-}
+});
