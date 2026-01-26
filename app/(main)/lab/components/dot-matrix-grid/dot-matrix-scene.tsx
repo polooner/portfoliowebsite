@@ -107,11 +107,11 @@ export function DotMatrixScene() {
     meshRef.current.instanceMatrix.needsUpdate = true;
   }, [positions, dummy]);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!meshRef.current) return;
 
     const currentTime = performance.now();
-    const activePoints = updatePoints(currentTime);
+    const activePoints = updatePoints(delta, currentTime);
 
     positions.forEach((pos, i) => {
       const influence = calculateInfluence(pos, activePoints);

@@ -9,6 +9,8 @@ Try to always define files for constants that are properly named to organize cod
 Same goes for utils, please try to keep utility functions inside of util files.
 If a util is performing complex logic, try to break it down into more reusable utils. Try to make utils as reusable as possible in general by also naming them well. Keep small JSDocs above them, if necessary. 
 
+Instead of using types/hardcoding strings later to reference those same types, or hardcoding strings in switch statements, define enums that are nicely reusable later. 
+
 ## Styling guidelines
 
 When putting rounded elements inside of rounded parents (such as toggle buttons within containers) ensure that the roundedness of the parent is whatever the rounded class of the child element is PLUS the padding between the 2. So for example, if parent is rounded-2xl and child is rounded-2xl and the parent has p-2, the parent must become whatever rounded-2xl + the size of p-2 is.
