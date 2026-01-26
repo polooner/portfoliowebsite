@@ -27,7 +27,6 @@ export const ToggleableComponentCard = ({
 
   const currentComponent = components[currentComponentIndex];
 
-  console.log(currentComponent);
 
   return (
     <Card className="w-full relative p-4 mb-4 max-w-full space-y-4 flex flex-col" {...props}>
