@@ -17,6 +17,17 @@ const INK_BLEED_DURATION = 750;
 const SHOWCASE_ROTATION_INTERVAL = 300;
 const SHOWCASE_ROTATION_COUNT = 5;
 
+// Phase 5: Motion blur
+const MOTION_BLUR_ROTATION_INTERVAL = 300;
+const MOTION_BLUR_ROTATION_COUNT = 5;
+
+// 3 intensity levels for motion blur phase
+const MOTION_BLUR_INTENSITIES = [0.8, 0.5, 0.2];
+
+// Phase 6: Finale - large text with motion blur + ink bleed animating in
+const FINALE_ANIMATION_DURATION = 1000;
+const FINALE_HOLD_DURATION = 1500;
+
 // Ink bleed config - blur + threshold effect
 const END_CONFIG = {
   maxBlur: 3,        // Max blur in pixels
@@ -26,6 +37,19 @@ const END_CONFIG = {
 
 // 5 intensity levels - 0 = no effect, 1 = max effect
 const INTENSITY_LEVELS = [1, 0.75, 0.5, 0.25, 0];
+
+// Motion blur offsets and opacities for the trail effect
+const MOTION_BLUR_LAYERS = [
+  { offset: -20, opacity: 0.1 },
+  { offset: -15, opacity: 0.15 },
+  { offset: -10, opacity: 0.2 },
+  { offset: -5, opacity: 0.3 },
+  { offset: 0, opacity: 1 },
+  { offset: 5, opacity: 0.3 },
+  { offset: 10, opacity: 0.2 },
+  { offset: 15, opacity: 0.15 },
+  { offset: 20, opacity: 0.1 },
+];
 
 // Map intensity (0-1) to threshold value (picks from table)
 function getThresholdForIntensity(intensity: number): string {
@@ -39,14 +63,17 @@ function getThresholdForIntensity(intensity: number): string {
   return THRESHOLD_TABLE[Math.max(0, Math.min(100, snapped))] || THRESHOLD_TABLE[50];
 }
 
-type Phase = 'typewriter' | 'inkBleed' | 'flipped' | 'showcase';
+type Phase = 'typewriter' | 'inkBleed' | 'flipped' | 'showcase' | 'motionBlur' | 'finale';
 
 export function InkBleedDemo() {
   const [phase, setPhase] = useState<Phase>('typewriter');
   const [visibleCharCount, setVisibleCharCount] = useState(0);
   const [inkBleedProgress, setInkBleedProgress] = useState(0);
   const [rotationIndex, setRotationIndex] = useState(0);
+  const [motionBlurRotationIndex, setMotionBlurRotationIndex] = useState(0);
+  const [finaleProgress, setFinaleProgress] = useState(0);
   const animationRef = useRef<number | null>(null);
+  const finaleStartRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
 
   const chars = TYPEWRITER_TEXT.split('');
@@ -56,7 +83,10 @@ export function InkBleedDemo() {
     setVisibleCharCount(0);
     setInkBleedProgress(0);
     setRotationIndex(0);
+    setMotionBlurRotationIndex(0);
+    setFinaleProgress(0);
     startTimeRef.current = null;
+    finaleStartRef.current = null;
   }, []);
 
   // Phase 1: Typewriter - characters appear one by one
@@ -123,7 +153,7 @@ export function InkBleedDemo() {
     if (phase !== 'showcase') return;
 
     if (rotationIndex >= SHOWCASE_ROTATION_COUNT) {
-      resetAnimation();
+      setPhase('motionBlur');
       return;
     }
 
@@ -132,7 +162,56 @@ export function InkBleedDemo() {
     }, SHOWCASE_ROTATION_INTERVAL);
 
     return () => clearTimeout(timeout);
-  }, [phase, rotationIndex, resetAnimation]);
+  }, [phase, rotationIndex]);
+
+  // Phase 5: Motion blur with rotation
+  useEffect(() => {
+    if (phase !== 'motionBlur') return;
+
+    if (motionBlurRotationIndex >= MOTION_BLUR_ROTATION_COUNT) {
+      setPhase('finale');
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setMotionBlurRotationIndex((prev) => prev + 1);
+    }, MOTION_BLUR_ROTATION_INTERVAL);
+
+    return () => clearTimeout(timeout);
+  }, [phase, motionBlurRotationIndex]);
+
+  // Phase 6: Finale - animate in motion blur + ink bleed, then hold
+  useEffect(() => {
+    if (phase !== 'finale') return;
+
+    const animate = (timestamp: number) => {
+      if (finaleStartRef.current === null) {
+        finaleStartRef.current = timestamp;
+      }
+
+      const elapsed = timestamp - finaleStartRef.current;
+      const newProgress = Math.min(elapsed / FINALE_ANIMATION_DURATION, 1);
+
+      setFinaleProgress(newProgress);
+
+      if (newProgress < 1) {
+        animationRef.current = requestAnimationFrame(animate);
+      } else {
+        // Hold at full effect, then reset
+        setTimeout(() => {
+          resetAnimation();
+        }, FINALE_HOLD_DURATION);
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [phase, resetAnimation]);
 
   // Get the rotated intensity order for showcase phase
   const getRotatedIntensities = useCallback(() => {
@@ -143,6 +222,16 @@ export function InkBleedDemo() {
     }
     return rotated;
   }, [rotationIndex]);
+
+  // Get the rotated intensity order for motion blur phase
+  const getMotionBlurIntensities = useCallback(() => {
+    const rotated = [...MOTION_BLUR_INTENSITIES];
+    for (let i = 0; i < motionBlurRotationIndex; i++) {
+      const last = rotated.pop()!;
+      rotated.unshift(last);
+    }
+    return rotated;
+  }, [motionBlurRotationIndex]);
 
   // Main ink bleed config (for ink bleed phase)
   const config: InkBleedConfig = useMemo(() => {
@@ -178,9 +267,26 @@ export function InkBleedDemo() {
     };
   }, []);
 
-  const isFlipped = phase === 'flipped' || phase === 'showcase';
+  const isFlipped = phase === 'flipped' || phase === 'showcase' || phase === 'motionBlur';
+
+  // Finale config with animated intensity - dissolves into nothing
+  const finaleConfig = useMemo(() => {
+    const eased = 1 - Math.pow(1 - finaleProgress, 2);
+    // Very high blur that increases dramatically to dissolve completely
+    const blur = 20 * eased;
+    // High intensity for extreme ink bleed
+    const intensity = Math.min(1, eased * 1.5);
+
+    return {
+      blur,
+      intensity,
+      thresholdTable: getThresholdForIntensity(intensity),
+      filterId: 'ink-bleed-finale',
+    };
+  }, [finaleProgress]);
 
   const rotatedIntensities = getRotatedIntensities();
+  const motionBlurIntensities = getMotionBlurIntensities();
 
   return (
     <div className="lab-item relative">
@@ -195,11 +301,101 @@ export function InkBleedDemo() {
           }}
         />
       ))}
+      {motionBlurIntensities.map((intensity, index) => (
+        <InkBleedFilter
+          key={`motion-blur-${index}`}
+          config={{
+            blur: END_CONFIG.maxBlur * intensity,
+            thresholdTable: getThresholdForIntensity(intensity),
+            filterId: `ink-bleed-motion-${index}`,
+          }}
+        />
+      ))}
+      <InkBleedFilter config={{
+        blur: finaleConfig.blur,
+        thresholdTable: finaleConfig.thresholdTable,
+        filterId: 'ink-bleed-finale',
+      }} />
       <div
         className="h-[380px] flex items-center justify-center w-full relative overflow-hidden"
         style={{ backgroundColor: isFlipped ? 'rgb(0, 0, 0)' : 'transparent' }}
       >
-        {phase === 'showcase' ? (
+        {phase === 'finale' ? (
+          <span
+            className="text-6xl sm:text-7xl md:text-8xl font-bold tracking-tight select-none relative"
+            style={{
+              color: 'rgb(0, 0, 0)',
+              filter: finaleProgress > 0 ? `blur(${finaleConfig.blur}px) url(#ink-bleed-finale)` : undefined,
+              WebkitFilter: finaleProgress > 0 ? `blur(${finaleConfig.blur}px) url(#ink-bleed-finale)` : undefined,
+              opacity: 1 - finaleProgress, // Fade completely to nothing
+            }}
+          >
+            {/* Motion blur layers that animate in and spread wide */}
+            {MOTION_BLUR_LAYERS.map((layer, layerIndex) => {
+              const eased = 1 - Math.pow(1 - finaleProgress, 2);
+              // Spread much wider as it dissolves
+              const spreadMultiplier = 1 + eased * 5;
+              const animatedOffset = layer.offset * spreadMultiplier;
+              // All layers fade to nothing
+              const baseOpacity = layerIndex === 4 ? 1 : layer.opacity * eased;
+              const animatedOpacity = baseOpacity * (1 - finaleProgress);
+
+              return (
+                <span
+                  key={layerIndex}
+                  className="absolute whitespace-nowrap"
+                  style={{
+                    transform: `translateX(${animatedOffset}px)`,
+                    opacity: Math.max(0, animatedOpacity),
+                    left: 0,
+                    right: 0,
+                  }}
+                  aria-hidden={layerIndex !== 4}
+                >
+                  new aesthetics
+                </span>
+              );
+            })}
+            {/* Invisible text for sizing */}
+            <span className="invisible">new aesthetics</span>
+          </span>
+        ) : phase === 'motionBlur' ? (
+          <div className="flex flex-col items-center gap-8">
+            {motionBlurIntensities.map((intensity, index) => {
+              const blur = END_CONFIG.maxBlur * intensity;
+              return (
+                <span
+                  key={index}
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight select-none relative"
+                  style={{
+                    color: 'rgb(255, 255, 255)',
+                    filter: `blur(${blur}px) url(#ink-bleed-motion-${index})`,
+                    WebkitFilter: `blur(${blur}px) url(#ink-bleed-motion-${index})`,
+                  }}
+                >
+                  {/* Motion blur layers */}
+                  {MOTION_BLUR_LAYERS.map((layer, layerIndex) => (
+                    <span
+                      key={layerIndex}
+                      className="absolute whitespace-nowrap"
+                      style={{
+                        transform: `translateX(${layer.offset}px)`,
+                        opacity: layer.opacity,
+                        left: 0,
+                        right: 0,
+                      }}
+                      aria-hidden={layerIndex !== 4}
+                    >
+                      new aesthetics
+                    </span>
+                  ))}
+                  {/* Invisible text for sizing */}
+                  <span className="invisible">new aesthetics</span>
+                </span>
+              );
+            })}
+          </div>
+        ) : phase === 'showcase' ? (
           <div className="flex flex-col items-center gap-6">
             {rotatedIntensities.map((intensity, index) => (
               <span
