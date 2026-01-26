@@ -1,23 +1,52 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { LabItemFooter } from '../lab-item-footer';
+import { VariationsSwitch } from '@/components/variations-switch';
 import { DotMatrixScene, DotMatrixSceneHandle } from './dot-matrix-scene';
 import { CONTAINER_WIDTH, CONTAINER_HEIGHT } from './dot-matrix-grid-constants';
 import type { MaskInput } from './dot-matrix-grid-types';
+import { GridShape } from './dot-matrix-grid-types';
 
 // Re-export mask types for consumers
 export type { MaskInput, ImageMaskInput, TextMaskInput, RenderMaskInput } from './dot-matrix-grid-types';
-export { MaskFitMode } from './dot-matrix-grid-types';
+export { MaskFitMode, GridShape } from './dot-matrix-grid-types';
 
-interface DotMatrixGridProps {
-  mask?: MaskInput;
+interface Variation {
+  mask: MaskInput;
+  shape: GridShape;
+  title: string;
+  description: string;
 }
 
-export function DotMatrixGrid({ mask }: DotMatrixGridProps) {
+const VARIATIONS: Variation[] = [
+  {
+    mask: { type: 'text', content: 'grid core' },
+    shape: GridShape.Circle,
+    title: 'SDF dot matrix',
+    description: 'GPU-instanced dots with signed distance field influence mapping.',
+  },
+  {
+    mask: { type: 'text', content: 'grid core' },
+    shape: GridShape.Square,
+    title: 'SDF square matrix',
+    description: 'GPU-instanced squares with signed distance field influence mapping.',
+  },
+  {
+    mask: { type: 'text', content: 'grid core' },
+    shape: GridShape.Diamond,
+    title: 'SDF diamond matrix',
+    description: 'GPU-instanced diamonds with signed distance field influence mapping.',
+  },
+];
+
+export function DotMatrixGrid() {
   const sceneRef = useRef<DotMatrixSceneHandle>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [variationIndex, setVariationIndex] = useState(0);
+
+  const currentVariation = VARIATIONS[variationIndex];
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current || !sceneRef.current) return;
@@ -34,6 +63,14 @@ export function DotMatrixGrid({ mask }: DotMatrixGridProps) {
 
   const handleMouseLeave = useCallback(() => {
     sceneRef.current?.handleMouseLeave();
+  }, []);
+
+  const handlePrevious = useCallback(() => {
+    setVariationIndex((prev) => Math.max(0, prev - 1));
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setVariationIndex((prev) => Math.min(VARIATIONS.length - 1, prev + 1));
   }, []);
 
   return (
@@ -56,12 +93,20 @@ export function DotMatrixGrid({ mask }: DotMatrixGridProps) {
           gl={{ alpha: true, antialias: true }}
           style={{ background: 'transparent' }}
         >
-          <DotMatrixScene ref={sceneRef} mask={mask} />
+          <DotMatrixScene ref={sceneRef} mask={currentVariation.mask} shape={currentVariation.shape} />
         </Canvas>
       </div>
       <LabItemFooter
-        title="SDF dot matrix"
-        description="GPU-instanced dots with signed distance field influence mapping."
+        title={currentVariation.title}
+        description={currentVariation.description}
+        actions={
+          <VariationsSwitch
+            current={variationIndex + 1}
+            total={VARIATIONS.length}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
+        }
       />
     </div>
   );

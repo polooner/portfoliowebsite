@@ -7,9 +7,11 @@ import {
   Object3D,
   Vector3,
   CircleGeometry,
+  PlaneGeometry,
   ShaderMaterial,
   InstancedBufferAttribute,
   Color,
+  BufferGeometry,
 } from 'three';
 import {
   GRID_CONFIG,
@@ -21,6 +23,7 @@ import { useInfluencePoints } from './use-influence-points';
 import { useCursorInfluence } from './use-cursor-influence';
 import { createMask } from './grid-mask';
 import type { MaskInput, MaskResult } from './dot-matrix-grid-types';
+import { GridShape } from './dot-matrix-grid-types';
 
 export interface DotMatrixSceneHandle {
   updateCursorPosition: (x: number, y: number) => void;
@@ -58,12 +61,13 @@ const fragmentShader = `
 
 interface DotMatrixSceneProps {
   mask?: MaskInput;
+  shape?: GridShape;
 }
 
 const DEFAULT_MASK: MaskInput = { type: 'text', content: 'grid core' };
 
 export const DotMatrixScene = forwardRef<DotMatrixSceneHandle, DotMatrixSceneProps>(
-  function DotMatrixScene({ mask = DEFAULT_MASK }, ref) {
+  function DotMatrixScene({ mask = DEFAULT_MASK, shape = GridShape.Circle }, ref) {
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = useMemo(() => new Object3D(), []);
   const { updatePoints } = useInfluencePoints();
@@ -119,9 +123,17 @@ export const DotMatrixScene = forwardRef<DotMatrixSceneHandle, DotMatrixScenePro
 
   const dotCount = cols * rows;
 
-  const geometry = useMemo(() => {
+  const geometry = useMemo((): BufferGeometry => {
+    if (shape === GridShape.Square || shape === GridShape.Diamond) {
+      const size = GRID_CONFIG.baseRadius * 2;
+      const plane = new PlaneGeometry(size, size);
+      if (shape === GridShape.Diamond) {
+        plane.rotateZ(Math.PI / 4);
+      }
+      return plane;
+    }
     return new CircleGeometry(GRID_CONFIG.baseRadius, 16);
-  }, []);
+  }, [shape]);
 
   const influenceAttribute = useMemo(() => {
     return new InstancedBufferAttribute(new Float32Array(dotCount), 1);

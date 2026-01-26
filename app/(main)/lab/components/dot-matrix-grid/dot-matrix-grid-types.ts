@@ -2,6 +2,12 @@ import { Vector3 } from 'three';
 
 export type WaveType = 'ripple' | 'cursor';
 
+export enum GridShape {
+  Circle = 'circle',
+  Square = 'square',
+  Diamond = 'diamond',
+}
+
 /** Fit mode for image masks */
 export enum MaskFitMode {
   Contain = 'contain',
