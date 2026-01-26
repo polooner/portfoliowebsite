@@ -53,7 +53,7 @@
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.452.0",
     "mini-svg-data-uri": "^1.4.4",
-    "next": "15.5.4",
+    "next": "16.1.5",
     "next-mdx-remote": "^5.0.0",
     "next-view-transitions": "^0.3.2",
     "postcss": "8.4.47",
