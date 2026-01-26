@@ -4,8 +4,17 @@ import { Canvas } from '@react-three/fiber';
 import { LabItemFooter } from '../lab-item-footer';
 import { DotMatrixScene } from './dot-matrix-scene';
 import { CONTAINER_WIDTH, CONTAINER_HEIGHT } from './dot-matrix-grid-constants';
+import type { MaskInput } from './dot-matrix-grid-types';
 
-export function DotMatrixGrid() {
+// Re-export mask types for consumers
+export type { MaskInput, ImageMaskInput, TextMaskInput, RenderMaskInput } from './dot-matrix-grid-types';
+export { MaskFitMode } from './dot-matrix-grid-types';
+
+interface DotMatrixGridProps {
+  mask?: MaskInput;
+}
+
+export function DotMatrixGrid({ mask }: DotMatrixGridProps) {
   return (
     <div className="flex flex-col items-center gap-2">
       <div
@@ -23,7 +32,7 @@ export function DotMatrixGrid() {
           gl={{ alpha: true, antialias: true }}
           style={{ background: 'transparent' }}
         >
-          <DotMatrixScene />
+          <DotMatrixScene mask={mask} />
         </Canvas>
       </div>
       <LabItemFooter

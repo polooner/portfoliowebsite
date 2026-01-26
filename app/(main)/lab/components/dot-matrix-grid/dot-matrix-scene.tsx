@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import {
   InstancedMesh,
@@ -18,13 +18,18 @@ import {
 } from './dot-matrix-grid-constants';
 import { calculateInfluence } from './sdf-utils';
 import { useInfluencePoints } from './use-influence-points';
+import { createMask } from './grid-mask';
+import type { MaskInput, MaskResult } from './dot-matrix-grid-types';
 
 const vertexShader = `
   attribute float influence;
+  attribute float maskIntensity;
   varying float vInfluence;
+  varying float vMaskIntensity;
 
   void main() {
     vInfluence = influence;
+    vMaskIntensity = maskIntensity;
     vec4 mvPosition = modelViewMatrix * instanceMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * mvPosition;
   }
@@ -33,19 +38,44 @@ const vertexShader = `
 const fragmentShader = `
   uniform vec3 uColor;
   uniform float uBaseOpacity;
+  uniform float uMaskOpacity;
   uniform float uMaxOpacity;
   varying float vInfluence;
+  varying float vMaskIntensity;
 
   void main() {
-    float opacity = uBaseOpacity + vInfluence * (uMaxOpacity - uBaseOpacity);
+    float baseOp = mix(uBaseOpacity, uMaskOpacity, vMaskIntensity);
+    float opacity = baseOp + vInfluence * (uMaxOpacity - baseOp);
     gl_FragColor = vec4(uColor, opacity);
   }
 `;
 
-export function DotMatrixScene() {
+interface DotMatrixSceneProps {
+  mask?: MaskInput;
+}
+
+const DEFAULT_MASK: MaskInput = { type: 'text', content: 'grid core' };
+
+export function DotMatrixScene({ mask = DEFAULT_MASK }: DotMatrixSceneProps) {
   const meshRef = useRef<InstancedMesh>(null);
   const dummy = useMemo(() => new Object3D(), []);
   const { updatePoints } = useInfluencePoints();
+  const [maskResult, setMaskResult] = useState<MaskResult | null>(null);
+
+  // Create mask on client side (async for image support)
+  useEffect(() => {
+    let cancelled = false;
+
+    createMask(mask).then((result) => {
+      if (!cancelled) {
+        setMaskResult(result);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [mask]);
 
   const { positions, cols, rows } = useMemo(() => {
     const cols = Math.floor(CONTAINER_WIDTH / GRID_CONFIG.spacing);
@@ -80,6 +110,22 @@ export function DotMatrixScene() {
     return new InstancedBufferAttribute(new Float32Array(dotCount), 1);
   }, [dotCount]);
 
+  const maskIntensityAttribute = useMemo(() => {
+    return new InstancedBufferAttribute(new Float32Array(dotCount), 1);
+  }, [dotCount]);
+
+  // Update mask intensity attribute when mask changes
+  useEffect(() => {
+    if (maskResult) {
+      for (let i = 0; i < dotCount; i++) {
+        maskIntensityAttribute.array[i] = maskResult.intensities[i] ?? 0;
+      }
+    } else {
+      maskIntensityAttribute.array.fill(0);
+    }
+    maskIntensityAttribute.needsUpdate = true;
+  }, [maskResult, dotCount, maskIntensityAttribute]);
+
   const material = useMemo(() => {
     const mat = new ShaderMaterial({
       vertexShader,
@@ -87,6 +133,7 @@ export function DotMatrixScene() {
       uniforms: {
         uColor: { value: new Color(0x000000) },
         uBaseOpacity: { value: GRID_CONFIG.baseOpacity },
+        uMaskOpacity: { value: 0.95 },
         uMaxOpacity: { value: GRID_CONFIG.maxOpacity },
       },
       transparent: true,
@@ -115,7 +162,9 @@ export function DotMatrixScene() {
 
     positions.forEach((pos, i) => {
       const influence = calculateInfluence(pos, activePoints);
-      const scale = 1 + influence * (GRID_CONFIG.maxScale - 1);
+      const maskIntensity = maskResult?.intensities[i] ?? 0;
+      const baseScale = 1 + maskIntensity * 0.6; // Scale up for masked areas
+      const scale = baseScale + influence * (GRID_CONFIG.maxScale - 1);
 
       dummy.position.copy(pos);
       dummy.scale.setScalar(scale);
@@ -137,6 +186,7 @@ export function DotMatrixScene() {
     >
       <primitive object={geometry} attach="geometry">
         <primitive object={influenceAttribute} attach="attributes-influence" />
+        <primitive object={maskIntensityAttribute} attach="attributes-maskIntensity" />
       </primitive>
     </instancedMesh>
   );
