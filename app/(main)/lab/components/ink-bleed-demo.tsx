@@ -343,7 +343,7 @@ export function InkBleedDemo() {
               return (
                 <span
                   key={layerIndex}
-                  className="absolute whitespace-nowrap"
+                  className="absolute flex flex-col items-center"
                   style={{
                     transform: `translateX(${animatedOffset}px)`,
                     opacity: Math.max(0, animatedOpacity),
@@ -352,12 +352,16 @@ export function InkBleedDemo() {
                   }}
                   aria-hidden={layerIndex !== 4}
                 >
-                  new aesthetics
+                  <span>new</span>
+                  <span>aesthetics</span>
                 </span>
               );
             })}
             {/* Invisible text for sizing */}
-            <span className="invisible">new aesthetics</span>
+            <span className="invisible flex flex-col items-center">
+              <span>new</span>
+              <span>aesthetics</span>
+            </span>
           </span>
         ) : phase === 'motionBlur' ? (
           <div className="flex flex-col items-center gap-8">
