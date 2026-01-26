@@ -9,16 +9,11 @@ export const GRID_CONFIG: GridConfig = {
 };
 
 export const WAVE_CONFIG: WaveConfig = {
-  cometSpeed: 80,
-  cometRadiusMin: 25,
-  cometRadiusMax: 40,
-  cometTailLength: 60,
-  rippleExpandSpeed: 50,
-  rippleMaxRadius: 100,
-  sweepSpeed: 120,
-  spawnIntervalMin: 800,
-  spawnIntervalMax: 2000,
-  maxActivePoints: 4,
+  rippleExpandSpeed: 40,
+  rippleMaxRadius: 120,
+  spawnIntervalMin: 1000,
+  spawnIntervalMax: 2500,
+  maxActivePoints: 3,
 };
 
 export const GAUSSIAN_K = 2.5;

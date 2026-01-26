@@ -1,6 +1,6 @@
 import { Vector3 } from 'three';
 
-export type WaveType = 'comet' | 'ripple' | 'sweep';
+export type WaveType = 'ripple';
 
 export interface InfluencePoint {
   id: number;
@@ -8,7 +8,6 @@ export interface InfluencePoint {
   velocity: Vector3;
   radius: number;
   strength: number;
-  tailLength: number;
   type: WaveType;
   birthTime: number;
   lifetime: number;
@@ -23,13 +22,8 @@ export interface GridConfig {
 }
 
 export interface WaveConfig {
-  cometSpeed: number;
-  cometRadiusMin: number;
-  cometRadiusMax: number;
-  cometTailLength: number;
   rippleExpandSpeed: number;
   rippleMaxRadius: number;
-  sweepSpeed: number;
   spawnIntervalMin: number;
   spawnIntervalMax: number;
   maxActivePoints: number;
