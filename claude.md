@@ -7,7 +7,7 @@ If you find yourself repeating the same LONG class over and over please write ei
 Try to always define files for constants that are properly named to organize code better and keep things more readable. When defining constants in a JSX element, let's move it to a special constant file instead.
 
 Same goes for utils, please try to keep utility functions inside of util files.
-If a util is performing complex logic, try to break it down into more reusable utils. Try to make utils as reusable as possible in general by also naming them well. Keep small JSDocs above them, if necessary. 
+If a util is performing complex logic, try to break it down into more reusable utils. Try to make utils as reusable as possible in general by also naming them well. Keep small JSDocs above them, if necessary. Absolutely never just define numbers and strings in config objects: define outer constants that are easily readable and modifiable.
 
 Instead of using types/hardcoding strings later to reference those same types, or hardcoding strings in switch statements, define enums that are nicely reusable later. 
 
