@@ -1,6 +1,7 @@
 import ArrowIcon from '@/components/ui/icons';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { FloraCard } from './components/flora-card';
 
 export const metadata: Metadata = {
   title: 'Filip Wojda',
@@ -14,57 +15,17 @@ export default function Home() {
         <div>
           <strong className="text-2xl">Filip Wojda</strong>
           <br />
-          <p>product engineering, design, art</p>
+          <p>product engineering/design (in NYC)</p>
 
-          <br />
-          <br />
-
-          <div>
-            <p>Currently based out of NYC.</p>
-          </div>
-
-          <div>
+          <div className='text-neutral-500'>
             I like AI/UI and creative tools.
             <br />
-            <br />
           </div>
-          <div>
-            I am the most helpful on the topics of AI engineering/product, design, web performance.
-          </div>
-          <div>I occasionally advise select companies on the above.</div>
+
         </div>
         <br />
         <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-1">
-            <div className='flex flex-row justify-between'>
-
-              <Link
-                className="font-bold hover:underline"
-                target="_blank"
-                href="https://www.florafauna.ai"
-              >
-                <div className="flex flex-row">FLORA</div>
-              </Link>
-              <i className="font-thin text-xs">product engineering</i>
-            </div>
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full rounded-2xl"
-            >
-              <source src="/2022drawings/florafeatures.mov" type="video/quicktime" />
-              <source src="/2022drawings/florafeatures.mov" type="video/mp4" />
-            </video>
-            <div className="flex flex-col gap-1">
-
-              <div className="text-neutral-500">
-                On a mission to bring the creative control in a world optimizing for one-shot AI.
-                creative workflows on an infinite AI canvas.
-              </div>
-            </div>
-          </div>
+          <FloraCard />
           <div className="flex flex-col gap-1">
             <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
               <div className="flex flex-row justify-between">EKRAN</div>
