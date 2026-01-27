@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <section className="flex flex-col gap-y-10 w-72 py-20 self-center items-center ">
-      <div className="w-72 gap-4 text-start flex flex-col">
+      <div className="w-full max-w-96 gap-4 text-start flex flex-col">
         <div>
           <strong className="text-2xl">Filip Wojda</strong>
           <br />
@@ -36,19 +36,33 @@ export default function Home() {
         <br />
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-1">
-            <Link
-              className="font-bold hover:underline"
-              target="_blank"
-              href="https://www.florafauna.ai"
+            <div className='flex flex-row justify-between'>
+
+              <Link
+                className="font-bold hover:underline"
+                target="_blank"
+                href="https://www.florafauna.ai"
+              >
+                <div className="flex flex-row">FLORA</div>
+              </Link>
+              <i className="font-thin text-xs">product engineering</i>
+            </div>
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full rounded-2xl"
             >
-              <div className="flex flex-row ">
-                FLORA <span className="font-mono font-thin text-sm">&nbsp; (present)</span>
+              <source src="/2022drawings/florafeatures.mov" type="video/quicktime" />
+              <source src="/2022drawings/florafeatures.mov" type="video/mp4" />
+            </video>
+            <div className="flex flex-col gap-1">
+
+              <div className="text-neutral-500">
+                On a mission to bring the creative control in a world optimizing for one-shot AI.
+                creative workflows on an infinite AI canvas.
               </div>
-            </Link>
-            <i className="font-thin text-xs">product engineering</i>
-            <div className="text-neutral-500">
-              On a mission to bring the creative control in a world optimizing for one-shot AI.
-              creative workflows on an infinite AI canvas.
             </div>
           </div>
           <div className="flex flex-col gap-1">
