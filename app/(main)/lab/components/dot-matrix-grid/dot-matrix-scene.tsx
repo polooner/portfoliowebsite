@@ -12,11 +12,15 @@ import {
   InstancedBufferAttribute,
   Color,
   BufferGeometry,
+  Shape,
+  ShapeGeometry,
 } from 'three';
 import {
   GRID_CONFIG,
   CONTAINER_WIDTH,
   CONTAINER_HEIGHT,
+  PLUS_THICKNESS_RATIO,
+  PLUS_SIZE_MULTIPLIER,
 } from './dot-matrix-grid-constants';
 import { calculateInfluence } from './sdf-utils';
 import { useInfluencePoints } from './use-influence-points';
@@ -65,6 +69,31 @@ interface DotMatrixSceneProps {
 }
 
 const DEFAULT_MASK: MaskInput = { type: 'text', content: 'grid core' };
+
+/** Creates a plus/cross shape geometry */
+function createPlusGeometry(): ShapeGeometry {
+  const size = GRID_CONFIG.baseRadius * PLUS_SIZE_MULTIPLIER;
+  const halfSize = size / 2;
+  const halfThickness = PLUS_THICKNESS_RATIO * halfSize;
+
+  const shape = new Shape();
+  // Draw plus shape clockwise starting from top of vertical bar
+  shape.moveTo(-halfThickness, halfSize);
+  shape.lineTo(halfThickness, halfSize);
+  shape.lineTo(halfThickness, halfThickness);
+  shape.lineTo(halfSize, halfThickness);
+  shape.lineTo(halfSize, -halfThickness);
+  shape.lineTo(halfThickness, -halfThickness);
+  shape.lineTo(halfThickness, -halfSize);
+  shape.lineTo(-halfThickness, -halfSize);
+  shape.lineTo(-halfThickness, -halfThickness);
+  shape.lineTo(-halfSize, -halfThickness);
+  shape.lineTo(-halfSize, halfThickness);
+  shape.lineTo(-halfThickness, halfThickness);
+  shape.closePath();
+
+  return new ShapeGeometry(shape);
+}
 
 export const DotMatrixScene = forwardRef<DotMatrixSceneHandle, DotMatrixSceneProps>(
   function DotMatrixScene({ mask = DEFAULT_MASK, shape = GridShape.Circle }, ref) {
@@ -124,14 +153,20 @@ export const DotMatrixScene = forwardRef<DotMatrixSceneHandle, DotMatrixScenePro
   const dotCount = cols * rows;
 
   const geometry = useMemo((): BufferGeometry => {
+    if (shape === GridShape.Plus) {
+      return createPlusGeometry();
+    }
+
+    const size = GRID_CONFIG.baseRadius * 2;
+
     if (shape === GridShape.Square || shape === GridShape.Diamond) {
-      const size = GRID_CONFIG.baseRadius * 2;
       const plane = new PlaneGeometry(size, size);
       if (shape === GridShape.Diamond) {
         plane.rotateZ(Math.PI / 4);
       }
       return plane;
     }
+
     return new CircleGeometry(GRID_CONFIG.baseRadius, 16);
   }, [shape]);
 

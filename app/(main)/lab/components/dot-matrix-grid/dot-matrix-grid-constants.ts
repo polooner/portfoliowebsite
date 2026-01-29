@@ -23,3 +23,8 @@ export const CURSOR_FADE_SPEED = 1.5;
 
 export const CONTAINER_WIDTH = 500;
 export const CONTAINER_HEIGHT = 192;
+
+/** Plus shape thickness as a ratio of half-size (0-1, where 1 would fill the entire shape) */
+export const PLUS_THICKNESS_RATIO = 0.25;
+/** Plus shape size multiplier relative to base radius */
+export const PLUS_SIZE_MULTIPLIER = 2;

@@ -6,6 +6,7 @@ export enum GridShape {
   Circle = 'circle',
   Square = 'square',
   Diamond = 'diamond',
+  Plus = 'plus',
 }
 
 /** Fit mode for image masks */

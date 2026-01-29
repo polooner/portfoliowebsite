@@ -39,6 +39,12 @@ const VARIATIONS: Variation[] = [
     title: 'SDF diamond matrix',
     description: 'GPU-instanced diamonds with signed distance field influence mapping.',
   },
+  {
+    mask: { type: 'text', content: 'grid core' },
+    shape: GridShape.Plus,
+    title: 'SDF plus matrix',
+    description: 'GPU-instanced plus signs with signed distance field influence mapping.',
+  },
 ];
 
 export function DotMatrixGrid() {
