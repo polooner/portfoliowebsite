@@ -6,10 +6,14 @@ import { EaseCarousel } from '@/app/(main)/lab/components/ease-carousel/ease-car
 import { AgentProgress } from '@/app/(main)/lab/components/agent-progress';
 import { InkBleedDemo } from '@/app/(main)/lab/components/ink-bleed-demo';
 import { DotMatrixGrid } from '@/app/(main)/lab/components/dot-matrix-grid/dot-matrix-grid';
+import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 
 export default function Page() {
   return (
     <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
+      <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
+        <StarReveal star={{ size: 120 }} />
+      </div>
       <DotMatrixGrid />
       <InkBleedDemo />
       <StreamingTextCarousel />
