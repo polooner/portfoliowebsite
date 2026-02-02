@@ -1,28 +1,16 @@
-export interface StarPosition {
-  x: number;
-  y: number;
-}
-
-export interface StarConfig {
-  /** Size of the star (outer radius in pixels) */
-  size: number;
-  /** Position of the star center. Defaults to container center */
-  position?: StarPosition;
-  /** Number of star points. Defaults to 5 */
-  points?: number;
-  /** Ratio of inner radius to outer radius (0-1). Defaults to 0.4 */
-  innerRadiusRatio?: number;
-  /** Blur amount for soft edges. Auto-calculated if not provided */
-  blurAmount?: number;
-}
-
 export interface StarRevealProps {
   /** Container width in pixels */
   width?: number;
   /** Container height in pixels */
   height?: number;
-  /** Star configuration */
-  star: StarConfig;
+  /** Blur amount for soft edges - lower = sharper tips */
+  blurAmount?: number;
+  /** Outer radius of the star (length to tips) */
+  outerRadius?: number;
+  /** Inner radius of the star (length to valleys) - lower = sharper points */
+  innerRadius?: number;
+  /** Number of star points */
+  points?: number;
   /** Color of the overlay that hides the pattern */
   overlayColor?: string;
   /** Additional CSS classes */

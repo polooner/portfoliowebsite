@@ -11,7 +11,7 @@ import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 export default function Page() {
   return (
     <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
-      <StarReveal width={500} height={450} star={{ size: 120 }} />
+      <StarReveal />
       <DotMatrixGrid />
       <InkBleedDemo />
       <StreamingTextCarousel />

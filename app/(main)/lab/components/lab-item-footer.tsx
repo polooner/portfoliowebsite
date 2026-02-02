@@ -11,7 +11,7 @@ export function LabItemFooter({ title, description, actions }: LabItemFooterProp
     <div className="w-full max-w-[500px] text-left flex items-center justify-between gap-4">
       <div className="flex flex-col">
         <span className="font-mono font-medium">{title}</span>
-        <span className="text-xs">{description}</span>
+        <span className="text-xs whitespace-pre-line">{description}</span>
       </div>
       {actions}
     </div>

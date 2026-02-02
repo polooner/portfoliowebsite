@@ -3,13 +3,15 @@
 import { useId, useMemo } from 'react';
 import { PlusPattern } from './plus-pattern';
 import { LabItemFooter } from '../lab-item-footer';
-import { calculateBlur, calculateInnerRadius, calculateStarPath } from './star-reveal-utils';
+import { calculateStarPath } from './star-reveal-utils';
 import {
   CONTAINER_WIDTH,
   CONTAINER_HEIGHT,
   OVERLAY_COLOR,
   STAR_POINTS_COUNT,
-  STAR_INNER_RADIUS_RATIO,
+  DEFAULT_OUTER_RADIUS,
+  DEFAULT_INNER_RADIUS,
+  DEFAULT_BLUR_AMOUNT,
   LAB_ITEM_TITLE,
   LAB_ITEM_DESCRIPTION,
 } from './star-reveal-constants';
@@ -22,7 +24,10 @@ import type { StarRevealProps } from './star-reveal-types';
 export function StarReveal({
   width = CONTAINER_WIDTH,
   height = CONTAINER_HEIGHT,
-  star,
+  blurAmount = DEFAULT_BLUR_AMOUNT,
+  outerRadius = DEFAULT_OUTER_RADIUS,
+  innerRadius = DEFAULT_INNER_RADIUS,
+  points = STAR_POINTS_COUNT,
   overlayColor = OVERLAY_COLOR,
   className,
 }: StarRevealProps) {
@@ -31,17 +36,12 @@ export function StarReveal({
   const maskId = `star-mask-${uniqueId}`;
   const filterId = `star-blur-${uniqueId}`;
 
-  const cx = star.position?.x ?? width / 2;
-  const cy = star.position?.y ?? height / 2;
-  const outerRadius = star.size;
-  const innerRadiusRatio = star.innerRadiusRatio ?? STAR_INNER_RADIUS_RATIO;
-  const innerRadius = calculateInnerRadius(outerRadius, innerRadiusRatio);
-  const pointCount = star.points ?? STAR_POINTS_COUNT;
-  const blurAmount = star.blurAmount ?? calculateBlur(star.size);
+  const cx = width / 2;
+  const cy = height / 2;
 
   const starPath = useMemo(() => {
-    return calculateStarPath(cx, cy, pointCount, outerRadius, innerRadius);
-  }, [cx, cy, pointCount, outerRadius, innerRadius]);
+    return calculateStarPath(cx, cy, points, outerRadius, innerRadius);
+  }, [cx, cy, points, outerRadius, innerRadius]);
 
   const maskUrl = `url(#${maskId})`;
 
@@ -59,7 +59,7 @@ export function StarReveal({
           aria-hidden="true"
         >
           <defs>
-            {/* Gaussian blur filter for soft edges */}
+            {/* Gaussian blur filter for soft edges - lower stdDeviation = sharper tips */}
             <filter id={filterId}>
               <feGaussianBlur in="SourceGraphic" stdDeviation={blurAmount} />
             </filter>
