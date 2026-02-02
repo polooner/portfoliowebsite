@@ -11,9 +11,7 @@ import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 export default function Page() {
   return (
     <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
-      <div className="flex flex-col items-center justify-center min-h-[250px] gap-4 w-full self-center">
-        <StarReveal star={{ size: 120 }} />
-      </div>
+      <StarReveal width={500} height={450} star={{ size: 120 }} />
       <DotMatrixGrid />
       <InkBleedDemo />
       <StreamingTextCarousel />

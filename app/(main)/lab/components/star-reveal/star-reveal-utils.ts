@@ -5,6 +5,40 @@ import {
   STAR_INNER_RADIUS_RATIO,
 } from './star-reveal-constants';
 
+/** Starting angle offset to point star upward */
+const STAR_START_ANGLE = (Math.PI / 2) * 3;
+
+/**
+ * Generates an SVG path string for a star shape.
+ * Creates a closed path alternating between outer and inner radius points.
+ */
+export function calculateStarPath(
+  cx: number,
+  cy: number,
+  spikes: number,
+  outerRadius: number,
+  innerRadius: number
+): string {
+  let rotation = STAR_START_ANGLE;
+  const step = Math.PI / spikes;
+  let path = `M ${cx} ${cy - outerRadius}`;
+
+  for (let i = 0; i < spikes; i++) {
+    const outerX = cx + Math.cos(rotation) * outerRadius;
+    const outerY = cy + Math.sin(rotation) * outerRadius;
+    path += ` L ${outerX} ${outerY}`;
+    rotation += step;
+
+    const innerX = cx + Math.cos(rotation) * innerRadius;
+    const innerY = cy + Math.sin(rotation) * innerRadius;
+    path += ` L ${innerX} ${innerY}`;
+    rotation += step;
+  }
+
+  path += ` L ${cx} ${cy - outerRadius} Z`;
+  return path;
+}
+
 /**
  * Generates SVG polygon points string for a star shape.
  * Creates alternating outer and inner points around a center.

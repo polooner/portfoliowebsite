@@ -24,3 +24,7 @@ export const OVERLAY_COLOR = '#f5f5f5';
 /** Gradient mask configuration */
 export const GRADIENT_INNER_STOP = 0.3;
 export const GRADIENT_OUTER_STOP = 1.0;
+
+/** Lab item metadata */
+export const LAB_ITEM_TITLE = 'Star reveal';
+export const LAB_ITEM_DESCRIPTION = 'Soft-edged star mask using inline SVG with Gaussian blur.';
