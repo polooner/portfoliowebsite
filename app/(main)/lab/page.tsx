@@ -8,10 +8,12 @@ import { InkBleedDemo } from '@/app/(main)/lab/components/ink-bleed-demo';
 import { DotMatrixGrid } from '@/app/(main)/lab/components/dot-matrix-grid/dot-matrix-grid';
 import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 import { TableSearchDemo } from '@/app/(main)/lab/components/landing-page-elements/table-search-demo';
+import { LabIconCarousel } from '@/app/(main)/lab/components/lab-icon-carousel';
 
 export default function Page() {
   return (
     <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
+      <LabIconCarousel />
       <TableSearchDemo />
       <StarReveal />
       <DotMatrixGrid />
