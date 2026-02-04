@@ -14,3 +14,17 @@ Instead of using types/hardcoding strings later to reference those same types, o
 ## Styling guidelines
 
 When putting rounded elements inside of rounded parents (such as toggle buttons within containers) ensure that the roundedness of the parent is whatever the rounded class of the child element is PLUS the padding between the 2. So for example, if parent is rounded-2xl and child is rounded-2xl and the parent has p-2, the parent must become whatever rounded-2xl + the size of p-2 is.
+
+## Next.js Structure Rules
+Folder Structure
+app/                    # Routes only
+├── (group)/            # Route groups (no URL impact)
+│   └── route/_components/  # Route-specific (underscore = private)
+components/             # Shared UI
+├── ui/                 # Primitives (button, card, input)
+└── layout/             # Shell (header, sidebar)
+lib/                    # External connections (db, auth, APIs, services)
+hooks/                  # Custom React hooks
+types/                  # TypeScript definitions
+utils/                  # Pure helper functions
+config/                 # App configuration
