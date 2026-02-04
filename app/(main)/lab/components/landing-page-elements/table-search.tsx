@@ -13,13 +13,53 @@ type SalesDemoPhase =
     | 'clicking-clear'
     | 'clearing';
 
-const salesTableData = [
-    { name: 'Sarah Mitchell', score: 94, status: 'Hot' },
-    { name: 'James Chen', score: 87, status: 'Warm' },
-    { name: 'Emily Rodriguez', score: 82, status: 'Warm' },
-];
+interface TableConfig {
+    query: string;
+    headers: string[];
+    rows: {
+        values: string[];
+        badge?: { text: string; variant: 'dark' | 'light' };
+    }[];
+}
 
-const searchQuery = 'High intent homeowners in Austin';
+const tableConfigs: TableConfig[] = [
+    {
+        query: 'High intent homeowners in Austin',
+        headers: ['Name', 'Score', 'Status'],
+        rows: [
+            { values: ['Sarah Mitchell', '94'], badge: { text: 'Hot', variant: 'dark' } },
+            { values: ['James Chen', '87'], badge: { text: 'Warm', variant: 'light' } },
+            { values: ['Emily Rodriguez', '82'], badge: { text: 'Warm', variant: 'light' } },
+        ],
+    },
+    {
+        query: 'Tech founders in San Francisco',
+        headers: ['Name', 'Company', 'Funds Raised'],
+        rows: [
+            { values: ['Alex Rivera', 'Nexus AI', '$12M'] },
+            { values: ['Priya Sharma', 'CloudScale', '$8.5M'] },
+            { values: ['Marcus Webb', 'DataForge', '$4.2M'] },
+        ],
+    },
+    {
+        query: 'Recent mortgage applicants in Denver',
+        headers: ['Name', 'Amount', 'Status'],
+        rows: [
+            { values: ['Michael Torres', '$485K'], badge: { text: 'Approved', variant: 'dark' } },
+            { values: ['Rachel Kim', '$320K'], badge: { text: 'Pending', variant: 'light' } },
+            { values: ['David Okonkwo', '$560K'], badge: { text: 'Approved', variant: 'dark' } },
+        ],
+    },
+    {
+        query: 'First-time buyers in Seattle',
+        headers: ['Name', 'Budget', 'Timeline'],
+        rows: [
+            { values: ['Emma Lindqvist', '$650K', '3 months'] },
+            { values: ['Tyler Washington', '$480K', '6 months'] },
+            { values: ['Aisha Patel', '$725K', '1 month'] },
+        ],
+    },
+];
 
 export function TableSearchAnimation() {
     const [phase, setPhase] = useState<SalesDemoPhase>('cursor-entering');
@@ -64,6 +104,8 @@ export function TableSearchAnimation() {
     const shouldType = ['typing', 'expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
     const showStaticText = ['expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
     const showClearButton = ['typing', 'expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
+    const currentConfig = tableConfigs[loopKey % tableConfigs.length];
+    const currentQuery = currentConfig.query;
 
     return (
         <div className="relative h-[240px]">
@@ -87,7 +129,7 @@ export function TableSearchAnimation() {
                         <Search className="w-3.5 h-3.5 text-muted-foreground" />
                         <div className="flex-1 px-3 py-2 text-sm text-foreground">
                             {showStaticText ? (
-                                searchQuery
+                                currentQuery
                             ) : (
                                 <Typewriter
                                     key={loopKey}
@@ -97,7 +139,7 @@ export function TableSearchAnimation() {
                                     cursorStyle={{ background: 'currentColor', width: 1 }}
                                     cursorBlinkRepeat={0}
                                 >
-                                    {searchQuery}
+                                    {currentQuery}
                                 </Typewriter>
                             )}
                         </div>
@@ -134,27 +176,31 @@ export function TableSearchAnimation() {
                         >
                             {/* Table header */}
                             <div className="grid grid-cols-3 gap-2 px-4 py-2 border-t border-border text-xs font-medium text-muted-foreground uppercase tracking-wide">
-                                <span>Name</span>
-                                <span>Score</span>
-                                <span>Status</span>
+                                {currentConfig.headers.map((header) => (
+                                    <span key={header}>{header}</span>
+                                ))}
                             </div>
 
                             {/* Table rows with staggered blur-in */}
-                            {salesTableData.map((row, i) => (
+                            {currentConfig.rows.map((row, i) => (
                                 <motion.div
-                                    key={row.name}
+                                    key={row.values[0]}
                                     className="grid grid-cols-3 gap-2 px-4 py-2.5 border-t border-border text-sm"
                                     initial={{ opacity: 0, filter: 'blur(8px)' }}
                                     animate={['complete', 'cursor-to-clear', 'clicking-clear'].includes(phase) ? { opacity: 1, filter: 'blur(0px)' } : {}}
                                     transition={{ duration: 0.4, delay: 0.15 + i * 0.1, ease: 'easeOut' }}
                                 >
-                                    <span className="text-foreground font-medium">{row.name}</span>
-                                    <span className="text-foreground">{row.score}</span>
-                                    <span
-                                        className={`inline-flex items-center w-fit px-2 py-0.5 rounded-full text-xs font-medium ${row.status === 'Hot' ? 'bg-neutral-900 text-white' : 'bg-neutral-200 text-neutral-600'}`}
-                                    >
-                                        {row.status}
-                                    </span>
+                                    <span className="text-foreground font-medium">{row.values[0]}</span>
+                                    <span className="text-foreground">{row.values[1]}</span>
+                                    {row.badge ? (
+                                        <span
+                                            className={`inline-flex items-center w-fit px-2 py-0.5 rounded-full text-xs font-medium ${row.badge.variant === 'dark' ? 'bg-neutral-900 text-white' : 'bg-neutral-200 text-neutral-600'}`}
+                                        >
+                                            {row.badge.text}
+                                        </span>
+                                    ) : (
+                                        <span className="text-foreground">{row.values[2]}</span>
+                                    )}
                                 </motion.div>
                             ))}
                         </motion.div>
