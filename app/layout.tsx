@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <div className="flex flex-col min-h-screen w-full">
             <main className="flex-grow">{children}</main>
           </div>
-          <Toaster />
+          <Toaster theme="dark" />
         </body>
       </html>
     </ViewTransitions>

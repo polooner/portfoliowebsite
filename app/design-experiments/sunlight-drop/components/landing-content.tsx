@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
 export default function LandingContent() {
@@ -48,11 +49,14 @@ export default function LandingContent() {
 
       {/* Right side - Full height card */}
       <div className="w-[45%] p-4">
-        <div className="h-full w-full overflow-hidden rounded-3xl bg-gradient-to-br from-neutral-100 via-neutral-200 to-neutral-300 shadow-xl">
-          {/* Placeholder content */}
-          <div className="flex h-full w-full items-center justify-center">
-            <span className="text-neutral-400">Image placeholder</span>
-          </div>
+        <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-xl">
+          <Image
+            src="/bgs/stairsshadowcast.jpg"
+            alt="Architectural shadow"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
       </div>
     </div>
