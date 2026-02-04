@@ -1,9 +1,17 @@
 import { Typewriter } from "@/app/(main)/lab/components/landing-page-elements/typewriter/typewriter";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion"
 import React, { useState } from "react";
 
-type SalesDemoPhase = 'cursor-entering' | 'clicking' | 'typing' | 'expanding' | 'complete';
+type SalesDemoPhase =
+    | 'cursor-entering'
+    | 'clicking'
+    | 'typing'
+    | 'expanding'
+    | 'complete'
+    | 'cursor-to-clear'
+    | 'clicking-clear'
+    | 'clearing';
 
 const salesTableData = [
     { name: 'Sarah Mitchell', score: 94, status: 'Hot' },
@@ -37,18 +45,25 @@ export function TableSearchAnimation() {
         // After typing completes, expand table
         setTimeout(() => setPhase('expanding'), 200);
         setTimeout(() => setPhase('complete'), 400);
-        // Hold for 2 seconds, then restart the loop
+        // After rows blur in, start the clear sequence
+        setTimeout(() => setPhase('cursor-to-clear'), 1800);
+        setTimeout(() => setPhase('clicking-clear'), 2500);
+        setTimeout(() => setPhase('clearing'), 2650);
+        // After clearing animation, restart the loop
         setTimeout(() => {
             setShowTable(false);
             setPhase('cursor-entering');
             setLoopKey((k) => k + 1);
-        }, 2500);
+        }, 3200);
     };
 
-    const isExpanded = phase === 'expanding' || phase === 'complete';
-    const showCursor = phase === 'cursor-entering' || phase === 'clicking';
-    const shouldType = phase === 'typing' || phase === 'expanding' || phase === 'complete';
-    const showStaticText = phase === 'expanding' || phase === 'complete';
+    const isExpanded = ['expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
+    const isClearing = phase === 'clearing';
+    const showCursorEntering = phase === 'cursor-entering' || phase === 'clicking';
+    const showCursorClearing = phase === 'cursor-to-clear' || phase === 'clicking-clear';
+    const shouldType = ['typing', 'expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
+    const showStaticText = ['expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
+    const showClearButton = ['typing', 'expanding', 'complete', 'cursor-to-clear', 'clicking-clear'].includes(phase);
 
     return (
         <div className="relative h-[240px]">
@@ -57,18 +72,18 @@ export function TableSearchAnimation() {
                 className="absolute left-0 right-0 bg-white border border-border overflow-hidden"
                 initial={{ top: '50%', y: '-50%', borderRadius: 12 }}
                 animate={{
-                    top: isExpanded ? '0%' : '50%',
-                    y: isExpanded ? 0 : '-50%',
-                    borderRadius: isExpanded ? 16 : 12,
+                    top: (isExpanded && !isClearing) ? '0%' : '50%',
+                    y: (isExpanded && !isClearing) ? 0 : '-50%',
+                    borderRadius: (isExpanded && !isClearing) ? 16 : 12,
                 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 onAnimationComplete={() => {
-                    if (isExpanded) setShowTable(true);
+                    if (isExpanded && !isClearing) setShowTable(true);
                 }}
             >
                 {/* Search input pill */}
                 <div className="p-2.5">
-                    <div className="flex items-center bg-gray-50 border border-border rounded-lg pl-3">
+                    <div className="flex items-center bg-gray-50 border border-border rounded-lg pl-3 pr-2">
                         <Search className="w-3.5 h-3.5 text-muted-foreground" />
                         <div className="flex-1 px-3 py-2 text-sm text-foreground">
                             {showStaticText ? (
@@ -86,12 +101,31 @@ export function TableSearchAnimation() {
                                 </Typewriter>
                             )}
                         </div>
+                        {/* Clear button */}
+                        <AnimatePresence>
+                            {showClearButton && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{
+                                        opacity: 1,
+                                        scale: phase === 'clicking-clear' ? [1, 0.7, 1] : 1
+                                    }}
+                                    exit={{ opacity: 0, scale: 0.8 }}
+                                    transition={phase === 'clicking-clear' ? {
+                                        scale: { duration: 0.15, times: [0, 0.4, 1], ease: 'easeOut' }
+                                    } : { duration: 0.15 }}
+                                    className="p-0.5 rounded text-muted-foreground"
+                                >
+                                    <X className="w-3 h-3" />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </div>
                 </div>
 
                 {/* Table content - fades and slides in after expansion */}
                 <AnimatePresence>
-                    {showTable && (
+                    {showTable && !isClearing && (
                         <motion.div
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
@@ -111,7 +145,7 @@ export function TableSearchAnimation() {
                                     key={row.name}
                                     className="grid grid-cols-3 gap-2 px-4 py-2.5 border-t border-border text-sm"
                                     initial={{ opacity: 0, filter: 'blur(8px)' }}
-                                    animate={phase === 'complete' ? { opacity: 1, filter: 'blur(0px)' } : {}}
+                                    animate={['complete', 'cursor-to-clear', 'clicking-clear'].includes(phase) ? { opacity: 1, filter: 'blur(0px)' } : {}}
                                     transition={{ duration: 0.4, delay: 0.15 + i * 0.1, ease: 'easeOut' }}
                                 >
                                     <span className="text-foreground font-medium">{row.name}</span>
@@ -128,41 +162,91 @@ export function TableSearchAnimation() {
                 </AnimatePresence>
             </motion.div>
 
-            {/* Animated cursor */}
-            <motion.div
-                key={loopKey}
-                className="absolute pointer-events-none z-10"
-                animate={{
-                    x: showCursor ? 120 : 120,
-                    y: showCursor ? 120 : 120,
-                    scale: phase === 'clicking' ? [1, 0.7, 1] : 1,
-                    opacity: showCursor ? 1 : 0,
-                }}
-                initial={{
-                    x: 380,
-                    y: 200,
-                    opacity: 0,
-                    scale: 1,
-                }}
-                transition={phase === 'clicking' ? {
-                    scale: { duration: 0.15, times: [0, 0.4, 1], ease: 'easeOut' },
-                    opacity: { duration: 0.15, delay: 0.1 },
-                } : {
-                    x: { duration: 0.7, ease: [0, 0, 0.2, 1] },
-                    y: { duration: 0.7, ease: [0.8, 0, 1, 1] },
-                    opacity: { duration: 0.3 },
-                }}
-            >
-                <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
-                    <path
-                        d="M1 1L6 14L8 8L14 6L1 1Z"
-                        fill="currentColor"
-                        stroke="currentColor"
-                        strokeWidth="1"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </motion.div>
+            {/* Animated cursor - entry sequence */}
+            <AnimatePresence>
+                {showCursorEntering && (
+                    <motion.div
+                        key={`cursor-enter-${loopKey}`}
+                        className="absolute pointer-events-none z-10"
+                        animate={{
+                            x: 120,
+                            y: 120,
+                            scale: phase === 'clicking' ? [1, 0.7, 1] : 1,
+                            opacity: 1,
+                        }}
+                        initial={{
+                            x: 380,
+                            y: 200,
+                            opacity: 0,
+                            scale: 1,
+                        }}
+                        exit={{
+                            opacity: 0,
+                        }}
+                        transition={phase === 'clicking' ? {
+                            scale: { duration: 0.15, times: [0, 0.4, 1], ease: 'easeOut' },
+                            opacity: { duration: 0.15 },
+                        } : {
+                            x: { duration: 0.7, ease: [0, 0, 0.2, 1] },
+                            y: { duration: 0.7, ease: [0.8, 0, 1, 1] },
+                            opacity: { duration: 0.3 },
+                        }}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+                            <path
+                                d="M1 1L6 14L8 8L14 6L1 1Z"
+                                fill="currentColor"
+                                stroke="currentColor"
+                                strokeWidth="1"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Animated cursor - clear sequence */}
+            <AnimatePresence>
+                {showCursorClearing && (
+                    <motion.div
+                        key={`cursor-clear-${loopKey}`}
+                        className="absolute pointer-events-none z-10"
+                        animate={{
+                            x: 438,
+                            y: 28,
+                            scale: phase === 'clicking-clear' ? [1, 0.7, 1] : 1,
+                            opacity: 1,
+                        }}
+                        initial={{
+                            x: 380,
+                            y: 200,
+                            opacity: 0,
+                            scale: 1,
+                        }}
+                        exit={{
+                            opacity: 0,
+                        }}
+                        transition={phase === 'clicking-clear' ? {
+                            scale: { duration: 0.15, times: [0, 0.4, 1], ease: 'easeOut' },
+                            opacity: { duration: 0.15 },
+                        } : {
+                            x: { duration: 0.7, ease: [0, 0, 0.2, 1] },
+                            y: { duration: 0.7, ease: [0.8, 0, 1, 1] },
+                            opacity: { duration: 0.3 },
+                        }}
+                    >
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+                            <path
+                                d="M1 1L6 14L8 8L14 6L1 1Z"
+                                fill="currentColor"
+                                stroke="currentColor"
+                                strokeWidth="1"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
