@@ -13,7 +13,7 @@ function TransparentNav() {
         <span className="text-lg font-medium text-neutral-900">Grunged</span>
       </div>
 
-      {/* Nav links + Sign in */}
+      {/* Nav links + Sign in
       <div className="flex flex-row items-center gap-1 text-sm">
         <Link
           href="#"
@@ -45,7 +45,7 @@ function TransparentNav() {
         >
           Sign in
         </Link>
-      </div>
+      </div> */}
     </nav>
   );
 }
@@ -60,7 +60,7 @@ export default function Page() {
       <LandingContent />
 
       {/* Layer 3 (z-20): Shadow overlay with mix-blend-multiply */}
-      <WindowShadowExperiment asOverlay />
+      <WindowShadowExperiment asOverlay offsetX={-150} />
 
       {/* Layer 4 (z-50): Navigation */}
       <TransparentNav />
