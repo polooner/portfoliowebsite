@@ -4,7 +4,7 @@ import ToolCanvas from './_components/tool-canvas';
 
 export default function SunlightDropToolPage() {
   return (
-    <div className="fixed inset-0 bg-neutral-900">
+    <div className="dark fixed inset-0 bg-neutral-900 text-neutral-100">
       {/* Canvas area (fills entire background) */}
       <ToolCanvas />
 
