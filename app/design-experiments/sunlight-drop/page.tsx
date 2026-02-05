@@ -7,10 +7,22 @@ function TransparentNav() {
     <nav className="fixed top-0 left-0 z-50 flex w-[55%] flex-row items-center justify-between px-12 py-6">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-800 text-white text-sm font-medium">
-          G
+        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-900 p-1">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Window shadow grid - 2x2 panes with light coming through */}
+            <rect x="2" y="2" width="7" height="7" rx="1" fill="white" fillOpacity="0.3" />
+            <rect x="11" y="2" width="7" height="7" rx="1" fill="white" fillOpacity="0.2" />
+            <rect x="2" y="11" width="7" height="7" rx="1" fill="white" fillOpacity="0.15" />
+            <rect x="11" y="11" width="7" height="7" rx="1" fill="white" fillOpacity="0.1" />
+          </svg>
         </div>
-        <span className="text-lg font-medium text-neutral-900">Grunged</span>
+        <span className="text-lg font-medium text-neutral-900">Lighted</span>
       </div>
 
       {/* Nav links + Sign in

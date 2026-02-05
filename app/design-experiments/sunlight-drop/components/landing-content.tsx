@@ -9,13 +9,13 @@ export default function LandingContent() {
         {/* Top section with hero text */}
         <div className="flex flex-col gap-6 pt-24">
           <h1 className="text-5xl font-light tracking-tight text-black md:text-6xl">
-            Built for Creative
+            Drop Sunlight
             <br />
-            <span className="text-neutral-400">Design at Scale.</span>
+            <span className="text-neutral-400">Into Your UI.</span>
           </h1>
           <p className="max-w-md text-base text-neutral-500">
-            Transform your clean designs into gritty, textured masterpieces
-            without switching tools.
+            Create beautiful, realistic window shadows for your landing pages,
+            portfolios, and dashboards in seconds.
           </p>
           <div className="flex flex-row gap-3 pt-2">
             <Button
@@ -23,26 +23,26 @@ export default function LandingContent() {
               size="lg"
               className="rounded-full px-6 py-5 text-sm"
             >
-              Get Started Free
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full border-neutral-300 bg-white px-6 py-5 text-sm text-neutral-700 hover:bg-neutral-100"
-            >
-              Learn How
+              Go to App
             </Button>
           </div>
         </div>
 
-        {/* Bottom section - trust badges placeholder */}
-        <div className="flex flex-col gap-3 pb-8">
-          <p className="text-sm text-neutral-400">Trusted by leading names</p>
-          <div className="flex flex-row items-center gap-8 text-neutral-400">
-            <span className="text-lg font-medium">Google</span>
-            <span className="text-lg font-medium">Microsoft</span>
-            <span className="text-lg font-medium">Stripe</span>
-            <span className="text-lg font-medium">Amazon</span>
+        {/* Bottom section - feature highlights */}
+        <div className="flex flex-col gap-4 pb-8">
+          <div className="flex flex-row items-center gap-6 text-sm text-neutral-500">
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              Copy-paste CSS
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              Fully customizable
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              Free forever
+            </span>
           </div>
         </div>
       </div>
@@ -57,6 +57,16 @@ export default function LandingContent() {
             className="object-cover"
             priority
           />
+          {/* Demo screenshot overlay */}
+          <div className="absolute inset-0 flex items-center justify-center p-8">
+            <Image
+              src="/sunlight-drop-demo.png"
+              alt="Demo screenshot"
+              width={800}
+              height={900}
+              className="h-auto max-h-[85%] w-auto max-w-full rounded-2xl object-contain shadow-2xl"
+            />
+          </div>
         </div>
       </div>
     </div>
