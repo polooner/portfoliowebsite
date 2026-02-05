@@ -22,7 +22,7 @@ function TransparentNav() {
             <rect x="11" y="11" width="7" height="7" rx="1" fill="white" fillOpacity="0.1" />
           </svg>
         </div>
-        <span className="text-lg font-medium text-neutral-900">Lighted</span>
+        <span className="text-sm font-medium text-neutral-900">lighted</span>
       </div>
 
       {/* Nav links + Sign in

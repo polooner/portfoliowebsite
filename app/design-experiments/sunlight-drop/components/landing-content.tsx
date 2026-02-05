@@ -9,7 +9,7 @@ export default function LandingContent() {
       <div className="flex w-[55%] flex-col justify-between px-12 py-8">
         {/* Top section with hero text */}
         <div className="flex flex-col gap-6 pt-24">
-          <h1 className="text-5xl font-light tracking-tight text-black md:text-6xl">
+          <h1 className="text-5xl font-medium tracking-tight text-black md:text-6xl">
             Drop Sunlight
             <br />
             <span className="text-neutral-400">Into Your UI.</span>

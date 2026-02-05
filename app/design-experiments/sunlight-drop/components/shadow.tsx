@@ -110,7 +110,7 @@ export default function WindowShadowExperiment({
         <g mask={asOverlay ? `url(#${fadeMaskId})` : undefined}>
           {/* Gray base for overlay mode - this creates the shadow effect */}
           {asOverlay && (
-            <rect x="0" y="0" width="100%" height="100%" fill="#d4d4d4" />
+            <rect x="0" y="0" width="100%" height="100%" fill="#a3a3a3" />
           )}
 
           {/* Window shadow grid - centered and skewed */}
