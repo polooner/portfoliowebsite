@@ -358,17 +358,20 @@ pre code span {
     rgb(64 64 64) 100%
   );
   height: 4px;
+  border-radius: 2px;
 }
 
 .slider-input::-moz-range-track {
   background: rgb(64 64 64);
   height: 4px;
   border: none;
+  border-radius: 2px;
 }
 
 .slider-input::-moz-range-progress {
   background: rgb(212 212 212);
   height: 4px;
+  border-radius: 2px;
 }
 
 .slider-input::-webkit-slider-thumb {
