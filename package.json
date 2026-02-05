@@ -66,6 +66,7 @@
     "react-dom": "19.2.0",
     "react-hot-toast": "^2.4.1",
     "react-markdown": "^9.0.1",
+    "react-resizable-panels": "^4.6.0",
     "react-shiki": "^0.9.1",
     "react-tweet": "^3.2.1",
     "react-wrap-balancer": "^1.1.1",

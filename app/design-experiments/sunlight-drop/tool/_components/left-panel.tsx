@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShikiHighlighter } from 'react-shiki';
 import { useShadowStore } from '../_store/shadow-store';
@@ -15,6 +15,10 @@ const CHECKMARK_PATH = 'M4 12l5 5L20 6';
 const CHECKMARK_PATH_LENGTH = 24;
 const SUCCESS_DISPLAY_DURATION_MS = 2000;
 
+const MIN_PANEL_WIDTH = 280;
+const MAX_PANEL_WIDTH = 800;
+const DEFAULT_PANEL_WIDTH = 360;
+
 /**
  * Code panel displaying syntax-highlighted TSX component code.
  * Updates reactively based on shadow store values.
@@ -22,6 +26,8 @@ const SUCCESS_DISPLAY_DURATION_MS = 2000;
  */
 export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
   const [copied, setCopied] = useState(false);
+  const [panelWidth, setPanelWidth] = useState(DEFAULT_PANEL_WIDTH);
+  const [isResizing, setIsResizing] = useState(false);
 
   const {
     columns,
@@ -86,6 +92,41 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
     }
   };
 
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizing(true);
+  }, []);
+
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isResizing) return;
+      // Panel starts at left: 16px (left-4), so width = mouseX - 16
+      const newWidth = Math.min(MAX_PANEL_WIDTH, Math.max(MIN_PANEL_WIDTH, e.clientX - 16));
+      setPanelWidth(newWidth);
+    },
+    [isResizing]
+  );
+
+  const handleMouseUp = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [isResizing, handleMouseMove, handleMouseUp]);
+
   const codeBlock = (
     <ShikiHighlighter
       language="tsx"
@@ -111,7 +152,8 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="fixed bottom-4 left-4 top-4 z-50 flex w-[360px] flex-col rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl"
+            style={{ width: panelWidth }}
+            className="fixed bottom-4 left-4 top-4 z-50 flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl"
           >
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2">
@@ -195,7 +237,17 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
                 </svg>
               </motion.button>
             </div>
-            <div className="flex-1 overflow-auto">{codeBlock}</div>
+            <div className="flex-1 overflow-auto pb-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-600 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+              {codeBlock}
+            </div>
+
+            {/* Resize handle - highlights border on hover */}
+            <div
+              onMouseDown={handleMouseDown}
+              className={`absolute right-0 top-0 bottom-0 w-1 cursor-col-resize transition-colors rounded-r-2xl ${
+                isResizing ? 'bg-white/30' : 'hover:bg-white/20'
+              }`}
+            />
           </motion.aside>
         )}
       </AnimatePresence>
