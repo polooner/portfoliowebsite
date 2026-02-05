@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export default function LandingContent() {
@@ -18,13 +19,15 @@ export default function LandingContent() {
             portfolios, and dashboards in seconds.
           </p>
           <div className="flex flex-row gap-3 pt-2">
-            <Button
-              variant="threeDAngledShadowScale"
-              size="lg"
-              className="rounded-full px-6 py-5 text-sm"
-            >
-              Go to App
-            </Button>
+            <Link href="/design-experiments/sunlight-drop/tool">
+              <Button
+                variant="threeDAngledShadowScale"
+                size="lg"
+                className="rounded-full px-6 py-5 text-sm"
+              >
+                Go to App
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -51,7 +54,7 @@ export default function LandingContent() {
       <div className="w-[45%] p-4">
         <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-xl">
           <Image
-            src="/bgs/stairsshadowcast.jpg"
+            src="/bgs/columnsshadowcast.jpg"
             alt="Architectural shadow"
             fill
             className="object-cover"
