@@ -18,7 +18,7 @@ export default function SunlightDropToolPage() {
       <ToolCanvas />
 
       {/* Floating panels */}
-      <LeftPanel isOpen={isCodePanelOpen} />
+      <LeftPanel isOpen={isCodePanelOpen} onClose={() => setIsCodePanelOpen(false)} />
       <RightPanel
         isCodePanelOpen={isCodePanelOpen}
         onToggleCodePanel={handleToggleCodePanel}
