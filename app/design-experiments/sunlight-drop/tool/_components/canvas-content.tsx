@@ -12,7 +12,7 @@ export default function CanvasContent() {
   const uniqueId = useId();
   const filterId = `tool-blur-${uniqueId}`;
 
-  const { columns, rows, paneWidth, paneHeight, gapX, gapY, skewX, skewY, blur } =
+  const { columns, rows, paneWidth, paneHeight, gapX, gapY, skewX, skewY, blur, fillColor, fillOpacity } =
     useShadowStore();
 
   // Calculate grid dimensions
@@ -67,7 +67,8 @@ export default function CanvasContent() {
               y={rect.y}
               width={rect.width}
               height={rect.height}
-              fill="white"
+              fill={fillColor}
+              fillOpacity={fillOpacity / 100}
             />
           ))}
         </g>

@@ -10,6 +10,8 @@ interface ShadowConfig {
   skewX: number;
   skewY: number;
   blur: number;
+  fillColor: string;
+  fillOpacity: number;
 }
 
 interface ShadowStore extends ShadowConfig {
@@ -22,6 +24,8 @@ interface ShadowStore extends ShadowConfig {
   setSkewX: (value: number) => void;
   setSkewY: (value: number) => void;
   setBlur: (value: number) => void;
+  setFillColor: (value: string) => void;
+  setFillOpacity: (value: number) => void;
   reset: () => void;
 }
 
@@ -35,6 +39,8 @@ const DEFAULT_CONFIG: ShadowConfig = {
   skewX: 5,
   skewY: 20,
   blur: 15,
+  fillColor: '#ffffff',
+  fillOpacity: 100,
 };
 
 export const useShadowStore = create<ShadowStore>((set) => ({
@@ -48,5 +54,7 @@ export const useShadowStore = create<ShadowStore>((set) => ({
   setSkewX: (value) => set({ skewX: value }),
   setSkewY: (value) => set({ skewY: value }),
   setBlur: (value) => set({ blur: value }),
+  setFillColor: (value) => set({ fillColor: value }),
+  setFillOpacity: (value) => set({ fillOpacity: value }),
   reset: () => set(DEFAULT_CONFIG),
 }));

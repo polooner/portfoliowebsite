@@ -1,5 +1,6 @@
 'use client';
 
+import { ColorPicker } from './color-picker';
 import { useShadowStore } from '../_store/shadow-store';
 
 interface SliderRowProps {
@@ -59,6 +60,8 @@ export default function RightPanel() {
     skewX,
     skewY,
     blur,
+    fillColor,
+    fillOpacity,
     setColumns,
     setRows,
     setPaneWidth,
@@ -68,6 +71,8 @@ export default function RightPanel() {
     setSkewX,
     setSkewY,
     setBlur,
+    setFillColor,
+    setFillOpacity,
     reset,
   } = useShadowStore();
 
@@ -84,6 +89,17 @@ export default function RightPanel() {
       </div>
 
       <div className="flex-1 space-y-6 overflow-y-auto p-4">
+        {/* Fill */}
+        <div>
+          <SectionHeader>Fill</SectionHeader>
+          <ColorPicker
+            color={fillColor}
+            opacity={fillOpacity}
+            onColorChange={setFillColor}
+            onOpacityChange={setFillOpacity}
+          />
+        </div>
+
         {/* Grid */}
         <div>
           <SectionHeader>Grid</SectionHeader>
