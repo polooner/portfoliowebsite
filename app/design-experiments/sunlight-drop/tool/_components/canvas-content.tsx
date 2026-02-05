@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import { useShadowStore } from '../_store/shadow-store';
+import { useShadowStore, oklchToCss } from '../_store/shadow-store';
 
 const VIEWBOX_PADDING = 200;
 
@@ -67,7 +67,7 @@ export default function CanvasContent() {
           y="0"
           width="100%"
           height="100%"
-          fill={backgroundColor}
+          fill={oklchToCss(backgroundColor)}
           fillOpacity={backgroundOpacity / 100}
         />
 
@@ -87,7 +87,7 @@ export default function CanvasContent() {
               y={rect.y}
               width={rect.width}
               height={rect.height}
-              fill={fillColor}
+              fill={oklchToCss(fillColor)}
               fillOpacity={fillOpacity / 100}
             />
           ))}
