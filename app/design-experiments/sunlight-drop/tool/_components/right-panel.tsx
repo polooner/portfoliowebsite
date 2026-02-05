@@ -1,7 +1,10 @@
 'use client';
 
 import { ColorPicker } from './color-picker';
+import { CopyButton } from './copy-button';
+import { ViewCodeButton } from './view-code-button';
 import { useShadowStore } from '../_store/shadow-store';
+import { generateComponentCode } from '../_utils/generate-component-code';
 
 interface SliderRowProps {
   label: string;
@@ -49,7 +52,12 @@ function SectionHeader({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function RightPanel() {
+interface RightPanelProps {
+  isCodePanelOpen: boolean;
+  onToggleCodePanel: () => void;
+}
+
+export default function RightPanel({ isCodePanelOpen, onToggleCodePanel }: RightPanelProps) {
   const {
     columns,
     rows,
@@ -210,6 +218,30 @@ export default function RightPanel() {
             max={50}
           />
         </div>
+      </div>
+
+      {/* Button row */}
+      <div className="flex gap-2 border-t border-white/10 p-3">
+        <ViewCodeButton isOpen={isCodePanelOpen} onToggle={onToggleCodePanel} />
+        <CopyButton
+          getText={() =>
+            generateComponentCode({
+              columns,
+              rows,
+              paneWidth,
+              paneHeight,
+              gapX,
+              gapY,
+              skewX,
+              skewY,
+              blur,
+              fillColor,
+              fillOpacity,
+              backgroundColor,
+              backgroundOpacity,
+            })
+          }
+        />
       </div>
     </aside>
   );

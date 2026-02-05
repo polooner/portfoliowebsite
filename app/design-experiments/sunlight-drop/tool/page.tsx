@@ -1,16 +1,28 @@
+'use client';
+
+import { useState } from 'react';
 import LeftPanel from './_components/left-panel';
 import RightPanel from './_components/right-panel';
 import ToolCanvas from './_components/tool-canvas';
 
 export default function SunlightDropToolPage() {
+  const [isCodePanelOpen, setIsCodePanelOpen] = useState(false);
+
+  const handleToggleCodePanel = () => {
+    setIsCodePanelOpen((prev) => !prev);
+  };
+
   return (
     <div className="dark fixed inset-0 bg-neutral-900 text-neutral-100">
       {/* Canvas area (fills entire background) */}
       <ToolCanvas />
 
       {/* Floating panels */}
-      <LeftPanel />
-      <RightPanel />
+      <LeftPanel isOpen={isCodePanelOpen} />
+      <RightPanel
+        isCodePanelOpen={isCodePanelOpen}
+        onToggleCodePanel={handleToggleCodePanel}
+      />
     </div>
   );
 }
