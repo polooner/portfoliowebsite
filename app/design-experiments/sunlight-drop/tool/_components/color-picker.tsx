@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
@@ -10,26 +11,55 @@ interface ColorPickerProps {
   onOpacityChange: (opacity: number) => void;
 }
 
+const MIN_OPACITY = 0;
+const MAX_OPACITY = 100;
+
 export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: ColorPickerProps) {
   const hexWithoutHash = color.replace('#', '').toUpperCase();
+  const [opacityInput, setOpacityInput] = useState(opacity.toString());
+
+  useEffect(() => {
+    setOpacityInput(opacity.toString());
+  }, [opacity]);
+
+  const handleOpacityInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setOpacityInput(value);
+  };
+
+  const handleOpacityBlur = () => {
+    const parsed = parseInt(opacityInput, 10);
+    if (isNaN(parsed)) {
+      setOpacityInput(opacity.toString());
+      return;
+    }
+    const clamped = Math.max(MIN_OPACITY, Math.min(MAX_OPACITY, parsed));
+    onOpacityChange(clamped);
+    setOpacityInput(clamped.toString());
+  };
+
+  const handleOpacityKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleOpacityBlur();
+      (e.target as HTMLInputElement).blur();
+    }
+  };
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <button className="flex w-full items-center gap-2 rounded-lg bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
-          {/* Color swatch */}
-          <div
-            className="h-4 w-4 rounded"
-            style={{ backgroundColor: color, opacity: opacity / 100 }}
-          />
-          {/* Hex value */}
-          <span className="flex-1 text-left font-mono text-xs text-neutral-300">
-            {hexWithoutHash}
-          </span>
-          {/* Opacity */}
-          <span className="font-mono text-xs text-neutral-500">{opacity}%</span>
-        </button>
-      </PopoverTrigger>
+    <div className="flex w-full">
+      {/* Left button - Color picker trigger */}
+      <Popover>
+        <PopoverTrigger asChild>
+          <button className="flex flex-1 items-center gap-2 rounded-l-lg border-r border-neutral-600/50 bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
+            <div
+              className="h-4 w-4 rounded"
+              style={{ backgroundColor: color, opacity: opacity / 100 }}
+            />
+            <span className="font-mono text-xs text-neutral-300">
+              {hexWithoutHash}
+            </span>
+          </button>
+        </PopoverTrigger>
       <PopoverContent
         side="left"
         align="start"
@@ -78,5 +108,19 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
         </div>
       </PopoverContent>
     </Popover>
+
+      {/* Right button - Opacity input */}
+      <div className="flex items-center gap-1 rounded-r-lg bg-neutral-700/50 px-3 py-2">
+        <input
+          type="text"
+          value={opacityInput}
+          onChange={handleOpacityInputChange}
+          onBlur={handleOpacityBlur}
+          onKeyDown={handleOpacityKeyDown}
+          className="w-8 bg-transparent text-right font-mono text-xs text-neutral-300 outline-none"
+        />
+        <span className="font-mono text-xs text-neutral-500">%</span>
+      </div>
+    </div>
   );
 }
