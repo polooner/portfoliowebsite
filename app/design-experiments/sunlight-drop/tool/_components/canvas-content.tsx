@@ -12,8 +12,21 @@ export default function CanvasContent() {
   const uniqueId = useId();
   const filterId = `tool-blur-${uniqueId}`;
 
-  const { columns, rows, paneWidth, paneHeight, gapX, gapY, skewX, skewY, blur, fillColor, fillOpacity } =
-    useShadowStore();
+  const {
+    columns,
+    rows,
+    paneWidth,
+    paneHeight,
+    gapX,
+    gapY,
+    skewX,
+    skewY,
+    blur,
+    fillColor,
+    fillOpacity,
+    backgroundColor,
+    backgroundOpacity,
+  } = useShadowStore();
 
   // Calculate grid dimensions
   const totalWidth = columns * paneWidth + (columns - 1) * gapX;
@@ -48,8 +61,15 @@ export default function CanvasContent() {
           </filter>
         </defs>
 
-        {/* Gray base */}
-        <rect x="0" y="0" width="100%" height="100%" fill="#d4d4d4" />
+        {/* Background */}
+        <rect
+          x="0"
+          y="0"
+          width="100%"
+          height="100%"
+          fill={backgroundColor}
+          fillOpacity={backgroundOpacity / 100}
+        />
 
         {/* Window shadow grid */}
         <g

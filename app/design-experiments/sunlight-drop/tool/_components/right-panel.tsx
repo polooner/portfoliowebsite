@@ -62,6 +62,8 @@ export default function RightPanel() {
     blur,
     fillColor,
     fillOpacity,
+    backgroundColor,
+    backgroundOpacity,
     setColumns,
     setRows,
     setPaneWidth,
@@ -73,6 +75,8 @@ export default function RightPanel() {
     setBlur,
     setFillColor,
     setFillOpacity,
+    setBackgroundColor,
+    setBackgroundOpacity,
     reset,
   } = useShadowStore();
 
@@ -97,6 +101,17 @@ export default function RightPanel() {
             opacity={fillOpacity}
             onColorChange={setFillColor}
             onOpacityChange={setFillOpacity}
+          />
+        </div>
+
+        {/* Background */}
+        <div>
+          <SectionHeader>Background</SectionHeader>
+          <ColorPicker
+            color={backgroundColor}
+            opacity={backgroundOpacity}
+            onColorChange={setBackgroundColor}
+            onOpacityChange={setBackgroundOpacity}
           />
         </div>
 

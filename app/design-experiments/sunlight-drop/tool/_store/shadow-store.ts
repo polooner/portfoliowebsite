@@ -12,6 +12,8 @@ interface ShadowConfig {
   blur: number;
   fillColor: string;
   fillOpacity: number;
+  backgroundColor: string;
+  backgroundOpacity: number;
 }
 
 interface ShadowStore extends ShadowConfig {
@@ -26,6 +28,8 @@ interface ShadowStore extends ShadowConfig {
   setBlur: (value: number) => void;
   setFillColor: (value: string) => void;
   setFillOpacity: (value: number) => void;
+  setBackgroundColor: (value: string) => void;
+  setBackgroundOpacity: (value: number) => void;
   reset: () => void;
 }
 
@@ -41,6 +45,8 @@ const DEFAULT_CONFIG: ShadowConfig = {
   blur: 15,
   fillColor: '#ffffff',
   fillOpacity: 100,
+  backgroundColor: '#d4d4d4',
+  backgroundOpacity: 100,
 };
 
 export const useShadowStore = create<ShadowStore>((set) => ({
@@ -56,5 +62,7 @@ export const useShadowStore = create<ShadowStore>((set) => ({
   setBlur: (value) => set({ blur: value }),
   setFillColor: (value) => set({ fillColor: value }),
   setFillOpacity: (value) => set({ fillOpacity: value }),
+  setBackgroundColor: (value) => set({ backgroundColor: value }),
+  setBackgroundOpacity: (value) => set({ backgroundOpacity: value }),
   reset: () => set(DEFAULT_CONFIG),
 }));
