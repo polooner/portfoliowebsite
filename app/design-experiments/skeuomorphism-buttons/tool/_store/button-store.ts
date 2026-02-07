@@ -11,6 +11,11 @@ import {
   type BackgroundConfig,
   type BorderConfig,
   type TextConfig,
+  type EngravedConfig,
+  type EmbossedConfig,
+  type TextGradientConfig,
+  type TextShimmerConfig,
+  type TextStrokeConfig,
   type HoverStateConfig,
   type ActiveStateConfig,
 } from '../_types/button-config';
@@ -59,6 +64,14 @@ interface ButtonStore {
   addTextShadow: () => void;
   removeTextShadow: (id: string) => void;
   updateTextShadow: (id: string, partial: Partial<TextShadowLayer>) => void;
+  setTextEngraved: (partial: Partial<EngravedConfig>) => void;
+  setTextEmbossed: (partial: Partial<EmbossedConfig>) => void;
+  setTextGradient: (partial: Partial<TextGradientConfig>) => void;
+  addTextGradientStop: () => void;
+  removeTextGradientStop: (id: string) => void;
+  updateTextGradientStop: (id: string, partial: Partial<GradientStop>) => void;
+  setTextShimmer: (partial: Partial<TextShimmerConfig>) => void;
+  setTextStroke: (partial: Partial<TextStrokeConfig>) => void;
 
   // States
   setHover: (partial: Partial<HoverStateConfig>) => void;
@@ -321,6 +334,116 @@ export const useButtonStore = create<ButtonStore>((set) => ({
           textShadows: state.config.text.textShadows.map((t) =>
             t.id === id ? { ...t, ...partial } : t
           ),
+        },
+      },
+    })),
+
+  setTextEngraved: (partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          engraved: { ...state.config.text.engraved, ...partial },
+        },
+      },
+    })),
+
+  setTextEmbossed: (partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          embossed: { ...state.config.text.embossed, ...partial },
+        },
+      },
+    })),
+
+  setTextGradient: (partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          gradientFill: { ...state.config.text.gradientFill, ...partial },
+        },
+      },
+    })),
+
+  addTextGradientStop: () =>
+    set((state) => {
+      const stops = state.config.text.gradientFill.stops;
+      const newStop: GradientStop = {
+        id: nextId('tg'),
+        position: 50,
+        color: { l: 80, c: 0, h: 0 },
+        opacity: 100,
+      };
+      return {
+        config: {
+          ...state.config,
+          text: {
+            ...state.config.text,
+            gradientFill: {
+              ...state.config.text.gradientFill,
+              stops: [...stops, newStop],
+            },
+          },
+        },
+      };
+    }),
+
+  removeTextGradientStop: (id) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          gradientFill: {
+            ...state.config.text.gradientFill,
+            stops: state.config.text.gradientFill.stops.filter(
+              (s) => s.id !== id
+            ),
+          },
+        },
+      },
+    })),
+
+  updateTextGradientStop: (id, partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          gradientFill: {
+            ...state.config.text.gradientFill,
+            stops: state.config.text.gradientFill.stops.map((s) =>
+              s.id === id ? { ...s, ...partial } : s
+            ),
+          },
+        },
+      },
+    })),
+
+  setTextShimmer: (partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          shimmer: { ...state.config.text.shimmer, ...partial },
+        },
+      },
+    })),
+
+  setTextStroke: (partial) =>
+    set((state) => ({
+      config: {
+        ...state.config,
+        text: {
+          ...state.config.text,
+          stroke: { ...state.config.text.stroke, ...partial },
         },
       },
     })),

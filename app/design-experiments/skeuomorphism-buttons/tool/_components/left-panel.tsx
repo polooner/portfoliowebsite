@@ -5,9 +5,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ShikiHighlighter } from 'react-shiki';
 import { useButtonStore } from '../_store/button-store';
 import { generateComponentCode } from '../_utils/generate-component-code';
+import { TextEffectsPanel } from './sections/text-effects-panel';
+import type { LeftPanelTab } from '../_types/button-config';
 
 interface LeftPanelProps {
   isOpen: boolean;
+  activeTab: LeftPanelTab;
+  onTabChange: (tab: LeftPanelTab) => void;
   onClose: () => void;
 }
 
@@ -19,7 +23,12 @@ const MIN_PANEL_WIDTH = 280;
 const MAX_PANEL_WIDTH = 800;
 const DEFAULT_PANEL_WIDTH = 380;
 
-export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
+const TAB_OPTIONS: { label: string; value: LeftPanelTab }[] = [
+  { label: 'Code', value: 'code' },
+  { label: 'Text FX', value: 'effects' },
+];
+
+export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: LeftPanelProps) {
   const [copied, setCopied] = useState(false);
   const [panelWidth, setPanelWidth] = useState(DEFAULT_PANEL_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
@@ -106,68 +115,91 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
             style={{ width: panelWidth }}
             className="fixed bottom-4 left-4 top-4 z-50 flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl"
           >
+            {/* Header with tabs */}
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2">
-                <motion.button
-                  onClick={handleCopy}
-                  whileTap={{ scale: 0.95 }}
-                  className="flex items-center gap-1.5 text-xs font-medium text-neutral-100 transition-colors hover:text-white"
-                >
-                  <span className="relative h-3.5 w-3.5">
-                    <AnimatePresence mode="wait">
-                      {copied ? (
-                        <motion.svg
-                          key="check"
-                          width={14}
-                          height={14}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={2.5}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          initial={{ opacity: 0, filter: 'blur(4px)' }}
-                          animate={{ opacity: 1, filter: 'blur(0px)' }}
-                          exit={{ opacity: 0, filter: 'blur(4px)' }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute inset-0 text-green-400"
-                        >
-                          <motion.path
-                            d={CHECKMARK_PATH}
-                            strokeDasharray={CHECKMARK_PATH_LENGTH}
-                            initial={{ strokeDashoffset: CHECKMARK_PATH_LENGTH }}
-                            animate={{ strokeDashoffset: 0 }}
-                            transition={{ duration: 0.3, ease: 'easeOut' }}
-                          />
-                        </motion.svg>
-                      ) : (
-                        <motion.svg
-                          key="copy"
-                          width={14}
-                          height={14}
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          initial={{ opacity: 0, filter: 'blur(4px)' }}
-                          animate={{ opacity: 1, filter: 'blur(0px)' }}
-                          exit={{ opacity: 0, filter: 'blur(4px)' }}
-                          transition={{ duration: 0.15 }}
-                          className="absolute inset-0"
-                        >
-                          <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                        </motion.svg>
-                      )}
-                    </AnimatePresence>
-                  </span>
-                  <span>{copied ? 'Copied!' : 'Copy'}</span>
-                </motion.button>
-                <span className="rounded bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-400">
-                  tsx
-                </span>
+                {/* Tab switcher */}
+                <div className="flex gap-0.5 rounded-lg bg-neutral-700/40 p-0.5">
+                  {TAB_OPTIONS.map((tab) => (
+                    <button
+                      key={tab.value}
+                      onClick={() => onTabChange(tab.value)}
+                      className={`rounded-md px-2.5 py-1 text-[10px] font-medium transition-colors ${
+                        activeTab === tab.value
+                          ? 'bg-neutral-600 text-neutral-200'
+                          : 'text-neutral-500 hover:text-neutral-300'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Copy button (code tab only) */}
+                {activeTab === 'code' && (
+                  <>
+                    <motion.button
+                      onClick={handleCopy}
+                      whileTap={{ scale: 0.95 }}
+                      className="flex items-center gap-1.5 text-xs font-medium text-neutral-100 transition-colors hover:text-white"
+                    >
+                      <span className="relative h-3.5 w-3.5">
+                        <AnimatePresence mode="wait">
+                          {copied ? (
+                            <motion.svg
+                              key="check"
+                              width={14}
+                              height={14}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={2.5}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              initial={{ opacity: 0, filter: 'blur(4px)' }}
+                              animate={{ opacity: 1, filter: 'blur(0px)' }}
+                              exit={{ opacity: 0, filter: 'blur(4px)' }}
+                              transition={{ duration: 0.15 }}
+                              className="absolute inset-0 text-green-400"
+                            >
+                              <motion.path
+                                d={CHECKMARK_PATH}
+                                strokeDasharray={CHECKMARK_PATH_LENGTH}
+                                initial={{ strokeDashoffset: CHECKMARK_PATH_LENGTH }}
+                                animate={{ strokeDashoffset: 0 }}
+                                transition={{ duration: 0.3, ease: 'easeOut' }}
+                              />
+                            </motion.svg>
+                          ) : (
+                            <motion.svg
+                              key="copy"
+                              width={14}
+                              height={14}
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              initial={{ opacity: 0, filter: 'blur(4px)' }}
+                              animate={{ opacity: 1, filter: 'blur(0px)' }}
+                              exit={{ opacity: 0, filter: 'blur(4px)' }}
+                              transition={{ duration: 0.15 }}
+                              className="absolute inset-0"
+                            >
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </motion.svg>
+                          )}
+                        </AnimatePresence>
+                      </span>
+                      <span>{copied ? 'Copied!' : 'Copy'}</span>
+                    </motion.button>
+                    <span className="rounded bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-400">
+                      tsx
+                    </span>
+                  </>
+                )}
               </div>
               <motion.button
                 onClick={onClose}
@@ -188,8 +220,16 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
                 </svg>
               </motion.button>
             </div>
+
+            {/* Tab content */}
             <div className="flex-1 overflow-auto pb-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-600 hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
-              {codeBlock}
+              {activeTab === 'code' ? (
+                codeBlock
+              ) : (
+                <div className="px-4 py-3">
+                  <TextEffectsPanel />
+                </div>
+              )}
             </div>
 
             {/* Resize handle */}

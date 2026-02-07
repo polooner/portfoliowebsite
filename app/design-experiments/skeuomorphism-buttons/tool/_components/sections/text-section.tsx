@@ -82,7 +82,7 @@ export function TextSection() {
           suffix="px"
         />
 
-        {/* Text shadows */}
+        {/* ── Text Shadows ──────────────────────────────────── */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[10px] text-neutral-500">Text Shadows</span>

@@ -4,6 +4,7 @@ import { useButtonStore } from '../_store/button-store';
 import { generateComponentCode } from '../_utils/generate-component-code';
 import { CopyButton } from './copy-button';
 import { ViewCodeButton } from './view-code-button';
+import { TextFxButton } from './text-fx-button';
 import { PresetsSection } from './sections/presets-section';
 import { ShapeSection } from './sections/shape-section';
 import { BackgroundSection } from './sections/background-section';
@@ -15,12 +16,16 @@ import { StatesSection } from './sections/states-section';
 
 interface RightPanelProps {
   isCodePanelOpen: boolean;
+  isEffectsPanelOpen: boolean;
   onToggleCodePanel: () => void;
+  onToggleEffectsPanel: () => void;
 }
 
 export default function RightPanel({
   isCodePanelOpen,
+  isEffectsPanelOpen,
   onToggleCodePanel,
+  onToggleEffectsPanel,
 }: RightPanelProps) {
   const config = useButtonStore((s) => s.config);
   const reset = useButtonStore((s) => s.reset);
@@ -53,6 +58,7 @@ export default function RightPanel({
       {/* Footer buttons */}
       <div className="flex gap-2 border-t border-white/10 p-3">
         <ViewCodeButton isOpen={isCodePanelOpen} onToggle={onToggleCodePanel} />
+        <TextFxButton isOpen={isEffectsPanelOpen} onToggle={onToggleEffectsPanel} />
         <CopyButton getText={() => generateComponentCode(config)} />
       </div>
     </aside>

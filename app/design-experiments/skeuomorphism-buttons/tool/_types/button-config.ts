@@ -1,3 +1,7 @@
+// ── UI Types ────────────────────────────────────────────────────────────
+
+export type LeftPanelTab = 'code' | 'effects';
+
 // ── Enums ────────────────────────────────────────────────────────────────
 
 export enum ShadowType {
@@ -34,6 +38,18 @@ export enum CanvasBackground {
   Light = 'light',
   Dark = 'dark',
   Checkerboard = 'checkerboard',
+}
+
+export enum TextEffectType {
+  None = 'none',
+  Engraved = 'engraved',
+  Embossed = 'embossed',
+  GradientFill = 'gradient-fill',
+}
+
+export enum TextGradientMode {
+  Linear = 'linear',
+  Radial = 'radial',
 }
 
 // ── Color ────────────────────────────────────────────────────────────────
@@ -125,6 +141,53 @@ export interface OverlayLayer {
   noiseIntensity: number;
 }
 
+// ── Text Effects ────────────────────────────────────────────────────────
+
+export interface EngravedConfig {
+  highlightColor: OklchColor;
+  highlightOpacity: number;
+  highlightOffsetX: number;
+  highlightOffsetY: number;
+  highlightBlur: number;
+}
+
+export interface EmbossedConfig {
+  highlightColor: OklchColor;
+  highlightOpacity: number;
+  highlightOffsetX: number;
+  highlightOffsetY: number;
+  highlightBlur: number;
+  shadowColor: OklchColor;
+  shadowOpacity: number;
+  shadowOffsetX: number;
+  shadowOffsetY: number;
+  shadowBlur: number;
+}
+
+export interface TextGradientConfig {
+  mode: TextGradientMode;
+  angle: number;
+  centerX: number;
+  centerY: number;
+  stops: GradientStop[];
+}
+
+export interface TextShimmerConfig {
+  enabled: boolean;
+  angle: number;
+  width: number;
+  speed: number;
+  color: OklchColor;
+  opacity: number;
+}
+
+export interface TextStrokeConfig {
+  enabled: boolean;
+  width: number;
+  color: OklchColor;
+  opacity: number;
+}
+
 // ── Text ─────────────────────────────────────────────────────────────────
 
 export interface TextConfig {
@@ -135,6 +198,12 @@ export interface TextConfig {
   fontWeight: number;
   letterSpacing: number;
   textShadows: TextShadowLayer[];
+  effect: TextEffectType;
+  engraved: EngravedConfig;
+  embossed: EmbossedConfig;
+  gradientFill: TextGradientConfig;
+  shimmer: TextShimmerConfig;
+  stroke: TextStrokeConfig;
 }
 
 // ── Interactive States ───────────────────────────────────────────────────

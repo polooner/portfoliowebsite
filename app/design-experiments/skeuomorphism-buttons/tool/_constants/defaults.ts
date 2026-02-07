@@ -3,10 +3,17 @@ import {
   BlendMode,
   BorderMode,
   ShadowType,
+  TextEffectType,
+  TextGradientMode,
   type BackgroundConfig,
   type BorderConfig,
   type ShapeConfig,
   type TextConfig,
+  type EngravedConfig,
+  type EmbossedConfig,
+  type TextGradientConfig,
+  type TextShimmerConfig,
+  type TextStrokeConfig,
   type HoverStateConfig,
   type ActiveStateConfig,
   type ButtonConfig,
@@ -54,6 +61,18 @@ export const OVERLAY_OPACITY_MAX = 100;
 
 export const TRANSITION_DURATION_MIN = 0;
 export const TRANSITION_DURATION_MAX = 500;
+
+export const TEXT_SHIMMER_WIDTH_MIN = 10;
+export const TEXT_SHIMMER_WIDTH_MAX = 90;
+export const TEXT_SHIMMER_SPEED_MIN = 0.5;
+export const TEXT_SHIMMER_SPEED_MAX = 5;
+export const TEXT_STROKE_WIDTH_MIN = 0;
+export const TEXT_STROKE_WIDTH_MAX = 3;
+
+export const TEXT_EFFECT_OFFSET_MIN = -5;
+export const TEXT_EFFECT_OFFSET_MAX = 5;
+export const TEXT_EFFECT_BLUR_MIN = 0;
+export const TEXT_EFFECT_BLUR_MAX = 5;
 
 export const HOVER_TRANSLATE_MIN = -8;
 export const HOVER_TRANSLATE_MAX = 0;
@@ -134,6 +153,56 @@ export const DEFAULT_BORDER: BorderConfig = {
   radiusLinked: true,
 };
 
+export const DEFAULT_TEXT_GRADIENT: TextGradientConfig = {
+  mode: TextGradientMode.Linear,
+  angle: 180,
+  centerX: 50,
+  centerY: 50,
+  stops: [
+    { id: 'tg-1', position: 0, color: { l: 90, c: 0, h: 0 }, opacity: 100 },
+    { id: 'tg-2', position: 35, color: { l: 70, c: 0, h: 0 }, opacity: 100 },
+    { id: 'tg-3', position: 65, color: { l: 85, c: 0, h: 0 }, opacity: 100 },
+    { id: 'tg-4', position: 100, color: { l: 60, c: 0, h: 0 }, opacity: 100 },
+  ],
+};
+
+export const DEFAULT_TEXT_SHIMMER: TextShimmerConfig = {
+  enabled: false,
+  angle: 120,
+  width: 40,
+  speed: 2,
+  color: { l: 100, c: 0, h: 0 },
+  opacity: 60,
+};
+
+export const DEFAULT_TEXT_STROKE: TextStrokeConfig = {
+  enabled: false,
+  width: 1,
+  color: { l: 0, c: 0, h: 0 },
+  opacity: 30,
+};
+
+export const DEFAULT_TEXT_ENGRAVED: EngravedConfig = {
+  highlightColor: { l: 100, c: 0, h: 0 },
+  highlightOpacity: 50,
+  highlightOffsetX: 0,
+  highlightOffsetY: 1,
+  highlightBlur: 1,
+};
+
+export const DEFAULT_TEXT_EMBOSSED: EmbossedConfig = {
+  highlightColor: { l: 100, c: 0, h: 0 },
+  highlightOpacity: 40,
+  highlightOffsetX: -1,
+  highlightOffsetY: -1,
+  highlightBlur: 1,
+  shadowColor: { l: 0, c: 0, h: 0 },
+  shadowOpacity: 30,
+  shadowOffsetX: 1,
+  shadowOffsetY: 1,
+  shadowBlur: 1,
+};
+
 export const DEFAULT_TEXT: TextConfig = {
   content: 'Get Started',
   color: { l: 20, c: 0, h: 0 },
@@ -142,6 +211,12 @@ export const DEFAULT_TEXT: TextConfig = {
   fontWeight: 500,
   letterSpacing: 0,
   textShadows: [],
+  effect: TextEffectType.None,
+  engraved: DEFAULT_TEXT_ENGRAVED,
+  embossed: DEFAULT_TEXT_EMBOSSED,
+  gradientFill: DEFAULT_TEXT_GRADIENT,
+  shimmer: DEFAULT_TEXT_SHIMMER,
+  stroke: DEFAULT_TEXT_STROKE,
 };
 
 export const DEFAULT_HOVER: HoverStateConfig = {
