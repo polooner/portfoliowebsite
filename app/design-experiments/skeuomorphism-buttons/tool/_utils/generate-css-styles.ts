@@ -3,11 +3,53 @@ import {
   BorderMode,
   OverlayType,
   ShadowType,
+  TextEffectType,
+  TextGradientMode,
   type ButtonConfig,
   type ShadowLayer,
   type OverlayLayer,
+  type TextShimmerConfig,
 } from '../_types/button-config';
 import { oklchToCssAlpha } from './color-utils';
+
+// ── CSS Property Conversion ──────────────────────────────────────────────
+
+/** CSS properties where numeric values are unitless (no 'px' suffix) */
+const UNITLESS_CSS_PROPERTIES = new Set([
+  'font-weight',
+  'line-height',
+  'opacity',
+  'z-index',
+  'order',
+  'flex-grow',
+  'flex-shrink',
+  'orphans',
+  'widows',
+  'zoom',
+]);
+
+/** Converts a camelCase property name to kebab-case (handles Webkit prefixes) */
+function camelToKebab(key: string): string {
+  return key.replace(/([A-Z])/g, '-$1').toLowerCase();
+}
+
+/** Converts a React.CSSProperties object to a CSS declarations string */
+export function cssPropertiesToString(styles: React.CSSProperties): string {
+  return Object.entries(styles)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => {
+      const prop = camelToKebab(key);
+      if (typeof value === 'number') {
+        const val =
+          value === 0 || UNITLESS_CSS_PROPERTIES.has(prop)
+            ? String(value)
+            : `${value}px`;
+        return `${prop}: ${val}`;
+      }
+      return `${prop}: ${value}`;
+    })
+    .join('; ');
+}
 
 // ── Box Shadow ───────────────────────────────────────────────────────────
 
@@ -142,6 +184,110 @@ export function generateOverlayStyle(overlay: OverlayLayer): React.CSSProperties
   }
 }
 
+// ── Text Effect Styles ──────────────────────────────────────────────────
+
+/** Builds a CSS gradient string from the text gradient config */
+function buildTextGradient(config: ButtonConfig): string {
+  const { gradientFill } = config.text;
+  const stops = [...gradientFill.stops]
+    .sort((a, b) => a.position - b.position)
+    .map((s) => `${oklchToCssAlpha(s.color, s.opacity)} ${s.position}%`)
+    .join(', ');
+
+  if (gradientFill.mode === TextGradientMode.Radial) {
+    return `radial-gradient(circle at ${gradientFill.centerX}% ${gradientFill.centerY}%, ${stops})`;
+  }
+  return `linear-gradient(${gradientFill.angle}deg, ${stops})`;
+}
+
+/** Generates inline styles for the text effect span. Returns null when no effects are active. */
+export function generateTextSpanStyles(config: ButtonConfig): React.CSSProperties | null {
+  const { text } = config;
+  const hasEffect = text.effect !== TextEffectType.None;
+  const hasStroke = text.stroke.enabled;
+  const hasShimmer = text.shimmer.enabled;
+
+  if (!hasEffect && !hasStroke && !hasShimmer) return null;
+
+  const styles: React.CSSProperties = {};
+
+  switch (text.effect) {
+    case TextEffectType.Engraved: {
+      const { engraved } = text;
+      styles.background = generateBackground(config);
+      styles.backgroundClip = 'text';
+      styles.WebkitBackgroundClip = 'text';
+      styles.color = 'transparent';
+      const highlightColor = oklchToCssAlpha(engraved.highlightColor, engraved.highlightOpacity);
+      styles.textShadow = `${engraved.highlightOffsetX}px ${engraved.highlightOffsetY}px ${engraved.highlightBlur}px ${highlightColor}`;
+      break;
+    }
+    case TextEffectType.Embossed: {
+      const { embossed } = text;
+      styles.color = oklchToCssAlpha(text.color, text.opacity);
+      const userShadow = generateTextShadow(config);
+      const highlight = oklchToCssAlpha(embossed.highlightColor, embossed.highlightOpacity);
+      const shadow = oklchToCssAlpha(embossed.shadowColor, embossed.shadowOpacity);
+      const embossShadows = `${embossed.highlightOffsetX}px ${embossed.highlightOffsetY}px ${embossed.highlightBlur}px ${highlight}, ${embossed.shadowOffsetX}px ${embossed.shadowOffsetY}px ${embossed.shadowBlur}px ${shadow}`;
+      styles.textShadow = userShadow !== 'none'
+        ? `${userShadow}, ${embossShadows}`
+        : embossShadows;
+      break;
+    }
+    case TextEffectType.GradientFill: {
+      styles.background = buildTextGradient(config);
+      styles.backgroundClip = 'text';
+      styles.WebkitBackgroundClip = 'text';
+      styles.color = 'transparent';
+      // Preserve user text shadows for gradient fill
+      const ts = generateTextShadow(config);
+      if (ts !== 'none') styles.textShadow = ts;
+      break;
+    }
+    case TextEffectType.None:
+    default: {
+      // No bg-clip effect, but stroke or shimmer may still be active
+      styles.color = oklchToCssAlpha(text.color, text.opacity);
+      const shadow = generateTextShadow(config);
+      if (shadow !== 'none') styles.textShadow = shadow;
+      break;
+    }
+  }
+
+  if (hasStroke) {
+    const strokeColor = oklchToCssAlpha(text.stroke.color, text.stroke.opacity);
+    (styles as Record<string, unknown>).WebkitTextStroke = `${text.stroke.width}px ${strokeColor}`;
+  }
+
+  return styles;
+}
+
+/** Generates inline styles for the shimmer overlay span. Returns null when disabled. */
+export function generateTextShimmerStyles(config: ButtonConfig): React.CSSProperties | null {
+  const { shimmer } = config.text;
+  if (!shimmer.enabled) return null;
+
+  const shimmerColor = oklchToCssAlpha(shimmer.color, shimmer.opacity);
+
+  return {
+    position: 'absolute',
+    inset: 0,
+    pointerEvents: 'none',
+    background: `linear-gradient(${shimmer.angle}deg, transparent 0%, ${shimmerColor} ${shimmer.width}%, transparent 100%)`,
+    backgroundSize: '200% 100%',
+    backgroundClip: 'text',
+    WebkitBackgroundClip: 'text',
+    color: 'transparent',
+    animation: `textShimmer ${shimmer.speed}s linear infinite`,
+  };
+}
+
+/** Generates @keyframes CSS for text shimmer animation. Returns empty string when disabled. */
+export function generateTextShimmerKeyframes(shimmer: TextShimmerConfig): string {
+  if (!shimmer.enabled) return '';
+  return `@keyframes textShimmer { 0% { background-position: 200% center; } 100% { background-position: -200% center; } }`;
+}
+
 // ── Full Button Style ────────────────────────────────────────────────────
 
 /** Generates the complete inline style object for a button */
@@ -149,9 +295,11 @@ export function generateButtonStyles(config: ButtonConfig): React.CSSProperties 
   const bg = generateBackground(config);
   const boxShadow = generateBoxShadow(config.shadows);
   const borderStyles = generateBorderStyles(config);
-  const textShadow = generateTextShadow(config);
 
-  return {
+  // When text effects are active, color/textShadow move to the span
+  const textSpanActive = generateTextSpanStyles(config) !== null;
+
+  const styles: React.CSSProperties = {
     // Shape
     paddingLeft: config.shape.paddingX,
     paddingRight: config.shape.paddingX,
@@ -168,12 +316,10 @@ export function generateButtonStyles(config: ButtonConfig): React.CSSProperties 
     // Border
     ...borderStyles,
 
-    // Text
-    color: oklchToCssAlpha(config.text.color, config.text.opacity),
+    // Text (base font props always on button)
     fontSize: config.text.fontSize,
     fontWeight: config.text.fontWeight,
     letterSpacing: config.text.letterSpacing,
-    textShadow,
 
     // Interaction readiness
     position: 'relative',
@@ -185,6 +331,14 @@ export function generateButtonStyles(config: ButtonConfig): React.CSSProperties 
     outline: 'none',
     lineHeight: 1.2,
   };
+
+  if (!textSpanActive) {
+    styles.color = oklchToCssAlpha(config.text.color, config.text.opacity);
+    const textShadow = generateTextShadow(config);
+    styles.textShadow = textShadow;
+  }
+
+  return styles;
 }
 
 // ── Hover & Active CSS ───────────────────────────────────────────────────

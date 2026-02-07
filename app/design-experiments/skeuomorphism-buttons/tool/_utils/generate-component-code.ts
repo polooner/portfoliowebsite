@@ -3,6 +3,8 @@ import {
   BlendMode,
   OverlayType,
   ShadowType,
+  TextEffectType,
+  TextGradientMode,
   type ButtonConfig,
   type BorderConfig,
   type OverlayLayer,
@@ -13,12 +15,15 @@ import {
   generateBoxShadow,
   generateBackground,
   generateTextShadow,
+  generateTextSpanStyles,
+  generateTextShimmerStyles,
+  generateTextShimmerKeyframes,
 } from './generate-css-styles';
 
 // ── Tailwind Helpers ────────────────────────────────────────────────────
 
 /** Escapes spaces to underscores for Tailwind arbitrary value syntax */
-function escapeTw(value: string): string {
+export function escapeTw(value: string): string {
   return value.replace(/\s+/g, '_');
 }
 
@@ -195,7 +200,7 @@ function blendModeTw(mode: BlendMode): string {
 }
 
 /** Generates Tailwind classes for a single overlay div */
-function generateOverlayTw(overlay: OverlayLayer): string {
+export function generateOverlayTw(overlay: OverlayLayer): string {
   const base = [
     'absolute',
     'inset-0',
@@ -237,19 +242,47 @@ function generateOverlayTw(overlay: OverlayLayer): string {
 
 // ── Main Generator ──────────────────────────────────────────────────────
 
+/** Converts a React.CSSProperties object to a Tailwind arbitrary-property class string */
+export function cssPropsToTw(styles: React.CSSProperties): string {
+  const classes: string[] = [];
+  const propMap: Record<string, string> = {
+    position: 'position',
+    inset: 'inset',
+    pointerEvents: 'pointer-events',
+    background: 'background',
+    backgroundClip: 'background-clip',
+    WebkitBackgroundClip: '-webkit-background-clip',
+    backgroundSize: 'background-size',
+    color: 'color',
+    textShadow: 'text-shadow',
+    animation: 'animation',
+  };
+
+  for (const [key, value] of Object.entries(styles)) {
+    if (value === undefined) continue;
+    const cssProp = propMap[key];
+    if (cssProp) {
+      classes.push(`[${cssProp}:${escapeTw(String(value))}]`);
+    } else if (key === 'WebkitTextStroke') {
+      classes.push(`[-webkit-text-stroke:${escapeTw(String(value))}]`);
+    }
+  }
+  return classes.join(' ');
+}
+
 /**
- * Generates a self-contained React component string from a ButtonConfig.
- * The output uses pure Tailwind classes with zero inline styles.
+ * Generates the full Tailwind class string for a button element.
+ * Used by both the preview and the exported component code.
  */
-export function generateComponentCode(config: ButtonConfig): string {
+export function generateButtonTwClasses(config: ButtonConfig): string {
   const bg = escapeTw(generateBackground(config));
   const boxShadow = escapeTw(generateBoxShadow(config.shadows));
-  const textShadow = generateTextShadow(config);
   const textColor = escapeTw(
     oklchToCssAlpha(config.text.color, config.text.opacity)
   );
 
-  // Assemble button classes
+  const textSpanStyles = generateTextSpanStyles(config);
+
   const classes: string[] = [
     // Layout
     'relative',
@@ -283,14 +316,18 @@ export function generateComponentCode(config: ButtonConfig): string {
   classes.push(generateBorderRadiusTw(config.border));
   classes.push(generateBorderTw(config.border));
 
-  // Text
-  classes.push(`[color:${textColor}]`);
+  // Text (font props always on button)
   classes.push(`text-[${config.text.fontSize}px]`);
   classes.push(`font-[${config.text.fontWeight}]`);
   classes.push(`tracking-[${config.text.letterSpacing}px]`);
 
-  if (textShadow !== 'none') {
-    classes.push(`[text-shadow:${escapeTw(textShadow)}]`);
+  // When no text effects, color and text-shadow stay on button
+  if (!textSpanStyles) {
+    classes.push(`[color:${textColor}]`);
+    const textShadow = generateTextShadow(config);
+    if (textShadow !== 'none') {
+      classes.push(`[text-shadow:${escapeTw(textShadow)}]`);
+    }
   }
 
   // Transition
@@ -305,7 +342,19 @@ export function generateComponentCode(config: ButtonConfig): string {
   const activeTw = generateActiveTw(config);
   if (activeTw) classes.push(activeTw);
 
-  const buttonClasses = classes.join(' ');
+  return classes.join(' ');
+}
+
+/**
+ * Generates a self-contained React component string from a ButtonConfig.
+ * The output uses pure Tailwind classes with zero inline styles.
+ */
+export function generateComponentCode(config: ButtonConfig): string {
+  const buttonClasses = generateButtonTwClasses(config);
+
+  const textSpanStyles = generateTextSpanStyles(config);
+  const textShimmerStyles = generateTextShimmerStyles(config);
+  const shimmerKeyframes = generateTextShimmerKeyframes(config.text.shimmer);
 
   // Overlays
   const visibleOverlays = config.overlays.filter((o) => o.visible);
@@ -318,6 +367,26 @@ export function generateComponentCode(config: ButtonConfig): string {
 
   const hasOverlays = visibleOverlays.length > 0;
 
+  // Text effect spans
+  let textContent: string;
+  if (textSpanStyles) {
+    const effectTw = cssPropsToTw(textSpanStyles);
+    const shimmerTw = textShimmerStyles ? cssPropsToTw(textShimmerStyles) : '';
+
+    let innerSpans = `          <span className="${effectTw}">{children ?? '${config.text.content}'}</span>`;
+    if (shimmerTw) {
+      innerSpans += `\n          <span className="${shimmerTw}" aria-hidden="true">{children ?? '${config.text.content}'}</span>`;
+    }
+    textContent = `\n        <span className="relative">\n${innerSpans}\n        </span>`;
+  } else {
+    textContent = `\n        {children ?? '${config.text.content}'}`;
+  }
+
+  // Style tag for shimmer keyframes
+  const styleTag = shimmerKeyframes
+    ? `\n        <style>{\`${shimmerKeyframes}\`}</style>`
+    : '';
+
   return `'use client';
 
 interface SkeuButtonProps {
@@ -326,8 +395,7 @@ interface SkeuButtonProps {
 
 export function SkeuButton({ children }: SkeuButtonProps) {
   return (
-    <button className="${buttonClasses}">
-      {children ?? '${config.text.content}'}${hasOverlays ? `\n${overlayJsx}` : ''}
+    <button className="${buttonClasses}">${styleTag}${textContent}${hasOverlays ? `\n${overlayJsx}` : ''}
     </button>
   );
 }`;

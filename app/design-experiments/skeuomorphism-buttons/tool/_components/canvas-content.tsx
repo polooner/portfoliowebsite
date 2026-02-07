@@ -8,7 +8,16 @@ import {
   generateOverlayStyle,
   generateHoverCss,
   generateActiveCss,
+  generateTextSpanStyles,
+  generateTextShimmerStyles,
+  generateTextShimmerKeyframes,
+  cssPropertiesToString,
 } from '../_utils/generate-css-styles';
+import {
+  generateButtonTwClasses,
+  generateOverlayTw,
+  cssPropsToTw,
+} from '../_utils/generate-component-code';
 
 const CHECKERBOARD_SIZE = 16;
 const CHECKERBOARD_LIGHT = '#e5e5e5';
@@ -47,23 +56,86 @@ export default function CanvasContent() {
   const canvasBackground = useButtonStore((s) => s.canvasBackground);
   const setCanvasBackground = useButtonStore((s) => s.setCanvasBackground);
 
-  const className = `skeu-preview-${uniqueId.replace(/:/g, '')}`;
+  const scopeClass = `skeu-${uniqueId.replace(/:/g, '')}`;
 
-  const buttonStyle = useMemo(() => generateButtonStyles(config), [config]);
-  const overlays = useMemo(
-    () => config.overlays.filter((o) => o.visible),
-    [config.overlays]
+  // ── Tailwind classes (same as export) ──────────────────────────────────
+  const buttonTwClasses = useMemo(
+    () => generateButtonTwClasses(config),
+    [config]
   );
 
-  const hoverCss = useMemo(() => generateHoverCss(config), [config]);
-  const activeCss = useMemo(() => generateActiveCss(config), [config]);
+  // ── Scoped CSS for preview rendering ───────────────────────────────────
+  const scopedCss = useMemo(() => {
+    const buttonStyles = generateButtonStyles(config);
+    const baseCss = cssPropertiesToString(buttonStyles);
 
-  const scopedStyle = useMemo(() => {
-    let css = '';
-    if (hoverCss) css += `.${className}:hover { ${hoverCss} }`;
-    if (activeCss) css += ` .${className}:active { ${activeCss} }`;
+    let css = `.${scopeClass} { ${baseCss} }`;
+
+    const hoverCss = generateHoverCss(config);
+    if (hoverCss) css += ` .${scopeClass}:hover { ${hoverCss} }`;
+
+    const activeCss = generateActiveCss(config);
+    if (activeCss) css += ` .${scopeClass}:active { ${activeCss} }`;
+
     return css;
-  }, [className, hoverCss, activeCss]);
+  }, [config, scopeClass]);
+
+  // ── Overlay data ───────────────────────────────────────────────────────
+  const overlayData = useMemo(
+    () =>
+      config.overlays
+        .filter((o) => o.visible)
+        .map((overlay, i) => ({
+          id: overlay.id,
+          twClasses: generateOverlayTw(overlay),
+          scopedClass: `${scopeClass}-ov-${i}`,
+          css: cssPropertiesToString(generateOverlayStyle(overlay)),
+        })),
+    [config.overlays, scopeClass]
+  );
+
+  const overlayCss = overlayData
+    .map((d) => `.${d.scopedClass} { ${d.css} }`)
+    .join(' ');
+
+  // ── Text effect data ───────────────────────────────────────────────────
+  const textSpanStyle = useMemo(
+    () => generateTextSpanStyles(config),
+    [config]
+  );
+  const textShimmerStyle = useMemo(
+    () => generateTextShimmerStyles(config),
+    [config]
+  );
+  const shimmerKeyframes = useMemo(
+    () => generateTextShimmerKeyframes(config.text.shimmer),
+    [config.text.shimmer]
+  );
+
+  const textSpanTw = useMemo(
+    () => (textSpanStyle ? cssPropsToTw(textSpanStyle) : ''),
+    [textSpanStyle]
+  );
+  const textShimmerTw = useMemo(
+    () => (textShimmerStyle ? cssPropsToTw(textShimmerStyle) : ''),
+    [textShimmerStyle]
+  );
+
+  const textEffectCss = useMemo(() => {
+    let css = '';
+    if (textSpanStyle) {
+      css += `.${scopeClass}-text { ${cssPropertiesToString(textSpanStyle)} }`;
+    }
+    if (textShimmerStyle) {
+      css += ` .${scopeClass}-shimmer { ${cssPropertiesToString(textShimmerStyle)} }`;
+    }
+    return css;
+  }, [textSpanStyle, textShimmerStyle, scopeClass]);
+
+  // ── Combined CSS ───────────────────────────────────────────────────────
+  const fullCss = [scopedCss, overlayCss, textEffectCss, shimmerKeyframes]
+    .filter(Boolean)
+    .join(' ');
 
   const canvasBgStyle = useMemo(
     () => getCanvasBackgroundStyle(canvasBackground),
@@ -77,12 +149,28 @@ export default function CanvasContent() {
         className="flex flex-1 items-center justify-center"
         style={canvasBgStyle}
       >
-        {scopedStyle && <style>{scopedStyle}</style>}
+        <style>{fullCss}</style>
 
-        <button className={className} style={buttonStyle}>
-          {config.text.content}
-          {overlays.map((overlay) => (
-            <div key={overlay.id} style={generateOverlayStyle(overlay)} />
+        <button className={`${scopeClass} ${buttonTwClasses}`}>
+          {textSpanStyle ? (
+            <span className="relative">
+              <span className={`${scopeClass}-text ${textSpanTw}`}>
+                {config.text.content}
+              </span>
+              {textShimmerStyle && (
+                <span
+                  className={`${scopeClass}-shimmer ${textShimmerTw}`}
+                  aria-hidden="true"
+                >
+                  {config.text.content}
+                </span>
+              )}
+            </span>
+          ) : (
+            config.text.content
+          )}
+          {overlayData.map((d) => (
+            <div key={d.id} className={`${d.scopedClass} ${d.twClasses}`} />
           ))}
         </button>
       </div>
