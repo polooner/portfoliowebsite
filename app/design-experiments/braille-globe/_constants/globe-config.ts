@@ -34,6 +34,13 @@ export const DRAG_ROTATION_SENSITIVITY = 0.008;
 export const DRAG_MOMENTUM_DECAY = 0.92;
 export const DRAG_MOMENTUM_THRESHOLD = 0.01;
 
+// ── Image Plane ─────────────────────────────────────────────────────────
+
+/** Image plane half-size as a fraction of SPHERE_RADIUS_PX. */
+export const IMAGE_PLANE_SCALE = 0.6;
+export const IMAGE_PLANE_OPACITY = 0.85;
+export const PLACEHOLDER_IMAGE_URL = 'https://picsum.photos/seed/braille/400/400';
+
 // ── Canvas Dimensions ───────────────────────────────────────────────────
 
 export const CANVAS_WIDTH = 500;

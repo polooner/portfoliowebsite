@@ -37,9 +37,9 @@ export function computeDotColor(
   const g = lerp(DOT_DEFAULT_COLOR_RGB.g, DOT_HIGHLIGHT_COLOR_RGB.g, influence);
   const b = lerp(DOT_DEFAULT_COLOR_RGB.b, DOT_HIGHLIGHT_COLOR_RGB.b, influence);
 
-  const boostedOpacity = Math.min(1, dot.opacity + influence * 0.3);
+  const opacity = influence * dot.opacity;
 
-  return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${boostedOpacity.toFixed(3)})`;
+  return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${opacity.toFixed(3)})`;
 }
 
 /** Linear interpolation between two values. */

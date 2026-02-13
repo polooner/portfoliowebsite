@@ -9,6 +9,7 @@ import {
   DRAG_ROTATION_SENSITIVITY,
   DRAG_MOMENTUM_DECAY,
   DRAG_MOMENTUM_THRESHOLD,
+  PLACEHOLDER_IMAGE_URL,
 } from '../_constants/globe-config';
 import { generateFibonacciSphere } from '../_utils/sphere-distribution';
 import { projectAllPoints } from '../_utils/sphere-projection';
@@ -32,6 +33,7 @@ export default function GlobeCanvas() {
     momentumDx: 0,
     momentumDy: 0,
   });
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const rafId = useRef<number>(0);
 
   const applyRotationDelta = useCallback((dx: number, dy: number) => {
@@ -44,6 +46,11 @@ export default function GlobeCanvas() {
   }, []);
 
   useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = PLACEHOLDER_IMAGE_URL;
+    img.onload = () => { imageRef.current = img; };
+
     basePoints.current = generateFibonacciSphere(DOT_COUNT);
 
     const canvas = canvasRef.current;
@@ -76,7 +83,15 @@ export default function GlobeCanvas() {
 
       const rotated = rotateAllPoints(basePoints.current, rotationMatrix.current);
       const projected = projectAllPoints(rotated, centerX, centerY);
-      renderGlobe(ctx!, projected, cursor.current, CANVAS_WIDTH, CANVAS_HEIGHT);
+      renderGlobe(
+        ctx!,
+        projected,
+        cursor.current,
+        CANVAS_WIDTH,
+        CANVAS_HEIGHT,
+        imageRef.current,
+        rotationMatrix.current
+      );
 
       rafId.current = requestAnimationFrame(tick);
     }
