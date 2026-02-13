@@ -13,6 +13,8 @@ import {
 import { oklchToCssAlpha } from './color-utils';
 import {
   generateBoxShadow,
+  generateOuterBoxShadow,
+  generateInsetBoxShadow,
   generateBackground,
   generateTextShadow,
   generateTextSpanStyles,
@@ -92,19 +94,26 @@ function generateBorderTw(border: BorderConfig): string {
 
 // ── Hover State ─────────────────────────────────────────────────────────
 
-/** Generates Tailwind hover: classes */
-function generateHoverTw(config: ButtonConfig): string {
-  const { hover, shadows } = config;
-  if (!hover.enabled) return '';
+/** Split Tailwind classes for button and inset overlay */
+interface SplitTwClasses {
+  buttonClasses: string;
+  insetOverlayClasses: string;
+}
 
-  const parts: string[] = [];
+/** Generates Tailwind hover: classes, split between button and inset overlay */
+function generateHoverTw(config: ButtonConfig): SplitTwClasses {
+  const { hover, shadows } = config;
+  if (!hover.enabled) return { buttonClasses: '', insetOverlayClasses: '' };
+
+  const buttonParts: string[] = [];
+  const insetParts: string[] = [];
 
   if (hover.translateY !== 0) {
-    parts.push(`hover:[transform:translateY(${hover.translateY}px)]`);
+    buttonParts.push(`hover:[transform:translateY(${hover.translateY}px)]`);
   }
 
   if (hover.shadowIntensityMultiplier !== 1) {
-    const hoverShadows = shadows
+    const intensified = shadows
       .filter((s) => s.visible)
       .map((s) => ({
         ...s,
@@ -115,29 +124,39 @@ function generateHoverTw(config: ButtonConfig): string {
           Math.round(s.opacity * hover.shadowIntensityMultiplier)
         ),
       }));
-    const shadowVal = escapeTw(generateBoxShadow(hoverShadows));
-    parts.push(`hover:[box-shadow:${shadowVal}]`);
+
+    const outerVal = escapeTw(generateOuterBoxShadow(intensified));
+    buttonParts.push(`hover:[box-shadow:${outerVal}]`);
+
+    const insetVal = escapeTw(generateInsetBoxShadow(intensified));
+    if (insetVal !== 'none') {
+      insetParts.push(`group-hover:[box-shadow:${insetVal}]`);
+    }
   }
 
   if (hover.backgroundLighten > 0) {
     const brightness = 1 + hover.backgroundLighten / 100;
-    parts.push(`hover:[filter:brightness(${brightness})]`);
+    buttonParts.push(`hover:[filter:brightness(${brightness})]`);
   }
 
-  return parts.join(' ');
+  return {
+    buttonClasses: buttonParts.join(' '),
+    insetOverlayClasses: insetParts.join(' '),
+  };
 }
 
 // ── Active State ────────────────────────────────────────────────────────
 
-/** Generates Tailwind active: classes */
-function generateActiveTw(config: ButtonConfig): string {
+/** Generates Tailwind active: classes, split between button and inset overlay */
+function generateActiveTw(config: ButtonConfig): SplitTwClasses {
   const { active, shadows } = config;
-  if (!active.enabled) return '';
+  if (!active.enabled) return { buttonClasses: '', insetOverlayClasses: '' };
 
-  const parts: string[] = [];
+  const buttonParts: string[] = [];
+  const insetParts: string[] = [];
 
   if (active.translateY !== 0) {
-    parts.push(`active:[transform:translateY(${active.translateY}px)]`);
+    buttonParts.push(`active:[transform:translateY(${active.translateY}px)]`);
   }
 
   // Flatten shadows
@@ -166,17 +185,25 @@ function generateActiveTw(config: ButtonConfig): string {
     });
   }
 
-  const shadowVal = escapeTw(generateBoxShadow(flatShadows));
-  parts.push(`active:[box-shadow:${shadowVal}]`);
+  // Split flattened shadows by type
+  const outerVal = escapeTw(generateOuterBoxShadow(flatShadows));
+  buttonParts.push(`active:[box-shadow:${outerVal}]`);
+
+  const insetVal = escapeTw(generateInsetBoxShadow(flatShadows));
+  insetParts.push(`group-active:[box-shadow:${insetVal}]`);
 
   if (active.backgroundDarken > 0) {
     const brightness = 1 - active.backgroundDarken / 100;
-    parts.push(`active:[filter:brightness(${brightness})]`);
+    buttonParts.push(`active:[filter:brightness(${brightness})]`);
   }
 
-  parts.push(`active:[transition-duration:${active.transitionDuration}ms]`);
+  buttonParts.push(`active:[transition-duration:${active.transitionDuration}ms]`);
+  insetParts.push(`group-active:[transition-duration:${active.transitionDuration}ms]`);
 
-  return parts.join(' ');
+  return {
+    buttonClasses: buttonParts.join(' '),
+    insetOverlayClasses: insetParts.join(' '),
+  };
 }
 
 // ── Overlay ─────────────────────────────────────────────────────────────
@@ -276,7 +303,7 @@ export function cssPropsToTw(styles: React.CSSProperties): string {
  */
 export function generateButtonTwClasses(config: ButtonConfig): string {
   const bg = escapeTw(generateBackground(config));
-  const boxShadow = escapeTw(generateBoxShadow(config.shadows));
+  const outerBoxShadow = escapeTw(generateOuterBoxShadow(config.shadows));
   const textColor = escapeTw(
     oklchToCssAlpha(config.text.color, config.text.opacity)
   );
@@ -285,6 +312,7 @@ export function generateButtonTwClasses(config: ButtonConfig): string {
 
   const classes: string[] = [
     // Layout
+    'group',
     'relative',
     'inline-flex',
     'items-center',
@@ -305,11 +333,11 @@ export function generateButtonTwClasses(config: ButtonConfig): string {
   // Background
   classes.push(`[background:${bg}]`);
 
-  // Box shadow
-  if (boxShadow === 'none') {
+  // Box shadow (outer only — inset shadows go on the overlay div)
+  if (outerBoxShadow === 'none') {
     classes.push('shadow-none');
   } else {
-    classes.push(`[box-shadow:${boxShadow}]`);
+    classes.push(`[box-shadow:${outerBoxShadow}]`);
   }
 
   // Border radius & border
@@ -335,12 +363,38 @@ export function generateButtonTwClasses(config: ButtonConfig): string {
   classes.push(`duration-[${config.hover.transitionDuration}ms]`);
   classes.push('ease-[ease]');
 
-  // Hover & active
-  const hoverTw = generateHoverTw(config);
-  if (hoverTw) classes.push(hoverTw);
+  // Hover & active (button-side classes only)
+  const { buttonClasses: hoverBtnTw } = generateHoverTw(config);
+  if (hoverBtnTw) classes.push(hoverBtnTw);
 
-  const activeTw = generateActiveTw(config);
-  if (activeTw) classes.push(activeTw);
+  const { buttonClasses: activeBtnTw } = generateActiveTw(config);
+  if (activeBtnTw) classes.push(activeBtnTw);
+
+  return classes.join(' ');
+}
+
+/** Generates Tailwind classes for the inset shadow overlay div */
+export function generateInsetOverlayTwClasses(config: ButtonConfig): string {
+  const insetBoxShadow = escapeTw(generateInsetBoxShadow(config.shadows));
+
+  const classes: string[] = [
+    'absolute',
+    'inset-0',
+    'rounded-[inherit]',
+    'pointer-events-none',
+    `[transition:box-shadow_${config.hover.transitionDuration}ms_ease]`,
+  ];
+
+  if (insetBoxShadow !== 'none') {
+    classes.push(`[box-shadow:${insetBoxShadow}]`);
+  }
+
+  // Hover & active inset overlay classes
+  const { insetOverlayClasses: hoverInsetTw } = generateHoverTw(config);
+  if (hoverInsetTw) classes.push(hoverInsetTw);
+
+  const { insetOverlayClasses: activeInsetTw } = generateActiveTw(config);
+  if (activeInsetTw) classes.push(activeInsetTw);
 
   return classes.join(' ');
 }
@@ -351,6 +405,7 @@ export function generateButtonTwClasses(config: ButtonConfig): string {
  */
 export function generateComponentCode(config: ButtonConfig): string {
   const buttonClasses = generateButtonTwClasses(config);
+  const insetOverlayClasses = generateInsetOverlayTwClasses(config);
 
   const textSpanStyles = generateTextSpanStyles(config);
   const textShimmerStyles = generateTextShimmerStyles(config);
@@ -366,6 +421,13 @@ export function generateComponentCode(config: ButtonConfig): string {
     .join('\n');
 
   const hasOverlays = visibleOverlays.length > 0;
+
+  // Determine if inset overlay is needed (has inset shadows or active state adds one)
+  const hasInsetShadows = config.shadows.some(
+    (s) => s.visible && s.type === ShadowType.Inset
+  );
+  const activeAddsInset = config.active.enabled && config.active.addInsetShadow;
+  const needsInsetOverlay = hasInsetShadows || activeAddsInset;
 
   // Text effect spans
   let textContent: string;
@@ -387,6 +449,11 @@ export function generateComponentCode(config: ButtonConfig): string {
     ? `\n        <style>{\`${shimmerKeyframes}\`}</style>`
     : '';
 
+  // Inset overlay div (last child, on top of everything)
+  const insetOverlayJsx = needsInsetOverlay
+    ? `\n        <div className="${insetOverlayClasses}" />`
+    : '';
+
   return `'use client';
 
 interface SkeuButtonProps {
@@ -395,7 +462,7 @@ interface SkeuButtonProps {
 
 export function SkeuButton({ children }: SkeuButtonProps) {
   return (
-    <button className="${buttonClasses}">${styleTag}${textContent}${hasOverlays ? `\n${overlayJsx}` : ''}
+    <button className="${buttonClasses}">${styleTag}${textContent}${hasOverlays ? `\n${overlayJsx}` : ''}${insetOverlayJsx}
     </button>
   );
 }`;

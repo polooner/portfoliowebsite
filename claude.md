@@ -33,5 +33,4 @@ config/                 # App configuration
 
 After interesting research/findings emerging from web resesarch/code execution and collaborating with the user on something, it is crucial that we store our 
 investigations in simple, cohesive docs. This should also help us with accumulating "gotchas" on architectural choices/performance of things/weird caveats we encounter so that in the future we don't come across them again. If your task was to research something and then come up with a plan, if we already have a bunch of 
-new knowledge from the investigation that is not just a set of unconfirmed, hypotheses lets create a doc under /docs regarding the topic and store the info we just gathered. It is incredibly important that we continue this loop so that later on new agents can come to these docs and potentially save us time/be able to take on a 
-great direction instantly.
+new knowledge from the investigation that is not just a set of unconfirmed, hypotheses lets create a doc under /docs regarding the topic and store the info we just gathered. It is incredibly important that we continue this loop so that later on new agents can come to these docs and potentially save us time/be able to take on a great direction instantly.

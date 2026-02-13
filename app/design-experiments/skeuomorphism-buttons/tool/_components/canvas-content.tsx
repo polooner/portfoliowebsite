@@ -8,6 +8,7 @@ import {
   generateOverlayStyle,
   generateHoverCss,
   generateActiveCss,
+  generateInsetBoxShadow,
   generateTextSpanStyles,
   generateTextShimmerStyles,
   generateTextShimmerKeyframes,
@@ -15,6 +16,7 @@ import {
 } from '../_utils/generate-css-styles';
 import {
   generateButtonTwClasses,
+  generateInsetOverlayTwClasses,
   generateOverlayTw,
   cssPropsToTw,
 } from '../_utils/generate-component-code';
@@ -64,6 +66,17 @@ export default function CanvasContent() {
     [config]
   );
 
+  const insetOverlayTwClasses = useMemo(
+    () => generateInsetOverlayTwClasses(config),
+    [config]
+  );
+
+  // ── Inset shadow value ────────────────────────────────────────────────
+  const insetBoxShadow = useMemo(
+    () => generateInsetBoxShadow(config.shadows),
+    [config.shadows]
+  );
+
   // ── Scoped CSS for preview rendering ───────────────────────────────────
   const scopedCss = useMemo(() => {
     const buttonStyles = generateButtonStyles(config);
@@ -71,14 +84,20 @@ export default function CanvasContent() {
 
     let css = `.${scopeClass} { ${baseCss} }`;
 
-    const hoverCss = generateHoverCss(config);
-    if (hoverCss) css += ` .${scopeClass}:hover { ${hoverCss} }`;
+    // Inset overlay base rule
+    const transitionDur = config.hover.transitionDuration;
+    css += ` .${scopeClass}-inset { box-shadow: ${insetBoxShadow}; transition: box-shadow ${transitionDur}ms ease; }`;
 
-    const activeCss = generateActiveCss(config);
-    if (activeCss) css += ` .${scopeClass}:active { ${activeCss} }`;
+    const { buttonCss: hoverButtonCss, insetOverlayCss: hoverInsetCss } = generateHoverCss(config);
+    if (hoverButtonCss) css += ` .${scopeClass}:hover { ${hoverButtonCss} }`;
+    if (hoverInsetCss) css += ` .${scopeClass}:hover > .${scopeClass}-inset { ${hoverInsetCss} }`;
+
+    const { buttonCss: activeButtonCss, insetOverlayCss: activeInsetCss } = generateActiveCss(config);
+    if (activeButtonCss) css += ` .${scopeClass}:active { ${activeButtonCss} }`;
+    if (activeInsetCss) css += ` .${scopeClass}:active > .${scopeClass}-inset { ${activeInsetCss} }`;
 
     return css;
-  }, [config, scopeClass]);
+  }, [config, scopeClass, insetBoxShadow]);
 
   // ── Overlay data ───────────────────────────────────────────────────────
   const overlayData = useMemo(
@@ -172,6 +191,7 @@ export default function CanvasContent() {
           {overlayData.map((d) => (
             <div key={d.id} className={`${d.scopedClass} ${d.twClasses}`} />
           ))}
+          <div className={`${scopeClass}-inset ${insetOverlayTwClasses}`} />
         </button>
       </div>
 

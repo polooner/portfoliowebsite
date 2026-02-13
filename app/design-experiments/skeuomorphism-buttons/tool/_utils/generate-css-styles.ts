@@ -53,6 +53,12 @@ export function cssPropertiesToString(styles: React.CSSProperties): string {
 
 // ── Box Shadow ───────────────────────────────────────────────────────────
 
+/** CSS declarations split between the button element and the inset overlay */
+export interface SplitStateCss {
+  buttonCss: string;
+  insetOverlayCss: string;
+}
+
 /** Generates a single box-shadow CSS value from a ShadowLayer */
 function shadowLayerToCss(layer: ShadowLayer): string {
   const inset = layer.type === ShadowType.Inset ? 'inset ' : '';
@@ -60,11 +66,35 @@ function shadowLayerToCss(layer: ShadowLayer): string {
   return `${inset}${layer.offsetX}px ${layer.offsetY}px ${layer.blur}px ${layer.spread}px ${color}`;
 }
 
+/** Returns only visible outer (non-inset) shadow layers */
+function getOuterShadows(shadows: ShadowLayer[]): ShadowLayer[] {
+  return shadows.filter((s) => s.visible && s.type !== ShadowType.Inset);
+}
+
+/** Returns only visible inset shadow layers */
+function getInsetShadows(shadows: ShadowLayer[]): ShadowLayer[] {
+  return shadows.filter((s) => s.visible && s.type === ShadowType.Inset);
+}
+
 /** Generates the full box-shadow value from all visible layers */
 export function generateBoxShadow(shadows: ShadowLayer[]): string {
   const visible = shadows.filter((s) => s.visible);
   if (visible.length === 0) return 'none';
   return visible.map(shadowLayerToCss).join(', ');
+}
+
+/** Generates box-shadow CSS value from outer (non-inset) shadows only */
+export function generateOuterBoxShadow(shadows: ShadowLayer[]): string {
+  const outer = getOuterShadows(shadows);
+  if (outer.length === 0) return 'none';
+  return outer.map(shadowLayerToCss).join(', ');
+}
+
+/** Generates box-shadow CSS value from inset shadows only */
+export function generateInsetBoxShadow(shadows: ShadowLayer[]): string {
+  const inset = getInsetShadows(shadows);
+  if (inset.length === 0) return 'none';
+  return inset.map(shadowLayerToCss).join(', ');
 }
 
 // ── Background ───────────────────────────────────────────────────────────
@@ -290,10 +320,10 @@ export function generateTextShimmerKeyframes(shimmer: TextShimmerConfig): string
 
 // ── Full Button Style ────────────────────────────────────────────────────
 
-/** Generates the complete inline style object for a button */
+/** Generates the complete inline style object for a button (outer shadows only; inset shadows go on the overlay) */
 export function generateButtonStyles(config: ButtonConfig): React.CSSProperties {
   const bg = generateBackground(config);
-  const boxShadow = generateBoxShadow(config.shadows);
+  const boxShadow = generateOuterBoxShadow(config.shadows);
   const borderStyles = generateBorderStyles(config);
 
   // When text effects are active, color/textShadow move to the span
@@ -343,49 +373,61 @@ export function generateButtonStyles(config: ButtonConfig): React.CSSProperties 
 
 // ── Hover & Active CSS ───────────────────────────────────────────────────
 
-/** Generates hover state modifications as a CSS rule body */
-export function generateHoverCss(config: ButtonConfig): string {
+/** Generates hover state modifications, split between button and inset overlay */
+export function generateHoverCss(config: ButtonConfig): SplitStateCss {
   const { hover, shadows } = config;
-  if (!hover.enabled) return '';
+  if (!hover.enabled) return { buttonCss: '', insetOverlayCss: '' };
 
-  const parts: string[] = [];
+  const buttonParts: string[] = [];
+  const insetParts: string[] = [];
 
   if (hover.translateY !== 0) {
-    parts.push(`transform: translateY(${hover.translateY}px);`);
+    buttonParts.push(`transform: translateY(${hover.translateY}px);`);
   }
 
-  // Intensify shadows
+  // Intensify shadows — split by type
   if (hover.shadowIntensityMultiplier !== 1) {
-    const hoverShadows = shadows.filter((s) => s.visible).map((s) => ({
+    const intensified = shadows.filter((s) => s.visible).map((s) => ({
       ...s,
       blur: Math.round(s.blur * hover.shadowIntensityMultiplier),
       spread: Math.round(s.spread * hover.shadowIntensityMultiplier),
       opacity: Math.min(100, Math.round(s.opacity * hover.shadowIntensityMultiplier)),
     }));
-    parts.push(`box-shadow: ${generateBoxShadow(hoverShadows)};`);
+
+    const outerVal = generateOuterBoxShadow(intensified);
+    buttonParts.push(`box-shadow: ${outerVal};`);
+
+    const insetVal = generateInsetBoxShadow(intensified);
+    if (insetVal !== 'none') {
+      insetParts.push(`box-shadow: ${insetVal};`);
+    }
   }
 
   if (hover.backgroundLighten > 0) {
-    parts.push(`filter: brightness(${1 + hover.backgroundLighten / 100});`);
+    buttonParts.push(`filter: brightness(${1 + hover.backgroundLighten / 100});`);
   }
 
-  return parts.join(' ');
+  return {
+    buttonCss: buttonParts.join(' '),
+    insetOverlayCss: insetParts.join(' '),
+  };
 }
 
-/** Generates active state modifications as a CSS rule body */
-export function generateActiveCss(config: ButtonConfig): string {
+/** Generates active state modifications, split between button and inset overlay */
+export function generateActiveCss(config: ButtonConfig): SplitStateCss {
   const { active, shadows } = config;
-  if (!active.enabled) return '';
+  if (!active.enabled) return { buttonCss: '', insetOverlayCss: '' };
 
-  const parts: string[] = [];
+  const buttonParts: string[] = [];
+  const insetParts: string[] = [];
 
   if (active.translateY !== 0) {
-    parts.push(`transform: translateY(${active.translateY}px);`);
+    buttonParts.push(`transform: translateY(${active.translateY}px);`);
   }
 
   // Flatten shadows
   const flattenFactor = 1 - active.shadowFlattenAmount / 100;
-  const flatShadows = shadows.filter((s) => s.visible).map((s) => ({
+  const flatShadows: ShadowLayer[] = shadows.filter((s) => s.visible).map((s) => ({
     ...s,
     offsetY: Math.round(s.offsetY * flattenFactor),
     blur: Math.round(s.blur * flattenFactor),
@@ -407,13 +449,22 @@ export function generateActiveCss(config: ButtonConfig): string {
     });
   }
 
-  parts.push(`box-shadow: ${generateBoxShadow(flatShadows)};`);
+  // Split flattened shadows by type
+  const outerVal = generateOuterBoxShadow(flatShadows);
+  buttonParts.push(`box-shadow: ${outerVal};`);
+
+  const insetVal = generateInsetBoxShadow(flatShadows);
+  insetParts.push(`box-shadow: ${insetVal};`);
 
   if (active.backgroundDarken > 0) {
-    parts.push(`filter: brightness(${1 - active.backgroundDarken / 100});`);
+    buttonParts.push(`filter: brightness(${1 - active.backgroundDarken / 100});`);
   }
 
-  parts.push(`transition-duration: ${active.transitionDuration}ms;`);
+  buttonParts.push(`transition-duration: ${active.transitionDuration}ms;`);
+  insetParts.push(`transition-duration: ${active.transitionDuration}ms;`);
 
-  return parts.join(' ');
+  return {
+    buttonCss: buttonParts.join(' '),
+    insetOverlayCss: insetParts.join(' '),
+  };
 }
