@@ -5,6 +5,8 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 const MIN_SCALE_DEFAULT = 0.25;
 const MAX_SCALE_DEFAULT = 3;
 const ZOOM_SENSITIVITY = 0.002;
+/** Multiplier applied per Cmd+/Cmd- press */
+const KEYBOARD_ZOOM_STEP = 1.2;
 
 interface Transform {
   x: number;
@@ -158,6 +160,27 @@ export function useCanvasTransform({
   }, [checkBounds]);
 
   /**
+   * Zoom in or out by a fixed step, centered on the viewport.
+   * @param direction 1 to zoom in, -1 to zoom out
+   */
+  const zoomByStep = useCallback(
+    (direction: 1 | -1) => {
+      setTransform((prev) => {
+        const factor = direction === 1 ? KEYBOARD_ZOOM_STEP : 1 / KEYBOARD_ZOOM_STEP;
+        const newScale = Math.min(maxScale, Math.max(minScale, prev.scale * factor));
+        const scaleRatio = newScale / prev.scale;
+
+        return {
+          x: prev.x * scaleRatio,
+          y: prev.y * scaleRatio,
+          scale: newScale,
+        };
+      });
+    },
+    [minScale, maxScale]
+  );
+
+  /**
    * Reset transform to initial state.
    */
   const resetTransform = useCallback(() => {
@@ -276,5 +299,6 @@ export function useCanvasTransform({
       onMouseLeave: handleMouseLeave,
     },
     resetTransform,
+    zoomByStep,
   };
 }

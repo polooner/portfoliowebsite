@@ -25,6 +25,7 @@ export default function ToolCanvas() {
     containerRef,
     handlers: canvasHandlers,
     resetTransform,
+    zoomByStep,
   } = useCanvasTransform({
     minScale: 0.25,
     maxScale: 3,
@@ -54,10 +55,9 @@ export default function ToolCanvas() {
   const copySelection = useGridAnimatorStore((state) => state.copySelection);
   const pasteSelection = useGridAnimatorStore((state) => state.pasteSelection);
 
-  // Cmd+C / Cmd+V keyboard shortcuts
+  // Keyboard shortcuts: Cmd+C, Cmd+V, Cmd+/-, Cmd+0
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Skip if an input or textarea is focused
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
 
@@ -69,11 +69,23 @@ export default function ToolCanvas() {
         e.preventDefault();
         pasteSelection();
       }
+      if (e.metaKey && (e.key === '=' || e.key === '+')) {
+        e.preventDefault();
+        zoomByStep(1);
+      }
+      if (e.metaKey && e.key === '-') {
+        e.preventDefault();
+        zoomByStep(-1);
+      }
+      if (e.metaKey && e.key === '0') {
+        e.preventDefault();
+        resetTransform();
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [copySelection, pasteSelection]);
+  }, [copySelection, pasteSelection, zoomByStep, resetTransform]);
 
   useEffect(() => {
     if (isContentOutOfBounds && !toastIdRef.current) {
@@ -247,7 +259,7 @@ export default function ToolCanvas() {
       </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
-        <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom · <span className="text-neutral-300">Shift+click</span> to multi-select
+        <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom · <span className="text-neutral-300">⌘+/−</span> zoom · <span className="text-neutral-300">Shift+click</span> multi-select
       </div>
     </div>
   );
