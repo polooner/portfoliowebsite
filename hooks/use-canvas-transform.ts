@@ -188,12 +188,27 @@ export function useCanvasTransform({
     setIsContentOutOfBounds(false);
   }, []);
 
-  // Handle keyboard events for space key
+  // Handle keyboard events: space (pan), Cmd+/- (zoom), Cmd+0 (reset)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Space' && !e.repeat) {
         e.preventDefault();
         setSpacePressed(true);
+        return;
+      }
+
+      // Zoom shortcuts — capture phase + preventDefault to override browser zoom
+      if (e.metaKey || e.ctrlKey) {
+        if (e.key === '=' || e.key === '+') {
+          e.preventDefault();
+          zoomByStep(1);
+        } else if (e.key === '-') {
+          e.preventDefault();
+          zoomByStep(-1);
+        } else if (e.key === '0') {
+          e.preventDefault();
+          resetTransform();
+        }
       }
     };
 
@@ -204,14 +219,14 @@ export function useCanvasTransform({
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, { capture: true });
     window.addEventListener('keyup', handleKeyUp);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown, { capture: true });
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [endPan]);
+  }, [endPan, zoomByStep, resetTransform]);
 
   // Handle mouse events
   const handleMouseDown = useCallback(
@@ -256,8 +271,8 @@ export function useCanvasTransform({
         clearTimeout(wheelTimeoutRef.current);
       }
 
-      if (e.ctrlKey) {
-        // Pinch-to-zoom (ctrlKey is true for pinch gestures on trackpad)
+      if (e.ctrlKey || e.metaKey) {
+        // Pinch-to-zoom (ctrlKey) or Cmd+scroll (metaKey)
         handleZoom(e.deltaY, e.clientX, e.clientY);
       } else {
         // 2-finger scroll = pan

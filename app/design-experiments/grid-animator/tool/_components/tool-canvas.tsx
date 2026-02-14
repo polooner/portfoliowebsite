@@ -25,7 +25,6 @@ export default function ToolCanvas() {
     containerRef,
     handlers: canvasHandlers,
     resetTransform,
-    zoomByStep,
   } = useCanvasTransform({
     minScale: 0.25,
     maxScale: 3,
@@ -55,7 +54,7 @@ export default function ToolCanvas() {
   const copySelection = useGridAnimatorStore((state) => state.copySelection);
   const pasteSelection = useGridAnimatorStore((state) => state.pasteSelection);
 
-  // Keyboard shortcuts: Cmd+C, Cmd+V, Cmd+/-, Cmd+0
+  // Keyboard shortcuts: Cmd+C / Cmd+V
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       const tag = (e.target as HTMLElement)?.tagName;
@@ -69,23 +68,11 @@ export default function ToolCanvas() {
         e.preventDefault();
         pasteSelection();
       }
-      if (e.metaKey && (e.key === '=' || e.key === '+')) {
-        e.preventDefault();
-        zoomByStep(1);
-      }
-      if (e.metaKey && e.key === '-') {
-        e.preventDefault();
-        zoomByStep(-1);
-      }
-      if (e.metaKey && e.key === '0') {
-        e.preventDefault();
-        resetTransform();
-      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [copySelection, pasteSelection, zoomByStep, resetTransform]);
+  }, [copySelection, pasteSelection]);
 
   useEffect(() => {
     if (isContentOutOfBounds && !toastIdRef.current) {
