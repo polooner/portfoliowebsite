@@ -8,6 +8,7 @@ import {
   type GridAnimatorInstance,
   type DragState,
   type ResizeState,
+  type MarqueeState,
   ResizeCorner,
 } from '../_types/grid-animator-types';
 import {
@@ -23,7 +24,13 @@ import {
   LABEL_FONT_SIZE_MAX,
   createDefaultActiveCells,
 } from '../_constants/grid-animator-constants';
-import { computeInstanceBounds, precomputeSnapLines, computeSnappedPosition } from '../_utils/snap-utils';
+import {
+  computeInstanceBounds,
+  computeGroupBounds,
+  precomputeSnapLines,
+  computeSnappedPosition,
+  computeMarqueeSelection,
+} from '../_utils/snap-utils';
 
 let nextId = 1;
 
@@ -77,9 +84,10 @@ function createDefaultInstance(x = 0, y = 0): GridAnimatorInstance {
 interface GridAnimatorStore {
   instances: Record<string, GridAnimatorInstance>;
   instanceOrder: string[];
-  selectedId: string | null;
+  selectedIds: string[];
   dragState: DragState | null;
   resizeState: ResizeState | null;
+  marqueeState: MarqueeState | null;
   expandedSections: Record<string, boolean>;
 
   // Instance CRUD
@@ -88,19 +96,24 @@ interface GridAnimatorStore {
   duplicateInstance: (id: string) => string | null;
 
   // Selection
-  selectInstance: (id: string | null) => void;
+  selectInstance: (id: string | null, additive?: boolean) => void;
 
-  // Drag
-  startDrag: (id: string, canvasX: number, canvasY: number, zoomScale: number) => void;
+  // Drag (multi-instance aware)
+  startDrag: (primaryId: string, canvasX: number, canvasY: number, zoomScale: number) => void;
   updateDrag: (canvasX: number, canvasY: number, zoomScale: number) => void;
   endDrag: () => void;
 
-  // Resize
-  startResize: (id: string, corner: ResizeCorner, canvasX: number, canvasY: number) => void;
+  // Resize (group-aware: resizes all selected instances proportionally)
+  startResize: (corner: ResizeCorner, canvasX: number, canvasY: number) => void;
   updateResize: (canvasX: number, canvasY: number) => void;
   endResize: () => void;
 
-  // Config setters (scoped to selectedId)
+  // Marquee
+  startMarquee: (canvasX: number, canvasY: number) => void;
+  updateMarquee: (canvasX: number, canvasY: number) => void;
+  endMarquee: () => void;
+
+  // Config setters (scoped to primary selected — selectedIds[0])
   setGridRows: (rows: number) => void;
   setGridCols: (cols: number) => void;
   setGrid: (partial: Partial<GridConfig>) => void;
@@ -112,7 +125,7 @@ interface GridAnimatorStore {
   setColor: (partial: Partial<ColorConfig>) => void;
   setEffects: (partial: Partial<EffectsConfig>) => void;
 
-  // Label setters (scoped to selectedId)
+  // Label setters (scoped to primary selected)
   setLabel: (text: string) => void;
   setLabelFontSize: (size: number) => void;
   setLabelSpacing: (spacing: number) => void;
@@ -144,6 +157,11 @@ function updateInstanceConfig(
   };
 }
 
+/** Returns the primary selected ID (first in selectedIds) or null */
+function primaryId(state: { selectedIds: string[] }): string | null {
+  return state.selectedIds[0] ?? null;
+}
+
 // --- Default state ---
 
 const defaultInstance = createDefaultInstance(0, 0);
@@ -151,9 +169,10 @@ const defaultInstance = createDefaultInstance(0, 0);
 const DEFAULT_STATE = {
   instances: { [defaultInstance.id]: defaultInstance } as Record<string, GridAnimatorInstance>,
   instanceOrder: [defaultInstance.id],
-  selectedId: defaultInstance.id as string | null,
+  selectedIds: [defaultInstance.id] as string[],
   dragState: null as DragState | null,
   resizeState: null as ResizeState | null,
+  marqueeState: null as MarqueeState | null,
   expandedSections: { ...DEFAULT_EXPANDED_SECTIONS },
 };
 
@@ -167,7 +186,7 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
     set((state) => ({
       instances: { ...state.instances, [inst.id]: inst },
       instanceOrder: [...state.instanceOrder, inst.id],
-      selectedId: inst.id,
+      selectedIds: [inst.id],
     }));
     return inst.id;
   },
@@ -179,8 +198,8 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       return {
         instances: rest,
         instanceOrder: newOrder,
-        selectedId: state.selectedId === id ? null : state.selectedId,
-        dragState: state.dragState?.instanceId === id ? null : state.dragState,
+        selectedIds: state.selectedIds.filter((i) => i !== id),
+        dragState: state.dragState?.primaryId === id ? null : state.dragState,
       };
     }),
 
@@ -200,7 +219,7 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
     set((s) => ({
       instances: { ...s.instances, [newInst.id]: newInst },
       instanceOrder: [...s.instanceOrder, newInst.id],
-      selectedId: newInst.id,
+      selectedIds: [newInst.id],
     }));
 
     return newInst.id;
@@ -208,27 +227,64 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   // --- Selection ---
 
-  selectInstance: (id) =>
-    set(() => ({ selectedId: id })),
+  selectInstance: (id, additive = false) =>
+    set((state) => {
+      if (id === null) return { selectedIds: [] };
 
-  // --- Drag ---
+      if (additive) {
+        // Toggle: add if missing, remove if present
+        const exists = state.selectedIds.includes(id);
+        return {
+          selectedIds: exists
+            ? state.selectedIds.filter((i) => i !== id)
+            : [...state.selectedIds, id],
+        };
+      }
+
+      return { selectedIds: [id] };
+    }),
+
+  // --- Drag (multi-instance) ---
 
   startDrag: (id, canvasX, canvasY, _zoomScale) =>
     set((state) => {
-      const instance = state.instances[id];
-      if (!instance) return {};
+      const primary = state.instances[id];
+      if (!primary) return {};
 
-      const bounds = computeInstanceBounds(instance);
-      const snapLines = precomputeSnapLines(state.instances, id);
+      // Ensure the grabbed instance is in selection
+      const selected = state.selectedIds.includes(id)
+        ? state.selectedIds
+        : [id];
+
+      const excludeSet = new Set(selected);
+      const bounds = computeInstanceBounds(primary);
+      const snapLines = precomputeSnapLines(state.instances, excludeSet);
+
+      // Compute relative offsets for every other selected instance
+      const relativeOffsets: Record<string, { dx: number; dy: number }> = {};
+      for (const sid of selected) {
+        if (sid === id) continue;
+        const inst = state.instances[sid];
+        if (!inst) continue;
+        relativeOffsets[sid] = {
+          dx: inst.x - primary.x,
+          dy: inst.y - primary.y,
+        };
+      }
+
+      // Bring all selected to front, primary on top
+      const unselected = state.instanceOrder.filter((i) => !excludeSet.has(i));
+      const selectedOrdered = selected.filter((i) => i !== id);
+      selectedOrdered.push(id);
 
       return {
-        selectedId: id,
-        // Bring to front
-        instanceOrder: [...state.instanceOrder.filter((i) => i !== id), id],
+        selectedIds: selected,
+        instanceOrder: [...unselected, ...selectedOrdered],
         dragState: {
-          instanceId: id,
-          offsetX: canvasX - instance.x,
-          offsetY: canvasY - instance.y,
+          primaryId: id,
+          primaryOffsetX: canvasX - primary.x,
+          primaryOffsetY: canvasY - primary.y,
+          relativeOffsets,
           snapLines,
           activeSnaps: [],
           draggedWidth: bounds.width,
@@ -242,8 +298,8 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       const { dragState, instances } = state;
       if (!dragState) return {};
 
-      const proposedX = canvasX - dragState.offsetX;
-      const proposedY = canvasY - dragState.offsetY;
+      const proposedX = canvasX - dragState.primaryOffsetX;
+      const proposedY = canvasY - dragState.primaryOffsetY;
 
       const { x, y, activeSnaps } = computeSnappedPosition(
         proposedX,
@@ -254,19 +310,26 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
         zoomScale
       );
 
+      // Apply snapped position to primary, then offset to others
+      const updated = { ...instances };
+      updated[dragState.primaryId] = {
+        ...instances[dragState.primaryId],
+        x,
+        y,
+      };
+
+      for (const [sid, offset] of Object.entries(dragState.relativeOffsets)) {
+        if (!instances[sid]) continue;
+        updated[sid] = {
+          ...instances[sid],
+          x: x + offset.dx,
+          y: y + offset.dy,
+        };
+      }
+
       return {
-        instances: {
-          ...instances,
-          [dragState.instanceId]: {
-            ...instances[dragState.instanceId],
-            x,
-            y,
-          },
-        },
-        dragState: {
-          ...dragState,
-          activeSnaps,
-        },
+        instances: updated,
+        dragState: { ...dragState, activeSnaps },
       };
     }),
 
@@ -275,44 +338,51 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   // --- Resize ---
 
-  startResize: (id, corner, _canvasX, _canvasY) =>
+  startResize: (corner, _canvasX, _canvasY) =>
     set((state) => {
-      const instance = state.instances[id];
-      if (!instance) return {};
+      const { selectedIds, instances } = state;
+      if (selectedIds.length === 0) return {};
 
-      const bounds = computeInstanceBounds(instance);
+      const groupBounds = computeGroupBounds(selectedIds, instances);
+      if (!groupBounds) return {};
 
-      // The opposite corner stays fixed
       let fixedX: number;
       let fixedY: number;
       switch (corner) {
         case ResizeCorner.TopLeft:
-          fixedX = bounds.right;
-          fixedY = bounds.bottom;
-          break;
+          fixedX = groupBounds.right; fixedY = groupBounds.bottom; break;
         case ResizeCorner.TopRight:
-          fixedX = bounds.left;
-          fixedY = bounds.bottom;
-          break;
+          fixedX = groupBounds.left; fixedY = groupBounds.bottom; break;
         case ResizeCorner.BottomLeft:
-          fixedX = bounds.right;
-          fixedY = bounds.top;
-          break;
+          fixedX = groupBounds.right; fixedY = groupBounds.top; break;
         case ResizeCorner.BottomRight:
-          fixedX = bounds.left;
-          fixedY = bounds.top;
-          break;
+          fixedX = groupBounds.left; fixedY = groupBounds.top; break;
       }
+
+      const snapshots = selectedIds
+        .map((id) => {
+          const inst = instances[id];
+          if (!inst) return null;
+          return {
+            id,
+            initialX: inst.x,
+            initialY: inst.y,
+            initialCellSize: inst.config.grid.cellSize,
+            initialFontSize: inst.labelFontSize,
+          };
+        })
+        .filter(Boolean) as ResizeState['snapshots'];
 
       return {
         resizeState: {
-          instanceId: id,
           corner,
           fixedX,
           fixedY,
-          initialBoundsWidth: bounds.width,
-          initialCellSize: instance.config.grid.cellSize,
-          initialFontSize: instance.labelFontSize,
+          initialGroupWidth: groupBounds.width,
+          initialGroupHeight: groupBounds.height,
+          initialGroupLeft: groupBounds.left,
+          initialGroupTop: groupBounds.top,
+          snapshots,
         },
       };
     }),
@@ -322,81 +392,123 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       const { resizeState, instances } = state;
       if (!resizeState) return {};
 
-      const instance = instances[resizeState.instanceId];
-      if (!instance) return {};
+      const { corner, fixedX, fixedY, initialGroupWidth, initialGroupLeft, initialGroupTop, snapshots } = resizeState;
 
-      const { corner, fixedX, fixedY, initialBoundsWidth, initialCellSize, initialFontSize } = resizeState;
-
-      // Compute new width based on mouse distance from fixed corner
       const rawWidth = (corner === ResizeCorner.TopLeft || corner === ResizeCorner.BottomLeft)
         ? fixedX - canvasX
         : canvasX - fixedX;
 
-      const scale = Math.max(0.1, rawWidth / initialBoundsWidth);
+      const scale = Math.max(0.1, rawWidth / initialGroupWidth);
 
-      const newCellSize = Math.round(
-        Math.min(CELL_SIZE_MAX, Math.max(CELL_SIZE_MIN, initialCellSize * scale))
-      );
-      const newFontSize = Math.round(
-        Math.min(LABEL_FONT_SIZE_MAX, Math.max(LABEL_FONT_SIZE_MIN, initialFontSize * scale))
-      );
+      // Compute the new group origin (the top-left of the scaled group)
+      const newGroupWidth = initialGroupWidth * scale;
+      const newGroupHeight = resizeState.initialGroupHeight * scale;
 
-      // Recompute the instance position so the fixed corner stays fixed
-      const updatedInstance: GridAnimatorInstance = {
-        ...instance,
-        labelFontSize: newFontSize,
-        config: {
-          ...instance.config,
-          grid: { ...instance.config.grid, cellSize: newCellSize },
-        },
-      };
-
-      const newBounds = computeInstanceBounds(updatedInstance);
-
-      let newX: number;
-      let newY: number;
+      let newGroupLeft: number;
+      let newGroupTop: number;
       switch (corner) {
         case ResizeCorner.TopLeft:
-          newX = fixedX - newBounds.width;
-          newY = fixedY - newBounds.height;
+          newGroupLeft = fixedX - newGroupWidth;
+          newGroupTop = fixedY - newGroupHeight;
           break;
         case ResizeCorner.TopRight:
-          newX = fixedX;
-          newY = fixedY - newBounds.height;
+          newGroupLeft = fixedX;
+          newGroupTop = fixedY - newGroupHeight;
           break;
         case ResizeCorner.BottomLeft:
-          newX = fixedX - newBounds.width;
-          newY = fixedY;
+          newGroupLeft = fixedX - newGroupWidth;
+          newGroupTop = fixedY;
           break;
         case ResizeCorner.BottomRight:
         default:
-          newX = fixedX;
-          newY = fixedY;
+          newGroupLeft = fixedX;
+          newGroupTop = fixedY;
           break;
       }
 
-      return {
-        instances: {
-          ...instances,
-          [resizeState.instanceId]: {
-            ...updatedInstance,
-            x: newX,
-            y: newY,
+      const updated = { ...instances };
+
+      for (const snap of snapshots) {
+        const inst = instances[snap.id];
+        if (!inst) continue;
+
+        const newCellSize = Math.round(
+          Math.min(CELL_SIZE_MAX, Math.max(CELL_SIZE_MIN, snap.initialCellSize * scale))
+        );
+        const newFontSize = Math.round(
+          Math.min(LABEL_FONT_SIZE_MAX, Math.max(LABEL_FONT_SIZE_MIN, snap.initialFontSize * scale))
+        );
+
+        // Reposition proportionally within the group
+        const relX = snap.initialX - initialGroupLeft;
+        const relY = snap.initialY - initialGroupTop;
+
+        updated[snap.id] = {
+          ...inst,
+          x: newGroupLeft + relX * scale,
+          y: newGroupTop + relY * scale,
+          labelFontSize: newFontSize,
+          config: {
+            ...inst.config,
+            grid: { ...inst.config.grid, cellSize: newCellSize },
           },
-        },
-      };
+        };
+      }
+
+      return { instances: updated };
     }),
 
   endResize: () =>
     set(() => ({ resizeState: null })),
 
-  // --- Config setters (scoped to selectedId) ---
+  // --- Marquee ---
+
+  startMarquee: (canvasX, canvasY) =>
+    set(() => ({
+      marqueeState: { startX: canvasX, startY: canvasY, currentX: canvasX, currentY: canvasY },
+    })),
+
+  updateMarquee: (canvasX, canvasY) =>
+    set((state) => {
+      if (!state.marqueeState) return {};
+      return {
+        marqueeState: { ...state.marqueeState, currentX: canvasX, currentY: canvasY },
+      };
+    }),
+
+  endMarquee: () =>
+    set((state) => {
+      if (!state.marqueeState) return { marqueeState: null };
+
+      const { startX, startY, currentX, currentY } = state.marqueeState;
+      const minX = Math.min(startX, currentX);
+      const maxX = Math.max(startX, currentX);
+      const minY = Math.min(startY, currentY);
+      const maxY = Math.max(startY, currentY);
+
+      // If marquee is tiny (click with no drag), deselect
+      const MARQUEE_MIN_SIZE = 3;
+      if (maxX - minX < MARQUEE_MIN_SIZE && maxY - minY < MARQUEE_MIN_SIZE) {
+        return { marqueeState: null, selectedIds: [] };
+      }
+
+      const hit = computeMarqueeSelection(
+        minX, minY, maxX, maxY,
+        state.instances,
+        state.instanceOrder
+      );
+
+      return { marqueeState: null, selectedIds: hit };
+    }),
+
+  // --- Config setters (scoped to primary selected) ---
 
   setGridRows: (rows) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           grid: { ...config.grid, rows },
           activeCells: resizeActiveCells(config.activeCells, rows, config.grid.cols),
         })),
@@ -405,9 +517,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setGridCols: (cols) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           grid: { ...config.grid, cols },
           activeCells: resizeActiveCells(config.activeCells, config.grid.rows, cols),
         })),
@@ -416,9 +529,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setGrid: (partial) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           grid: { ...config.grid, ...partial },
         })),
       };
@@ -426,8 +540,9 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   toggleCell: (row, col) =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
 
       const newCells = instance.config.activeCells.map((r) => [...r]);
@@ -437,18 +552,16 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       return {
         instances: {
           ...state.instances,
-          [state.selectedId]: {
-            ...instance,
-            config: { ...instance.config, activeCells: newCells },
-          },
+          [pid]: { ...instance, config: { ...instance.config, activeCells: newCells } },
         },
       };
     }),
 
   setCell: (row, col, value) =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
 
       const newCells = instance.config.activeCells.map((r) => [...r]);
@@ -458,19 +571,17 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       return {
         instances: {
           ...state.instances,
-          [state.selectedId]: {
-            ...instance,
-            config: { ...instance.config, activeCells: newCells },
-          },
+          [pid]: { ...instance, config: { ...instance.config, activeCells: newCells } },
         },
       };
     }),
 
   clearAllCells: () =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           activeCells: createDefaultActiveCells(config.grid.rows, config.grid.cols).map(
             (row) => row.map(() => false)
           ),
@@ -480,9 +591,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   fillAllCells: () =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           activeCells: createDefaultActiveCells(config.grid.rows, config.grid.cols),
         })),
       };
@@ -490,9 +602,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setAnimation: (partial) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           animation: { ...config.animation, ...partial },
         })),
       };
@@ -500,9 +613,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setColor: (partial) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           color: { ...config.color, ...partial },
         })),
       };
@@ -510,9 +624,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setEffects: (partial) =>
     set((state) => {
-      if (!state.selectedId) return {};
+      const pid = primaryId(state);
+      if (!pid) return {};
       return {
-        instances: updateInstanceConfig(state.instances, state.selectedId, (config) => ({
+        instances: updateInstanceConfig(state.instances, pid, (config) => ({
           effects: { ...config.effects, ...partial },
         })),
       };
@@ -522,40 +637,34 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   setLabel: (text) =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
       return {
-        instances: {
-          ...state.instances,
-          [state.selectedId]: { ...instance, label: text },
-        },
+        instances: { ...state.instances, [pid]: { ...instance, label: text } },
       };
     }),
 
   setLabelFontSize: (size) =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
       return {
-        instances: {
-          ...state.instances,
-          [state.selectedId]: { ...instance, labelFontSize: size },
-        },
+        instances: { ...state.instances, [pid]: { ...instance, labelFontSize: size } },
       };
     }),
 
   setLabelSpacing: (spacing) =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
       return {
-        instances: {
-          ...state.instances,
-          [state.selectedId]: { ...instance, labelSpacing: spacing },
-        },
+        instances: { ...state.instances, [pid]: { ...instance, labelSpacing: spacing } },
       };
     }),
 
@@ -563,14 +672,12 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   togglePlaying: () =>
     set((state) => {
-      if (!state.selectedId) return {};
-      const instance = state.instances[state.selectedId];
+      const pid = primaryId(state);
+      if (!pid) return {};
+      const instance = state.instances[pid];
       if (!instance) return {};
       return {
-        instances: {
-          ...state.instances,
-          [state.selectedId]: { ...instance, isPlaying: !instance.isPlaying },
-        },
+        instances: { ...state.instances, [pid]: { ...instance, isPlaying: !instance.isPlaying } },
       };
     }),
 
@@ -578,10 +685,7 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
 
   toggleSection: (id) =>
     set((state) => ({
-      expandedSections: {
-        ...state.expandedSections,
-        [id]: !state.expandedSections[id],
-      },
+      expandedSections: { ...state.expandedSections, [id]: !state.expandedSections[id] },
     })),
 
   reset: () => {
@@ -590,9 +694,10 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
     set({
       instances: { [inst.id]: inst },
       instanceOrder: [inst.id],
-      selectedId: inst.id,
+      selectedIds: [inst.id],
       dragState: null,
       resizeState: null,
+      marqueeState: null,
       expandedSections: { ...DEFAULT_EXPANDED_SECTIONS },
     });
   },
