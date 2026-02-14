@@ -73,6 +73,18 @@ export interface GridAnimatorConfig {
   effects: EffectsConfig;
 }
 
+// --- Clipboard types ---
+
+export interface ClipboardEntry {
+  relativeX: number;
+  relativeY: number;
+  label: string;
+  labelFontSize: number;
+  labelSpacing: number;
+  isPlaying: boolean;
+  config: GridAnimatorConfig;
+}
+
 // --- Multi-instance types ---
 
 export interface GridAnimatorInstance {

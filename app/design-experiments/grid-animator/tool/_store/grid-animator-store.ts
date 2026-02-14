@@ -9,6 +9,7 @@ import {
   type DragState,
   type ResizeState,
   type MarqueeState,
+  type ClipboardEntry,
   ResizeCorner,
 } from '../_types/grid-animator-types';
 import {
@@ -81,10 +82,21 @@ function createDefaultInstance(x = 0, y = 0): GridAnimatorInstance {
 
 // --- Store Interface ---
 
+interface ClipboardState {
+  entries: ClipboardEntry[];
+  /** Centroid X of the original selection at copy time */
+  centroidX: number;
+  /** Centroid Y of the original selection at copy time */
+  centroidY: number;
+  /** Number of times pasted — used to stack offset */
+  pasteCount: number;
+}
+
 interface GridAnimatorStore {
   instances: Record<string, GridAnimatorInstance>;
   instanceOrder: string[];
   selectedIds: string[];
+  clipboard: ClipboardState | null;
   dragState: DragState | null;
   resizeState: ResizeState | null;
   marqueeState: MarqueeState | null;
@@ -94,6 +106,10 @@ interface GridAnimatorStore {
   addInstance: (position?: { x: number; y: number }) => string;
   removeInstance: (id: string) => void;
   duplicateInstance: (id: string) => string | null;
+
+  // Clipboard
+  copySelection: () => void;
+  pasteSelection: () => void;
 
   // Selection
   selectInstance: (id: string | null, additive?: boolean) => void;
@@ -170,6 +186,7 @@ const DEFAULT_STATE = {
   instances: { [defaultInstance.id]: defaultInstance } as Record<string, GridAnimatorInstance>,
   instanceOrder: [defaultInstance.id],
   selectedIds: [defaultInstance.id] as string[],
+  clipboard: null as ClipboardState | null,
   dragState: null as DragState | null,
   resizeState: null as ResizeState | null,
   marqueeState: null as MarqueeState | null,
@@ -223,6 +240,68 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
     }));
 
     return newInst.id;
+  },
+
+  // --- Clipboard ---
+
+  copySelection: () => {
+    const { selectedIds, instances } = get();
+    if (selectedIds.length === 0) return;
+
+    const selected = selectedIds
+      .map((id) => instances[id])
+      .filter(Boolean) as GridAnimatorInstance[];
+
+    if (selected.length === 0) return;
+
+    // Compute centroid of selected instances
+    const centroidX = selected.reduce((sum, inst) => sum + inst.x, 0) / selected.length;
+    const centroidY = selected.reduce((sum, inst) => sum + inst.y, 0) / selected.length;
+
+    const entries: ClipboardEntry[] = selected.map((inst) => ({
+      relativeX: inst.x - centroidX,
+      relativeY: inst.y - centroidY,
+      label: inst.label,
+      labelFontSize: inst.labelFontSize,
+      labelSpacing: inst.labelSpacing,
+      isPlaying: inst.isPlaying,
+      config: cloneConfig(inst.config),
+    }));
+
+    set({ clipboard: { entries, centroidX, centroidY, pasteCount: 0 } });
+  },
+
+  pasteSelection: () => {
+    const { clipboard } = get();
+    if (!clipboard || clipboard.entries.length === 0) return;
+
+    const nextPasteCount = clipboard.pasteCount + 1;
+    const offset = DUPLICATE_OFFSET_PX * nextPasteCount;
+
+    const newIds: string[] = [];
+    const newInstances: Record<string, GridAnimatorInstance> = {};
+
+    for (const entry of clipboard.entries) {
+      const id = generateId();
+      newIds.push(id);
+      newInstances[id] = {
+        id,
+        x: clipboard.centroidX + entry.relativeX + offset,
+        y: clipboard.centroidY + entry.relativeY + offset,
+        label: entry.label,
+        labelFontSize: entry.labelFontSize,
+        labelSpacing: entry.labelSpacing,
+        isPlaying: entry.isPlaying,
+        config: cloneConfig(entry.config),
+      };
+    }
+
+    set((state) => ({
+      instances: { ...state.instances, ...newInstances },
+      instanceOrder: [...state.instanceOrder, ...newIds],
+      selectedIds: newIds,
+      clipboard: { ...clipboard, pasteCount: nextPasteCount },
+    }));
   },
 
   // --- Selection ---
@@ -695,6 +774,7 @@ export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
       instances: { [inst.id]: inst },
       instanceOrder: [inst.id],
       selectedIds: [inst.id],
+      clipboard: null,
       dragState: null,
       resizeState: null,
       marqueeState: null,

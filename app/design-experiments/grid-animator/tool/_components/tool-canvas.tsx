@@ -51,6 +51,29 @@ export default function ToolCanvas() {
   const updateMarquee = useGridAnimatorStore((state) => state.updateMarquee);
   const endMarquee = useGridAnimatorStore((state) => state.endMarquee);
   const addInstance = useGridAnimatorStore((state) => state.addInstance);
+  const copySelection = useGridAnimatorStore((state) => state.copySelection);
+  const pasteSelection = useGridAnimatorStore((state) => state.pasteSelection);
+
+  // Cmd+C / Cmd+V keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip if an input or textarea is focused
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.metaKey && e.key === 'c') {
+        e.preventDefault();
+        copySelection();
+      }
+      if (e.metaKey && e.key === 'v') {
+        e.preventDefault();
+        pasteSelection();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [copySelection, pasteSelection]);
 
   useEffect(() => {
     if (isContentOutOfBounds && !toastIdRef.current) {
