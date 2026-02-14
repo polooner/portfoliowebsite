@@ -89,8 +89,9 @@ export function useCanvasTransform({
       if (!containerRef.current) return;
 
       const containerRect = containerRef.current.getBoundingClientRect();
-      const cursorX = clientX - containerRect.left;
-      const cursorY = clientY - containerRect.top;
+      // Cursor relative to the container center (where the transform origin lives)
+      const cursorX = clientX - containerRect.left - containerRect.width / 2;
+      const cursorY = clientY - containerRect.top - containerRect.height / 2;
 
       setTransform((prev) => {
         const scaleFactor = 1 - deltaY * ZOOM_SENSITIVITY;
