@@ -236,14 +236,7 @@ export default function ToolCanvas() {
         <MarqueeOverlay />
       </div>
 
-      {/* Add instance button */}
-      <button
-        onClick={handleAddInstance}
-        className="absolute bottom-14 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-lg border border-white/10 bg-neutral-800/80 px-3 py-2 text-xs text-neutral-300 backdrop-blur-sm transition-colors hover:bg-neutral-700/80 hover:text-neutral-100"
-      >
-        <Plus size={14} />
-        Add Grid
-      </button>
+
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
         <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom · <span className="text-neutral-300">⌘+/−</span> zoom · <span className="text-neutral-300">Shift+click</span> multi-select
