@@ -45,15 +45,52 @@ export function computeInstanceBounds(instance: GridAnimatorInstance): InstanceB
   };
 }
 
-/** Precomputes snap lines from all instances except the one being dragged. */
+/** Computes the union bounding box of multiple instances. Returns null if no valid instances. */
+export function computeGroupBounds(
+  ids: readonly string[],
+  instances: Record<string, GridAnimatorInstance>
+): InstanceBounds | null {
+  let left = Infinity;
+  let top = Infinity;
+  let right = -Infinity;
+  let bottom = -Infinity;
+
+  for (const id of ids) {
+    const inst = instances[id];
+    if (!inst) continue;
+    const b = computeInstanceBounds(inst);
+    if (b.left < left) left = b.left;
+    if (b.top < top) top = b.top;
+    if (b.right > right) right = b.right;
+    if (b.bottom > bottom) bottom = b.bottom;
+  }
+
+  if (!isFinite(left)) return null;
+
+  const width = right - left;
+  const height = bottom - top;
+
+  return {
+    left,
+    top,
+    right,
+    bottom,
+    centerX: left + width / 2,
+    centerY: top + height / 2,
+    width,
+    height,
+  };
+}
+
+/** Precomputes snap lines from all instances except the excluded set. */
 export function precomputeSnapLines(
   instances: Record<string, GridAnimatorInstance>,
-  excludeId: string
+  excludeIds: ReadonlySet<string>
 ): SnapLine[] {
   const lines: SnapLine[] = [];
 
   for (const id in instances) {
-    if (id === excludeId) continue;
+    if (excludeIds.has(id)) continue;
 
     const bounds = computeInstanceBounds(instances[id]);
 
@@ -152,4 +189,21 @@ export function computeSnappedPosition(
   }
 
   return { x: finalX, y: finalY, activeSnaps };
+}
+
+/** Returns IDs of instances whose bounds intersect the given rectangle. */
+export function computeMarqueeSelection(
+  minX: number,
+  minY: number,
+  maxX: number,
+  maxY: number,
+  instances: Record<string, GridAnimatorInstance>,
+  instanceOrder: string[]
+): string[] {
+  return instanceOrder.filter((id) => {
+    const inst = instances[id];
+    if (!inst) return false;
+    const b = computeInstanceBounds(inst);
+    return b.left < maxX && b.right > minX && b.top < maxY && b.bottom > minY;
+  });
 }

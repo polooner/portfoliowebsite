@@ -122,13 +122,23 @@ export interface ActiveSnap {
 }
 
 export interface DragState {
-  instanceId: string;
-  offsetX: number;
-  offsetY: number;
+  /** The instance the user grabbed — used for snapping reference */
+  primaryId: string;
+  primaryOffsetX: number;
+  primaryOffsetY: number;
+  /** Position of each other selected instance relative to the primary */
+  relativeOffsets: Record<string, { dx: number; dy: number }>;
   snapLines: SnapLine[];
   activeSnaps: ActiveSnap[];
   draggedWidth: number;
   draggedHeight: number;
+}
+
+export interface MarqueeState {
+  startX: number;
+  startY: number;
+  currentX: number;
+  currentY: number;
 }
 
 export enum ResizeCorner {
@@ -138,13 +148,25 @@ export enum ResizeCorner {
   BottomRight = 'bottomRight',
 }
 
-export interface ResizeState {
-  instanceId: string;
-  corner: ResizeCorner;
-  /** The opposite corner's canvas position — stays fixed during resize */
-  fixedX: number;
-  fixedY: number;
-  initialBoundsWidth: number;
+/** Snapshot of one instance at resize start, used for proportional group scaling */
+export interface ResizeInstanceSnapshot {
+  id: string;
+  initialX: number;
+  initialY: number;
   initialCellSize: number;
   initialFontSize: number;
+}
+
+export interface ResizeState {
+  corner: ResizeCorner;
+  /** The opposite corner of the group bounding box — stays fixed during resize */
+  fixedX: number;
+  fixedY: number;
+  /** Group bounding box at resize start */
+  initialGroupWidth: number;
+  initialGroupHeight: number;
+  initialGroupLeft: number;
+  initialGroupTop: number;
+  /** Per-instance snapshots for proportional scaling */
+  snapshots: ResizeInstanceSnapshot[];
 }
