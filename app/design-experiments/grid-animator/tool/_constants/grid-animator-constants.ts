@@ -119,12 +119,33 @@ export const DEFAULT_CONFIG: GridAnimatorConfig = {
   },
 };
 
+// --- Snap & Selection ---
+
+export const SNAP_THRESHOLD_PX = 5;
+export const SELECTION_COLOR = '#3b82f6';
+export const HANDLE_SIZE_PX = 8;
+
+// --- Label Defaults ---
+
+export const DEFAULT_LABEL = '';
+export const DEFAULT_LABEL_FONT_SIZE = 14;
+export const LABEL_FONT_SIZE_MIN = 8;
+export const LABEL_FONT_SIZE_MAX = 48;
+export const DEFAULT_LABEL_SPACING = 12;
+export const LABEL_SPACING_MIN = 0;
+export const LABEL_SPACING_MAX = 64;
+
+// --- Instance Offset ---
+
+export const DUPLICATE_OFFSET_PX = 30;
+
 // --- Collapsible Section IDs ---
 
 export const SECTION_GRID = 'grid';
 export const SECTION_BUILDER = 'builder';
 export const SECTION_ANIMATION = 'animation';
 export const SECTION_COLOR = 'color';
+export const SECTION_LABEL = 'label';
 export const SECTION_EFFECTS = 'effects';
 
 export const DEFAULT_EXPANDED_SECTIONS: Record<string, boolean> = {

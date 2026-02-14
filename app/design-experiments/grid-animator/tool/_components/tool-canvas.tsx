@@ -1,12 +1,20 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
+import { Plus } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCanvasTransform } from '@/hooks/use-canvas-transform';
-import CanvasContent from './canvas-content';
-import { CANVAS_WIDTH, CANVAS_HEIGHT } from '../_constants/grid-animator-constants';
+import { useGridAnimatorStore } from '../_store/grid-animator-store';
+import { type ResizeCorner } from '../_types/grid-animator-types';
+import { screenToCanvas, hitTestInstances } from '../_utils/canvas-hit-test';
+import { InstanceRenderer } from './instance-renderer';
+import { SelectionOverlay } from './selection-overlay';
+import { SnapGuideLines } from './snap-guide-lines';
 
-/** Pannable and zoomable canvas container for the grid animation preview. */
+/** Dummy content dimensions for bounds detection */
+const BOUNDS_CONTENT_SIZE = 2000;
+
+/** Pannable and zoomable canvas container for multi-instance grid animation. */
 export default function ToolCanvas() {
   const {
     transform,
@@ -14,16 +22,30 @@ export default function ToolCanvas() {
     spacePressed,
     isContentOutOfBounds,
     containerRef,
-    handlers,
+    handlers: canvasHandlers,
     resetTransform,
   } = useCanvasTransform({
     minScale: 0.25,
     maxScale: 3,
-    contentWidth: CANVAS_WIDTH,
-    contentHeight: CANVAS_HEIGHT,
+    contentWidth: BOUNDS_CONTENT_SIZE,
+    contentHeight: BOUNDS_CONTENT_SIZE,
   });
 
   const toastIdRef = useRef<string | number | null>(null);
+
+  const instanceOrder = useGridAnimatorStore((state) => state.instanceOrder);
+  const instances = useGridAnimatorStore((state) => state.instances);
+  const dragState = useGridAnimatorStore((state) => state.dragState);
+  const resizeState = useGridAnimatorStore((state) => state.resizeState);
+  const selectInstance = useGridAnimatorStore((state) => state.selectInstance);
+  const startDrag = useGridAnimatorStore((state) => state.startDrag);
+  const updateDrag = useGridAnimatorStore((state) => state.updateDrag);
+  const endDrag = useGridAnimatorStore((state) => state.endDrag);
+  const startResize = useGridAnimatorStore((state) => state.startResize);
+  const updateResize = useGridAnimatorStore((state) => state.updateResize);
+  const endResize = useGridAnimatorStore((state) => state.endResize);
+  const addInstance = useGridAnimatorStore((state) => state.addInstance);
+  const selectedId = useGridAnimatorStore((state) => state.selectedId);
 
   useEffect(() => {
     if (isContentOutOfBounds && !toastIdRef.current) {
@@ -47,9 +69,110 @@ export default function ToolCanvas() {
     }
   }, [isContentOutOfBounds, resetTransform]);
 
+  const getCanvasPoint = useCallback(
+    (clientX: number, clientY: number) => {
+      const container = containerRef.current;
+      if (!container) return null;
+      return screenToCanvas(clientX, clientY, transform, container.getBoundingClientRect());
+    },
+    [transform, containerRef]
+  );
+
+  const handleResizeStart = useCallback(
+    (corner: ResizeCorner, screenX: number, screenY: number) => {
+      if (!selectedId) return;
+      const point = getCanvasPoint(screenX, screenY);
+      if (point) {
+        startResize(selectedId, corner, point.x, point.y);
+      }
+    },
+    [selectedId, getCanvasPoint, startResize]
+  );
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (spacePressed) {
+        canvasHandlers.onMouseDown(e);
+        return;
+      }
+
+      const point = getCanvasPoint(e.clientX, e.clientY);
+      if (!point) return;
+
+      const hitId = hitTestInstances(point, instances, instanceOrder);
+
+      if (hitId) {
+        selectInstance(hitId);
+        startDrag(hitId, point.x, point.y, transform.scale);
+      } else {
+        selectInstance(null);
+      }
+    },
+    [spacePressed, canvasHandlers, getCanvasPoint, instances, instanceOrder, selectInstance, startDrag, transform.scale]
+  );
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (isPanning) {
+        canvasHandlers.onMouseMove(e);
+        return;
+      }
+
+      if (resizeState) {
+        const point = getCanvasPoint(e.clientX, e.clientY);
+        if (point) {
+          updateResize(point.x, point.y);
+        }
+        return;
+      }
+
+      if (dragState) {
+        const point = getCanvasPoint(e.clientX, e.clientY);
+        if (point) {
+          updateDrag(point.x, point.y, transform.scale);
+        }
+      }
+    },
+    [isPanning, canvasHandlers, resizeState, dragState, getCanvasPoint, updateResize, updateDrag, transform.scale]
+  );
+
+  const handleMouseUp = useCallback(
+    (e: React.MouseEvent) => {
+      if (isPanning) {
+        canvasHandlers.onMouseUp(e);
+      }
+      if (resizeState) {
+        endResize();
+      }
+      if (dragState) {
+        endDrag();
+      }
+    },
+    [isPanning, canvasHandlers, resizeState, endResize, dragState, endDrag]
+  );
+
+  const handleMouseLeave = useCallback(
+    (e: React.MouseEvent) => {
+      canvasHandlers.onMouseLeave(e);
+      if (resizeState) {
+        endResize();
+      }
+      if (dragState) {
+        endDrag();
+      }
+    },
+    [canvasHandlers, resizeState, endResize, dragState, endDrag]
+  );
+
+  const handleAddInstance = useCallback(() => {
+    addInstance({ x: 0, y: 0 });
+  }, [addInstance]);
+
   const getCursorClass = () => {
     if (isPanning) return 'cursor-grabbing';
     if (spacePressed) return 'cursor-grab';
+    if (resizeState) return 'cursor-nwse-resize';
+    if (dragState) return 'cursor-grabbing';
     return 'cursor-default';
   };
 
@@ -57,23 +180,36 @@ export default function ToolCanvas() {
     <div
       ref={containerRef}
       className={`relative h-full w-full touch-none overflow-hidden ${getCursorClass()}`}
-      {...handlers}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseLeave}
     >
+      {/* Transform layer — no intrinsic size, just a transform origin */}
       <div
         className="absolute will-change-transform"
         style={{
-          width: CANVAS_WIDTH,
-          height: CANVAS_HEIGHT,
           left: '50%',
           top: '50%',
-          marginLeft: -CANVAS_WIDTH / 2,
-          marginTop: -CANVAS_HEIGHT / 2,
           transform: `translate3d(${transform.x}px, ${transform.y}px, 0) scale(${transform.scale})`,
           transformOrigin: '0 0',
         }}
       >
-        <CanvasContent />
+        {instanceOrder.map((id) => (
+          <InstanceRenderer key={id} instanceId={id} />
+        ))}
+        <SelectionOverlay zoomScale={transform.scale} onResizeStart={handleResizeStart} />
+        <SnapGuideLines />
       </div>
+
+      {/* Add instance button */}
+      <button
+        onClick={handleAddInstance}
+        className="absolute bottom-14 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1.5 rounded-lg border border-white/10 bg-neutral-800/80 px-3 py-2 text-xs text-neutral-300 backdrop-blur-sm transition-colors hover:bg-neutral-700/80 hover:text-neutral-100"
+      >
+        <Plus size={14} />
+        Add Grid
+      </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
         <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom

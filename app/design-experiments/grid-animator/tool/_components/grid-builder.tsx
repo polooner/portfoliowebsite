@@ -5,14 +5,20 @@ import { useGridAnimatorStore } from '../_store/grid-animator-store';
 
 /**
  * Interactive grid builder widget with paint-drag support.
- * Mousedown determines paint ON or OFF, drag applies same value.
+ * Reads from the currently selected instance.
  */
 export default function GridBuilder() {
-  const { grid, activeCells, setCell } = useGridAnimatorStore();
-  const { rows, cols } = grid;
+  const instance = useGridAnimatorStore(
+    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+  );
+  const setCell = useGridAnimatorStore((state) => state.setCell);
 
   const [isPainting, setIsPainting] = useState(false);
   const [paintValue, setPaintValue] = useState(true);
+
+  const rows = instance?.config.grid.rows ?? 0;
+  const cols = instance?.config.grid.cols ?? 0;
+  const activeCells = instance?.config.activeCells ?? [];
 
   const handleMouseDown = useCallback(
     (row: number, col: number) => {
@@ -37,6 +43,8 @@ export default function GridBuilder() {
   const handleMouseUp = useCallback(() => {
     setIsPainting(false);
   }, []);
+
+  if (!instance) return null;
 
   return (
     <div

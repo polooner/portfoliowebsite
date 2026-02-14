@@ -25,18 +25,13 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
   const [panelWidth, setPanelWidth] = useState(DEFAULT_PANEL_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
 
-  const config = useGridAnimatorStore();
+  const instance = useGridAnimatorStore(
+    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+  );
 
   const generatedCode = useMemo(
-    () =>
-      generateComponentCode({
-        grid: config.grid,
-        activeCells: config.activeCells,
-        animation: config.animation,
-        color: config.color,
-        effects: config.effects,
-      }),
-    [config.grid, config.activeCells, config.animation, config.color, config.effects]
+    () => (instance ? generateComponentCode(instance.config) : '// Select an instance to view code'),
+    [instance]
   );
 
   const handleCopy = async () => {

@@ -72,3 +72,79 @@ export interface GridAnimatorConfig {
   color: ColorConfig;
   effects: EffectsConfig;
 }
+
+// --- Multi-instance types ---
+
+export interface GridAnimatorInstance {
+  id: string;
+  x: number;
+  y: number;
+  label: string;
+  labelFontSize: number;
+  labelSpacing: number;
+  isPlaying: boolean;
+  config: GridAnimatorConfig;
+}
+
+export interface InstanceBounds {
+  left: number;
+  top: number;
+  right: number;
+  bottom: number;
+  centerX: number;
+  centerY: number;
+  width: number;
+  height: number;
+}
+
+export enum SnapAxis {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}
+
+export interface SnapLine {
+  axis: SnapAxis;
+  value: number;
+  sourceId: string;
+}
+
+export type SnapEdge =
+  | 'left'
+  | 'right'
+  | 'centerX'
+  | 'top'
+  | 'bottom'
+  | 'centerY';
+
+export interface ActiveSnap {
+  line: SnapLine;
+  matchedEdge: SnapEdge;
+}
+
+export interface DragState {
+  instanceId: string;
+  offsetX: number;
+  offsetY: number;
+  snapLines: SnapLine[];
+  activeSnaps: ActiveSnap[];
+  draggedWidth: number;
+  draggedHeight: number;
+}
+
+export enum ResizeCorner {
+  TopLeft = 'topLeft',
+  TopRight = 'topRight',
+  BottomLeft = 'bottomLeft',
+  BottomRight = 'bottomRight',
+}
+
+export interface ResizeState {
+  instanceId: string;
+  corner: ResizeCorner;
+  /** The opposite corner's canvas position — stays fixed during resize */
+  fixedX: number;
+  fixedY: number;
+  initialBoundsWidth: number;
+  initialCellSize: number;
+  initialFontSize: number;
+}
