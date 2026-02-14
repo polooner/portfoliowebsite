@@ -26,7 +26,10 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
   const [isResizing, setIsResizing] = useState(false);
 
   const instance = useGridAnimatorStore(
-    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+    (state) => {
+      const pid = state.selectedIds[0];
+      return pid ? state.instances[pid] : null;
+    }
   );
 
   const generatedCode = useMemo(

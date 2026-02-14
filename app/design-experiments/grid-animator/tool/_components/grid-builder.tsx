@@ -9,7 +9,10 @@ import { useGridAnimatorStore } from '../_store/grid-animator-store';
  */
 export default function GridBuilder() {
   const instance = useGridAnimatorStore(
-    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+    (state) => {
+      const pid = state.selectedIds[0];
+      return pid ? state.instances[pid] : null;
+    }
   );
   const setCell = useGridAnimatorStore((state) => state.setCell);
 

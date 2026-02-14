@@ -1,9 +1,10 @@
 'use client';
 
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useGridAnimatorStore } from '../_store/grid-animator-store';
 import { ResizeCorner } from '../_types/grid-animator-types';
-import { computeInstanceBounds } from '../_utils/snap-utils';
+import { computeInstanceBounds, computeGroupBounds } from '../_utils/snap-utils';
 import {
   SELECTION_COLOR,
   HANDLE_SIZE_PX,
@@ -24,10 +25,10 @@ interface SelectionOverlayProps {
 }
 
 function SelectionOverlayInner({ zoomScale, onResizeStart }: SelectionOverlayProps) {
-  const selectedId = useGridAnimatorStore((state) => state.selectedId);
-  const instance = useGridAnimatorStore(
-    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+  const selectedIds = useGridAnimatorStore(
+    useShallow((state) => state.selectedIds)
   );
+  const instances = useGridAnimatorStore((state) => state.instances);
 
   const handleCornerMouseDown = useCallback(
     (corner: ResizeCorner, e: React.MouseEvent) => {
@@ -37,19 +38,25 @@ function SelectionOverlayInner({ zoomScale, onResizeStart }: SelectionOverlayPro
     [onResizeStart]
   );
 
-  if (!selectedId || !instance) return null;
+  const groupBounds = useMemo(() => {
+    if (selectedIds.length === 0) return null;
+    return computeGroupBounds(selectedIds, instances);
+  }, [selectedIds, instances]);
 
-  const bounds = computeInstanceBounds(instance);
+  if (selectedIds.length === 0 || !groupBounds) return null;
+
   const inverseScale = 1 / zoomScale;
   const handleSize = HANDLE_SIZE_PX * inverseScale;
   const halfHandle = handleSize / 2;
   const strokeWidth = STROKE_WIDTH * inverseScale;
 
+  const isMultiSelect = selectedIds.length > 1;
+
   const cornerPositions = {
-    [ResizeCorner.TopLeft]: { x: bounds.left - halfHandle, y: bounds.top - halfHandle },
-    [ResizeCorner.TopRight]: { x: bounds.right - halfHandle, y: bounds.top - halfHandle },
-    [ResizeCorner.BottomLeft]: { x: bounds.left - halfHandle, y: bounds.bottom - halfHandle },
-    [ResizeCorner.BottomRight]: { x: bounds.right - halfHandle, y: bounds.bottom - halfHandle },
+    [ResizeCorner.TopLeft]: { x: groupBounds.left - halfHandle, y: groupBounds.top - halfHandle },
+    [ResizeCorner.TopRight]: { x: groupBounds.right - halfHandle, y: groupBounds.top - halfHandle },
+    [ResizeCorner.BottomLeft]: { x: groupBounds.left - halfHandle, y: groupBounds.bottom - halfHandle },
+    [ResizeCorner.BottomRight]: { x: groupBounds.right - halfHandle, y: groupBounds.bottom - halfHandle },
   };
 
   return (
@@ -57,18 +64,41 @@ function SelectionOverlayInner({ zoomScale, onResizeStart }: SelectionOverlayPro
       className="pointer-events-none absolute left-0 top-0 overflow-visible"
       style={{ width: 1, height: 1 }}
     >
-      {/* Selection outline */}
-      <rect
-        x={bounds.left}
-        y={bounds.top}
-        width={bounds.width}
-        height={bounds.height}
-        fill="none"
-        stroke={SELECTION_COLOR}
-        strokeWidth={strokeWidth}
-      />
+      {/* Individual instance outlines */}
+      {selectedIds.map((id) => {
+        const inst = instances[id];
+        if (!inst) return null;
+        const bounds = computeInstanceBounds(inst);
 
-      {/* Corner resize handles */}
+        return (
+          <rect
+            key={id}
+            x={bounds.left}
+            y={bounds.top}
+            width={bounds.width}
+            height={bounds.height}
+            fill="none"
+            stroke={SELECTION_COLOR}
+            strokeWidth={strokeWidth}
+          />
+        );
+      })}
+
+      {/* Group bounding box (only when multi-selecting) */}
+      {isMultiSelect && (
+        <rect
+          x={groupBounds.left}
+          y={groupBounds.top}
+          width={groupBounds.width}
+          height={groupBounds.height}
+          fill="none"
+          stroke={SELECTION_COLOR}
+          strokeWidth={strokeWidth}
+          strokeDasharray={`${4 * inverseScale} ${4 * inverseScale}`}
+        />
+      )}
+
+      {/* Resize handles on the group bounding box */}
       {CORNER_HANDLES.map(({ corner, cursor }) => {
         const pos = cornerPositions[corner];
         return (
@@ -87,7 +117,6 @@ function SelectionOverlayInner({ zoomScale, onResizeStart }: SelectionOverlayPro
           />
         );
       })}
-
     </svg>
   );
 }

@@ -10,6 +10,7 @@ import { screenToCanvas, hitTestInstances } from '../_utils/canvas-hit-test';
 import { InstanceRenderer } from './instance-renderer';
 import { SelectionOverlay } from './selection-overlay';
 import { SnapGuideLines } from './snap-guide-lines';
+import { MarqueeOverlay } from './marquee-overlay';
 
 /** Dummy content dimensions for bounds detection */
 const BOUNDS_CONTENT_SIZE = 2000;
@@ -37,6 +38,8 @@ export default function ToolCanvas() {
   const instances = useGridAnimatorStore((state) => state.instances);
   const dragState = useGridAnimatorStore((state) => state.dragState);
   const resizeState = useGridAnimatorStore((state) => state.resizeState);
+  const marqueeState = useGridAnimatorStore((state) => state.marqueeState);
+  const selectedIds = useGridAnimatorStore((state) => state.selectedIds);
   const selectInstance = useGridAnimatorStore((state) => state.selectInstance);
   const startDrag = useGridAnimatorStore((state) => state.startDrag);
   const updateDrag = useGridAnimatorStore((state) => state.updateDrag);
@@ -44,8 +47,10 @@ export default function ToolCanvas() {
   const startResize = useGridAnimatorStore((state) => state.startResize);
   const updateResize = useGridAnimatorStore((state) => state.updateResize);
   const endResize = useGridAnimatorStore((state) => state.endResize);
+  const startMarquee = useGridAnimatorStore((state) => state.startMarquee);
+  const updateMarquee = useGridAnimatorStore((state) => state.updateMarquee);
+  const endMarquee = useGridAnimatorStore((state) => state.endMarquee);
   const addInstance = useGridAnimatorStore((state) => state.addInstance);
-  const selectedId = useGridAnimatorStore((state) => state.selectedId);
 
   useEffect(() => {
     if (isContentOutOfBounds && !toastIdRef.current) {
@@ -80,13 +85,13 @@ export default function ToolCanvas() {
 
   const handleResizeStart = useCallback(
     (corner: ResizeCorner, screenX: number, screenY: number) => {
-      if (!selectedId) return;
+      if (selectedIds.length === 0) return;
       const point = getCanvasPoint(screenX, screenY);
       if (point) {
-        startResize(selectedId, corner, point.x, point.y);
+        startResize(corner, point.x, point.y);
       }
     },
-    [selectedId, getCanvasPoint, startResize]
+    [selectedIds, getCanvasPoint, startResize]
   );
 
   const handleMouseDown = useCallback(
@@ -100,15 +105,26 @@ export default function ToolCanvas() {
       if (!point) return;
 
       const hitId = hitTestInstances(point, instances, instanceOrder);
+      const isShift = e.shiftKey;
 
       if (hitId) {
-        selectInstance(hitId);
-        startDrag(hitId, point.x, point.y, transform.scale);
+        if (isShift) {
+          // Shift+click: toggle in multi-selection, no drag
+          selectInstance(hitId, true);
+        } else {
+          // If clicking an already-selected instance, keep multi-selection and start multi-drag
+          // If clicking an unselected instance, select only that one and start drag
+          if (!selectedIds.includes(hitId)) {
+            selectInstance(hitId);
+          }
+          startDrag(hitId, point.x, point.y, transform.scale);
+        }
       } else {
-        selectInstance(null);
+        // Empty canvas: begin marquee
+        startMarquee(point.x, point.y);
       }
     },
-    [spacePressed, canvasHandlers, getCanvasPoint, instances, instanceOrder, selectInstance, startDrag, transform.scale]
+    [spacePressed, canvasHandlers, getCanvasPoint, instances, instanceOrder, selectedIds, selectInstance, startDrag, startMarquee, transform.scale]
   );
 
   const handleMouseMove = useCallback(
@@ -120,48 +136,42 @@ export default function ToolCanvas() {
 
       if (resizeState) {
         const point = getCanvasPoint(e.clientX, e.clientY);
-        if (point) {
-          updateResize(point.x, point.y);
-        }
+        if (point) updateResize(point.x, point.y);
         return;
       }
 
       if (dragState) {
         const point = getCanvasPoint(e.clientX, e.clientY);
-        if (point) {
-          updateDrag(point.x, point.y, transform.scale);
-        }
+        if (point) updateDrag(point.x, point.y, transform.scale);
+        return;
+      }
+
+      if (marqueeState) {
+        const point = getCanvasPoint(e.clientX, e.clientY);
+        if (point) updateMarquee(point.x, point.y);
       }
     },
-    [isPanning, canvasHandlers, resizeState, dragState, getCanvasPoint, updateResize, updateDrag, transform.scale]
+    [isPanning, canvasHandlers, resizeState, dragState, marqueeState, getCanvasPoint, updateResize, updateDrag, updateMarquee, transform.scale]
   );
 
   const handleMouseUp = useCallback(
     (e: React.MouseEvent) => {
-      if (isPanning) {
-        canvasHandlers.onMouseUp(e);
-      }
-      if (resizeState) {
-        endResize();
-      }
-      if (dragState) {
-        endDrag();
-      }
+      if (isPanning) canvasHandlers.onMouseUp(e);
+      if (resizeState) endResize();
+      if (dragState) endDrag();
+      if (marqueeState) endMarquee();
     },
-    [isPanning, canvasHandlers, resizeState, endResize, dragState, endDrag]
+    [isPanning, canvasHandlers, resizeState, endResize, dragState, endDrag, marqueeState, endMarquee]
   );
 
   const handleMouseLeave = useCallback(
     (e: React.MouseEvent) => {
       canvasHandlers.onMouseLeave(e);
-      if (resizeState) {
-        endResize();
-      }
-      if (dragState) {
-        endDrag();
-      }
+      if (resizeState) endResize();
+      if (dragState) endDrag();
+      if (marqueeState) endMarquee();
     },
-    [canvasHandlers, resizeState, endResize, dragState, endDrag]
+    [canvasHandlers, resizeState, endResize, dragState, endDrag, marqueeState, endMarquee]
   );
 
   const handleAddInstance = useCallback(() => {
@@ -173,6 +183,7 @@ export default function ToolCanvas() {
     if (spacePressed) return 'cursor-grab';
     if (resizeState) return 'cursor-nwse-resize';
     if (dragState) return 'cursor-grabbing';
+    if (marqueeState) return 'cursor-crosshair';
     return 'cursor-default';
   };
 
@@ -185,7 +196,7 @@ export default function ToolCanvas() {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Transform layer — no intrinsic size, just a transform origin */}
+      {/* Transform layer */}
       <div
         className="absolute will-change-transform"
         style={{
@@ -200,6 +211,7 @@ export default function ToolCanvas() {
         ))}
         <SelectionOverlay zoomScale={transform.scale} onResizeStart={handleResizeStart} />
         <SnapGuideLines />
+        <MarqueeOverlay />
       </div>
 
       {/* Add instance button */}
@@ -212,7 +224,7 @@ export default function ToolCanvas() {
       </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
-        <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom
+        <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom · <span className="text-neutral-300">Shift+click</span> to multi-select
       </div>
     </div>
   );

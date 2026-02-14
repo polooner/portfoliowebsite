@@ -172,9 +172,12 @@ export default function RightPanel({
   isCodePanelOpen,
   onToggleCodePanel,
 }: RightPanelProps) {
-  const selectedId = useGridAnimatorStore((state) => state.selectedId);
+  const selectedId = useGridAnimatorStore((state) => state.selectedIds[0] ?? null);
   const instance = useGridAnimatorStore(
-    (state) => (state.selectedId ? state.instances[state.selectedId] : null)
+    (state) => {
+      const pid = state.selectedIds[0];
+      return pid ? state.instances[pid] : null;
+    }
   );
   const expandedSections = useGridAnimatorStore((state) => state.expandedSections);
 
