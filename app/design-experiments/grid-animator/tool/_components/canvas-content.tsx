@@ -22,11 +22,25 @@ export default function CanvasContent() {
   const id = useId();
   const filterId = `grid-glow-${id}`;
 
-  const { grid, activeCells, animation, color, effects, isPlaying } =
-    useGridAnimatorStore();
+  const instance = useGridAnimatorStore((state) => {
+    const pid = state.selectedIds[0];
+    return pid ? state.instances[pid] : null;
+  });
 
-  const { rows, cols, cellShape, cellSize, gap, cornerRadius } = grid;
-  const { pattern, style, direction, fps, backgroundStyle } = animation;
+  const grid = instance?.config.grid;
+  const activeCells = instance?.config.activeCells;
+  const animation = instance?.config.animation;
+  const color = instance?.config.color;
+  const effects = instance?.config.effects;
+  const isPlaying = instance?.isPlaying ?? false;
+
+  const rows = grid?.rows ?? 0;
+  const cols = grid?.cols ?? 0;
+  const cellShape = grid?.cellShape ?? CellShape.RoundedRect;
+  const cellSize = grid?.cellSize ?? 0;
+  const gap = grid?.gap ?? 0;
+  const cornerRadius = grid?.cornerRadius ?? 0;
+  const { pattern, style, direction, fps, backgroundStyle } = animation ?? {} as any;
   const {
     activeColor,
     activeOpacity,
@@ -34,8 +48,10 @@ export default function CanvasContent() {
     inactiveOpacity,
     backgroundColor,
     backgroundOpacity,
-  } = color;
-  const { glowEnabled, glowRadius, glowColor, glowOpacity } = effects;
+  } = color ?? {} as any;
+  const { glowEnabled, glowRadius, glowColor, glowOpacity } = effects ?? {} as any;
+
+  if (!instance) return null;
 
   // Compute total SVG dimensions with glow padding so blur isn't clipped
   const totalWidth = cols * cellSize + Math.max(0, cols - 1) * gap;

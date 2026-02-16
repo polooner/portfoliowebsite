@@ -6,6 +6,13 @@ import { ViewCodeButton } from './view-code-button';
 import { ColorPicker } from './color-picker';
 import GridBuilder from './grid-builder';
 import { useGridAnimatorStore } from '../_store/grid-animator-store';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { generateComponentCode } from '../_utils/generate-component-code';
 import {
   CellShape,
@@ -95,17 +102,18 @@ function SelectRow<T extends string>({
   return (
     <div className="flex flex-col gap-1">
       <label className="text-xs text-neutral-400">{label}</label>
-      <select
-        value={value}
-        onChange={(e) => onChange(e.target.value as T)}
-        className="h-7 rounded-md border border-white/10 bg-neutral-700/50 px-2 text-xs text-neutral-200 outline-none transition-colors hover:bg-neutral-600/50 [color-scheme:dark]"
-      >
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+      <Select value={value} onValueChange={(v) => onChange(v as T)}>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }
