@@ -10,9 +10,9 @@ import {
 // --- Slider Bounds ---
 
 export const GRID_ROWS_MIN = 1;
-export const GRID_ROWS_MAX = 6;
+export const GRID_ROWS_MAX = 10;
 export const GRID_COLS_MIN = 1;
-export const GRID_COLS_MAX = 6;
+export const GRID_COLS_MAX = 10;
 
 export const CELL_SIZE_MIN = 8;
 export const CELL_SIZE_MAX = 64;

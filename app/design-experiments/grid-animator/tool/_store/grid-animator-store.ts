@@ -25,6 +25,7 @@ import {
   LABEL_FONT_SIZE_MAX,
   createDefaultActiveCells,
 } from '../_constants/grid-animator-constants';
+import { DEFAULT_PRESETS } from '../_constants/grid-animator-presets';
 import {
   computeInstanceBounds,
   computeGroupBounds,
@@ -178,20 +179,42 @@ function primaryId(state: { selectedIds: string[] }): string | null {
   return state.selectedIds[0] ?? null;
 }
 
-// --- Default state ---
+// --- Default state (built from presets) ---
 
-const defaultInstance = createDefaultInstance(0, 0);
+function createInitialState() {
+  const instances: Record<string, GridAnimatorInstance> = {};
+  const instanceOrder: string[] = [];
 
-const DEFAULT_STATE = {
-  instances: { [defaultInstance.id]: defaultInstance } as Record<string, GridAnimatorInstance>,
-  instanceOrder: [defaultInstance.id],
-  selectedIds: [defaultInstance.id] as string[],
-  clipboard: null as ClipboardState | null,
-  dragState: null as DragState | null,
-  resizeState: null as ResizeState | null,
-  marqueeState: null as MarqueeState | null,
-  expandedSections: { ...DEFAULT_EXPANDED_SECTIONS },
-};
+  for (const preset of DEFAULT_PRESETS) {
+    const id = generateId();
+    instances[id] = {
+      id,
+      x: preset.x,
+      y: preset.y,
+      label: preset.label,
+      labelFontSize: preset.labelFontSize,
+      labelSpacing: preset.labelSpacing,
+      isPlaying: preset.isPlaying,
+      config: cloneConfig(preset.config),
+    };
+    instanceOrder.push(id);
+  }
+
+  const firstId = instanceOrder[0];
+
+  return {
+    instances,
+    instanceOrder,
+    selectedIds: firstId ? [firstId] : ([] as string[]),
+    clipboard: null as ClipboardState | null,
+    dragState: null as DragState | null,
+    resizeState: null as ResizeState | null,
+    marqueeState: null as MarqueeState | null,
+    expandedSections: { ...DEFAULT_EXPANDED_SECTIONS },
+  };
+}
+
+const DEFAULT_STATE = createInitialState();
 
 export const useGridAnimatorStore = create<GridAnimatorStore>((set, get) => ({
   ...DEFAULT_STATE,
