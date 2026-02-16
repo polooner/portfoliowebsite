@@ -178,7 +178,7 @@ export default function ToolCanvas() {
 
   const handleMouseUp = useCallback(
     (e: React.MouseEvent) => {
-      if (isPanning) canvasHandlers.onMouseUp(e);
+      if (isPanning) canvasHandlers.onMouseUp();
       if (resizeState) endResize();
       if (dragState) endDrag();
       if (marqueeState) endMarquee();
@@ -188,7 +188,7 @@ export default function ToolCanvas() {
 
   const handleMouseLeave = useCallback(
     (e: React.MouseEvent) => {
-      canvasHandlers.onMouseLeave(e);
+      canvasHandlers.onMouseLeave();
       if (resizeState) endResize();
       if (dragState) endDrag();
       if (marqueeState) endMarquee();

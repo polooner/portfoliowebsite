@@ -28,7 +28,7 @@ export default function CanvasContent() {
   });
 
   const grid = instance?.config.grid;
-  const activeCells = instance?.config.activeCells;
+  const activeCells = instance?.config.activeCells ?? [];
   const animation = instance?.config.animation;
   const color = instance?.config.color;
   const effects = instance?.config.effects;
