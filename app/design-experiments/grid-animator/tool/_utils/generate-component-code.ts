@@ -160,7 +160,7 @@ export function generateComponentCode(config: GridAnimatorConfig): string {
 ${useIdImport}
 export function GridAnimation() {${useIdDecl}
   return (
-    <div className="inline-flex bg-[${backgroundColor}] opacity-[${bgOpacityDecimal}] p-[${padding}px] rounded-[${borderRadius}px]">
+    <div className="inline-flex p-[${padding}px] rounded-[${borderRadius}px]">
       <svg
         width={${totalWidth}}
         height={${totalHeight}}

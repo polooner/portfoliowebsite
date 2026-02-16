@@ -430,3 +430,14 @@ pre code span {
   border: 2px solid white !important;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
 }
+
+/* Grid animator generated keyframes (test) */
+@keyframes gridCellActive {
+  0%, 40%, 100% { opacity: 0.1; }
+  20% { opacity: 1; }
+}
+
+@keyframes gridCellBreathe {
+  0%, 100% { opacity: 0.05; }
+  50% { opacity: 0.25; }
+}
