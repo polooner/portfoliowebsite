@@ -4,7 +4,9 @@ import { useMemo, useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ShikiHighlighter } from 'react-shiki';
 import { useGridAnimatorStore } from '../_store/grid-animator-store';
-import { generateComponentCode } from '../_utils/generate-component-code';
+import { generateComponentCode, generateCssCode } from '../_utils/generate-component-code';
+
+type CodeTab = 'component' | 'css';
 
 interface LeftPanelProps {
   isOpen: boolean;
@@ -19,9 +21,15 @@ const MIN_PANEL_WIDTH = 280;
 const MAX_PANEL_WIDTH = 800;
 const DEFAULT_PANEL_WIDTH = 360;
 
-/** Code panel displaying syntax-highlighted TSX component code. */
+const TAB_CONFIG: Record<CodeTab, { label: string; language: string }> = {
+  component: { label: 'grid-animation.tsx', language: 'tsx' },
+  css: { label: 'globals.css', language: 'css' },
+};
+
+/** Code panel displaying syntax-highlighted component and CSS code in tabs. */
 export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
   const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<CodeTab>('component');
   const [panelWidth, setPanelWidth] = useState(DEFAULT_PANEL_WIDTH);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -32,20 +40,34 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
     }
   );
 
-  const generatedCode = useMemo(
+  const componentCode = useMemo(
     () => (instance ? generateComponentCode(instance.config) : '// Select an instance to view code'),
     [instance]
   );
 
+  const cssCode = useMemo(
+    () => (instance ? generateCssCode(instance.config) : '/* Select an instance to view CSS */'),
+    [instance]
+  );
+
+  const activeCode = activeTab === 'component' ? componentCode : cssCode;
+  const activeLanguage = TAB_CONFIG[activeTab].language;
+
   const handleCopy = async () => {
     if (copied) return;
     try {
-      await navigator.clipboard.writeText(generatedCode);
+      await navigator.clipboard.writeText(activeCode);
       setCopied(true);
       setTimeout(() => setCopied(false), SUCCESS_DISPLAY_DURATION_MS);
     } catch (err) {
       console.error('Failed to copy:', err);
     }
+  };
+
+  // Reset copied state when switching tabs
+  const handleTabChange = (tab: CodeTab) => {
+    setActiveTab(tab);
+    setCopied(false);
   };
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -86,14 +108,14 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
 
   const codeBlock = (
     <ShikiHighlighter
-      language="tsx"
+      language={activeLanguage}
       theme="github-dark"
       showLineNumbers
       showLanguage={false}
       addDefaultStyles={true}
       className="!bg-transparent !p-2 !m-0 [&_.line]:!text-[10px] [&_.line_span]:!text-[10px] [&_pre_code.has-line-numbers]:!text-[10px] [&_pre]:!m-0 [&_pre]:!p-0 [&_pre]:!bg-transparent"
     >
-      {generatedCode}
+      {activeCode}
     </ShikiHighlighter>
   );
 
@@ -171,7 +193,7 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
                   <span>{copied ? 'Copied!' : 'Copy'}</span>
                 </motion.button>
                 <span className="rounded bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-400">
-                  tsx
+                  {activeLanguage}
                 </span>
               </div>
               <motion.button
@@ -193,6 +215,31 @@ export default function LeftPanel({ isOpen, onClose }: LeftPanelProps) {
                 </svg>
               </motion.button>
             </div>
+
+            {/* Tab bar */}
+            <div className="flex border-b border-white/10 px-2">
+              {(Object.entries(TAB_CONFIG) as [CodeTab, typeof TAB_CONFIG[CodeTab]][]).map(([tab, { label }]) => (
+                <button
+                  key={tab}
+                  onClick={() => handleTabChange(tab)}
+                  className={`relative px-3 py-2 font-mono text-[11px] transition-colors ${
+                    activeTab === tab
+                      ? 'text-neutral-100'
+                      : 'text-neutral-500 hover:text-neutral-300'
+                  }`}
+                >
+                  {label}
+                  {activeTab === tab && (
+                    <motion.div
+                      layoutId="code-tab-indicator"
+                      className="absolute inset-x-2 -bottom-px h-px bg-neutral-300"
+                      transition={{ duration: 0.15, ease: 'easeOut' }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+
             <div className="flex-1 overflow-auto pb-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-600 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
               {codeBlock}
             </div>
