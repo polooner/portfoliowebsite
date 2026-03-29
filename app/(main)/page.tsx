@@ -1,6 +1,7 @@
 import ArrowIcon from '@/components/ui/icons';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { ArenaDockCard } from './components/arenadock-card';
 import { FloraCard } from './components/flora-card';
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function Home() {
         <br />
         <div className="flex flex-col gap-10">
           <FloraCard />
+          <ArenaDockCard />
           <div className="flex flex-col gap-1">
             <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
               <div className="flex flex-row justify-between">EKRAN</div>
