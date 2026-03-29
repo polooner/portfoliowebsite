@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
+import { DemoVideo } from './_components/demo-video';
 import { DownloadButton } from './_components/download-button';
 import { SequenceStep } from './_components/sequence-step';
 
@@ -72,6 +73,8 @@ export default function ArenaDockPage() {
       <div className="flex justify-center pt-4">
         <DownloadButton />
       </div>
+
+      <DemoVideo />
 
       <div className="flex flex-col gap-10 pt-24 text-neutral-700">
         <span className="font-medium font-mono text-xl">Features</span>
