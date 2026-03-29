@@ -50,7 +50,6 @@ export default function ArenaDockPage() {
             </Link>
             <div className="flex flex-col text-right">
               <span className="font-bold">2026</span>
-              <i className="font-thin text-xs">engineering, design</i>
             </div>
           </div>
           <hr className="border-neutral-200" />
@@ -65,12 +64,18 @@ export default function ArenaDockPage() {
           >
             Are.na
           </Link>
-          . Drop a link, paste text, or drag a file &mdash; ArenaDock sends it
-          straight to your Are.na channels without ever opening a browser.
+          . I built it because I constantly have links and photos floating around
+          in my DMs and Slack. Why open the browser when a system tray
+          feels cooler? <br /><br /> Hit{' '}
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+            Ctrl+Option+A
+          </code>{' '}
+          (customizable), drop a link, paste text, or drag a file and it goes
+          straight to your Are.na channels.
         </p>
       </div>
 
-      <div className="flex justify-center pt-4">
+      <div className="flex justify-center py-20">
         <DownloadButton />
       </div>
 

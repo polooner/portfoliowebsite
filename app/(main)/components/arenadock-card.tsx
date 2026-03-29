@@ -8,7 +8,6 @@ export function ArenaDockCard() {
     <div className="flex flex-col gap-1">
       <div className="flex flex-row justify-between">
         <span className="font-bold">ARE.NA DOCK</span>
-        <i className="font-thin text-xs">engineering, design</i>
       </div>
 
       <Link href="/arenadock" className="group block">
