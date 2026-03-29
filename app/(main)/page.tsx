@@ -1,8 +1,10 @@
 import ArrowIcon from '@/components/ui/icons';
+import { KreaLogo } from '@/components/ui/krea-logo';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArenaDockCard } from './components/arenadock-card';
 import { FloraCard } from './components/flora-card';
+import { KreaCard } from './components/krea-card';
 
 export const metadata: Metadata = {
   title: 'Filip Wojda',
@@ -16,23 +18,24 @@ export default function Home() {
         <div>
           <strong className="text-2xl">Filip Wojda</strong>
           <br />
-          <p>product engineering/design (in NYC)</p>
+          <p>design eng (in SF/NYC)</p>
 
           <div className='text-neutral-500'>
-            I like AI/UI and creative tools.
+            I like tools for thought
             <br />
           </div>
 
         </div>
         <br />
         <div className="flex flex-col gap-10">
+          <KreaCard />
           <FloraCard />
           <ArenaDockCard />
           <div className="flex flex-col gap-1">
             <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
               <div className="flex flex-row justify-between">EKRAN</div>
             </Link>
-            <i className="font-thin text-xs">founder, engineer, designer</i>
+            <i className="font-thin text-xs">everything everywhere all at once</i>
             <div className="text-neutral-500">
               Video editor with a chat. reads transcripts, visually annotates videos + performs
               vector search using top open source research implementation. <br />
@@ -66,7 +69,7 @@ export default function Home() {
             >
               makeklips.ai
             </Link>
-            <i className="font-thin text-xs">founder, engineer, designer</i>
+            <i className="font-thin text-xs">everything everywhere all at once</i>
             AI shorts generator.
           </div>
         </div>
