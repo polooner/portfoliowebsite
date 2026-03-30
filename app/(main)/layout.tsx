@@ -12,9 +12,8 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex text-start space-y-10 flex-col justify-center items-center sans w-full">
+    <div className="flex text-start flex-col justify-center items-center sans w-full pl-48">
       <NavBar />
-
       {children}
     </div>
   );
