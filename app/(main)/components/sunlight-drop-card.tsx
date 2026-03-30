@@ -11,13 +11,7 @@ export function SunlightDropCard() {
       <Link href="/design-experiments/sunlight-drop" target="_blank" className="group block">
         <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-neutral-300 transition-transform duration-200 ease-out group-hover:scale-95">
           {/* Text */}
-          <div className="absolute inset-0 flex items-center justify-center z-0">
-            <span className="text-4xl font-bold font-mono text-neutral-800 text-center leading-tight px-6">
-              drop sunlight
-              <br />
-              on your UI.
-            </span>
-          </div>
+
 
           {/* Window shadow overlay */}
           <svg

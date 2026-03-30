@@ -7,7 +7,14 @@ const nextConfig = {
     // useLightningcss: true,
   },
   // swcMinify: true,
-  images: {},
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "bkjyaeduksegxtarnyzz.supabase.co",
+      },
+    ],
+  },
   reactStrictMode: true,
   pageExtensions: ["md", "tsx", "ts", "jsx", "js", "md", "mdx"],
 };

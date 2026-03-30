@@ -49,11 +49,7 @@ export default function Home() {
               Video editor with a chat. reads transcripts, visually annotates videos + performs
               vector search using top open source research implementation. <br />
               <br />
-              launched from{' '}
-              <Link className="font-bold hover:underline" target="_blank" href="https://www.f.inc">
-                f.inc
-              </Link>{' '}
-              [ship it]
+
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -66,6 +62,29 @@ export default function Home() {
             </Link>
             AI shorts generator.
           </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-1">
+        <Link
+          className="font-bold hover:underline"
+          target="_blank"
+          href="https://paysponge.com"
+        >
+          PAYSPONGE.COM MERCH
+        </Link>
+        <div className="flex flex-row gap-4 max-w-lg">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge1.png"
+            alt="Sponge credit card merch design"
+            className="w-1/2 h-auto object-contain"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge2.png"
+            alt="Sponge shirt back design"
+            className="w-1/2 h-auto object-contain"
+          />
         </div>
       </div>
     </section>
