@@ -36,7 +36,7 @@ export default function Home() {
       </div>
 
       <div>
-        <h2 className="text-xl font-mono text-black mb-6">[&nbsp;projects&nbsp;]</h2>
+        <h2 className="text-xl font-mono text-black mb-6">[&nbsp;more work&nbsp;]</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <ArenaDockCard />
           <SunlightDropCard />
