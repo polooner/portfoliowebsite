@@ -13,53 +13,59 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <section className="w-full max-w-4xl px-6 py-20 self-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <KreaCard />
-        <FloraCard />
-        <ArenaDockCard />
-        <SunlightDropCard />
-        <GridAnimatorCard />
-        <div className="flex flex-col gap-1">
-          <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
-            <div className="flex flex-row justify-between">EKRAN</div>
-          </Link>
-          <i className="font-thin text-xs">everything everywhere all at once</i>
-          <div className="text-neutral-500">
-            Video editor with a chat. reads transcripts, visually annotates videos + performs
-            vector search using top open source research implementation. <br />
-            <br />
-            launched from{' '}
-            <Link className="font-bold hover:underline" target="_blank" href="https://www.f.inc">
-              f.inc
-            </Link>{' '}
-            [ship it]
+    <section className="w-full max-w-4xl px-6 py-20 self-center flex flex-col gap-20">
+      <div>
+        <h2 className="text-xl font-mono text-black mb-6">[&nbsp;work&nbsp;]</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <KreaCard />
+          <FloraCard />
+          <div className="flex flex-col gap-1">
+            <div className="flex flex-row justify-between items-center">
+              <Link
+                className="font-bold hover:underline"
+                target="_blank"
+                href="https://www.julius.ai"
+              >
+                Julius.ai
+              </Link>
+              <i className="font-thin text-xs">2024</i>
+            </div>
+            <i className="font-thin text-xs">founding engineer</i>
           </div>
         </div>
+      </div>
 
-        <div className="flex flex-col gap-1">
-          <Link
-            className="font-bold hover:underline"
-            target="_blank"
-            href="https://www.julius.ai"
-          >
-            <div className="flex flex-row justify-between">Julius.ai</div>
-          </Link>
-          <i className="font-thin text-xs">founding engineer</i>
-          <div className="text-neutral-500">
-            Fullstack, optimized performance, took features 0 &rarr; 1 and 1 &rarr; many
+      <div>
+        <h2 className="text-xl font-mono text-black mb-6">[&nbsp;projects&nbsp;]</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ArenaDockCard />
+          <SunlightDropCard />
+          <GridAnimatorCard />
+          <div className="flex flex-col gap-1">
+            <Link className="font-bold hover:underline" target="_blank" href="https://www.ekran.ai">
+              <div className="flex flex-row justify-between">EKRAN</div>
+            </Link>
+            <div className="text-neutral-500">
+              Video editor with a chat. reads transcripts, visually annotates videos + performs
+              vector search using top open source research implementation. <br />
+              <br />
+              launched from{' '}
+              <Link className="font-bold hover:underline" target="_blank" href="https://www.f.inc">
+                f.inc
+              </Link>{' '}
+              [ship it]
+            </div>
           </div>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Link
-            className="font-bold hover:underline"
-            target="_blank"
-            href="https://www.makeklips.ai"
-          >
-            makeklips.ai
-          </Link>
-          <i className="font-thin text-xs">everything everywhere all at once</i>
-          AI shorts generator.
+          <div className="flex flex-col gap-1">
+            <Link
+              className="font-bold hover:underline"
+              target="_blank"
+              href="https://www.makeklips.ai"
+            >
+              makeklips.ai
+            </Link>
+            AI shorts generator.
+          </div>
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ export function FloraCard() {
     <div className="flex flex-col gap-1">
       <div className="flex flex-row justify-between">
         <span className="font-bold">FLORA</span>
-        <i className="font-thin text-xs">product engineering</i>
+        <i className="font-thin text-xs">2025-2026</i>
       </div>
 
       <Link href="/flora" className="block">

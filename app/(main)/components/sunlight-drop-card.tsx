@@ -8,7 +8,7 @@ export function SunlightDropCard() {
         <span className="font-bold">SUNLIGHT DROP TOOL</span>
       </div>
 
-      <Link href="/design-experiments/sunlight-drop" className="group block">
+      <Link href="/design-experiments/sunlight-drop" target="_blank" className="group block">
         <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-neutral-300 transition-transform duration-200 ease-out group-hover:scale-95">
           {/* Text */}
           <div className="absolute inset-0 flex items-center justify-center z-0">
