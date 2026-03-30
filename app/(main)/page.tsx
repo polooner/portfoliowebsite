@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArenaDockCard } from './components/arenadock-card';
@@ -72,18 +73,22 @@ export default function Home() {
         >
           PAYSPONGE.COM MERCH
         </Link>
-        <div className="flex flex-row gap-4 max-w-lg">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="flex flex-row gap-4 max-w-xl">
+          <Image
             src="https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge1.png"
             alt="Sponge credit card merch design"
+            width={600}
+            height={375}
             className="w-1/2 h-auto object-contain"
+            priority
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge2.png"
             alt="Sponge shirt back design"
+            width={600}
+            height={250}
             className="w-1/2 h-auto object-contain"
+            priority
           />
         </div>
       </div>
