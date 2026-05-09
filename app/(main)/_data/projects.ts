@@ -3,8 +3,11 @@ export type ProjectMedia =
   | { type: 'video'; src: string; mime?: string }
   | { type: 'logo'; key: 'krea' };
 
+export type ProjectKind = 'work' | 'tool';
+
 export type Project = {
   id: string;
+  kind: ProjectKind;
   name: string;
   role: string;
   year: string;
@@ -13,11 +16,13 @@ export type Project = {
   description: string;
   tags: string;
   media: ProjectMedia[];
+  defunct?: boolean;
 };
 
 export const PROJECTS: Project[] = [
   {
     id: 'krea',
+    kind: 'work',
     name: 'Krea',
     role: 'design + engineering',
     year: 'current',
@@ -30,6 +35,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'flora',
+    kind: 'work',
     name: 'FLORA',
     role: 'creator',
     year: '2025-2026',
@@ -90,6 +96,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'julius',
+    kind: 'work',
     name: 'Julius.ai',
     role: 'founding engineer',
     year: '2024',
@@ -102,6 +109,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'arenadock',
+    kind: 'work',
     name: 'Are.na Dock',
     role: 'creator',
     year: '2025',
@@ -129,6 +137,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'sunlight-drop',
+    kind: 'tool',
     name: 'Sunlight Drop Tool',
     role: 'creator',
     year: '2025',
@@ -149,6 +158,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'grid-animator',
+    kind: 'tool',
     name: 'Grid Animator Tool',
     role: 'creator',
     year: '2025',
@@ -167,6 +177,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'ekran',
+    kind: 'work',
     name: 'Ekran',
     role: 'creator',
     year: '2024',
@@ -176,9 +187,11 @@ export const PROJECTS: Project[] = [
       'Video editor with a chat. reads transcripts, visually annotates videos + performs vector search.',
     tags: 'web, engineering',
     media: [],
+    defunct: true,
   },
   {
     id: 'makeklips',
+    kind: 'work',
     name: 'makeklips.ai',
     role: 'creator',
     year: '2023',
@@ -187,9 +200,11 @@ export const PROJECTS: Project[] = [
     description: 'AI shorts generator.',
     tags: 'web, engineering',
     media: [],
+    defunct: true,
   },
   {
     id: 'paysponge',
+    kind: 'work',
     name: 'paysponge.com merch',
     role: 'creator',
     year: '2025',
