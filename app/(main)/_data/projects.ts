@@ -136,6 +136,27 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 'halftone-svg',
+    kind: 'tool',
+    name: 'Halftone SVG (Figma plugin)',
+    role: 'creator',
+    year: '2026',
+    href: 'https://www.figma.com/community/plugin/1622469816300993774/halftone-svg-turn-visuals-into-halftone-vectors',
+    external: true,
+    description:
+      'Figma plugin that turns any visual into halftone vectors — adjustable grid, dot scale, and shape.',
+    tags: 'design, engineering',
+    media: [
+      {
+        type: 'image',
+        src: '/halftonead.png',
+        alt: 'Halftone SVG plugin promo',
+        width: 1200,
+        height: 801,
+      },
+    ],
+  },
+  {
     id: 'sunlight-drop',
     kind: 'tool',
     name: 'Sunlight Drop Tool',
