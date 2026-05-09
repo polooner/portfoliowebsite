@@ -13,7 +13,6 @@ export default function BlogPage() {
 
   return (
     <section className="flex flex-col space-y-8 items-center text-start">
-      <h1 className="tracking-tighter">sometimes i write</h1>
       <div className="flex flex-col items-start space-y-8 ">
         {allBlogs
           .filter((post) => post.metadata.publishedAt)
