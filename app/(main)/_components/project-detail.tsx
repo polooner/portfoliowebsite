@@ -21,13 +21,15 @@ export function ProjectDetail({ project }: Props) {
       </header>
 
       {project.media.length > 0 && (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-6">
           {project.media.map((m, i) => (
-            <div
-              key={`${project.id}-${i}`}
-              className="w-full aspect-square overflow-hidden"
-            >
-              <ProjectMediaTile media={m} />
+            <div key={`${project.id}-${i}`} className="flex flex-col gap-2">
+              <div className="w-full aspect-square overflow-hidden">
+                <ProjectMediaTile media={m} />
+              </div>
+              {m.caption && (
+                <p className="text-sm text-neutral-500 italic">{m.caption}</p>
+              )}
             </div>
           ))}
         </div>

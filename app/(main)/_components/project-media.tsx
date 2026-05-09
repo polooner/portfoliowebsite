@@ -1,10 +1,19 @@
 import Image from 'next/image';
 import { KreaLogo } from '@/components/ui/krea-logo';
-import type { ProjectMedia } from '../_data/projects';
+import type { MediaFit, ProjectMedia } from '../_data/projects';
 
 type Props = {
   media: ProjectMedia;
 };
+
+const FIT_CLASS: Record<MediaFit, string> = {
+  contain: 'object-contain',
+  cover: 'object-cover',
+};
+
+function fitClass(fit: MediaFit | undefined) {
+  return FIT_CLASS[fit ?? 'contain'];
+}
 
 export function ProjectMediaTile({ media }: Props) {
   if (media.type === 'image') {
@@ -14,7 +23,7 @@ export function ProjectMediaTile({ media }: Props) {
         alt={media.alt}
         width={media.width}
         height={media.height}
-        className="w-full h-full object-contain block"
+        className={`w-full h-full block ${fitClass(media.fit)}`}
       />
     );
   }
@@ -27,7 +36,7 @@ export function ProjectMediaTile({ media }: Props) {
         loop
         muted
         playsInline
-        className="w-full h-full object-contain block"
+        className={`w-full h-full block ${fitClass(media.fit)}`}
       >
         {isMov && <source src={media.src} type="video/quicktime" />}
         <source src={media.src} type={media.mime ?? 'video/mp4'} />

@@ -42,6 +42,9 @@ function ProjectList({ title, items, activeId, onHover }: ListProps) {
                 <span className="w-6 shrink-0 tabular-nums">{formatIndex(i)}</span>
                 <span className="flex flex-row items-baseline gap-2">
                   <span>{p.name}</span>
+                  {p.subtext && (
+                    <span className="text-xs text-neutral-400 normal-case">{p.subtext}</span>
+                  )}
                   {p.defunct && (
                     <span className="text-xs text-neutral-400 normal-case">defunct</span>
                   )}

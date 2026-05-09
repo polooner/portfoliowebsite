@@ -1,7 +1,23 @@
+export type MediaFit = 'contain' | 'cover';
+
 export type ProjectMedia =
-  | { type: 'image'; src: string; alt: string; width: number; height: number }
-  | { type: 'video'; src: string; mime?: string }
-  | { type: 'logo'; key: 'krea' };
+  | {
+      type: 'image';
+      src: string;
+      alt: string;
+      width: number;
+      height: number;
+      fit?: MediaFit;
+      caption?: string;
+    }
+  | {
+      type: 'video';
+      src: string;
+      mime?: string;
+      fit?: MediaFit;
+      caption?: string;
+    }
+  | { type: 'logo'; key: 'krea'; caption?: string };
 
 export type ProjectKind = 'work' | 'tool';
 
@@ -17,6 +33,7 @@ export type Project = {
   tags: string;
   media: ProjectMedia[];
   defunct?: boolean;
+  subtext?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -95,16 +112,16 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: 'julius',
+    id: 'aleksandra-michalska',
     kind: 'work',
-    name: 'Julius.ai',
-    role: 'founding engineer',
-    year: '2024',
-    href: 'https://www.julius.ai',
+    name: 'Aleksandra Michalska',
+    subtext: 'portfolio',
+    role: 'design + engineering',
+    year: '2025',
+    href: 'https://aleksandramichalska.com',
     external: true,
-    description:
-      'AI data analyst for spreadsheets, csvs, and notebooks. built early product + infra.',
-    tags: 'web, engineering',
+    description: 'Portfolio site for Aleksandra Michalska, an artist I deeply admire.',
+    tags: 'web, design, engineering',
     media: [],
   },
   {
@@ -153,6 +170,13 @@ export const PROJECTS: Project[] = [
         alt: 'Halftone SVG plugin promo',
         width: 1200,
         height: 801,
+      },
+      {
+        type: 'video',
+        src: '/halftone-demo.mp4',
+        mime: 'video/mp4',
+        fit: 'cover',
+        caption: 'The plugin enables web developers to produce animations like this one.',
       },
     ],
   },
