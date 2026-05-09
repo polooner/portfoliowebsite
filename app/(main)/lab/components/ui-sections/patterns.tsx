@@ -18,7 +18,7 @@ const componentsArray = [
   },
 ];
 
-export default function Patterns() {
+export function PatternsSection() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div>Patterns</div>

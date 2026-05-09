@@ -89,7 +89,7 @@ const componentsArray: ComponentShowcase[] = [
   },
 ];
 
-export default function CardsPage() {
+export function CardsSection() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div>Cards</div>

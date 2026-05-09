@@ -8,6 +8,12 @@ import { InkBleedDemo } from '@/app/(main)/lab/components/ink-bleed-demo';
 import { DotMatrixGrid } from '@/app/(main)/lab/components/dot-matrix-grid/dot-matrix-grid';
 import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 import { TableSearchDemo } from '@/app/(main)/lab/components/landing-page-elements/table-search-demo';
+import { ButtonsSection } from '@/app/(main)/lab/components/ui-sections/buttons';
+import { CardsSection } from '@/app/(main)/lab/components/ui-sections/cards';
+import { InputsSection } from '@/app/(main)/lab/components/ui-sections/inputs';
+import { LandingPagesSection } from '@/app/(main)/lab/components/ui-sections/landing-page-heroes';
+import { NavigationBarsSection } from '@/app/(main)/lab/components/ui-sections/navigation-bars';
+import { PatternsSection } from '@/app/(main)/lab/components/ui-sections/patterns';
 
 export default function Page() {
   return (
@@ -22,6 +28,13 @@ export default function Page() {
       <EaseCarousel />
       <ClipPathReveal />
       <AgentProgress />
+
+      <ButtonsSection />
+      <CardsSection />
+      <InputsSection />
+      <NavigationBarsSection />
+      <PatternsSection />
+      <LandingPagesSection />
     </div>
   );
 }

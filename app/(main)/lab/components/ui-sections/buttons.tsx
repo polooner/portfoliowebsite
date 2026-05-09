@@ -30,7 +30,7 @@ const componentsArray = [
   },
 ];
 
-export default function ButtonsPage() {
+export function ButtonsSection() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div>Buttons</div>

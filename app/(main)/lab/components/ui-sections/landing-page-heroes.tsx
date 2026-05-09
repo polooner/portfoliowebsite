@@ -111,7 +111,7 @@ const componentsArray: ComponentShowcase[] = [
   },
 ];
 
-export default function LandingPagesPage() {
+export function LandingPagesSection() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div>Landing Page Heroes</div>

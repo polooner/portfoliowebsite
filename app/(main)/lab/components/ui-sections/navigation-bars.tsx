@@ -32,7 +32,7 @@ const componentsArray: ComponentShowcase[] = [
   },
 ];
 
-export default function NavigationBars() {
+export function NavigationBarsSection() {
   return (
     <div className="flex flex-col gap-12 items-center">
       <div>Navigation Bars</div>
