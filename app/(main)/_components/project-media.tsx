@@ -14,7 +14,7 @@ export function ProjectMediaTile({ media }: Props) {
         alt={media.alt}
         width={media.width}
         height={media.height}
-        className="w-full h-auto block"
+        className="w-full h-full object-cover block"
       />
     );
   }
@@ -27,7 +27,7 @@ export function ProjectMediaTile({ media }: Props) {
         loop
         muted
         playsInline
-        className="w-full h-auto block"
+        className="w-full h-full object-cover block"
       >
         {isMov && <source src={media.src} type="video/quicktime" />}
         <source src={media.src} type={media.mime ?? 'video/mp4'} />
@@ -37,7 +37,7 @@ export function ProjectMediaTile({ media }: Props) {
 
   if (media.key === 'krea') {
     return (
-      <div className="aspect-square bg-black flex items-center justify-center">
+      <div className="w-full h-full bg-black flex items-center justify-center">
         <div className="text-white scale-[3]">
           <KreaLogo />
         </div>

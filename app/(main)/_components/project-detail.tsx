@@ -21,9 +21,14 @@ export function ProjectDetail({ project }: Props) {
       </header>
 
       {project.media.length > 0 && (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col">
           {project.media.map((m, i) => (
-            <ProjectMediaTile key={`${project.id}-${i}`} media={m} />
+            <div
+              key={`${project.id}-${i}`}
+              className="w-full aspect-square bg-neutral-100 overflow-hidden"
+            >
+              <ProjectMediaTile media={m} />
+            </div>
           ))}
         </div>
       )}
