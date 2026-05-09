@@ -24,39 +24,39 @@ interface TableConfig {
 
 const tableConfigs: TableConfig[] = [
     {
-        query: 'High intent homeowners in Austin',
-        headers: ['Name', 'Score', 'Status'],
+        query: 'Independent magazines in Berlin',
+        headers: ['Title', 'Founded', 'Status'],
         rows: [
-            { values: ['Sarah Mitchell', '94'], badge: { text: 'Hot', variant: 'dark' } },
-            { values: ['James Chen', '87'], badge: { text: 'Warm', variant: 'light' } },
-            { values: ['Emily Rodriguez', '82'], badge: { text: 'Warm', variant: 'light' } },
+            { values: ['032c', '2000'], badge: { text: 'Active', variant: 'dark' } },
+            { values: ['Mono.Kultur', '2005'], badge: { text: 'Active', variant: 'light' } },
+            { values: ['Sleek', '2003'], badge: { text: 'Hiatus', variant: 'light' } },
         ],
     },
     {
-        query: 'Tech founders in San Francisco',
-        headers: ['Name', 'Company', 'Funds Raised'],
+        query: 'Fashion + culture magazines',
+        headers: ['Title', 'City', 'Frequency'],
         rows: [
-            { values: ['Alex Rivera', 'Nexus AI', '$12M'] },
-            { values: ['Priya Sharma', 'CloudScale', '$8.5M'] },
-            { values: ['Marcus Webb', 'DataForge', '$4.2M'] },
+            { values: ['i-D', 'London', 'Quarterly'] },
+            { values: ['Self Service', 'Paris', 'Biannual'] },
+            { values: ['Re-Edition', 'London', 'Biannual'] },
         ],
     },
     {
-        query: 'Recent mortgage applicants in Denver',
-        headers: ['Name', 'Amount', 'Status'],
+        query: 'Cinema journals in New York',
+        headers: ['Title', 'Editor', 'Year'],
         rows: [
-            { values: ['Michael Torres', '$485K'], badge: { text: 'Approved', variant: 'dark' } },
-            { values: ['Rachel Kim', '$320K'], badge: { text: 'Pending', variant: 'light' } },
-            { values: ['David Okonkwo', '$560K'], badge: { text: 'Approved', variant: 'dark' } },
+            { values: ['Metrograph', 'Nellie Killian', '2017'] },
+            { values: ['Film Comment', 'Devika Girish', '1962'] },
+            { values: ['Reverse Shot', 'Michael Koresky', '2003'] },
         ],
     },
     {
-        query: 'First-time buyers in Seattle',
-        headers: ['Name', 'Budget', 'Timeline'],
+        query: 'Art quarterlies on my desk',
+        headers: ['Title', 'Country', 'Status'],
         rows: [
-            { values: ['Emma Lindqvist', '$650K', '3 months'] },
-            { values: ['Tyler Washington', '$480K', '6 months'] },
-            { values: ['Aisha Patel', '$725K', '1 month'] },
+            { values: ['Apartamento', 'Spain'], badge: { text: 'Active', variant: 'dark' } },
+            { values: ['Toilet Paper', 'Italy'], badge: { text: 'Active', variant: 'dark' } },
+            { values: ['Mousse', 'Italy'], badge: { text: 'Active', variant: 'light' } },
         ],
     },
 ];
