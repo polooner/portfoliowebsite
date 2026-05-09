@@ -25,7 +25,7 @@ export function GridAnimatorCard() {
       </Link>
 
       <div className="flex flex-row justify-between">
-        <span className="font-bold text-2xl">GRID ANIMATOR TOOL</span>
+        <span className="font-bold text-2xl">GRID ANIMATOR</span>
       </div>
       <i className="font-thin text-xs text-neutral-500">web, design, engineering</i>
     </div>

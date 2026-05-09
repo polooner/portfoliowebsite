@@ -25,7 +25,7 @@ export function ProjectDetail({ project }: Props) {
           {project.media.map((m, i) => (
             <div
               key={`${project.id}-${i}`}
-              className="w-full aspect-square bg-neutral-100 overflow-hidden"
+              className="w-full aspect-square overflow-hidden"
             >
               <ProjectMediaTile media={m} />
             </div>

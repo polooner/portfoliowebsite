@@ -14,7 +14,7 @@ export function ProjectMediaTile({ media }: Props) {
         alt={media.alt}
         width={media.width}
         height={media.height}
-        className="w-full h-full object-cover block"
+        className="w-full h-full object-contain block"
       />
     );
   }
@@ -27,7 +27,7 @@ export function ProjectMediaTile({ media }: Props) {
         loop
         muted
         playsInline
-        className="w-full h-full object-cover block"
+        className="w-full h-full object-contain block"
       >
         {isMov && <source src={media.src} type="video/quicktime" />}
         <source src={media.src} type={media.mime ?? 'video/mp4'} />

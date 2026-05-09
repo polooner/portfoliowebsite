@@ -159,13 +159,12 @@ export const PROJECTS: Project[] = [
   {
     id: 'sunlight-drop',
     kind: 'tool',
-    name: 'Sunlight Drop Tool',
+    name: 'Sunlight Drop',
     role: 'creator',
     year: '2025',
     href: '/design-experiments/sunlight-drop',
     external: false,
-    description:
-      'A small tool for generating window-shadow / sunlight overlays for backgrounds.',
+    description: 'A small tool for generating window-shadow / sunlight overlays for backgrounds.',
     tags: 'design, engineering',
     media: [
       {
@@ -180,7 +179,7 @@ export const PROJECTS: Project[] = [
   {
     id: 'grid-animator',
     kind: 'tool',
-    name: 'Grid Animator Tool',
+    name: 'Grid Animator',
     role: 'creator',
     year: '2025',
     href: 'https://tools.filipwojda.com/grid-animator',

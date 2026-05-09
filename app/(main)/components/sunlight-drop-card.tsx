@@ -71,7 +71,7 @@ export function SunlightDropCard() {
       </Link>
 
       <div className="flex flex-row justify-between">
-        <span className="font-bold text-2xl">SUNLIGHT DROP TOOL</span>
+        <span className="font-bold text-2xl">SUNLIGHT DROP</span>
       </div>
       <i className="font-thin text-xs text-neutral-500">web, design, engineering</i>
     </div>
