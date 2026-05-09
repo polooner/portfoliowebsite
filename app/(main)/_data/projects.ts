@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     id: 'flora',
     kind: 'work',
     name: 'FLORA',
-    role: 'creator',
+    role: '',
     year: '2025-2026',
     href: '/flora',
     external: false,
