@@ -44,9 +44,9 @@ export default function SkiffNavigationBar() {
         className="z-[9999] flex w-full items-center justify-center text-xs duration-75"
         disableAnimation
       >
-        <NavigationMenuList className="mt-4 flex w-11/12 rounded-2xl border border-solid border-stone-700 bg-stone-800 p-1 shadow-xl md:w-fit text-white duration-75 self-center h-11">
+        <NavigationMenuList className="mt-4 flex w-11/12  border border-solid border-stone-700 bg-stone-800 p-1 shadow-xl md:w-fit text-white duration-75 self-center h-11">
           <Link rel="noreferrer, noopener" href="/">
-            <div className="mr-2 flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500">
+            <div className="mr-2 flex h-9 w-9 items-center justify-center  bg-orange-500">
               <div style={{ transform: 'none' }}>
                 <RocketIcon className="size-4" />
               </div>
@@ -56,7 +56,7 @@ export default function SkiffNavigationBar() {
             <NavigationMenuTrigger className="bg-transparent focus:text-white data-[active]:bg-transparent data-[state=open]:bg-transparent data-[active]:text-white hover:text-white duration-75 p-1 active:text-white active:bg-transparent focus:bg-transparent hover:bg-transparent">
               Product
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="rounded-2xl bg-stone-800" disableAnimation>
+            <NavigationMenuContent className=" bg-stone-800" disableAnimation>
               <ul className="grid gap-3 p-6 w-fit min-w-[200px] md:max-w-[400px]">
                 <ListItem href="#" title="yessir" image={<PlaneIcon className="size-4" />}>
                   Item 1
@@ -74,7 +74,7 @@ export default function SkiffNavigationBar() {
             <NavigationMenuTrigger className="bg-transparent focus:text-white data-[active]:bg-transparent data-[state=open]:bg-transparent data-[active]:text-white hover:text-white duration-75 p-1 active:text-white active:bg-transparent focus:bg-transparent hover:bg-transparent">
               Components
             </NavigationMenuTrigger>
-            <NavigationMenuContent className="rounded-2xl bg-stone-800" disableAnimation>
+            <NavigationMenuContent className=" bg-stone-800" disableAnimation>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {items.map(item => (
                   <ListItem key={item.title} title={item.title} href={item.href} image={item.image}>
@@ -112,12 +112,12 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'flex select-none space-y-1 p-3 leading-none no-underline outline-none transition-colors hover:bg-stone-700  focus:bg-accent focus:text-accent-foreground rounded-xl text-white flex-row items-center gap-3',
+            'flex select-none space-y-1 p-3 leading-none no-underline outline-none transition-colors hover:bg-stone-700  focus:bg-accent focus:text-accent-foreground  text-white flex-row items-center gap-3',
             className
           )}
           {...props}
         >
-          <span className="bg-stone-500 rounded-lg p-2">{image}</span>
+          <span className="bg-stone-500  p-2">{image}</span>
 
           <div className="flex flex-col">
             <div className="text-sm font-medium leading-none">{title}</div>
@@ -183,9 +183,9 @@ export default function SkiffNavigationBar() {
         className="z-[9999] flex w-full items-center justify-center text-xs duration-75"
         disableAnimation
       >
-        <NavigationMenuList className="mt-4 flex w-11/12 rounded-2xl border border-solid border-stone-700 bg-stone-800 p-1 shadow-xl md:w-fit text-white duration-75 self-center h-11">
+        <NavigationMenuList className="mt-4 flex w-11/12  border border-solid border-stone-700 bg-stone-800 p-1 shadow-xl md:w-fit text-white duration-75 self-center h-11">
           <a rel="noreferrer, noopener" href="/">
-            <div className="mr-2 flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500">
+            <div className="mr-2 flex h-9 w-9 items-center justify-center  bg-orange-500">
               <div style={{ transform: "none" }}>
                 <RocketIcon className="size-4" />
               </div>
@@ -196,7 +196,7 @@ export default function SkiffNavigationBar() {
               Product
             </NavigationMenuTrigger>
             <NavigationMenuContent
-              className="rounded-2xl bg-stone-800"
+              className=" bg-stone-800"
               disableAnimation
             >
               <ul className="grid gap-3 p-6 w-fit min-w-[200px] md:max-w-[400px]">
@@ -229,7 +229,7 @@ export default function SkiffNavigationBar() {
               Components
             </NavigationMenuTrigger>
             <NavigationMenuContent
-              className="rounded-2xl bg-stone-800"
+              className=" bg-stone-800"
               disableAnimation
             >
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
@@ -274,12 +274,12 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "flex select-none space-y-1 p-3 leading-none no-underline outline-none transition-colors hover:bg-stone-700  focus:bg-accent focus:text-accent-foreground rounded-xl text-white flex-row items-center gap-3",
+            "flex select-none space-y-1 p-3 leading-none no-underline outline-none transition-colors hover:bg-stone-700  focus:bg-accent focus:text-accent-foreground  text-white flex-row items-center gap-3",
             className
           )}
           {...props}
         >
-          <span className="bg-stone-500 rounded-lg p-2">{image}</span>
+          <span className="bg-stone-500  p-2">{image}</span>
 
           <div className="flex flex-col">
             <div className="text-sm font-medium leading-none">{title}</div>

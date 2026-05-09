@@ -27,7 +27,7 @@ export function StreamingTextCarousel() {
 
   return (
     <div className="lab-item">
-      <div className="relative h-48 flex items-center justify-center min-w-[150px] w-full max-w-[500px] bg-neutral-50 rounded-2xl">
+      <div className="relative h-48 flex items-center justify-center min-w-[150px] w-full max-w-[500px] bg-neutral-50 ">
         <span
           ref={measureRef}
           className="absolute invisible text-xs sm:text-base font-medium sm:px-8 px-2 whitespace-nowrap"
@@ -89,7 +89,7 @@ export function StreamingTextCarousel() {
 
         <button
           onClick={reset}
-          className="absolute bottom-3 right-3 rounded-full bg-black/5 px-3 py-1 text-[10px] lowercase tracking-widest text-neutral-500 transition-colors hover:bg-black/10 hover:text-neutral-700"
+          className="absolute bottom-3 right-3  bg-black/5 px-3 py-1 text-[10px] lowercase tracking-widest text-neutral-500 transition-colors hover:bg-black/10 hover:text-neutral-700"
         >
           replay
         </button>

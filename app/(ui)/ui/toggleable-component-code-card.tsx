@@ -39,7 +39,7 @@ export const ToggleableComponentCard = ({
           <div className="flex items-center space-x-2 flex-row self-start">
             {currentComponent.animatable && (
               <RotateCcw
-                className="text-black rounded-md px-2 flex items-center size-8"
+                className="text-black  px-2 flex items-center size-8"
                 onClick={() => setKey(key + 1)}
               />
             )}
@@ -129,11 +129,11 @@ const CodeBlock = ({ code }) => {
   };
   return (
     <div className="relative max-w-full min-w-full">
-      <Button className="absolute top-2 right-2 text-white rounded-md px-2" onClick={handleCopy}>
+      <Button className="absolute top-2 right-2 text-white  px-2" onClick={handleCopy}>
         {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
       </Button>
 
-      <pre className="bg-stone-200 rounded-md overflow-x-auto whitespace-pre-wrap max-h-[80dvh] min-h-fit max-w-full min-w-full m-0">
+      <pre className="bg-stone-200  overflow-x-auto whitespace-pre-wrap max-h-[80dvh] min-h-fit max-w-full min-w-full m-0">
         <code dangerouslySetInnerHTML={{ __html: codeHtml }} />
       </pre>
     </div>

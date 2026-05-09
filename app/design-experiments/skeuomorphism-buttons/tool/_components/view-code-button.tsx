@@ -15,7 +15,7 @@ export function ViewCodeButton({ isOpen, onToggle }: ViewCodeButtonProps) {
     <motion.button
       onClick={onToggle}
       whileTap={{ scale: 0.95 }}
-      className={`flex h-8 items-center gap-2 rounded-lg border px-3 text-xs transition-colors ${
+      className={`flex h-8 items-center gap-2  border px-3 text-xs transition-colors ${
         isOpen
           ? 'border-white/20 bg-neutral-600/50 text-neutral-200'
           : 'border-white/10 bg-neutral-700/50 text-neutral-300 hover:bg-neutral-600/50'

@@ -39,7 +39,7 @@ export default function DesignExperimentsPage() {
           <Link
             key={slug}
             href={`/design-experiments/${slug}`}
-            className="rounded-xl border border-neutral-200 bg-white px-6 py-4 text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
+            className=" border border-neutral-200 bg-white px-6 py-4 text-neutral-700 transition-colors hover:border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900"
           >
             {formatSlug(slug)}
           </Link>

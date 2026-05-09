@@ -22,7 +22,7 @@ export function ShadowsSection() {
 
         <button
           onClick={addShadow}
-          className="w-full rounded-lg border border-dashed border-neutral-600/50 py-2 text-[10px] text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-400"
+          className="w-full  border border-dashed border-neutral-600/50 py-2 text-[10px] text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-400"
         >
           + Add Shadow
         </button>

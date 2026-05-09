@@ -1,0 +1,175 @@
+export type ProjectMedia =
+  | { type: 'image'; src: string; alt: string; width: number; height: number }
+  | { type: 'video'; src: string; mime?: string }
+  | { type: 'logo'; key: 'krea' };
+
+export type Project = {
+  id: string;
+  name: string;
+  role: string;
+  year: string;
+  href: string;
+  external: boolean;
+  description: string;
+  tags: string;
+  media: ProjectMedia[];
+};
+
+export const PROJECTS: Project[] = [
+  {
+    id: 'krea',
+    name: 'Krea',
+    role: 'design + engineering',
+    year: 'current',
+    href: 'https://www.krea.ai',
+    external: true,
+    description:
+      'Realtime AI image and video creation tools. building the canvas + product surfaces.',
+    tags: 'web, design, engineering',
+    media: [{ type: 'logo', key: 'krea' }],
+  },
+  {
+    id: 'flora',
+    name: 'FLORA',
+    role: 'creator',
+    year: '2025-2026',
+    href: '/flora',
+    external: false,
+    description:
+      'A drawing + animation playground exploring procedurally-generated botanical forms.',
+    tags: 'web, design, engineering',
+    media: [
+      {
+        type: 'video',
+        src: '/2022drawings/florafeatures.mov',
+        mime: 'video/quicktime',
+      },
+    ],
+  },
+  {
+    id: 'julius',
+    name: 'Julius.ai',
+    role: 'founding engineer',
+    year: '2024',
+    href: 'https://www.julius.ai',
+    external: true,
+    description:
+      'AI data analyst for spreadsheets, csvs, and notebooks. built early product + infra.',
+    tags: 'web, engineering',
+    media: [],
+  },
+  {
+    id: 'arenadock',
+    name: 'Are.na Dock',
+    role: 'creator',
+    year: '2025',
+    href: '/arenadock',
+    external: false,
+    description:
+      'A small mac dock app for browsing and saving to your are.na channels without leaving the desktop.',
+    tags: 'design, engineering',
+    media: [
+      {
+        type: 'image',
+        src: '/arenadock1.png',
+        alt: 'ArenaDock app icon',
+        width: 800,
+        height: 800,
+      },
+      {
+        type: 'image',
+        src: '/arenadock2.png',
+        alt: 'ArenaDock app interface',
+        width: 800,
+        height: 800,
+      },
+    ],
+  },
+  {
+    id: 'sunlight-drop',
+    name: 'Sunlight Drop Tool',
+    role: 'creator',
+    year: '2025',
+    href: '/design-experiments/sunlight-drop',
+    external: false,
+    description:
+      'A small tool for generating window-shadow / sunlight overlays for backgrounds.',
+    tags: 'design, engineering',
+    media: [
+      {
+        type: 'image',
+        src: '/sunlight-drop-demo.png',
+        alt: 'Sunlight Drop tool demo',
+        width: 800,
+        height: 900,
+      },
+    ],
+  },
+  {
+    id: 'grid-animator',
+    name: 'Grid Animator Tool',
+    role: 'creator',
+    year: '2025',
+    href: 'https://tools.filipwojda.com/grid-animator',
+    external: true,
+    description:
+      'A tool for designing and exporting animated grid compositions with per-cell easing.',
+    tags: 'design, engineering',
+    media: [
+      {
+        type: 'video',
+        src: 'https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/grid-animator/demo.mp4',
+        mime: 'video/mp4',
+      },
+    ],
+  },
+  {
+    id: 'ekran',
+    name: 'Ekran',
+    role: 'creator',
+    year: '2024',
+    href: 'https://www.ekran.ai',
+    external: true,
+    description:
+      'Video editor with a chat. reads transcripts, visually annotates videos + performs vector search.',
+    tags: 'web, engineering',
+    media: [],
+  },
+  {
+    id: 'makeklips',
+    name: 'makeklips.ai',
+    role: 'creator',
+    year: '2023',
+    href: 'https://www.makeklips.ai',
+    external: true,
+    description: 'AI shorts generator.',
+    tags: 'web, engineering',
+    media: [],
+  },
+  {
+    id: 'paysponge',
+    name: 'paysponge.com merch',
+    role: 'creator',
+    year: '2025',
+    href: 'https://paysponge.com',
+    external: true,
+    description: 'A small merch line built around the paysponge mascot.',
+    tags: 'design',
+    media: [
+      {
+        type: 'image',
+        src: 'https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge1.png',
+        alt: 'Sponge credit card merch design',
+        width: 600,
+        height: 375,
+      },
+      {
+        type: 'image',
+        src: 'https://bkjyaeduksegxtarnyzz.supabase.co/storage/v1/object/public/public-assets/sponge/sponge2.png',
+        alt: 'Sponge shirt back design',
+        width: 600,
+        height: 250,
+      },
+    ],
+  },
+];

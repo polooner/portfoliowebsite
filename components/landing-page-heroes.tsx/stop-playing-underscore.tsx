@@ -30,7 +30,7 @@ export function StopPlayingUnderscore({ key }: TemplateComponentProps) {
             <p className="text-center max-w-xs md:max-w-lg lg:max-w-2xl font-light text-sm md:text-md lg:text-xl lg:mt-4 mb-2 lg:mb-6 py-1 text-mineshaft-700">
               <span className="mt-8">
                 All-you-ever-need simple heading. Small animation on the demo
-                button, small rounded corners you should probably match to your
+                button, small  corners you should probably match to your
                 design system.
               </span>
             </p>
@@ -43,7 +43,7 @@ export function StopPlayingUnderscore({ key }: TemplateComponentProps) {
                 href="https://app.infisical.com/signup"
                 className="relative inline-block text-sm md:text-lg group"
               >
-                <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-gray-900 group-hover:border-primary group-hover:text-white rounded-md">
+                <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-gray-900 group-hover:border-primary group-hover:text-white ">
                   <span className="absolute duration-300 inset-0 w-full h-full px-3 md:px-5 py-2 md:py-3 bg-black group-hover:bg-black/80 transition-colors"></span>
                   <span className="absolute left-0 w-48 h-48 -ml-1 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-primary group-hover:-rotate-180 ease"></span>
                   <span className="relative text-white ">Get Started</span>
@@ -55,7 +55,7 @@ export function StopPlayingUnderscore({ key }: TemplateComponentProps) {
                 href="https://infisical.com/talk-to-us"
                 className="relative inline-block text-sm md:text-lg group"
               >
-                <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-black group-hover:text-white rounded-md">
+                <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-black group-hover:text-white ">
                   <span className="absolute inset-0 w-full h-full px-3 md:px-5 py-2 md:py-3 bg-gray-50"></span>
                   <span className="absolute left-0 w-48 h-48 -ml-1 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-black group-hover:-rotate-180 ease"></span>
                   <span className="relative">Get a demo</span>
@@ -93,7 +93,7 @@ export const StopPlayingUnderscoreCode = `
               <p className="text-center max-w-xs md:max-w-lg lg:max-w-2xl font-light text-sm md:text-md lg:text-xl lg:mt-4 mb-2 lg:mb-6 py-1 text-mineshaft-700">
                 <span className="mt-8">
                   All-you-ever-need simple heading. Small animation on the demo
-                  button, small rounded corners you should probably match to your
+                  button, small  corners you should probably match to your
                   design system.
                 </span>
               </p>
@@ -106,7 +106,7 @@ export const StopPlayingUnderscoreCode = `
                   href="https://app.infisical.com/signup"
                   className="relative inline-block text-sm md:text-lg group"
                 >
-                  <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-gray-900 group-hover:border-primary group-hover:text-white rounded-md">
+                  <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-gray-900 group-hover:border-primary group-hover:text-white ">
                     <span className="absolute duration-300 inset-0 w-full h-full px-3 md:px-5 py-2 md:py-3 bg-black group-hover:bg-black/80 transition-colors"></span>
                     <span className="absolute left-0 w-48 h-48 -ml-1 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-primary group-hover:-rotate-180 ease"></span>
                     <span className="relative text-white ">Get Started</span>
@@ -118,7 +118,7 @@ export const StopPlayingUnderscoreCode = `
                   href="https://infisical.com/talk-to-us"
                   className="relative inline-block text-sm md:text-lg group"
                 >
-                  <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-black group-hover:text-white rounded-md">
+                  <span className="relative z-10 block px-3 md:px-5 py-2 md:py-3 overflow-hidden leading-tight text-gray-800 transition-colors duration-300 ease-out border border-black group-hover:text-white ">
                     <span className="absolute inset-0 w-full h-full px-3 md:px-5 py-2 md:py-3 bg-gray-50"></span>
                     <span className="absolute left-0 w-48 h-48 -ml-1 transition-all duration-300 origin-top-right -rotate-90 -translate-x-full translate-y-12 bg-black group-hover:-rotate-180 ease"></span>
                     <span className="relative">Get a demo</span>

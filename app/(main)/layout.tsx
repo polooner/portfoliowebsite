@@ -1,5 +1,5 @@
-import NavBar from "@/components/ui/NavBar";
 import type { Metadata } from "next";
+import { MainShell } from "./_components/main-shell";
 
 export const metadata: Metadata = {
   title: "Filip Wojda",
@@ -11,10 +11,5 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="flex text-start flex-col justify-center items-center sans w-full pl-48">
-      <NavBar />
-      {children}
-    </div>
-  );
+  return <MainShell>{children}</MainShell>;
 }

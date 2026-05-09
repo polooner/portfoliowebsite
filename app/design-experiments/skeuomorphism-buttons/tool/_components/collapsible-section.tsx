@@ -38,7 +38,7 @@ export function CollapsibleSection({
           </span>
         </div>
         {badge !== undefined && (
-          <span className="rounded bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-500">
+          <span className=" bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-500">
             {badge}
           </span>
         )}

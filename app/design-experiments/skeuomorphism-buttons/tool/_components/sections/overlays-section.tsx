@@ -60,7 +60,7 @@ export function OverlaysSection() {
             <button
               key={opt.value}
               onClick={() => addOverlay(createOverlay(opt.value))}
-              className="flex-1 rounded-lg border border-dashed border-neutral-600/50 py-1.5 text-[10px] text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-400"
+              className="flex-1  border border-dashed border-neutral-600/50 py-1.5 text-[10px] text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-400"
             >
               + {opt.label}
             </button>
@@ -85,7 +85,7 @@ function OverlayRow({
   onToggleVisibility: () => void;
 }) {
   return (
-    <div className="space-y-3 rounded-lg bg-neutral-700/30 p-2">
+    <div className="space-y-3  bg-neutral-700/30 p-2">
       {/* Header */}
       <div className="flex items-center gap-2">
         <button
@@ -120,7 +120,7 @@ function OverlayRow({
         <select
           value={overlay.blendMode}
           onChange={(e) => onUpdate({ blendMode: e.target.value as BlendMode })}
-          className="rounded bg-neutral-700/50 px-2 py-0.5 text-[10px] text-neutral-300 outline-none"
+          className=" bg-neutral-700/50 px-2 py-0.5 text-[10px] text-neutral-300 outline-none"
         >
           {Object.values(BlendMode).map((mode) => (
             <option key={mode} value={mode}>

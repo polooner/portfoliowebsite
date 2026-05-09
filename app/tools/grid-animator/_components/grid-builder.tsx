@@ -67,7 +67,7 @@ export default function GridBuilder() {
                   handleMouseDown(r, c);
                 }}
                 onMouseEnter={() => handleMouseEnter(r, c)}
-                className={`h-5 w-5 rounded-sm transition-colors ${
+                className={`h-5 w-5  transition-colors ${
                   isActive
                     ? 'bg-white shadow-sm shadow-white/20'
                     : 'bg-neutral-600/50 hover:bg-neutral-500/50'

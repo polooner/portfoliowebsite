@@ -1,5 +1,5 @@
 export enum CellShape {
-  RoundedRect = 'roundedRect',
+  RoundedRect = '',
   Circle = 'circle',
   Square = 'square',
 }

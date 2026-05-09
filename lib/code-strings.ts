@@ -13,7 +13,7 @@ export default function DayByDay() {
         
         <AnimatedText />
         
-        <div className="pointer-events-none absolute right-20 top-[-5px] mt-12 hidden h-fit w-fit !rotate-[15deg] transform animate-fade-in rounded-full bg-stone-100 border-2 px-3 py-1 opacity-100 shadow [--animation-delay:400ms] md:block">
+        <div className="pointer-events-none absolute right-20 top-[-5px] mt-12 hidden h-fit w-fit !rotate-[15deg] transform animate-fade-in  bg-stone-100 border-2 px-3 py-1 opacity-100 shadow [--animation-delay:400ms] md:block">
           Yessir!
         </div>
         
@@ -25,7 +25,7 @@ export default function DayByDay() {
         <div className="flex w-full flex-col justify-center md:flex-row">
           <Button
             asChild
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 dark:bg-white bg-black text-white shadow hover:bg-black/90 h-12 px-8 py-4 -translate-y-4 animate-fade-in gap-1  opacity-100 ease-in-out [--animation-delay:600ms] dark:text-black"
+            className="inline-flex items-center justify-center whitespace-nowrap  text-sm font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 dark:bg-white bg-black text-white shadow hover:bg-black/90 h-12 px-8 py-4 -translate-y-4 animate-fade-in gap-1  opacity-100 ease-in-out [--animation-delay:600ms] dark:text-black"
           >
             <Link href="#">
               <span>Copy This Now</span>
@@ -37,7 +37,7 @@ export default function DayByDay() {
           <Button
             asChild
             variant="ghost"
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 px-8 py-4 mt-4 md:ml-4 md:mt-0 hover:"
+            className="inline-flex items-center justify-center whitespace-nowrap  text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 px-8 py-4 mt-4 md:ml-4 md:mt-0 hover:"
           >
             <Link
               className="-translate-y-4 opacity-100 [--animation-delay:800ms]"

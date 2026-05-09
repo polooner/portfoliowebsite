@@ -98,13 +98,13 @@ export function TextCarousel() {
       <div className="flex gap-4">
         <button
           onClick={handlePrevious}
-          className="px-6 py-2 rounded-lg bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
+          className="px-6 py-2  bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
         >
           Previous
         </button>
         <button
           onClick={handleNext}
-          className="px-6 py-2 rounded-lg bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
+          className="px-6 py-2  bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors text-sm font-medium"
         >
           Next
         </button>
@@ -117,7 +117,7 @@ export function TextCarousel() {
             onClick={() => {
               setCurrentIndex(index);
             }}
-            className={`w-2 h-2 rounded-full transition-all ${
+            className={`w-2 h-2  transition-all ${
               index === currentIndex
                 ? 'bg-neutral-900 dark:bg-neutral-100 w-6'
                 : 'bg-neutral-300 dark:bg-neutral-700'

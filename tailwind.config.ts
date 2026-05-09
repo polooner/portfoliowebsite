@@ -1,5 +1,3 @@
-const { fontFamily } = require('tailwindcss/defaultTheme');
-
 const svgToDataUri = require('mini-svg-data-uri');
 
 const { default: flattenColorPalette } = require('tailwindcss/lib/util/flattenColorPalette');
@@ -82,18 +80,18 @@ module.exports = {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)',
-        // Nested roundedness utilities: parent = child + padding
-        // Format: rounded-nest-[child]-[padding]
-        'nest-lg-1': '0.75rem',    // rounded-lg (8px) + p-1 (4px) = 12px
-        'nest-lg-2': '1rem',       // rounded-lg (8px) + p-2 (8px) = 16px
-        'nest-xl-1': '1rem',       // rounded-xl (12px) + p-1 (4px) = 16px
-        'nest-xl-2': '1.25rem',    // rounded-xl (12px) + p-2 (8px) = 20px
-        'nest-2xl-1': '1.25rem',   // rounded-2xl (16px) + p-1 (4px) = 20px
-        'nest-2xl-2': '1.5rem',    // rounded-2xl (16px) + p-2 (8px) = 24px
+        // Nested  utilities: parent = child + padding
+        // Format: 
+        'nest-lg-1': '0.75rem',    //  (8px) + p-1 (4px) = 12px
+        'nest-lg-2': '1rem',       //  (8px) + p-2 (8px) = 16px
+        'nest-xl-1': '1rem',       //  (12px) + p-1 (4px) = 16px
+        'nest-xl-2': '1.25rem',    //  (12px) + p-2 (8px) = 20px
+        'nest-2xl-1': '1.25rem',   //  (16px) + p-1 (4px) = 20px
+        'nest-2xl-2': '1.5rem',    //  (16px) + p-2 (8px) = 24px
       },
       fontFamily: {
-        mono: ['var(--font-mono)'],
-        sans: ['var(--font-azeret)'],
+        booton: ['var(--font-booton)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-booton)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'tv-inner-shadow': 'inset 0 -12px 12px 0 rgb(0 0 0 / 0.05)',

@@ -214,7 +214,7 @@ function InstanceRendererInner({ instanceId }: InstanceRendererProps) {
     >
       <div className="flex items-center">
         <div
-          className="rounded-2xl"
+          className=""
           style={{
             backgroundColor,
             opacity: backgroundOpacity / 100,

@@ -24,7 +24,7 @@ function RimLight({ triggerKey, size }: { triggerKey: number; size: number }) {
     <AnimatePresence mode="popLayout">
       <motion.div
         key={triggerKey}
-        className="absolute rounded-full"
+        className="absolute "
         style={{
           width: outerSize,
           height: outerSize,
@@ -40,7 +40,7 @@ function RimLight({ triggerKey, size }: { triggerKey: number; size: number }) {
       >
         {/* Animated conic gradient - cyan/white tones for dark mode */}
         <motion.div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 "
           style={{
             background: `conic-gradient(
               from 90deg,
@@ -62,7 +62,7 @@ function RimLight({ triggerKey, size }: { triggerKey: number; size: number }) {
         />
         {/* Inner mask to cut out center, leaving only the rim */}
         <div
-          className="absolute rounded-full bg-neutral-900"
+          className="absolute  bg-neutral-900"
           style={{
             inset: borderWidth,
           }}
@@ -186,7 +186,7 @@ export function LabIconCarouselCore({
     <div className={`relative bg-neutral-900 ${className}`} style={{ width, height }}>
       {/* Pill Wrapper */}
       <div
-        className="absolute z-30 flex items-center rounded-full bg-neutral-800/50 backdrop-blur-sm"
+        className="absolute z-30 flex items-center  bg-neutral-800/50 backdrop-blur-sm"
         style={{
           left: pillLeftEdge,
           top: focusedIconY,
@@ -202,7 +202,7 @@ export function LabIconCarouselCore({
         <div className="relative shrink-0 group">
           {/* Glow container */}
           <div
-            className="absolute -inset-4 rounded-full blur-[8px] overflow-hidden z-0 flex items-end justify-center"
+            className="absolute -inset-4  blur-[8px] overflow-hidden z-0 flex items-end justify-center"
             style={{ opacity: 1 }}
           >
             <ShineUnderlay triggerKey={rotationCount} />
@@ -210,7 +210,7 @@ export function LabIconCarouselCore({
 
           {/* Button face with rim light */}
           <div
-            className="relative z-10 flex items-center justify-center rounded-full"
+            className="relative z-10 flex items-center justify-center "
             style={{
               width: LAB_ICON_SIZE_FOCUSED,
               height: LAB_ICON_SIZE_FOCUSED,

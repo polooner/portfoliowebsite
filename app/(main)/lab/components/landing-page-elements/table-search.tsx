@@ -125,7 +125,7 @@ export function TableSearchAnimation() {
             >
                 {/* Search input pill */}
                 <div className="p-2.5">
-                    <div className="flex items-center bg-gray-50 border border-border rounded-lg pl-3 pr-2">
+                    <div className="flex items-center bg-gray-50 border border-border  pl-3 pr-2">
                         <Search className="w-3.5 h-3.5 text-muted-foreground" />
                         <div className="flex-1 px-3 py-2 text-sm text-foreground">
                             {showStaticText ? (
@@ -156,7 +156,7 @@ export function TableSearchAnimation() {
                                     transition={phase === 'clicking-clear' ? {
                                         scale: { duration: 0.15, times: [0, 0.4, 1], ease: 'easeOut' }
                                     } : { duration: 0.15 }}
-                                    className="p-0.5 rounded text-muted-foreground"
+                                    className="p-0.5  text-muted-foreground"
                                 >
                                     <X className="w-3 h-3" />
                                 </motion.div>
@@ -194,7 +194,7 @@ export function TableSearchAnimation() {
                                     <span className="text-foreground">{row.values[1]}</span>
                                     {row.badge ? (
                                         <span
-                                            className={`inline-flex items-center w-fit px-2 py-0.5 rounded-full text-xs font-medium ${row.badge.variant === 'dark' ? 'bg-neutral-900 text-white' : 'bg-neutral-200 text-neutral-600'}`}
+                                            className={`inline-flex items-center w-fit px-2 py-0.5  text-xs font-medium ${row.badge.variant === 'dark' ? 'bg-neutral-900 text-white' : 'bg-neutral-200 text-neutral-600'}`}
                                         >
                                             {row.badge.text}
                                         </span>

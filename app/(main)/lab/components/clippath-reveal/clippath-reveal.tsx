@@ -37,8 +37,8 @@ export function ClipPathReveal() {
 
   return (
     <div className="lab-item">
-      <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-900 rounded-2xl overflow-hidden">
-        <div className="relative overflow-hidden rounded-xl">
+      <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-900  overflow-hidden">
+        <div className="relative overflow-hidden ">
           <div className="p-6">
             <h1
               className="text-center text-lg font-medium lowercase leading-tight tracking-tight text-white"
@@ -75,7 +75,7 @@ export function ClipPathReveal() {
         {showButton && (
           <button
             onClick={replay}
-            className="absolute bottom-3 right-3 rounded-full bg-white/10 px-3 py-1 text-[10px] lowercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+            className="absolute bottom-3 right-3  bg-white/10 px-3 py-1 text-[10px] lowercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-white/20"
           >
             replay
           </button>

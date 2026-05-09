@@ -41,7 +41,7 @@ export function IconCarouselIcon({
 
   return (
     <div
-       className="absolute flex flex-col items-center justify-center pointer-events-none select-none rounded-full"
+       className="absolute flex flex-col items-center justify-center pointer-events-none select-none "
       style={{
         left: x,
         top: y,
@@ -55,7 +55,7 @@ export function IconCarouselIcon({
     >
       {/* Icon circle - glossy 3D effect (white based) */}
       <div
-        className="relative flex flex-col items-center justify-center rounded-full"
+        className="relative flex flex-col items-center justify-center "
         style={{
           width: size,
           height: size,

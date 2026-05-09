@@ -38,7 +38,7 @@ export function ShadowLayerRow({ layer, index, total }: ShadowLayerRowProps) {
   const summary = `${layer.offsetX}, ${layer.offsetY}, ${layer.blur}b`;
 
   return (
-    <div className="rounded-lg bg-neutral-700/30">
+    <div className=" bg-neutral-700/30">
       {/* Header row */}
       <div className="flex items-center gap-1.5 px-2 py-1.5">
         <button
@@ -50,7 +50,7 @@ export function ShadowLayerRow({ layer, index, total }: ShadowLayerRowProps) {
 
         {/* Type pill */}
         <span
-          className={`shrink-0 rounded px-1.5 py-0.5 text-[9px] font-medium uppercase ${
+          className={`shrink-0  px-1.5 py-0.5 text-[9px] font-medium uppercase ${
             layer.type === ShadowType.Inset
               ? 'bg-blue-500/20 text-blue-400'
               : 'bg-neutral-600/50 text-neutral-400'
@@ -126,12 +126,12 @@ export function ShadowLayerRow({ layer, index, total }: ShadowLayerRowProps) {
           >
             <div className="space-y-3 px-2 pb-3 pt-1">
               {/* Type toggle */}
-              <div className="flex gap-1 rounded-md bg-neutral-700/50 p-0.5">
+              <div className="flex gap-1  bg-neutral-700/50 p-0.5">
                 {SHADOW_TYPE_OPTIONS.map((opt) => (
                   <button
                     key={opt.value}
                     onClick={() => updateShadow(layer.id, { type: opt.value })}
-                    className={`flex-1 rounded px-2 py-0.5 text-[10px] font-medium transition-colors ${
+                    className={`flex-1  px-2 py-0.5 text-[10px] font-medium transition-colors ${
                       layer.type === opt.value
                         ? 'bg-neutral-600 text-neutral-200'
                         : 'text-neutral-500 hover:text-neutral-300'

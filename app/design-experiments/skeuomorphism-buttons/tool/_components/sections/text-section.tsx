@@ -35,7 +35,7 @@ export function TextSection() {
             type="text"
             value={text.content}
             onChange={(e) => setText({ content: e.target.value })}
-            className="rounded-lg bg-neutral-700/50 px-3 py-2 text-xs text-neutral-200 outline-none transition-colors focus:bg-neutral-700"
+            className=" bg-neutral-700/50 px-3 py-2 text-xs text-neutral-200 outline-none transition-colors focus:bg-neutral-700"
           />
         </div>
 
@@ -61,7 +61,7 @@ export function TextSection() {
           <select
             value={text.fontWeight}
             onChange={(e) => setText({ fontWeight: Number(e.target.value) })}
-            className="rounded bg-neutral-700/50 px-2 py-1 text-xs text-neutral-300 outline-none"
+            className=" bg-neutral-700/50 px-2 py-1 text-xs text-neutral-300 outline-none"
           >
             {FONT_WEIGHT_OPTIONS.map((w) => (
               <option key={w} value={w}>
@@ -88,7 +88,7 @@ export function TextSection() {
             <span className="text-[10px] text-neutral-500">Text Shadows</span>
             <button
               onClick={addTextShadow}
-              className="rounded-md px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+              className=" px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
             >
               + Add
             </button>
@@ -97,7 +97,7 @@ export function TextSection() {
           {text.textShadows.map((ts) => (
             <div
               key={ts.id}
-              className="space-y-2 rounded-lg bg-neutral-700/30 p-2"
+              className="space-y-2  bg-neutral-700/30 p-2"
             >
               <div className="flex items-center justify-between">
                 <span className="text-[10px] text-neutral-400">Text Shadow</span>

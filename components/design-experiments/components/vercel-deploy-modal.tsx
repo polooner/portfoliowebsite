@@ -106,7 +106,7 @@ function NextStepItem({
 }: NextStepItemProps) {
   return (
     <div className="flex items-center gap-4 py-3 px-1 group cursor-pointer">
-      <div className="w-10 h-10 rounded-full bg-neutral-800/50 flex items-center justify-center flex-shrink-0">
+      <div className="w-10 h-10  bg-neutral-800/50 flex items-center justify-center flex-shrink-0">
         {icon}
       </div>
       <div className="flex-1 min-w-0">
@@ -134,7 +134,7 @@ export function VercelDeployModal({
   onContinue,
 }: VercelDeployModalProps) {
   return (
-    <div className="w-full max-w-[560px] bg-black rounded-xl overflow-hidden border border-neutral-800">
+    <div className="w-full max-w-[560px] bg-black  overflow-hidden border border-neutral-800">
       <div className="p-8">
         {/* Header */}
         <h1 className="text-2xl font-semibold text-white mb-2">
@@ -149,7 +149,7 @@ export function VercelDeployModal({
         </p>
 
         {/* Preview area */}
-        <div className="relative w-full aspect-[640/400] rounded-lg border border-neutral-800 bg-neutral-900/50 mb-8 overflow-hidden">
+        <div className="relative w-full aspect-[640/400]  border border-neutral-800 bg-neutral-900/50 mb-8 overflow-hidden">
           {previewImage ? (
             <img
               src={previewImage}
@@ -194,7 +194,7 @@ export function VercelDeployModal({
         {/* Continue button */}
         <button
           onClick={onContinue}
-          className="w-full py-3 px-4 bg-white text-black font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+          className="w-full py-3 px-4 bg-white text-black font-medium  hover:bg-neutral-200 transition-colors"
         >
           Continue to Dashboard
         </button>

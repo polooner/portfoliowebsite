@@ -35,12 +35,12 @@ export function BorderSection() {
         />
 
         {/* Mode toggle */}
-        <div className="flex gap-1 rounded-lg bg-neutral-700/40 p-1">
+        <div className="flex gap-1  bg-neutral-700/40 p-1">
           {BORDER_MODE_OPTIONS.map((option) => (
             <button
               key={option.value}
               onClick={() => setBorder({ mode: option.value })}
-              className={`flex-1 rounded-md px-2 py-1 text-[10px] font-medium transition-colors ${
+              className={`flex-1  px-2 py-1 text-[10px] font-medium transition-colors ${
                 border.mode === option.value
                   ? 'bg-neutral-600 text-neutral-200'
                   : 'text-neutral-500 hover:text-neutral-300'
@@ -103,7 +103,7 @@ export function BorderSection() {
                   }),
                 })
               }
-              className={`rounded p-1 transition-colors ${
+              className={` p-1 transition-colors ${
                 border.radiusLinked
                   ? 'text-neutral-300'
                   : 'text-neutral-600 hover:text-neutral-400'

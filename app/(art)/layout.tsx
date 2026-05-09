@@ -1,10 +1,5 @@
-import NavBar from '@/components/ui/NavBar';
+import { PageShell } from '../(main)/_components/page-shell';
 
 export default function ArtLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex flex-col gap-y-10 w-full self-center items-center pb-10">
-      <NavBar />
-      {children}
-    </div>
-  );
+  return <PageShell>{children}</PageShell>;
 }

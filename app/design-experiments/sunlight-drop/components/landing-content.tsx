@@ -23,7 +23,7 @@ export default function LandingContent() {
               <Button
                 variant="threeDAngledShadowScale"
                 size="lg"
-                className="rounded-full px-6 py-5 text-sm"
+                className=" px-6 py-5 text-sm"
               >
                 Go to App
               </Button>
@@ -35,15 +35,15 @@ export default function LandingContent() {
         <div className="flex flex-col gap-4 pb-8">
           <div className="flex flex-row items-center gap-6 text-sm text-neutral-500">
             <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              <span className="h-1.5 w-1.5  bg-neutral-400" />
               Copy-paste CSS
             </span>
             <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              <span className="h-1.5 w-1.5  bg-neutral-400" />
               Fully customizable
             </span>
             <span className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+              <span className="h-1.5 w-1.5  bg-neutral-400" />
               Free forever
             </span>
           </div>
@@ -52,7 +52,7 @@ export default function LandingContent() {
 
       {/* Right side - Full height card */}
       <div className="w-[45%] p-4">
-        <div className="relative h-full w-full overflow-hidden rounded-3xl shadow-xl">
+        <div className="relative h-full w-full overflow-hidden  shadow-xl">
           <Image
             src="/bgs/columnsshadowcast.jpg"
             alt="Architectural shadow"
@@ -67,7 +67,7 @@ export default function LandingContent() {
               alt="Demo screenshot"
               width={800}
               height={900}
-              className="h-auto max-h-[85%] w-auto max-w-full rounded-2xl object-contain shadow-2xl"
+              className="h-auto max-h-[85%] w-auto max-w-full  object-contain shadow-2xl"
             />
           </div>
         </div>

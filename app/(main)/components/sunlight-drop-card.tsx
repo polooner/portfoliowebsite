@@ -4,12 +4,8 @@ import Image from 'next/image';
 export function SunlightDropCard() {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-row justify-between">
-        <span className="font-bold">SUNLIGHT DROP TOOL</span>
-      </div>
-
       <Link href="/design-experiments/sunlight-drop" target="_blank" className="group block">
-        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-neutral-300 transition-transform duration-200 ease-out group-hover:scale-95">
+        <div className="relative w-full aspect-square overflow-hidden bg-neutral-300 transition-transform duration-200 ease-out group-hover:scale-95">
           {/* Text */}
 
 
@@ -73,6 +69,11 @@ export function SunlightDropCard() {
           />
         </div>
       </Link>
+
+      <div className="flex flex-row justify-between">
+        <span className="font-bold text-2xl">SUNLIGHT DROP TOOL</span>
+      </div>
+      <i className="font-thin text-xs text-neutral-500">web, design, engineering</i>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export function DownloadButton() {
   return (
     <a
       href={href}
-      className="self-center inline-block px-7 py-2.5 bg-black text-white rounded-md text-sm font-medium no-underline transition-[opacity,transform] duration-150 hover:opacity-80 active:scale-95"
+      className="self-center inline-block px-7 py-2.5 bg-black text-white  text-sm font-medium no-underline transition-[opacity,transform] duration-150 hover:opacity-80 active:scale-95"
     >
       {label}
     </a>

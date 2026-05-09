@@ -162,7 +162,7 @@ export default function CanvasContent() {
   );
 
   return (
-    <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl">
+    <div className="relative flex h-full w-full flex-col overflow-hidden ">
       {/* Button preview area */}
       <div
         className="flex flex-1 items-center justify-center"
@@ -201,7 +201,7 @@ export default function CanvasContent() {
           <button
             key={opt.value}
             onClick={() => setCanvasBackground(opt.value)}
-            className={`rounded-md px-3 py-1 text-[10px] font-medium transition-colors ${
+            className={` px-3 py-1 text-[10px] font-medium transition-colors ${
               canvasBackground === opt.value
                 ? 'bg-neutral-600 text-neutral-200'
                 : 'text-neutral-500 hover:text-neutral-300'

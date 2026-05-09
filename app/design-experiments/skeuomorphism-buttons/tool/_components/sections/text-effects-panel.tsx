@@ -52,12 +52,12 @@ export function TextEffectsPanel() {
       {/* ── Effect Mode Toggle ────────────────────────────── */}
       <div className="space-y-3">
         <span className="text-[10px] text-neutral-500">Effect Mode</span>
-        <div className="flex gap-1 rounded-lg bg-neutral-700/40 p-1">
+        <div className="flex gap-1  bg-neutral-700/40 p-1">
           {EFFECT_MODE_OPTIONS.map((option) => (
             <button
               key={option.value}
               onClick={() => setText({ effect: option.value })}
-              className={`flex-1 rounded-md px-2 py-1 text-[10px] font-medium transition-colors ${
+              className={`flex-1  px-2 py-1 text-[10px] font-medium transition-colors ${
                 text.effect === option.value
                   ? 'bg-neutral-600 text-neutral-200'
                   : 'text-neutral-500 hover:text-neutral-300'
@@ -71,7 +71,7 @@ export function TextEffectsPanel() {
 
       {/* ── Engraved Controls ────────────────────────────── */}
       {showEngravedControls && (
-        <div className="space-y-3 rounded-lg bg-neutral-700/20 p-3">
+        <div className="space-y-3  bg-neutral-700/20 p-3">
           <span className="text-[10px] text-neutral-500">Engraved Highlight</span>
           <ColorPicker
             color={text.engraved.highlightColor}
@@ -114,7 +114,7 @@ export function TextEffectsPanel() {
 
       {/* ── Embossed Controls ────────────────────────────── */}
       {showEmbossedControls && (
-        <div className="space-y-4 rounded-lg bg-neutral-700/20 p-3">
+        <div className="space-y-4  bg-neutral-700/20 p-3">
           {/* Highlight */}
           <div className="space-y-3">
             <span className="text-[10px] text-neutral-500">Highlight</span>
@@ -201,16 +201,16 @@ export function TextEffectsPanel() {
 
       {/* ── Gradient Fill Controls ────────────────────────── */}
       {showGradientControls && (
-        <div className="space-y-3 rounded-lg bg-neutral-700/20 p-3">
+        <div className="space-y-3  bg-neutral-700/20 p-3">
           <span className="text-[10px] text-neutral-500">Text Gradient</span>
 
           {/* Mode toggle */}
-          <div className="flex gap-1 rounded-lg bg-neutral-700/40 p-1">
+          <div className="flex gap-1  bg-neutral-700/40 p-1">
             {TEXT_GRADIENT_MODE_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 onClick={() => setTextGradient({ mode: option.value })}
-                className={`flex-1 rounded-md px-2 py-1 text-[10px] font-medium transition-colors ${
+                className={`flex-1  px-2 py-1 text-[10px] font-medium transition-colors ${
                   text.gradientFill.mode === option.value
                     ? 'bg-neutral-600 text-neutral-200'
                     : 'text-neutral-500 hover:text-neutral-300'
@@ -260,7 +260,7 @@ export function TextEffectsPanel() {
               <span className="text-[10px] text-neutral-500">Stops</span>
               <button
                 onClick={addTextGradientStop}
-                className="rounded-md px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+                className=" px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
               >
                 + Add
               </button>
@@ -282,7 +282,7 @@ export function TextEffectsPanel() {
                   {text.gradientFill.stops.length > 2 && (
                     <button
                       onClick={() => removeTextGradientStop(stop.id)}
-                      className="shrink-0 rounded p-1 text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+                      className="shrink-0  p-1 text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
                     >
                       <svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                         <path d="M18 6L6 18M6 6l12 12" />
@@ -312,12 +312,12 @@ export function TextEffectsPanel() {
           <span className="text-[10px] text-neutral-500">Text Shimmer</span>
           <button
             onClick={() => setTextShimmer({ enabled: !text.shimmer.enabled })}
-            className={`relative h-4 w-7 rounded-full transition-colors ${
+            className={`relative h-4 w-7  transition-colors ${
               text.shimmer.enabled ? 'bg-blue-500' : 'bg-neutral-600'
             }`}
           >
             <span
-              className={`absolute top-0.5 h-3 w-3 rounded-full bg-white transition-transform ${
+              className={`absolute top-0.5 h-3 w-3  bg-white transition-transform ${
                 text.shimmer.enabled ? 'left-3.5' : 'left-0.5'
               }`}
             />
@@ -325,7 +325,7 @@ export function TextEffectsPanel() {
         </div>
 
         {text.shimmer.enabled && (
-          <div className="space-y-2 rounded-lg bg-neutral-700/20 p-3">
+          <div className="space-y-2  bg-neutral-700/20 p-3">
             <SliderRow
               label="Angle"
               value={text.shimmer.angle}
@@ -368,12 +368,12 @@ export function TextEffectsPanel() {
           <span className="text-[10px] text-neutral-500">Text Stroke</span>
           <button
             onClick={() => setTextStroke({ enabled: !text.stroke.enabled })}
-            className={`relative h-4 w-7 rounded-full transition-colors ${
+            className={`relative h-4 w-7  transition-colors ${
               text.stroke.enabled ? 'bg-blue-500' : 'bg-neutral-600'
             }`}
           >
             <span
-              className={`absolute top-0.5 h-3 w-3 rounded-full bg-white transition-transform ${
+              className={`absolute top-0.5 h-3 w-3  bg-white transition-transform ${
                 text.stroke.enabled ? 'left-3.5' : 'left-0.5'
               }`}
             />
@@ -381,7 +381,7 @@ export function TextEffectsPanel() {
         </div>
 
         {text.stroke.enabled && (
-          <div className="space-y-2 rounded-lg bg-neutral-700/20 p-3">
+          <div className="space-y-2  bg-neutral-700/20 p-3">
             <SliderRow
               label="Width"
               value={text.stroke.width}

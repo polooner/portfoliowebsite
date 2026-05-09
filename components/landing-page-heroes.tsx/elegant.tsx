@@ -2,7 +2,7 @@ import { Instruction } from "@/types";
 
 export function LandingPage() {
   return (
-    <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black rounded-xl">
+    <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black ">
       <div className="relative pt-[10dvh] opacity-100 translate-y-[0.001px] bg-black flex flex-col items-center justify-center">
         <h1 className="text-center text-[#fefcff] mix-blend-difference mx-auto mb-8 overflow-visible text-6xl w-10/12">
           <div className="block text-center relative translate-none rotate-none scale-100 -translate-x-[0.0056%]">
@@ -30,7 +30,7 @@ export function LandingPage() {
 
 export const ElegantCode = `export default function LandingPage() {
   return (
-    <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black rounded-xl">
+    <div className="relative mx-auto flex h-[80dvh] max-w-full flex-col justify-center text-center bg-black ">
       <div className="relative pt-[10dvh] opacity-100 translate-y-[0.001px] bg-black flex flex-col items-center justify-center">
         <h1 className="text-center text-[#fefcff] mix-blend-difference mx-auto mb-8 overflow-visible text-6xl w-10/12">
           <div className="block text-center relative translate-none rotate-none scale-100 -translate-x-[0.0056%]">

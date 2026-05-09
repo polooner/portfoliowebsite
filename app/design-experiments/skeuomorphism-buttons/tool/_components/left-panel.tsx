@@ -113,18 +113,18 @@ export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: L
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
             style={{ width: panelWidth }}
-            className="fixed bottom-4 left-4 top-4 z-50 flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl"
+            className="fixed bottom-4 left-4 top-4 z-50 flex flex-col overflow-hidden  border border-white/10 bg-neutral-800/90 backdrop-blur-xl"
           >
             {/* Header with tabs */}
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
               <div className="flex items-center gap-2">
                 {/* Tab switcher */}
-                <div className="flex gap-0.5 rounded-lg bg-neutral-700/40 p-0.5">
+                <div className="flex gap-0.5  bg-neutral-700/40 p-0.5">
                   {TAB_OPTIONS.map((tab) => (
                     <button
                       key={tab.value}
                       onClick={() => onTabChange(tab.value)}
-                      className={`rounded-md px-2.5 py-1 text-[10px] font-medium transition-colors ${
+                      className={` px-2.5 py-1 text-[10px] font-medium transition-colors ${
                         activeTab === tab.value
                           ? 'bg-neutral-600 text-neutral-200'
                           : 'text-neutral-500 hover:text-neutral-300'
@@ -195,7 +195,7 @@ export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: L
                       </span>
                       <span>{copied ? 'Copied!' : 'Copy'}</span>
                     </motion.button>
-                    <span className="rounded bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-400">
+                    <span className=" bg-neutral-700/50 px-1.5 py-0.5 font-mono text-[10px] text-neutral-400">
                       tsx
                     </span>
                   </>
@@ -204,7 +204,7 @@ export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: L
               <motion.button
                 onClick={onClose}
                 whileTap={{ scale: 0.9 }}
-                className="flex h-6 w-6 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-200"
+                className="flex h-6 w-6 items-center justify-center  text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-200"
               >
                 <svg
                   width={14}
@@ -222,7 +222,7 @@ export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: L
             </div>
 
             {/* Tab content */}
-            <div className="flex-1 overflow-auto pb-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-600 hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+            <div className="flex-1 overflow-auto pb-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]: [&::-webkit-scrollbar-thumb]:bg-neutral-600 hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
               {activeTab === 'code' ? (
                 codeBlock
               ) : (
@@ -235,7 +235,7 @@ export default function LeftPanel({ isOpen, activeTab, onTabChange, onClose }: L
             {/* Resize handle */}
             <div
               onMouseDown={handleMouseDown}
-              className={`absolute right-0 top-0 bottom-0 w-1 cursor-col-resize rounded-r-2xl transition-colors ${
+              className={`absolute right-0 top-0 bottom-0 w-1 cursor-col-resize  transition-colors ${
                 isResizing ? 'bg-white/30' : 'hover:bg-white/20'
               }`}
             />

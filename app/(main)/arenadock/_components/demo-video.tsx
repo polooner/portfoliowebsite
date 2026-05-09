@@ -10,7 +10,7 @@ export function DemoVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
-    <div className="w-full rounded-2xl overflow-hidden bg-neutral-100 aspect-video">
+    <div className="w-full  overflow-hidden bg-neutral-100 aspect-video">
       <video
         ref={videoRef}
         autoPlay

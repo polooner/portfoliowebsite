@@ -39,7 +39,7 @@ export default function Page() {
       <div className="flex gap-2 mb-4">
         <button
           onClick={() => (variant === "default" && animationFinished ? replay() : setVariant("default"))}
-          className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ease-in-out ${variant === "default"
+          className={`flex items-center px-4 py-2  text-sm font-medium transition-all duration-300 ease-in-out ${variant === "default"
             ? "bg-white text-black"
             : "bg-neutral-800 text-neutral-400 hover:text-white"
             }`}
@@ -57,7 +57,7 @@ export default function Page() {
         </button>
         <button
           onClick={() => (variant === "rainbow" && animationFinished ? replay() : setVariant("rainbow"))}
-          className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ease-in-out ${variant === "rainbow"
+          className={`flex items-center px-4 py-2  text-sm font-medium transition-all duration-300 ease-in-out ${variant === "rainbow"
             ? "bg-white text-black"
             : "bg-neutral-800 text-neutral-400 hover:text-white"
             }`}

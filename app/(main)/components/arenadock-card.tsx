@@ -6,13 +6,9 @@ import { Link } from 'next-view-transitions';
 export function ArenaDockCard() {
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex flex-row justify-between">
-        <span className="font-bold">ARE.NA DOCK</span>
-      </div>
-
       <Link href="/arenadock" className="group block">
         <div
-          className="relative w-full aspect-square rounded-2xl overflow-hidden cursor-help transition-transform duration-200 ease-out group-hover:scale-95"
+          className="relative w-full aspect-square overflow-hidden cursor-help transition-transform duration-200 ease-out group-hover:scale-95"
           style={{ viewTransitionName: 'arenadock-image' }}
         >
           <Image
@@ -29,6 +25,11 @@ export function ArenaDockCard() {
           />
         </div>
       </Link>
+
+      <div className="flex flex-row justify-between">
+        <span className="font-bold text-2xl">ARE.NA DOCK</span>
+      </div>
+      <i className="font-thin text-xs text-neutral-500">web, design, engineering</i>
     </div>
   );
 }

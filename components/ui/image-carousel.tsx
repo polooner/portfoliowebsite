@@ -67,7 +67,7 @@ export function ImageCarousel({ images, className = '', height, label }: ImageCa
               key={currentIndex}
               src={images[currentIndex].src}
               alt={images[currentIndex].alt}
-              className="max-w-full object-contain rounded-2xl"
+              className="max-w-full object-contain "
               style={height ? { maxHeight: height - 80 } : undefined}
               initial={{ opacity: 0, filter: 'blur(8px)' }}
               animate={{ opacity: 1, filter: 'blur(0px)' }}
@@ -78,7 +78,7 @@ export function ImageCarousel({ images, className = '', height, label }: ImageCa
 
           <button
             onClick={goToPrevious}
-            className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+            className="absolute left-2 top-1/2 -translate-y-1/2 p-1.5  bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -86,7 +86,7 @@ export function ImageCarousel({ images, className = '', height, label }: ImageCa
 
           <button
             onClick={goToNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5  bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/70"
             aria-label="Next image"
           >
             <ChevronRight className="w-4 h-4" />
@@ -102,7 +102,7 @@ export function ImageCarousel({ images, className = '', height, label }: ImageCa
             aria-label={`Go to image ${index + 1}`}
           >
             <motion.div
-              className="h-[2px] rounded-full bg-neutral-300 overflow-hidden"
+              className="h-[2px]  bg-neutral-300 overflow-hidden"
               animate={{
                 width: currentIndex === index ? 28 : 8,
               }}
@@ -113,7 +113,7 @@ export function ImageCarousel({ images, className = '', height, label }: ImageCa
               }}
             >
               <motion.div
-                className="h-full bg-neutral-700 rounded-full"
+                className="h-full bg-neutral-700 "
                 style={{
                   width: currentIndex === index ? `${progress * 100}%` : '0%',
                 }}

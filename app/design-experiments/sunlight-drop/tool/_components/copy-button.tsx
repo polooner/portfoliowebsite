@@ -36,7 +36,7 @@ export function CopyButton({ getText }: CopyButtonProps) {
     <motion.button
       onClick={handleCopy}
       whileTap={{ scale: 0.95 }}
-      className="flex h-8 items-center gap-2 rounded-lg border border-white/10 bg-neutral-700/50 px-3 text-xs text-neutral-300 transition-colors hover:bg-neutral-600/50"
+      className="flex h-8 items-center gap-2  border border-white/10 bg-neutral-700/50 px-3 text-xs text-neutral-300 transition-colors hover:bg-neutral-600/50"
     >
       <span className="relative h-[14px] w-[14px]">
         <AnimatePresence mode="wait">

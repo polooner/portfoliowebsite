@@ -30,10 +30,10 @@ export function RepoCard(props: RepoCardProps) {
     <div
       key={props.key}
       id={props.fullName}
-      className='card z-10 rounded-[10px] ring-white ring-1 border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-100 bg-white motion-reduce:transition-none'
+      className='card z-10  ring-white ring-1 border-[1px] border-black/[15%] p-5 backdrop-blur-md duration-200 ease-in-out hover:bg-gray-100 bg-white motion-reduce:transition-none'
     >
       <div>
-        {/* <div className='mb-4 rounded-[10px] items-center relative self-center w-[720px] h-[480px]'>
+        {/* <div className='mb-4  items-center relative self-center w-[720px] h-[480px]'>
           <GithubIcon size={150} className='self-center' />
         </div> */}
         <div className='text-left'>
@@ -46,7 +46,7 @@ export function RepoCard(props: RepoCardProps) {
             <FolderIcon className='inline h-6 w-6 fill-black/[10%] stroke-black/[70%] duration-200 motion-reduce:transition-none  ' />{' '}
             {props.fullName}
           </Link>{' '}
-          <span className='ml-1 inline-flex content-center items-center rounded-lg border-[1px] border-black/[15%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[55%] duration-200 hover:bg-black/[5%] motion-reduce:transition-none '>
+          <span className='ml-1 inline-flex content-center items-center  border-[1px] border-black/[15%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[55%] duration-200 hover:bg-black/[5%] motion-reduce:transition-none '>
             {props.isArchived ? (
               <>
                 <ArchiveIcon className='mr-1 inline-block h-4 w-4 stroke-black/[50%] duration-200 motion-reduce:transition-none' />{' '}
@@ -74,7 +74,7 @@ export function RepoCard(props: RepoCardProps) {
                 href={`https://github.com/topics/${topic}`}
                 target='_blank'
               >
-                <span className='mr-[10px] mt-1 inline-flex content-center items-center rounded-[2em] border-[1px] border-black/[15%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/[5%] motion-reduce:transition-none'>
+                <span className='mr-[10px] mt-1 inline-flex content-center items-center  border-[1px] border-black/[15%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/[5%] motion-reduce:transition-none'>
                   #{topic}
                 </span>
               </Link>
@@ -92,12 +92,12 @@ export function RepoCard(props: RepoCardProps) {
               props.language ? props.language : 'Markdown'
             } search`}
           >
-            <span className='my-1 flex w-max content-center items-center rounded-lg border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
+            <span className='my-1 flex w-max content-center items-center  border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
               <span>{props.language ? props.language : 'Markdown'}</span>
             </span>
           </Link>
           <Link key='repo_stars' href={props.stargazersUrl} target='_blank'>
-            <span className='my-1 flex w-max snap-center snap-always content-center items-center rounded-lg border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
+            <span className='my-1 flex w-max snap-center snap-always content-center items-center  border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
               <StarIcon
                 className='mr-1 inline h-5 w-5 stroke-black/[50%] duration-200 motion-reduce:transition-none '
                 aria-hidden='true'
@@ -107,7 +107,7 @@ export function RepoCard(props: RepoCardProps) {
             </span>
           </Link>
           <Link key='repo_forks' href={props.forksUrl} target='_blank'>
-            <span className='my-1 flex w-max snap-center snap-always content-center items-center rounded-lg border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
+            <span className='my-1 flex w-max snap-center snap-always content-center items-center  border-2 border-transparent bg-black/[5%] px-[0.5em] py-[0.12em] align-middle text-[88%] text-gray-800/[60%] duration-200 hover:bg-black/10 motion-reduce:transition-none '>
               <svg
                 className='mr-1 h-5 w-5 fill-black/[50%] duration-200 motion-reduce:transition-none '
                 aria-hidden='true'
@@ -130,13 +130,13 @@ export function RepoCard(props: RepoCardProps) {
 
 export function RepoCardSkeleton() {
   return (
-    <div className='rounded-[10px] border-[1px] border-black/[15%] bg-white p-5 duration-200 hover:shadow-xl motion-reduce:transition-none '>
-      <div className='h-6 w-2/4 animate-pulse rounded-md bg-gray-200/[15%]' />
-      <div className='mt-3 h-6 w-5/6 animate-pulse rounded-md bg-gray-200/[15%]' />
+    <div className=' border-[1px] border-black/[15%] bg-white p-5 duration-200 hover:shadow-xl motion-reduce:transition-none '>
+      <div className='h-6 w-2/4 animate-pulse  bg-gray-200/[15%]' />
+      <div className='mt-3 h-6 w-5/6 animate-pulse  bg-gray-200/[15%]' />
       <div className='flex mt-3 text-left'>
         {Array.from({ length: 3 }).map((_, index) => (
           <div
-            className='mr-2 h-6 w-28 animate-pulse rounded-[2em] bg-gray-200/[15%]'
+            className='mr-2 h-6 w-28 animate-pulse  bg-gray-200/[15%]'
             key={index}
           />
         ))}
@@ -144,7 +144,7 @@ export function RepoCardSkeleton() {
       <div className='flex gap-1 mt-2 '>
         {Array.from({ length: 3 }).map((_, index) => (
           <div
-            className='mr-2 h-6 w-28 animate-pulse rounded-md bg-gray-200/[15%]'
+            className='mr-2 h-6 w-28 animate-pulse  bg-gray-200/[15%]'
             key={index}
           />
         ))}

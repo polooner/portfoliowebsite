@@ -83,7 +83,7 @@ export function DotMatrixGrid() {
     <div className="flex flex-col items-center gap-2">
       <div
         ref={containerRef}
-        className="relative bg-white rounded-2xl overflow-hidden"
+        className="relative bg-white  overflow-hidden"
         style={{ width: CONTAINER_WIDTH, height: CONTAINER_HEIGHT }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}

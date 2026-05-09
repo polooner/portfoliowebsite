@@ -7,7 +7,7 @@ function TransparentNav() {
     <nav className="fixed top-0 left-0 z-50 flex w-[55%] flex-row items-center justify-between px-12 py-6">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-neutral-900 p-1">
+        <div className="flex h-8 w-8 items-center justify-center  bg-neutral-900 p-1">
           <svg
             width="20"
             height="20"
@@ -53,7 +53,7 @@ function TransparentNav() {
         </Link>
         <Link
           href="#"
-          className="ml-2 rounded-full border border-neutral-300 bg-white px-4 py-2 text-neutral-700 transition-colors hover:bg-neutral-100"
+          className="ml-2  border border-neutral-300 bg-white px-4 py-2 text-neutral-700 transition-colors hover:bg-neutral-100"
         >
           Sign in
         </Link>

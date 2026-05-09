@@ -229,7 +229,7 @@ export default function CanvasContent() {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <div
-        className="rounded-2xl"
+        className=""
         style={{
           backgroundColor,
           opacity: backgroundOpacity / 100,

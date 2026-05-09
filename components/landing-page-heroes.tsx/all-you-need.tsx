@@ -11,7 +11,7 @@ export const LandingPage = () => {
           Stressing over the details? Realistically, you don&apos;t need to. This is all you need.
           Product speaks for itself. Focus on shipping, you can never go wrong with simple looks.
         </p>
-        <Button className="rounded-3xl font-semibold h-12">
+        <Button className=" font-semibold h-12">
           Join now <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
@@ -34,7 +34,7 @@ export const LandingPage = () => {
           all you need. Product speaks for itself. Focus on shipping, you can
           never go wrong with simple looks.
         </p>
-        <Button className="rounded-3xl font-semibold h-12">
+        <Button className=" font-semibold h-12">
           Join now <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>

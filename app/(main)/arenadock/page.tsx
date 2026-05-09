@@ -17,7 +17,7 @@ export default function ArenaDockPage() {
       <div className="flex flex-col gap-4">
         <div className="flex flex-row gap-4 self-center">
           <div
-            className="rounded-2xl overflow-hidden shrink-0"
+            className=" overflow-hidden shrink-0"
             style={{ viewTransitionName: 'arenadock-image' }}
           >
             <Image
@@ -28,7 +28,7 @@ export default function ArenaDockPage() {
               className="w-full h-auto"
             />
           </div>
-          <div className="rounded-2xl overflow-hidden shrink-0">
+          <div className=" overflow-hidden shrink-0">
             <Image
               src="/arenadock2.png"
               alt="ArenaDock interface"
@@ -67,7 +67,7 @@ export default function ArenaDockPage() {
           . I built it because I constantly have links and photos floating around
           in my DMs and Slack. Why open the browser when a system tray
           feels cooler? <br /><br /> Hit{' '}
-          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
             Ctrl+Option+A
           </code>{' '}
           (customizable), drop a link, paste text, or drag a file and it goes
@@ -87,7 +87,7 @@ export default function ArenaDockPage() {
           <li>
             <span className="font-bold">Menu bar app</span> &mdash; lives in
             your tray, toggled with{' '}
-            <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+            <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
               Ctrl+Option+A
             </code>{' '}
             or a click
@@ -117,17 +117,17 @@ export default function ArenaDockPage() {
           Are.na doesn&apos;t expose a direct file-upload API endpoint. Instead,
           uploads go through a 3-step presigned S3 flow. The catch: Are.na&apos;s
           S3 bucket CORS policy only allows{' '}
-          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
             *.are.na
           </code>{' '}
           origins, but a Tauri webview runs on{' '}
-          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
             tauri://localhost
           </code>
           . The fix: route the S3 PUT through Rust, bypassing the browser&apos;s
           CORS enforcement entirely.
         </p>
-        <div className="flex flex-col gap-3 text-xs bg-neutral-50 border border-neutral-200 rounded-xl p-4">
+        <div className="flex flex-col gap-3 text-xs bg-neutral-50 border border-neutral-200  p-4">
           <div className="flex flex-row justify-between text-neutral-500 font-medium pb-2 border-b border-neutral-200">
             <span>Browser (JS)</span>
             <span>Rust (Tauri)</span>
@@ -168,11 +168,11 @@ export default function ArenaDockPage() {
           Releases are fully automated via GitHub Actions. Tagging a version
           triggers a build, sign, and notarize pipeline that creates a GitHub
           Release with the{' '}
-          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
             .dmg
           </code>{' '}
           and updates{' '}
-          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 rounded">
+          <code className="text-xs bg-neutral-100 px-1.5 py-0.5 ">
             update.json
           </code>{' '}
           so existing users get auto-updated.

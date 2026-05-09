@@ -66,7 +66,7 @@ const RimLight = ({ triggerKey, size }: { triggerKey: number; size: number }) =>
     <AnimatePresence mode='popLayout'>
       <motion.div
         key={triggerKey}
-        className="absolute rounded-full"
+        className="absolute "
         style={{
           width: outerSize,
           height: outerSize,
@@ -82,7 +82,7 @@ const RimLight = ({ triggerKey, size }: { triggerKey: number; size: number }) =>
       >
         {/* Animated conic gradient that sweeps around */}
         <motion.div
-          className="absolute inset-0 rounded-full"
+          className="absolute inset-0 "
           style={{
             background: `conic-gradient(
               from 90deg,
@@ -104,7 +104,7 @@ const RimLight = ({ triggerKey, size }: { triggerKey: number; size: number }) =>
         />
         {/* Inner mask to cut out center, leaving only the rim */}
         <div
-          className="absolute rounded-full bg-white"
+          className="absolute  bg-white"
           style={{
             inset: borderWidth,
           }}
@@ -248,7 +248,7 @@ export function IconCarousel({
 
       {/* Pill Wrapper */}
       <div
-        className="absolute z-30 flex items-center border rounded-full bg-white/50 backdrop-blur-sm"
+        className="absolute z-30 flex items-center border  bg-white/50 backdrop-blur-sm"
         style={{
           left: pillLeftEdge,
           top: focusedIconY,
@@ -266,10 +266,10 @@ export function IconCarousel({
           {/* GLOW CONTAINER 
                 1. Increased -inset to -4 (creates a larger halo).
                 2. Increased blur to 8px (smoother light).
-                3. Added overflow-hidden + rounded-full to clip the square shine.
+                3. Added overflow-hidden +  to clip the square shine.
             */}
           <div
-            className="absolute -inset-4 rounded-full blur-[8px] overflow-hidden z-0 flex items-end justify-center"
+            className="absolute -inset-4  blur-[8px] overflow-hidden z-0 flex items-end justify-center"
             style={{ opacity: 1 }}
           >
             <ShineUnderlay triggerKey={rotationCount} />
@@ -277,7 +277,7 @@ export function IconCarousel({
 
           {/* Button Face with Rim Light */}
           <div
-            className="relative z-10 flex items-center justify-center rounded-full bg-white"
+            className="relative z-10 flex items-center justify-center  bg-white"
             style={{
               width: ICON_SIZE_FOCUSED,
               height: ICON_SIZE_FOCUSED,
@@ -287,8 +287,8 @@ export function IconCarousel({
             {/* Rim light overlay */}
             <RimLight triggerKey={rotationCount} size={ICON_SIZE_FOCUSED} />
             {/* Static border */}
-            <div className="absolute inset-0 rounded-full border border-black/5" />
-            <div className="absolute inset-0 rounded-full opacity-50 bg-linear-to-b from-white to-neutral-100" />
+            <div className="absolute inset-0  border border-black/5" />
+            <div className="absolute inset-0  opacity-50 bg-linear-to-b from-white to-neutral-100" />
             <span>FW</span>
           </div>
         </div>

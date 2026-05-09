@@ -79,9 +79,9 @@ export const CrossBordersNavBar = () => {
           <div className="relative flex group/item">
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
-            <div className="flex items-center px-4 py-3 text-base font-medium rounded-xl p-1 ">
+            <div className="flex items-center px-4 py-3 text-base font-medium  p-1 ">
               <Link
-                className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800 rounded-2xl text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
+                className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800  text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
                 href="#"
               >
                 Login
@@ -187,9 +187,9 @@ export const CrossEndedBoxNavigationBar = () => {
           <div className="relative flex group/item">
             <Cross className="absolute size-[15px] fill-black/10 -top-2 -right-2" />
             <Cross className="hidden group-last/row:block absolute size-[15px] fill-black/10 -bottom-2 -right-2" />
-            <div className="flex items-center px-4 py-3 text-base font-medium rounded-xl p-1 ">
+            <div className="flex items-center px-4 py-3 text-base font-medium  p-1 ">
               <Link
-                className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800 rounded-2xl text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
+                className="flex items-center px-4 py-1 text-base font-medium dark:text-heathered-gray-800  text-white p-1 bg-heathered-gray-800 dark:bg-white hover:bg-heathered-gray-900 transition-colors duration-150"
                 href="#"
               >
                 Login

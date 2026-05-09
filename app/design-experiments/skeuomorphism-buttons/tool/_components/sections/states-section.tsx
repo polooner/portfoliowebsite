@@ -38,7 +38,7 @@ export function StatesSection() {
             </span>
             <button
               onClick={() => setHover({ enabled: !hover.enabled })}
-              className={`rounded px-2 py-0.5 text-[10px] transition-colors ${
+              className={` px-2 py-0.5 text-[10px] transition-colors ${
                 hover.enabled
                   ? 'bg-green-500/20 text-green-400'
                   : 'bg-neutral-700/50 text-neutral-500'
@@ -95,7 +95,7 @@ export function StatesSection() {
             </span>
             <button
               onClick={() => setActive({ enabled: !active.enabled })}
-              className={`rounded px-2 py-0.5 text-[10px] transition-colors ${
+              className={` px-2 py-0.5 text-[10px] transition-colors ${
                 active.enabled
                   ? 'bg-green-500/20 text-green-400'
                   : 'bg-neutral-700/50 text-neutral-500'
@@ -140,7 +140,7 @@ export function StatesSection() {
                   onClick={() =>
                     setActive({ addInsetShadow: !active.addInsetShadow })
                   }
-                  className={`rounded px-2 py-0.5 text-[10px] transition-colors ${
+                  className={` px-2 py-0.5 text-[10px] transition-colors ${
                     active.addInsetShadow
                       ? 'bg-blue-500/20 text-blue-400'
                       : 'bg-neutral-700/50 text-neutral-500'
@@ -151,7 +151,7 @@ export function StatesSection() {
               </div>
 
               {active.addInsetShadow && (
-                <div className="space-y-2 rounded-lg bg-neutral-700/30 p-2">
+                <div className="space-y-2  bg-neutral-700/30 p-2">
                   <SliderRow
                     label="Blur"
                     value={active.insetShadowBlur}

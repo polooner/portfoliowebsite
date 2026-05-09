@@ -33,13 +33,13 @@ const SpotlightButtonCode = `export function SpotlightButton() {
 }`;
 
 export const SpotlightButtonVariantCode = `const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap  text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
         ...
         spotlight:
-          "border border-2 border-neutral-800 rounded-xl text-secondary bg-neutral-900 p-3.5 text-sm font-medium overflow-clip relative group/spotlight hover:ring-4 ring-offset-0 ring-offset-neutral-900 duration-300 transform-gpu hover:transition-all hover:ring-neutral-300",
+          "border border-2 border-neutral-800  text-secondary bg-neutral-900 p-3.5 text-sm font-medium overflow-clip relative group/spotlight hover:ring-4 ring-offset-0 ring-offset-neutral-900 duration-300 transform-gpu hover:transition-all hover:ring-neutral-300",
         ...
       },
       ...

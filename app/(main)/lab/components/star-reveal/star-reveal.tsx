@@ -48,7 +48,7 @@ export function StarReveal({
   return (
     <div className="flex flex-col items-center gap-2">
       <div
-        className={`relative overflow-hidden rounded-2xl ${className ?? ''}`}
+        className={`relative overflow-hidden  ${className ?? ''}`}
         style={{ width, height, backgroundColor: overlayColor }}
       >
         {/* Inline SVG defining the mask and blur filter - invisible but in DOM */}

@@ -48,7 +48,7 @@ export default function CanvasContent() {
   }, [columns, rows, paneWidth, paneHeight, gapX, gapY]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-2xl bg-neutral-300">
+    <div className="relative h-full w-full overflow-hidden  bg-neutral-300">
       <svg
         className="absolute inset-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"

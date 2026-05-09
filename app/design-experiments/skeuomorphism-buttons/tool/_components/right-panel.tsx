@@ -31,20 +31,20 @@ export default function RightPanel({
   const reset = useButtonStore((s) => s.reset);
 
   return (
-    <aside className="fixed bottom-4 right-4 top-4 z-50 flex w-72 flex-col rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl">
+    <aside className="fixed bottom-4 right-4 top-4 z-50 flex w-72 flex-col  border border-white/10 bg-neutral-800/90 backdrop-blur-xl">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <h2 className="text-xs font-medium text-neutral-100">Button</h2>
         <button
           onClick={reset}
-          className="rounded-md px-2 py-1 text-[10px] text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+          className=" px-2 py-1 text-[10px] text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
         >
           Reset
         </button>
       </div>
 
       {/* Scrollable sections */}
-      <div className="flex-1 space-y-1 overflow-y-auto px-4 py-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-neutral-600 hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+      <div className="flex-1 space-y-1 overflow-y-auto px-4 py-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]: [&::-webkit-scrollbar-thumb]:bg-neutral-600 hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
         <PresetsSection />
         <BackgroundSection />
         <ShadowsSection />

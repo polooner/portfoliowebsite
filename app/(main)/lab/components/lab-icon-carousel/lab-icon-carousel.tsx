@@ -15,7 +15,7 @@ export function LabIconCarousel() {
       <LabIconCarouselCore
         width={LAB_CONTAINER_WIDTH}
         height={LAB_CONTAINER_HEIGHT}
-        className="rounded-2xl overflow-hidden"
+        className=" overflow-hidden"
       />
       <LabItemFooter title={LAB_ITEM_TITLE} description={LAB_ITEM_DESCRIPTION} />
     </div>

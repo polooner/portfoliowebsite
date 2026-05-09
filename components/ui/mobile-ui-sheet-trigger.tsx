@@ -25,7 +25,7 @@ const MobileUISheetTrigger = () => {
           </Button>
         </SheetTrigger>
 
-        <SheetContent side="left" className="py-20 h-[calc(100vh-1rem)] mt-[0.5rem] rounded-r-xl">
+        <SheetContent side="left" className="py-20 h-[calc(100vh-1rem)] mt-[0.5rem] ">
           <ScrollArea>
             <div style={{ minWidth: '100%', display: 'table' }}>
               <div className="w-full pb-20">
@@ -36,7 +36,7 @@ const MobileUISheetTrigger = () => {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center p-2 gap-2 ${
-                        pathname === item.href ? 'bg-stone-200 rounded-md ' : 'hover:underline'
+                        pathname === item.href ? 'bg-stone-200  ' : 'hover:underline'
                       }`}
                     >
                       {item.title}

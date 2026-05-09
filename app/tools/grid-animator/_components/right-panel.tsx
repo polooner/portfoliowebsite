@@ -217,13 +217,13 @@ export default function RightPanel({
   const isPlaying = instance?.isPlaying ?? false;
 
   return (
-    <aside className="fixed bottom-4 right-4 top-4 z-50 flex w-64 flex-col rounded-2xl border border-white/10 bg-neutral-800/90 backdrop-blur-xl">
+    <aside className="fixed bottom-4 right-4 top-4 z-50 flex w-64 flex-col  border border-white/10 bg-neutral-800/90 backdrop-blur-xl">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
         <h2 className="text-xs font-medium text-neutral-100">Grid Animator</h2>
         <button
           onClick={reset}
-          className="rounded-md px-2 py-1 text-[10px] text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+          className=" px-2 py-1 text-[10px] text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
         >
           Reset
         </button>
@@ -233,7 +233,7 @@ export default function RightPanel({
       <div className="flex items-center gap-1 border-b border-white/10 px-3 py-2">
         <button
           onClick={() => addInstance({ x: 0, y: 0 })}
-          className="flex items-center gap-1 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-neutral-300 transition-colors hover:bg-neutral-600/50"
+          className="flex items-center gap-1  border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-neutral-300 transition-colors hover:bg-neutral-600/50"
         >
           <Plus size={10} />
           Add
@@ -242,14 +242,14 @@ export default function RightPanel({
           <>
             <button
               onClick={() => duplicateInstance(selectedId)}
-              className="flex items-center gap-1 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-neutral-300 transition-colors hover:bg-neutral-600/50"
+              className="flex items-center gap-1  border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-neutral-300 transition-colors hover:bg-neutral-600/50"
             >
               <Copy size={10} />
               Duplicate
             </button>
             <button
               onClick={() => removeInstance(selectedId)}
-              className="flex items-center gap-1 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-red-400 transition-colors hover:bg-red-900/30"
+              className="flex items-center gap-1  border border-white/10 bg-neutral-700/50 px-2 py-1 text-[10px] text-red-400 transition-colors hover:bg-red-900/30"
             >
               <Trash2 size={10} />
               Delete
@@ -262,7 +262,7 @@ export default function RightPanel({
         <EmptyState />
       ) : (
         <>
-          <div className="flex-1 space-y-6 overflow-y-auto p-4 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-600 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
+          <div className="flex-1 space-y-6 overflow-y-auto p-4 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-neutral-600 [&::-webkit-scrollbar-thumb]: hover:[&::-webkit-scrollbar-thumb]:bg-neutral-500">
             {/* GRID */}
             <div>
               <SectionHeader>Grid</SectionHeader>
@@ -321,20 +321,20 @@ export default function RightPanel({
                 <div className="flex gap-2">
                   <button
                     onClick={clearAllCells}
-                    className="flex-1 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-600/50 hover:text-neutral-300"
+                    className="flex-1  border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-600/50 hover:text-neutral-300"
                   >
                     Clear
                   </button>
                   <button
                     onClick={fillAllCells}
-                    className="flex-1 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-600/50 hover:text-neutral-300"
+                    className="flex-1  border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-600/50 hover:text-neutral-300"
                   >
                     Fill
                   </button>
                 </div>
                 <button
                   onClick={togglePlaying}
-                  className="flex w-full items-center justify-center gap-1.5 rounded-md border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-xs text-neutral-300 transition-colors hover:bg-neutral-600/50"
+                  className="flex w-full items-center justify-center gap-1.5  border border-white/10 bg-neutral-700/50 px-2 py-1.5 text-xs text-neutral-300 transition-colors hover:bg-neutral-600/50"
                 >
                   {isPlaying ? (
                     <>
@@ -360,7 +360,7 @@ export default function RightPanel({
                     value={instance.label}
                     onChange={(e) => setLabel(e.target.value)}
                     placeholder="Enter label..."
-                    className="h-7 rounded-md border border-white/10 bg-neutral-700/50 px-2 text-xs text-neutral-200 outline-none transition-colors placeholder:text-neutral-600 hover:bg-neutral-600/50 focus:border-white/20 [color-scheme:dark]"
+                    className="h-7  border border-white/10 bg-neutral-700/50 px-2 text-xs text-neutral-200 outline-none transition-colors placeholder:text-neutral-600 hover:bg-neutral-600/50 focus:border-white/20 [color-scheme:dark]"
                   />
                 </div>
                 <SliderRow
@@ -399,7 +399,7 @@ export default function RightPanel({
                           <button
                             key={dir}
                             onClick={() => setAnimation({ direction: dir })}
-                            className={`rounded-md border px-2 py-1 text-[10px] capitalize transition-colors ${
+                            className={` border px-2 py-1 text-[10px] capitalize transition-colors ${
                               animation!.direction === dir
                                 ? 'border-white/20 bg-neutral-600/50 text-neutral-200'
                                 : 'border-white/10 bg-neutral-700/50 text-neutral-400 hover:bg-neutral-600/50'
@@ -478,14 +478,14 @@ export default function RightPanel({
                   <label className="text-xs text-neutral-400">Glow</label>
                   <button
                     onClick={() => setEffects({ glowEnabled: !effects!.glowEnabled })}
-                    className={`relative h-5 w-9 rounded-full transition-colors ${
+                    className={`relative h-5 w-9  transition-colors ${
                       effects!.glowEnabled
                         ? 'bg-neutral-400'
                         : 'bg-neutral-600'
                     }`}
                   >
                     <div
-                      className={`absolute top-0.5 h-4 w-4 rounded-full bg-white transition-transform ${
+                      className={`absolute top-0.5 h-4 w-4  bg-white transition-transform ${
                         effects!.glowEnabled ? 'translate-x-4' : 'translate-x-0.5'
                       }`}
                     />

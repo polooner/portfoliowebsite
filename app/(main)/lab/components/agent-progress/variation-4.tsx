@@ -47,7 +47,7 @@ const CheckmarkIcon = () => (
         initial={{ opacity: 0, filter: 'blur(3px)' }}
         animate={{ opacity: 1, filter: 'blur(0px)' }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
-        className="bg-neutral-200 rounded-xl size-4 self-center items-center flex justify-center"
+        className="bg-neutral-200  size-4 self-center items-center flex justify-center"
     >
         <svg className="size-2.5" viewBox="0 0 16 16" fill="none">
             <path
@@ -64,7 +64,7 @@ const CheckmarkIcon = () => (
 
 const PendingIcon = () => (
     <div className="size-3.5 flex items-center justify-center">
-        <div className="size-2.5 rounded-full border border-dashed border-neutral-400" />
+        <div className="size-2.5  border border-dashed border-neutral-400" />
     </div>
 );
 
@@ -320,7 +320,7 @@ const AgentStepBase = ({
     onExitComplete?: () => void;
 }) => {
     return (
-        <div className="flex flex-col p-2 rounded-xl">
+        <div className="flex flex-col p-2 ">
             <div className="flex flex-row items-center gap-2">
                 <div className="size-4 flex items-center justify-center text-neutral-500">
                     {status === 'pending' && <PendingIcon />}
@@ -350,7 +350,7 @@ const AgentStepOverlay = ({
     step: Step;
 }) => {
     return (
-        <div className="flex flex-row items-center gap-2 p-2 rounded-xl">
+        <div className="flex flex-row items-center gap-2 p-2 ">
             <div className="size-4 flex items-center justify-center text-neutral-500">
                 {status === 'pending' && <PendingIcon />}
                 {status === 'in-progress' && <SpinnerIcon />}
@@ -489,20 +489,20 @@ export function AgentProgressVariation4() {
         <div className='justify-start items-start'>
             <div
                 ref={outerContainerRef}
-                className="border border-neutral-200/90 p-1 rounded-[1rem] w-44 m-10 bg-neutral-100 flex flex-col origin-top top-0 mb-auto mx-auto absolute -translate-x-1/2 overflow-hidden transition-[height] duration-300 ease-out"
+                className="border border-neutral-200/90 p-1  w-44 m-10 bg-neutral-100 flex flex-col origin-top top-0 mb-auto mx-auto absolute -translate-x-1/2 overflow-hidden transition-[height] duration-300 ease-out"
             >
                 <div ref={innerContentRef}>
                     <span className='tracking-tight font-medium text-neutral-700 text-xs p-1 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: fix bug</span>
-                    <div className="relative rounded-xl">
+                    <div className="relative ">
                         {/* Highlight box - moves to current step */}
                         <div
                             ref={highlightRef}
-                            className="absolute inset-x-0 top-0 bg-neutral-50 border border-neutral-200 rounded-xl transition-all duration-300 ease-out pointer-events-none"
+                            className="absolute inset-x-0 top-0 bg-neutral-50 border border-neutral-200  transition-all duration-300 ease-out pointer-events-none"
                             style={{ opacity: 0, height: 0 }}
                         />
 
                         {/* Base layer - muted styling */}
-                        <div className="rounded-xl">
+                        <div className="">
                             {steps.map((step, index) => (
                                 <div
                                     key={index}
@@ -523,7 +523,7 @@ export function AgentProgressVariation4() {
                         <div
                             ref={clipPathRef}
                             aria-hidden
-                            className="absolute inset-0 rounded-xl transition-[clip-path] duration-300 ease-out pointer-events-none"
+                            className="absolute inset-0  transition-[clip-path] duration-300 ease-out pointer-events-none"
                             style={{ clipPath: 'inset(0% 0 100% 0 round 12px)' }}
                         >
                             {steps.map((step, index) => (

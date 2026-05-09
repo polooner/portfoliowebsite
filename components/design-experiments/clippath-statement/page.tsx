@@ -39,7 +39,7 @@ export default function Page() {
   return (
     <div className="flex min-h-screen items-center justify-center p-8">
       {/* Card container */}
-      <div className="relative overflow-hidden rounded-2xl">
+      <div className="relative overflow-hidden ">
         {/* Base layer - black background with white text (revealed) */}
         <div className="p-10 py-20">
           <h1
@@ -77,7 +77,7 @@ export default function Page() {
         {showButton && (
           <button
             onClick={replay}
-            className="font-greed absolute bottom-3 right-3 rounded-full bg-white/10 px-4 py-1.5 text-xs lowercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+            className="font-greed absolute bottom-3 right-3  bg-white/10 px-4 py-1.5 text-xs lowercase tracking-widest text-white backdrop-blur-sm transition-colors hover:bg-white/20"
           >
             replay
           </button>

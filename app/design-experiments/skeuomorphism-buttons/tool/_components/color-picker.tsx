@@ -76,9 +76,9 @@ export function ColorPicker({
       {/* Left button - Color picker trigger */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="flex flex-1 items-center gap-2 rounded-l-lg border-r border-neutral-600/50 bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
+          <button className="flex flex-1 items-center gap-2  border-r border-neutral-600/50 bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
             <div
-              className="h-4 w-4 rounded"
+              className="h-4 w-4 "
               style={{ backgroundColor: cssColor, opacity: opacity / 100 }}
             />
             <span className="font-mono text-xs text-neutral-300">
@@ -90,18 +90,18 @@ export function ColorPicker({
           side="left"
           align="start"
           sideOffset={20}
-          className="w-56 rounded-xl border-white/10 bg-neutral-800 p-3"
+          className="w-56  border-white/10 bg-neutral-800 p-3"
         >
           {/* Color preview */}
           <div className="relative mb-3">
             <div
-              className="h-12 w-full rounded-lg"
+              className="h-12 w-full "
               style={{ backgroundColor: cssColor, opacity: opacity / 100 }}
             />
           </div>
 
           {/* Hex fallback display */}
-          <div className="mb-3 flex select-none items-center justify-between rounded-md bg-neutral-700/50 px-2 py-1.5">
+          <div className="mb-3 flex select-none items-center justify-between  bg-neutral-700/50 px-2 py-1.5">
             <span className="text-[10px] text-neutral-500">sRGB Hex</span>
             <span className="font-mono text-xs text-neutral-300">
               {oklchToHex(color)}
@@ -157,7 +157,7 @@ export function ColorPicker({
       </Popover>
 
       {/* Right button - Opacity input */}
-      <div className="flex items-center gap-1 rounded-r-lg bg-neutral-700/50 px-3 py-2">
+      <div className="flex items-center gap-1  bg-neutral-700/50 px-3 py-2">
         <input
           type="text"
           value={opacityInput}

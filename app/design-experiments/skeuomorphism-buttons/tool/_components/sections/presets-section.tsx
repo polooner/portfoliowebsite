@@ -54,7 +54,7 @@ function PresetThumbnail({
   return (
     <button
       onClick={onSelect}
-      className="flex h-16 items-center justify-center rounded-lg bg-neutral-700/30 p-2 transition-colors hover:bg-neutral-600/40"
+      className="flex h-16 items-center justify-center  bg-neutral-700/30 p-2 transition-colors hover:bg-neutral-600/40"
     >
       <div style={thumbStyle} className="pointer-events-none max-w-full truncate">
         {config.text.content}

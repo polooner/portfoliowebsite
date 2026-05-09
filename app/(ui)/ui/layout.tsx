@@ -1,73 +1,44 @@
-"use client";
+'use client';
 
-import MobileUISheetTrigger from "@/components/ui/mobile-ui-sheet-trigger";
-import NavBar from "@/components/ui/NavBar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { PageShell } from '@/app/(main)/_components/page-shell';
 
 export const items = [
-  {
-    title: "Landing Page Heroes",
-    href: "/ui/landing-page-heroes",
-  },
-  {
-    title: "Buttons",
-    href: "/ui/buttons",
-  },
-  {
-    title: "Cards",
-    href: "/ui/cards",
-  },
-  {
-    title: "Inputs",
-    href: "/ui/inputs",
-  },
-  {
-    title: "Navigation Bars",
-    href: "/ui/navigation-bars",
-  },
-  {
-    title: "Patterns",
-    href: "/ui/patterns",
-  },
+  { title: 'Landing Page Heroes', href: '/ui/landing-page-heroes' },
+  { title: 'Buttons', href: '/ui/buttons' },
+  { title: 'Cards', href: '/ui/cards' },
+  { title: 'Inputs', href: '/ui/inputs' },
+  { title: 'Navigation Bars', href: '/ui/navigation-bars' },
+  { title: 'Patterns', href: '/ui/patterns' },
 ];
 
-export default function UILayout({ children }: { children: React.ReactNode }) {
+function UiSubNav() {
   const pathname = usePathname();
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <NavBar>
-        <MobileUISheetTrigger />
-      </NavBar>
-
-      <div className="w-full flex-1 items-start md:grid md:grid-cols-[240px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[250px_minmax(0,1fr)] lg:gap-10">
-        <aside className="fixed top-14 z-30 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block py-8 pl-4">
-          <ScrollArea>
-            <div style={{ minWidth: "100%", display: "table" }}>
-              <div className="w-full pb-20">
-                {items.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center p-2 gap-2 ${
-                      pathname === item.href
-                        ? "bg-stone-200 rounded-md "
-                        : "hover:underline"
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-                <div className="pb-4"></div>
-              </div>
-            </div>
-          </ScrollArea>
-        </aside>
-        <main className="relative py-6 lg:gap-10 lg:py-8 2xl:grid 2xl:grid-cols-[1fr_300px] w-full md:pr-8 px-4 md:px-0">
-          {children}
-        </main>
-      </div>
+    <div className="flex flex-col">
+      <div className="text-2xl leading-tight text-neutral-500 mb-2">UI</div>
+      <ul className="flex flex-col">
+        {items.map((item) => {
+          const active = pathname === item.href;
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`text-2xl leading-tight transition-colors ${
+                  active ? 'text-black' : 'text-neutral-500 hover:text-black'
+                }`}
+              >
+                {item.title}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
+}
+
+export default function UILayout({ children }: { children: React.ReactNode }) {
+  return <PageShell sidebarExtra={<UiSubNav />}>{children}</PageShell>;
 }

@@ -28,12 +28,12 @@ export function BackgroundSection() {
     <CollapsibleSection id="background" title="Background">
       <div className="space-y-4">
         {/* Mode toggle */}
-        <div className="flex gap-1 rounded-lg bg-neutral-700/40 p-1">
+        <div className="flex gap-1  bg-neutral-700/40 p-1">
           {BACKGROUND_MODE_OPTIONS.map((option) => (
             <button
               key={option.value}
               onClick={() => setBackground({ mode: option.value })}
-              className={`flex-1 rounded-md px-2 py-1 text-[10px] font-medium transition-colors ${
+              className={`flex-1  px-2 py-1 text-[10px] font-medium transition-colors ${
                 background.mode === option.value
                   ? 'bg-neutral-600 text-neutral-200'
                   : 'text-neutral-500 hover:text-neutral-300'
@@ -95,7 +95,7 @@ export function BackgroundSection() {
                 <span className="text-[10px] text-neutral-500">Stops</span>
                 <button
                   onClick={addGradientStop}
-                  className="rounded-md px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+                  className=" px-2 py-0.5 text-[10px] text-neutral-400 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
                 >
                   + Add
                 </button>
@@ -117,7 +117,7 @@ export function BackgroundSection() {
                     {background.gradientStops.length > 2 && (
                       <button
                         onClick={() => removeGradientStop(stop.id)}
-                        className="shrink-0 rounded p-1 text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
+                        className="shrink-0  p-1 text-neutral-500 transition-colors hover:bg-neutral-700/50 hover:text-neutral-300"
                       >
                         <svg width={10} height={10} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                           <path d="M18 6L6 18M6 6l12 12" />

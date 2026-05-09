@@ -81,9 +81,9 @@ export default function ToolCanvas() {
         position: 'top-center',
         unstyled: true,
         classNames: {
-          toast: 'flex items-center gap-3 rounded-lg bg-neutral-800/80 px-3 py-2 backdrop-blur-sm',
+          toast: 'flex items-center gap-3  bg-neutral-800/80 px-3 py-2 backdrop-blur-sm',
           title: 'text-xs text-neutral-400',
-          actionButton: 'rounded-md bg-neutral-700/80 px-2 py-1 text-xs text-neutral-300 hover:bg-neutral-600/80 transition-colors',
+          actionButton: ' bg-neutral-700/80 px-2 py-1 text-xs text-neutral-300 hover:bg-neutral-600/80 transition-colors',
         },
         action: {
           label: 'Pan to content',
@@ -238,7 +238,7 @@ export default function ToolCanvas() {
 
 
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2  bg-neutral-800/80 px-3 py-2 text-xs text-neutral-400 backdrop-blur-sm">
         <span className="text-neutral-300">Scroll</span> to pan · <span className="text-neutral-300">Pinch</span> to zoom · <span className="text-neutral-300">⌘+/−</span> zoom · <span className="text-neutral-300">Shift+click</span> multi-select
       </div>
     </div>

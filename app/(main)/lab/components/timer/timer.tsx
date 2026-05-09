@@ -53,7 +53,7 @@ export function Timer({ duration = 10000 }: TimerProps) {
 
   return (
     <div className="lab-item min-h-[300px]">
-      <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-50 rounded-2xl">
+      <div className="relative h-48 flex items-center justify-center w-full max-w-[500px] bg-neutral-50 ">
         <div className="flex flex-col items-center gap-6">
           <div className="flex items-center justify-center gap-0">
             {formattedTime.split('').map((char, index) => (

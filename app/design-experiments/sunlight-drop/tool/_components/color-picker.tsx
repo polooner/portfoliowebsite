@@ -163,9 +163,9 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
       {/* Left button - Color picker trigger */}
       <Popover>
         <PopoverTrigger asChild>
-          <button className="flex flex-1 items-center gap-2 rounded-l-lg border-r border-neutral-600/50 bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
+          <button className="flex flex-1 items-center gap-2  border-r border-neutral-600/50 bg-neutral-700/50 px-3 py-2 transition-colors hover:bg-neutral-700">
             <div
-              className="h-4 w-4 rounded"
+              className="h-4 w-4 "
               style={{ backgroundColor: cssColor, opacity: opacity / 100 }}
             />
             <span className="font-mono text-xs text-neutral-300">
@@ -177,17 +177,17 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
           side="left"
           align="start"
           sideOffset={20}
-          className="w-56 rounded-xl border-white/10 bg-neutral-800 p-3"
+          className="w-56  border-white/10 bg-neutral-800 p-3"
         >
           {/* Color preview */}
           <div className="relative mb-3">
             <div
-              className="h-12 w-full rounded-lg"
+              className="h-12 w-full "
               style={{ backgroundColor: cssColor, opacity: opacity / 100 }}
             />
             <Popover>
               <PopoverTrigger asChild>
-                <button className="absolute right-1.5 top-1.5 cursor-help rounded-lg select-none bg-black/40 px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-white/80">
+                <button className="absolute right-1.5 top-1.5 cursor-help  select-none bg-black/40 px-1.5 py-0.5 text-[9px] font-medium tracking-wide text-white/80">
                   oklch
                 </button>
               </PopoverTrigger>
@@ -195,7 +195,7 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
                 side="top"
                 align="end"
                 sideOffset={22}
-                className="max-w-52 border-white/10 bg-neutral-800 text-xs text-neutral-300 rounded-xl"
+                className="max-w-52 border-white/10 bg-neutral-800 text-xs text-neutral-300 "
                 style={{ transform: 'translateX(1.2rem)' }}
               >
                 OKLCH produces superior gradients by ensuring uniform perceptual lightness, eliminating the muddy middle tones common in RGB or HSL.
@@ -204,7 +204,7 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
           </div>
 
           {/* Hex fallback display for verification */}
-          <div className="mb-3 flex select-none items-center justify-between rounded-md bg-neutral-700/50 px-2 py-1.5">
+          <div className="mb-3 flex select-none items-center justify-between  bg-neutral-700/50 px-2 py-1.5">
             <span className="text-[10px] text-neutral-500">sRGB Hex</span>
             <span className="font-mono text-xs text-neutral-300">{oklchToHex(color)}</span>
           </div>
@@ -258,7 +258,7 @@ export function ColorPicker({ color, opacity, onColorChange, onOpacityChange }: 
       </Popover>
 
       {/* Right button - Opacity input */}
-      <div className="flex items-center gap-1 rounded-r-lg bg-neutral-700/50 px-3 py-2">
+      <div className="flex items-center gap-1  bg-neutral-700/50 px-3 py-2">
         <input
           type="text"
           value={opacityInput}

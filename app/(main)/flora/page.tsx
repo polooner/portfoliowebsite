@@ -17,7 +17,7 @@ export default function FloraPage() {
           loop
           muted
           playsInline
-          className="w-full rounded-2xl"
+          className="w-full "
           style={{ viewTransitionName: 'flora-video' }}
         >
           <source src="/2022drawings/florafeatures.mov" type="video/quicktime" />

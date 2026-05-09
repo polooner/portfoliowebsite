@@ -38,7 +38,7 @@ export function LabIconCarouselIcon({
 
   return (
     <div
-      className="absolute flex items-center justify-center pointer-events-none select-none rounded-full"
+      className="absolute flex items-center justify-center pointer-events-none select-none "
       style={{
         left: x,
         top: y,
@@ -52,7 +52,7 @@ export function LabIconCarouselIcon({
     >
       {/* Glossy dark circle */}
       <div
-        className="relative flex items-center justify-center rounded-full"
+        className="relative flex items-center justify-center "
         style={{
           width: size,
           height: size,

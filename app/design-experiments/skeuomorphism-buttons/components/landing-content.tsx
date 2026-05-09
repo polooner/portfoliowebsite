@@ -25,7 +25,7 @@ export default function LandingContent() {
         <div className="flex flex-row gap-3 pt-2">
           <Link
             href="/design-experiments/skeuomorphism-buttons/tool"
-            className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+            className=" bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
           >
             Open Designer
           </Link>
@@ -48,19 +48,19 @@ export default function LandingContent() {
       <div className="flex w-full max-w-3xl flex-col items-center gap-4 px-6 pb-24">
         <div className="flex flex-row items-center gap-6 text-sm text-neutral-500">
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+            <span className="h-1.5 w-1.5  bg-neutral-400" />
             Box shadows
           </span>
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+            <span className="h-1.5 w-1.5  bg-neutral-400" />
             Gradients
           </span>
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+            <span className="h-1.5 w-1.5  bg-neutral-400" />
             Beveled borders
           </span>
           <span className="flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+            <span className="h-1.5 w-1.5  bg-neutral-400" />
             Hover & active states
           </span>
         </div>

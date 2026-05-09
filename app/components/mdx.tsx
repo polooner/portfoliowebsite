@@ -53,12 +53,12 @@ function CustomLink(props) {
 }
 
 function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />;
+  return <Image alt={props.alt} className="" {...props} />;
 }
 
 function Callout(props) {
   return (
-    <div className="flex items-center p-1 px-4 py-3 mb-8 text-sm text-black border rounded border-neutral-200  bg-neutral-200 ">
+    <div className="flex items-center p-1 px-4 py-3 mb-8 text-sm text-black border  border-neutral-200  bg-neutral-200 ">
       <div className="flex items-center w-4 mr-4">{props.emoji}</div>
       <div className="w-full callout">{props.children}</div>
     </div>
@@ -68,7 +68,7 @@ function Callout(props) {
 function CopyWord(props) {
   return (
     <button
-      className="p-1 rounded bg-neutral-500"
+      className="p-1  bg-neutral-500"
       onClick={() => {
         navigator.clipboard.writeText(this.state.textToCopy);
       }}
@@ -80,7 +80,7 @@ function CopyWord(props) {
 
 function ProsCard({ title, pros }) {
   return (
-    <div className="w-full p-6 my-4 border border-emerald-900 bg-neutral-900 rounded-xl">
+    <div className="w-full p-6 my-4 border border-emerald-900 bg-neutral-900 ">
       <span>{`You might use ${title} if...`}</span>
       <div className="mt-4">
         {pros.map((pro) => (
@@ -109,7 +109,7 @@ function ProsCard({ title, pros }) {
 
 function Quote({ children }) {
   return (
-    <div className="bg-neutral-100 w-fit italic font-medium p-1 rounded-md">
+    <div className="bg-neutral-100 w-fit italic font-medium p-1 ">
       {children}
     </div>
   );
@@ -117,7 +117,7 @@ function Quote({ children }) {
 
 function ConsCard({ title, cons }) {
   return (
-    <div className="w-full p-6 my-6 border border-red-900 bg-neutral-900 rounded-xl">
+    <div className="w-full p-6 my-6 border border-red-900 bg-neutral-900 ">
       <span>{`You might not use ${title} if...`}</span>
       <div className="mt-4">
         {cons.map((con) => (

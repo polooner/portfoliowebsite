@@ -42,7 +42,7 @@ const CheckmarkIcon = () => (
     initial={{ opacity: 0, filter: 'blur(3px)' }}
     animate={{ opacity: 1, filter: 'blur(0px)' }}
     transition={{ duration: 0.3, ease: 'easeOut' }}
-    className="bg-neutral-200 rounded-xl size-4 self-center items-center flex justify-center"
+    className="bg-neutral-200  size-4 self-center items-center flex justify-center"
   >
     <svg className="size-2.5" viewBox="0 0 16 16" fill="none">
       <path
@@ -59,7 +59,7 @@ const CheckmarkIcon = () => (
 
 const PendingIcon = () => (
   <div className="size-3.5 flex items-center justify-center">
-    <div className="size-2.5 rounded-full border border-dashed border-neutral-400" />
+    <div className="size-2.5  border border-dashed border-neutral-400" />
   </div>
 );
 
@@ -224,9 +224,9 @@ export function AgentProgressVariation2() {
   };
 
   return (
-    <div className="border border-neutral-200/90 rounded-nest-xl-1 w-44 m-10 bg-neutral-100 flex flex-col">
+    <div className="border border-neutral-200/90  w-44 m-10 bg-neutral-100 flex flex-col">
       <span className='tracking-tight font-medium text-neutral-700 text-xs p-2 pb-2 items-center flex flex-row gap-1'><AnimatedTaskIcon className='size-3' /> Plan: add feature</span>
-      <div className='bg-neutral-50 p-2 border border-neutral-200 rounded-nest-xl-1 mx-[-1px] mb-[-1px] gap-3 flex flex-col'>
+      <div className='bg-neutral-50 p-2 border border-neutral-200  mx-[-1px] mb-[-1px] gap-3 flex flex-col'>
         {steps.map((step, index) => (
           <div key={index} >
             <AgentStep status={getStatus(index)} step={step} />
