@@ -38,6 +38,19 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: '032c-archive',
+    kind: 'work',
+    name: '032c Archive',
+    role: 'creator',
+    year: '2026',
+    href: 'https://032carchive.vercel.app/',
+    external: true,
+    description:
+      'A complete archive of 032c — every article and image ever posted, indexed by every name mentioned. Browsable views to infinitely dig in and appreciate the beauty it has to offer.',
+    tags: 'web, design, engineering',
+    media: [],
+  },
+  {
     id: 'krea',
     kind: 'work',
     name: 'Krea',
