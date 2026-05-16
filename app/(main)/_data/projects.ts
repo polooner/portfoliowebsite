@@ -19,7 +19,7 @@ export type ProjectMedia =
     }
   | { type: 'logo'; key: 'krea'; caption?: string };
 
-export type ProjectKind = 'work' | 'tool';
+export type ProjectKind = 'work' | 'tool' | 'job';
 
 export type Project = {
   id: string;
@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'krea',
-    kind: 'work',
+    kind: 'job',
     name: 'Krea',
     role: 'design + engineering',
     year: 'current',
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 'flora',
-    kind: 'work',
+    kind: 'job',
     name: 'FLORA',
     role: '',
     year: '2025-2026',

@@ -10,6 +10,7 @@ import { SiteNav } from './site-nav';
 
 const WORK_PROJECTS = PROJECTS.filter((p) => p.kind === 'work');
 const TOOL_PROJECTS = PROJECTS.filter((p) => p.kind === 'tool');
+const JOB_PROJECTS = PROJECTS.filter((p) => p.kind === 'job');
 
 function formatIndex(i: number) {
   return `${i + 1}.`;
@@ -79,6 +80,13 @@ export function HomeFeed() {
           <ProjectList
             title="Tools"
             items={TOOL_PROJECTS}
+            activeId={active.id}
+            onHover={setActiveId}
+          />
+
+          <ProjectList
+            title="Work"
+            items={JOB_PROJECTS}
             activeId={active.id}
             onHover={setActiveId}
           />
