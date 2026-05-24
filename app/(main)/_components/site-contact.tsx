@@ -6,13 +6,13 @@ const CONTACT_LINKS = [
 
 export function SiteContact() {
   return (
-    <div className="mt-auto flex flex-col text-neutral-500">
+    <div className="mt-auto flex flex-col text-red-300">
       {CONTACT_LINKS.map((c) => (
         <Link
           key={c.label}
           href={c.href}
           target="_blank"
-          className="w-fit text-2xl leading-tight hover:text-black hover:underline hover:decoration-dotted hover:decoration-1 hover:underline-offset-4"
+          className="w-fit text-2xl leading-tight hover:text-red-600 hover:underline hover:decoration-dotted hover:decoration-1 hover:underline-offset-4"
         >
           {c.label}
         </Link>

@@ -25,7 +25,7 @@ type ListProps = {
 function ProjectList({ title, items, activeId, onSelect }: ListProps) {
   return (
     <div className="flex flex-col">
-      <div className="text-2xl leading-tight text-neutral-500 mb-2">{title}</div>
+      <div className="text-xl leading-tight text-red-600 mb-2">{title}</div>
       <ol className="flex flex-col">
         {items.map((p, i) => {
           const isActive = p.id === activeId;
@@ -36,18 +36,17 @@ function ProjectList({ title, items, activeId, onSelect }: ListProps) {
                 onMouseEnter={() => onSelect(p.id)}
                 onFocus={() => onSelect(p.id)}
                 onClick={() => onSelect(p.id)}
-                className={`text-left w-full transition-colors text-2xl leading-tight flex flex-row gap-8 cursor-pointer uppercase ${
-                  isActive ? 'text-red-600' : 'text-red-300 hover:text-red-600'
-                }`}
+                className={`text-left w-full transition-colors text-xl leading-tight flex flex-row gap-8 cursor-pointer uppercase ${isActive ? 'text-red-600' : 'text-red-300 hover:text-red-600'
+                  }`}
               >
                 <span className="w-6 shrink-0 tabular-nums">{formatIndex(i)}</span>
                 <span className="flex flex-row items-baseline gap-2">
                   <span>{p.name}</span>
                   {p.subtext && (
-                    <span className="text-xs text-neutral-400 normal-case">{p.subtext}</span>
+                    <span className="text-xs text-red-300 normal-case">{p.subtext}</span>
                   )}
                   {p.defunct && (
-                    <span className="text-xs text-neutral-400 normal-case">defunct</span>
+                    <span className="text-xs text-red-300 normal-case">defunct</span>
                   )}
                 </span>
               </button>

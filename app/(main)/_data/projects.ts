@@ -267,7 +267,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     href: 'https://paysponge.com',
     external: true,
-    description: 'A small merch line built around the paysponge mascot.',
+    description: `A small merch line for a friend's company.`,
     tags: 'design',
     media: [
       {
