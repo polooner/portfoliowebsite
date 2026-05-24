@@ -10,23 +10,26 @@ import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 import { TableSearchDemo } from '@/app/(main)/lab/components/landing-page-elements/table-search-demo';
 import { ButtonsSection } from '@/app/(main)/lab/components/ui-sections/buttons';
 import { CardsSection } from '@/app/(main)/lab/components/ui-sections/cards';
+import { CenteredShell } from '@/app/(main)/_components/centered-shell';
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-20 p-2 sm:p-4 md:p-8 max-w-full overflow-x-hidden">
-      <TableSearchDemo />
-      <StarReveal />
-      <DotMatrixGrid />
-      <InkBleedDemo />
-      <StreamingTextCarousel />
-      <WarpSlider />
-      <Timer />
-      <EaseCarousel />
-      <ClipPathReveal />
-      <AgentProgress />
+    <CenteredShell>
+      <div className="flex flex-col gap-20 max-w-full overflow-x-hidden">
+        <TableSearchDemo />
+        <StarReveal />
+        <DotMatrixGrid />
+        <InkBleedDemo />
+        <StreamingTextCarousel />
+        <WarpSlider />
+        <Timer />
+        <EaseCarousel />
+        <ClipPathReveal />
+        <AgentProgress />
 
-      <ButtonsSection />
-      <CardsSection />
-    </div>
+        <ButtonsSection />
+        <CardsSection />
+      </div>
+    </CenteredShell>
   );
 }

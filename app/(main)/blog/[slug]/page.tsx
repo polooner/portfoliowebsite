@@ -1,6 +1,7 @@
 import { CustomMDX } from "app/components/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Link } from "next-view-transitions";
 // import { getViewsCount } from 'app/db/queries';
 import { getBlogPosts } from "app/db/blog";
 // import { increment } from 'app/db/actions';
@@ -92,7 +93,13 @@ export default async function Blog(props) {
   }
 
   return (
-    <section className="flex flex-col  items-center p-8">
+    <main className="relative min-h-screen w-full flex justify-center px-8 py-20">
+      <Link
+        href="/blog"
+        className="fixed top-8 left-8 z-10 text-sm uppercase text-neutral-500 hover:text-black underline-offset-4 hover:underline decoration-dotted decoration-1"
+      >
+        [← back]
+      </Link>
       <script
         type="application/ld+json"
         suppressHydrationWarning
@@ -115,21 +122,20 @@ export default async function Blog(props) {
           }),
         }}
       />
-      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm max-w-[650px]">
-        <p className="text-sm text-black">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
-        {/* <Suspense fallback={<p className='h-5' />}>
-          <Views slug={post.slug} />
-        </Suspense> */}
-      </div>
-      <article className="prose text-black prose-quoteless prose-neutral dark:prose-invert sm:p-10 md:p-20 lg:p-32 max-w-6xl">
-        <CustomMDX source={post.content} />
+      <article className="w-full max-w-[640px] flex flex-col gap-8">
+        <header className="flex flex-col gap-2">
+          <h1 className="font-medium text-2xl tracking-tighter">
+            {post.metadata.title}
+          </h1>
+          <p className="text-xs uppercase text-neutral-500">
+            {formatDate(post.metadata.publishedAt)}
+          </p>
+        </header>
+        <div className="prose text-black prose-quoteless prose-neutral">
+          <CustomMDX source={post.content} />
+        </div>
       </article>
-    </section>
+    </main>
   );
 }
 

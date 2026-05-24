@@ -10,7 +10,12 @@ type Props = {
 export function MainShell({ children }: Props) {
   const pathname = usePathname();
 
-  if (pathname === '/') {
+  if (
+    pathname === '/' ||
+    (pathname.startsWith('/blog/') && pathname !== '/blog') ||
+    pathname === '/lab' ||
+    pathname.startsWith('/lab/')
+  ) {
     return <div className="w-full">{children}</div>;
   }
 

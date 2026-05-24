@@ -1,58 +1,39 @@
-import Link from "next/link";
-// import { getViewsCount } from 'app/db/queries';
-import { ReaderIcon } from "@radix-ui/react-icons";
+import { Link } from "next-view-transitions";
 import { getBlogPosts } from "app/db/blog";
 
 export const metadata = {
-  title: "Blog",
+  title: "Writing",
   description: "Read my thoughts on arts, software, and more.",
 };
 
 export default function BlogPage() {
-  let allBlogs = getBlogPosts();
+  const posts = getBlogPosts()
+    .filter((post) => post.metadata.publishedAt)
+    .sort((a, b) => {
+      if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+        return -1;
+      }
+      return 1;
+    });
 
   return (
-    <section className="flex flex-col space-y-8 items-center text-start">
-      <div className="flex flex-col items-start space-y-8 ">
-        {allBlogs
-          .filter((post) => post.metadata.publishedAt)
-          .sort((a, b) => {
-            if (
-              new Date(a.metadata.publishedAt) >
-              new Date(b.metadata.publishedAt)
-            ) {
-              return -1;
-            }
-            return 1;
-          })
-          .map((post) => (
-            <Link
-              key={post.slug}
-              className="flex flex-col space-y-1 items-baseline justify-center hover:underline"
-              href={`/blog/${post.slug}`}
-            >
-              <div className="flex text-start items-start flex-col w-full">
-                <div className="flex flex-row text-start items-center w-full space-x-2">
-                  <p className="tracking-tight text-start text-black">
-                    {post.metadata.title}
-                  </p>
-                </div>
-                <span className="text-xs opacity-80">
-                  {post.metadata.publishedAt}
-                </span>
-                {/* <Suspense fallback={<p className='h-6' />}>
-                <Views slug={post.slug} />
-              </Suspense> */}
-              </div>
-            </Link>
-          ))}
+    <div className="flex items-center justify-center md:fixed md:inset-0 md:p-8 md:pointer-events-none">
+      <div className="md:pointer-events-auto flex flex-col gap-8 items-center text-center">
+        {posts.map((post) => (
+          <Link
+            key={post.slug}
+            href={`/blog/${post.slug}`}
+            className="flex flex-col gap-1 items-center hover:underline underline-offset-4 decoration-dotted decoration-1"
+          >
+            <p className="text-2xl leading-tight text-black">
+              {post.metadata.title}
+            </p>
+            <span className="text-xs uppercase text-neutral-500">
+              {post.metadata.publishedAt}
+            </span>
+          </Link>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
-
-// async function Views({ slug }: { slug: string }) {
-//   let views = await getViewsCount();
-
-//   return <ViewCounter allViews={views} slug={slug} />;
-// }
