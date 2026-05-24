@@ -1,6 +1,5 @@
 'use client';
 
-import { Link } from 'next-view-transitions';
 import { useState } from 'react';
 import { PROJECTS, type Project } from '../_data/projects';
 import { ProjectDetail } from './project-detail';
@@ -20,10 +19,10 @@ type ListProps = {
   title: string;
   items: Project[];
   activeId: string;
-  onHover: (id: string) => void;
+  onSelect: (id: string) => void;
 };
 
-function ProjectList({ title, items, activeId, onHover }: ListProps) {
+function ProjectList({ title, items, activeId, onSelect }: ListProps) {
   return (
     <div className="flex flex-col">
       <div className="text-2xl leading-tight text-neutral-500 mb-2">{title}</div>
@@ -32,12 +31,13 @@ function ProjectList({ title, items, activeId, onHover }: ListProps) {
           const isActive = p.id === activeId;
           return (
             <li key={p.id}>
-              <Link
-                href={`/projects/${p.id}`}
-                onMouseEnter={() => onHover(p.id)}
-                onFocus={() => onHover(p.id)}
-                className={`text-left w-full transition-colors text-2xl leading-tight flex flex-row gap-8 ${
-                  isActive ? 'text-black' : 'text-neutral-500 hover:text-black'
+              <button
+                type="button"
+                onMouseEnter={() => onSelect(p.id)}
+                onFocus={() => onSelect(p.id)}
+                onClick={() => onSelect(p.id)}
+                className={`text-left w-full transition-colors text-2xl leading-tight flex flex-row gap-8 cursor-pointer uppercase ${
+                  isActive ? 'text-red-600' : 'text-red-300 hover:text-red-600'
                 }`}
               >
                 <span className="w-6 shrink-0 tabular-nums">{formatIndex(i)}</span>
@@ -50,7 +50,7 @@ function ProjectList({ title, items, activeId, onHover }: ListProps) {
                     <span className="text-xs text-neutral-400 normal-case">defunct</span>
                   )}
                 </span>
-              </Link>
+              </button>
             </li>
           );
         })}
@@ -74,21 +74,21 @@ export function HomeFeed() {
             title="Selected"
             items={WORK_PROJECTS}
             activeId={active.id}
-            onHover={setActiveId}
+            onSelect={setActiveId}
           />
 
           <ProjectList
             title="Tools"
             items={TOOL_PROJECTS}
             activeId={active.id}
-            onHover={setActiveId}
+            onSelect={setActiveId}
           />
 
           <ProjectList
             title="Work"
             items={JOB_PROJECTS}
             activeId={active.id}
-            onHover={setActiveId}
+            onSelect={setActiveId}
           />
 
           <SiteContact />
