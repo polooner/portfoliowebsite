@@ -20,36 +20,59 @@ type ListProps = {
   items: Project[];
   activeId: string;
   onSelect: (id: string) => void;
+  asLinks?: boolean;
 };
 
-function ProjectList({ title, items, activeId, onSelect }: ListProps) {
+const ITEM_CLASS_BASE =
+  'text-left w-full transition-colors text-xl leading-tight flex flex-row gap-8 cursor-pointer uppercase';
+
+function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
   return (
     <div className="flex flex-col">
       <div className="text-xl leading-tight text-red-600 mb-2">{title}</div>
       <ol className="flex flex-col">
         {items.map((p, i) => {
           const isActive = p.id === activeId;
+          const colorClass = isActive
+            ? 'text-red-600'
+            : 'text-red-300 hover:text-red-600';
+          const content = (
+            <>
+              <span className="w-6 shrink-0 tabular-nums">{formatIndex(i)}</span>
+              <span className="flex flex-row items-baseline gap-2">
+                <span>{p.name}</span>
+                {p.subtext && (
+                  <span className="text-xs text-red-300 normal-case">{p.subtext}</span>
+                )}
+                {p.defunct && (
+                  <span className="text-xs text-red-300 normal-case">defunct</span>
+                )}
+              </span>
+            </>
+          );
+
           return (
             <li key={p.id}>
-              <button
-                type="button"
-                onMouseEnter={() => onSelect(p.id)}
-                onFocus={() => onSelect(p.id)}
-                onClick={() => onSelect(p.id)}
-                className={`text-left w-full transition-colors text-xl leading-tight flex flex-row gap-8 cursor-pointer uppercase ${isActive ? 'text-red-600' : 'text-red-300 hover:text-red-600'
-                  }`}
-              >
-                <span className="w-6 shrink-0 tabular-nums">{formatIndex(i)}</span>
-                <span className="flex flex-row items-baseline gap-2">
-                  <span>{p.name}</span>
-                  {p.subtext && (
-                    <span className="text-xs text-red-300 normal-case">{p.subtext}</span>
-                  )}
-                  {p.defunct && (
-                    <span className="text-xs text-red-300 normal-case">defunct</span>
-                  )}
-                </span>
-              </button>
+              {asLinks ? (
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ITEM_CLASS_BASE} ${colorClass}`}
+                >
+                  {content}
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onMouseEnter={() => onSelect(p.id)}
+                  onFocus={() => onSelect(p.id)}
+                  onClick={() => onSelect(p.id)}
+                  className={`${ITEM_CLASS_BASE} ${colorClass}`}
+                >
+                  {content}
+                </button>
+              )}
             </li>
           );
         })}
@@ -88,6 +111,7 @@ export function HomeFeed() {
             items={JOB_PROJECTS}
             activeId={active.id}
             onSelect={setActiveId}
+            asLinks
           />
 
           <SiteContact />

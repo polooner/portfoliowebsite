@@ -69,8 +69,8 @@ export const PROJECTS: Project[] = [
     name: 'FLORA',
     role: '',
     year: '2025-2026',
-    href: '/flora',
-    external: false,
+    href: 'https://www.florafauna.ai',
+    external: true,
     description:
       'A drawing + animation playground exploring procedurally-generated botanical forms.',
     tags: 'web, design, engineering',
