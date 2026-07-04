@@ -9,7 +9,7 @@ import { getArchive } from './_lib/data';
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'Runway Archive — Fashion Show Soundtracks',
+  title: 'Runway Soundtracks',
   description:
     'Every runway show soundtrack, brand by brand: per-show Spotify playlists and full creative-director tenure playlists.',
 };
@@ -25,7 +25,7 @@ export default async function Page() {
       <header className="sticky top-0 z-10 bg-white">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 md:px-8">
           <a href="#top" className="text-[13px] font-extrabold uppercase tracking-[0.02em]">
-            Runway Archive
+            Runway Soundtracks
           </a>
           <HeaderNav brands={(archive ?? []).map((b) => ({ name: b.brand.toUpperCase(), slug: b.slug }))} />
         </div>

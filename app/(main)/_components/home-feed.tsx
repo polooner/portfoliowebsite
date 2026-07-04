@@ -53,7 +53,7 @@ function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
 
           return (
             <li key={p.id}>
-              {asLinks ? (
+              {asLinks || p.linkOnly ? (
                 <a
                   href={p.href}
                   target="_blank"

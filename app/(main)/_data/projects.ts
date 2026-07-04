@@ -34,17 +34,20 @@ export type Project = {
   media: ProjectMedia[];
   defunct?: boolean;
   subtext?: string;
+  /** Render as a direct external link in its list (no detail-pane selection). */
+  linkOnly?: boolean;
 };
 
 export const PROJECTS: Project[] = [
   {
     id: 'fashion-show-soundtracks',
     kind: 'work',
-    name: 'Runway Archive',
+    name: 'Runway Soundtracks',
     role: 'creator',
     year: '2026',
     href: 'https://lab.filipwojda.com/fashion-show-soundtracks',
     external: true,
+    linkOnly: true,
     description:
       'Every runway show soundtrack, brand by brand — per-show Spotify playlists and full creative-director tenure playlists, recognized from the original show audio.',
     tags: 'music, fashion, engineering',
