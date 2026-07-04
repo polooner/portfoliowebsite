@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { BrandLogo } from './_components/brand-logo';
 import { HeaderNav } from './_components/header-nav';
+import { StickySeparators } from './_components/sticky-separators';
 import { getArchive } from './_lib/data';
 
 // ISR: visitors get CDN-cached static HTML; the Supabase queries run once an hour at most.
@@ -21,7 +22,7 @@ export default async function Page() {
 
   return (
     <div className="min-h-screen bg-white text-black tracking-normal" style={{ fontFamily: FONT_STACK }}>
-      <header className="sticky top-0 z-10 border-b border-black/10 bg-white">
+      <header className="sticky top-0 z-10 bg-white">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 md:px-8">
           <a href="#top" className="text-[13px] font-extrabold uppercase tracking-[0.02em]">
             Runway Archive
@@ -31,6 +32,7 @@ export default async function Page() {
       </header>
 
       <main id="top" className="mx-auto max-w-5xl px-5 pb-32 md:px-8">
+        <StickySeparators />
         {archive === null || archive.length === 0 ? (
           <p className="pt-32 text-[13px] font-bold uppercase tracking-[0.14em] text-neutral-400">
             The archive is being assembled — check back soon.
@@ -40,9 +42,15 @@ export default async function Page() {
             {archive.map((brand, index) => (
               <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-16 md:pt-20">
                 {/* Sticks below the top bar while scrolling this brand's section, then gets
-                    pushed out by the next section — you always know which brand you're in. */}
+                    pushed out by the next section — you always know which brand you're in.
+                    The sentinel lets StickySeparators fade the hairline in only while stuck. */}
+                <span data-brand-sentinel aria-hidden className="block h-px" />
                 <h2 className="sticky top-14 z-[5] m-0 bg-white py-3">
                   <BrandLogo slug={brand.slug} name={brand.brand} priority={index === 0} />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/10 opacity-0 transition-opacity duration-300 [[data-stuck='1']_&]:opacity-100"
+                  />
                 </h2>
 
                 {brand.directors.map((director) => (
@@ -95,7 +103,7 @@ export default async function Page() {
                                 aria-label={`${brand.brand} ${show.label} playlist on Spotify`}
                                 className="shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
                               >
-                                Spotify →
+                                Spotify
                               </a>
                             )}
                           </div>
