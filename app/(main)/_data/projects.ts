@@ -38,6 +38,19 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: 'fashion-show-soundtracks',
+    kind: 'work',
+    name: 'Runway Archive',
+    role: 'creator',
+    year: '2026',
+    href: 'https://lab.filipwojda.com/fashion-show-soundtracks',
+    external: true,
+    description:
+      'Every runway show soundtrack, brand by brand — per-show Spotify playlists and full creative-director tenure playlists, recognized from the original show audio.',
+    tags: 'music, fashion, engineering',
+    media: [],
+  },
+  {
     id: '032c-archive',
     kind: 'work',
     name: '032c Archive',
