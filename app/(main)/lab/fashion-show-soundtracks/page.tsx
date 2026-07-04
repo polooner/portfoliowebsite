@@ -38,20 +38,22 @@ export default async function Page() {
         ) : (
           <>
             {archive.map((brand, index) => (
-              <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-20 md:pt-28">
+              <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-16 md:pt-20">
                 <h2 className="m-0">
                   <BrandLogo slug={brand.slug} name={brand.brand} priority={index === 0} />
                 </h2>
 
                 {brand.directors.map((director) => (
-                  <div key={director.directorSlug || 'unattributed'} data-director className="mt-14 md:mt-20">
+                  <div key={director.directorSlug || 'unattributed'} data-director className="mt-10 md:mt-12">
                     {director.director && (
                       <div>
-                        <p className="m-0 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">
-                          Creative Director{director.years ? ` ${director.years}` : ''}
-                        </p>
-                        <div className="mt-1 flex flex-wrap items-baseline gap-x-5 gap-y-2">
-                          <h3 className="m-0 text-[clamp(2.25rem,7vw,4.75rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.02em] text-neutral-400">
+                        {director.years && (
+                          <p className="m-0 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">
+                            {director.years}
+                          </p>
+                        )}
+                        <div className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                          <h3 className="m-0 text-[clamp(1.125rem,2vw,1.5rem)] font-bold uppercase leading-none tracking-[0.02em] text-neutral-400">
                             {director.director}
                           </h3>
                           {director.tenurePlaylistUrl && (
@@ -66,23 +68,23 @@ export default async function Page() {
                           )}
                         </div>
                         {director.note && (
-                          <p className="m-0 mt-3 max-w-xl text-[12px] leading-relaxed text-neutral-400">
+                          <p className="m-0 mt-1.5 max-w-xl text-[11px] leading-relaxed text-neutral-400">
                             {director.note}
                           </p>
                         )}
                       </div>
                     )}
 
-                    <ul className="m-0 mt-8 list-none p-0 md:mt-10">
+                    <ul className="m-0 mt-4 list-none p-0 md:mt-5">
                       {director.shows.map((show) => (
                         <li
                           key={show.id}
                           data-row
                           data-q={`${brand.brand} ${director.director ?? ''} ${show.label}`.toLowerCase()}
-                          className="py-3.5"
+                          className="py-1.5"
                         >
                           <div className="flex items-baseline justify-between gap-4">
-                            <span className="text-[15px] font-bold uppercase tracking-[0.01em]">{show.label}</span>
+                            <span className="text-[12px] font-bold uppercase tracking-[0.02em]">{show.label}</span>
                             {show.spotifyUrl && (
                               <a
                                 href={show.spotifyUrl}
@@ -96,7 +98,7 @@ export default async function Page() {
                             )}
                           </div>
                           {(show.musicLine || show.editorialNote) && (
-                            <div className="mt-1 text-[11px] leading-relaxed text-neutral-400">
+                            <div className="mt-0.5 text-[10px] leading-relaxed text-neutral-400">
                               {show.musicLine}
                               {show.musicLine && show.youtubeUrl && (
                                 <>

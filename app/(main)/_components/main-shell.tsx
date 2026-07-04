@@ -14,7 +14,11 @@ export function MainShell({ children }: Props) {
     pathname === '/' ||
     (pathname.startsWith('/blog/') && pathname !== '/blog') ||
     pathname === '/lab' ||
-    pathname.startsWith('/lab/')
+    pathname.startsWith('/lab/') ||
+    // On lab.filipwojda.com the middleware rewrite strips the /lab prefix, so the
+    // browser pathname (what usePathname reports) arrives without it.
+    pathname === '/fashion-show-soundtracks' ||
+    pathname.startsWith('/fashion-show-soundtracks/')
   ) {
     return <div className="w-full">{children}</div>;
   }
