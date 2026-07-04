@@ -8,14 +8,18 @@ import {
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get("host") || "";
   const { pathname } = request.nextUrl;
+  const host = hostname.split(":")[0];
 
-  // Skip subdomain logic in development
-  if (!hostname.includes(PRODUCTION_DOMAIN)) {
-    return NextResponse.next();
-  }
+  const isProduction =
+    host === PRODUCTION_DOMAIN || host.endsWith(`.${PRODUCTION_DOMAIN}`);
 
-  // Extract subdomain (e.g., "lab" from "lab.filipwojda.com")
-  const subdomain = hostname.replace(`.${PRODUCTION_DOMAIN}`, "");
+  // Extract subdomain: "lab" from "lab.filipwojda.com", or from "lab.localhost"
+  // so subdomains are testable in dev (browsers resolve *.localhost natively).
+  const subdomain = isProduction
+    ? host.slice(0, Math.max(0, host.length - PRODUCTION_DOMAIN.length - 1))
+    : host.endsWith(".localhost")
+      ? host.slice(0, -".localhost".length)
+      : "";
   const routePrefix = SUBDOMAIN_ROUTE_MAP[subdomain];
 
   if (routePrefix) {
@@ -34,14 +38,17 @@ export function middleware(request: NextRequest) {
     );
   }
 
-  // On main domain: redirect route-prefix paths to their subdomain
-  // e.g., filipwojda.com/lab/foo → lab.filipwojda.com/foo (301 for SEO)
-  for (const [sub, prefix] of Object.entries(SUBDOMAIN_ROUTE_MAP)) {
-    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) {
-      const newPath = pathname.slice(prefix.length) || "/";
-      const url = new URL(newPath, request.url);
-      url.host = `${sub}.${PRODUCTION_DOMAIN}`;
-      return NextResponse.redirect(url, 301);
+  // On main domain (production only): redirect route-prefix paths to their subdomain
+  // e.g., filipwojda.com/lab/foo → lab.filipwojda.com/foo (301 for SEO).
+  // In dev, localhost:3000/lab/foo keeps serving directly.
+  if (isProduction) {
+    for (const [sub, prefix] of Object.entries(SUBDOMAIN_ROUTE_MAP)) {
+      if (pathname === prefix || pathname.startsWith(`${prefix}/`)) {
+        const newPath = pathname.slice(prefix.length) || "/";
+        const url = new URL(newPath, request.url);
+        url.host = `${sub}.${PRODUCTION_DOMAIN}`;
+        return NextResponse.redirect(url, 301);
+      }
     }
   }
 
