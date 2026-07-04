@@ -39,7 +39,9 @@ export default async function Page() {
           <>
             {archive.map((brand, index) => (
               <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-16 md:pt-20">
-                <h2 className="m-0">
+                {/* Sticks below the top bar while scrolling this brand's section, then gets
+                    pushed out by the next section — you always know which brand you're in. */}
+                <h2 className="sticky top-14 z-[5] m-0 bg-white py-3">
                   <BrandLogo slug={brand.slug} name={brand.brand} priority={index === 0} />
                 </h2>
 
