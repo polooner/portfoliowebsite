@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 
 import { BrandLogo } from './_components/brand-logo';
 import { HeaderNav } from './_components/header-nav';
-import { StickySeparators } from './_components/sticky-separators';
 import { getArchive } from './_lib/data';
 
 // ISR: visitors get CDN-cached static HTML; the Supabase queries run once an hour at most.
@@ -17,6 +16,15 @@ export const metadata: Metadata = {
 // The archive deliberately drops the site font for the flat Helvetica of the design.
 const FONT_STACK = "'Helvetica Neue', Helvetica, Arial, sans-serif";
 
+// Diagonal external-link arrow; em-sized so it scales with the label it follows.
+function ArrowUpRight() {
+  return (
+    <svg viewBox="0 0 10 10" aria-hidden className="mb-[0.12em] ml-[0.4em] inline-block h-[0.6em] w-[0.6em]">
+      <path d="M1.5 8.5 8.5 1.5M3 1.5h5.5V7" fill="none" stroke="currentColor" strokeWidth="1.1" />
+    </svg>
+  );
+}
+
 export default async function Page() {
   const archive = await getArchive();
 
@@ -24,7 +32,7 @@ export default async function Page() {
     <div className="min-h-screen bg-white text-black tracking-normal" style={{ fontFamily: FONT_STACK }}>
       <header className="sticky top-0 z-10 bg-white">
         <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 md:px-8">
-          <a href="#top" className="text-[13px] font-extrabold uppercase tracking-[0.02em]">
+          <a href="#top" className="text-[13px] font-normal uppercase tracking-[0.14em]">
             Runway Soundtracks
           </a>
           <HeaderNav brands={(archive ?? []).map((b) => ({ name: b.brand.toUpperCase(), slug: b.slug }))} />
@@ -32,9 +40,8 @@ export default async function Page() {
       </header>
 
       <main id="top" className="mx-auto max-w-5xl px-5 pb-32 md:px-8">
-        <StickySeparators />
         {archive === null || archive.length === 0 ? (
-          <p className="pt-32 text-[13px] font-bold uppercase tracking-[0.14em] text-neutral-400">
+          <p className="pt-32 text-[13px] font-normal uppercase tracking-[0.14em] text-neutral-400">
             The archive is being assembled — check back soon.
           </p>
         ) : (
@@ -42,15 +49,9 @@ export default async function Page() {
             {archive.map((brand, index) => (
               <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-16 md:pt-20">
                 {/* Sticks below the top bar while scrolling this brand's section, then gets
-                    pushed out by the next section — you always know which brand you're in.
-                    The sentinel lets StickySeparators fade the hairline in only while stuck. */}
-                <span data-brand-sentinel aria-hidden className="block h-px" />
+                    pushed out by the next section — you always know which brand you're in. */}
                 <h2 className="sticky top-14 z-[5] m-0 bg-white py-3">
                   <BrandLogo slug={brand.slug} name={brand.brand} priority={index === 0} />
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-black/10 opacity-0 transition-opacity duration-300 [[data-stuck='1']_&]:opacity-100"
-                  />
                 </h2>
 
                 {brand.directors.map((director) => (
@@ -58,12 +59,12 @@ export default async function Page() {
                     {director.director && (
                       <div>
                         {director.years && (
-                          <p className="m-0 text-[10px] font-bold uppercase tracking-[0.18em] text-neutral-400">
+                          <p className="m-0 text-[10px] font-normal uppercase tracking-[0.18em] text-neutral-400">
                             {director.years}
                           </p>
                         )}
                         <div className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                          <h3 className="m-0 text-[clamp(1.125rem,2vw,1.5rem)] font-bold uppercase leading-none tracking-[0.02em] text-neutral-400">
+                          <h3 className="m-0 text-[clamp(1.125rem,2vw,1.5rem)] font-light uppercase leading-none tracking-[0.06em] text-neutral-400">
                             {director.director}
                           </h3>
                           {director.tenurePlaylistUrl && (
@@ -71,9 +72,10 @@ export default async function Page() {
                               href={director.tenurePlaylistUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
+                              className="whitespace-nowrap text-[10px] font-normal uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
                             >
-                              Full Tenure Playlist →
+                              Full Tenure Playlist
+                              <ArrowUpRight />
                             </a>
                           )}
                         </div>
@@ -94,16 +96,17 @@ export default async function Page() {
                           className="py-1.5"
                         >
                           <div className="flex items-baseline justify-between gap-4">
-                            <span className="text-[12px] font-bold uppercase tracking-[0.02em]">{show.label}</span>
+                            <span className="text-[12px] font-normal uppercase tracking-[0.04em]">{show.label}</span>
                             {show.spotifyUrl && (
                               <a
                                 href={show.spotifyUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={`${brand.brand} ${show.label} playlist on Spotify`}
-                                className="shrink-0 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
+                                className="shrink-0 text-[10px] font-normal uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
                               >
                                 Spotify
+                                <ArrowUpRight />
                               </a>
                             )}
                           </div>
@@ -119,7 +122,8 @@ export default async function Page() {
                                     rel="noopener noreferrer"
                                     className="transition-colors hover:text-black"
                                   >
-                                    YouTube →
+                                    YouTube
+                                    <ArrowUpRight />
                                   </a>
                                 </>
                               )}
@@ -135,13 +139,14 @@ export default async function Page() {
               </section>
             ))}
 
-            <p id="archive-empty" hidden className="pt-24 text-[13px] font-bold uppercase tracking-[0.14em] text-neutral-400">
+            <p id="archive-empty" hidden className="pt-24 text-[13px] font-normal uppercase tracking-[0.14em] text-neutral-400">
               No results.
             </p>
 
-            <footer className="mt-28 border-t border-black/10 pt-6 text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-300">
+            <footer className="mt-28 border-t border-black/10 pt-6 text-[10px] font-normal uppercase tracking-[0.16em] text-neutral-300">
               <a href="https://filipwojda.com" className="transition-colors hover:text-black">
                 filipwojda.com
+                <ArrowUpRight />
               </a>
             </footer>
           </>

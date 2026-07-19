@@ -19,7 +19,7 @@ export type DirectorSection = {
   directorSlug: string;
   years: string | null; // "2018–2025", "2002–", "2005"
   note: string | null; // tenure notes
-  tenurePlaylistUrl: string | null; // "FULL TENURE PLAYLIST →"
+  tenurePlaylistUrl: string | null; // "FULL TENURE PLAYLIST ↗"
   shows: ShowRow[];
 };
 

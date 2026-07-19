@@ -26,7 +26,7 @@ export function BrandLogo({ slug, name, priority }: { slug: string; name: string
   const logo = LOGOS[slug];
   if (!logo) {
     return (
-      <span className="block text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.02em] text-black">
+      <span className="block text-[clamp(1.5rem,3vw,2.25rem)] font-light uppercase leading-[0.95] tracking-[0.08em] text-black">
         {name}
       </span>
     );

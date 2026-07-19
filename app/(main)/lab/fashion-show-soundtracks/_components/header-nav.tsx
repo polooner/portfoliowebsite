@@ -44,7 +44,7 @@ export function HeaderNav({ brands }: { brands: Brand[] }) {
   }, [searchOpen]);
 
   return (
-    <nav className="flex items-center gap-5 sm:gap-7 text-[11px] font-bold uppercase tracking-[0.14em]">
+    <nav className="flex items-center gap-5 sm:gap-7 text-[11px] font-normal uppercase tracking-[0.14em]">
       <div ref={menuRef} className="relative">
         <button
           type="button"
@@ -84,7 +84,7 @@ export function HeaderNav({ brands }: { brands: Brand[] }) {
             }}
             placeholder="BRAND, DIRECTOR, SEASON"
             aria-label="Search the archive"
-            className="mr-3 w-32 border-b border-black bg-transparent pb-0.5 text-[11px] font-bold uppercase tracking-[0.14em] placeholder:text-neutral-300 focus:outline-none sm:w-52"
+            className="mr-3 w-32 border-b border-black bg-transparent pb-0.5 text-[11px] font-normal uppercase tracking-[0.14em] placeholder:text-neutral-300 focus:outline-none sm:w-52"
           />
         )}
         <button
