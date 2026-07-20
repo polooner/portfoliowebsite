@@ -27,7 +27,7 @@ type ListProps = {
 };
 
 const ITEM_CLASS_BASE =
-  'feed-item text-left w-full transition-[color,filter] duration-200 text-sm leading-tight flex flex-row gap-8 cursor-pointer uppercase';
+  'feed-item text-left w-fit transition-[color,filter] duration-200 text-sm leading-tight flex flex-row gap-8 cursor-pointer uppercase';
 
 function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
   return (
@@ -82,7 +82,7 @@ export function HomeFeed() {
 
   return (
     <div className="min-h-screen w-full px-8 py-8 text-sm text-black">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+      <div className="items-start">
         <aside className="flex flex-col gap-8 md:sticky md:top-8 md:h-[calc(100vh-4rem)] md:overflow-y-auto uppercase min-h-[calc(100vh-4rem)]">
           <SiteHeader />
           <SiteNav />
@@ -114,8 +114,10 @@ export function HomeFeed() {
           <SiteContact />
         </aside>
 
-        <section className="hidden md:flex flex-col gap-8">
-          <ProjectDetail project={active} />
+        <section className="hidden md:flex fixed inset-0 z-10 items-center justify-center pointer-events-none">
+          <div className="pointer-events-auto max-h-[85vh] overflow-y-auto">
+            <ProjectDetail project={active} />
+          </div>
         </section>
       </div>
     </div>
