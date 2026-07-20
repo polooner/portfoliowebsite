@@ -83,7 +83,7 @@ export function HomeFeed() {
   return (
     <div className="min-h-screen w-full px-8 py-8 text-sm text-black">
       <div className="items-start">
-        <aside className="flex flex-col gap-8 md:sticky md:top-8 md:h-[calc(100vh-4rem)] md:overflow-y-auto uppercase min-h-[calc(100vh-4rem)]">
+        <aside className="flex flex-col gap-8 md:fixed md:top-8 md:left-8 md:z-10 md:h-[calc(100vh-4rem)] md:overflow-y-auto uppercase min-h-[calc(100vh-4rem)]">
           <SiteHeader />
           <SiteNav />
 
@@ -114,10 +114,8 @@ export function HomeFeed() {
           <SiteContact />
         </aside>
 
-        <section className="hidden md:flex fixed inset-0 z-10 items-center justify-center pointer-events-none">
-          <div className="pointer-events-auto max-h-[85vh] overflow-y-auto">
-            <ProjectDetail project={active} />
-          </div>
+        <section className="hidden md:flex min-h-[calc(100vh-4rem)] items-center justify-center">
+          <ProjectDetail project={active} />
         </section>
       </div>
     </div>
