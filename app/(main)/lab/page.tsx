@@ -1,15 +1,6 @@
-import { StreamingTextCarousel } from '@/app/(main)/lab/components/streaming-text-carousel/streaming-text-carousel';
-import { WarpSlider } from '@/app/(main)/lab/components/warp-slider/warp-slider';
-import { Timer } from '@/app/(main)/lab/components/timer/timer';
-import { ClipPathReveal } from '@/app/(main)/lab/components/clippath-reveal/clippath-reveal';
-import { EaseCarousel } from '@/app/(main)/lab/components/ease-carousel/ease-carousel';
-import { AgentProgress } from '@/app/(main)/lab/components/agent-progress';
-import { InkBleedDemo } from '@/app/(main)/lab/components/ink-bleed-demo';
-import { DotMatrixGrid } from '@/app/(main)/lab/components/dot-matrix-grid/dot-matrix-grid';
 import { StarReveal } from '@/app/(main)/lab/components/star-reveal';
 import { TableSearchDemo } from '@/app/(main)/lab/components/landing-page-elements/table-search-demo';
-import { ButtonsSection } from '@/app/(main)/lab/components/ui-sections/buttons';
-import { CardsSection } from '@/app/(main)/lab/components/ui-sections/cards';
+import { LazyLabDemos } from '@/app/(main)/lab/components/lazy-lab-demos';
 import { CenteredShell } from '@/app/(main)/_components/centered-shell';
 
 export default function Page() {
@@ -18,17 +9,7 @@ export default function Page() {
       <div className="flex flex-col gap-20 max-w-full overflow-x-hidden">
         <TableSearchDemo />
         <StarReveal />
-        <DotMatrixGrid />
-        <InkBleedDemo />
-        <StreamingTextCarousel />
-        <WarpSlider />
-        <Timer />
-        <EaseCarousel />
-        <ClipPathReveal />
-        <AgentProgress />
-
-        <ButtonsSection />
-        <CardsSection />
+        <LazyLabDemos />
       </div>
     </CenteredShell>
   );
