@@ -61,6 +61,7 @@ export const PROJECTS: Project[] = [
     year: '2026',
     href: 'https://032carchive.vercel.app/',
     external: true,
+    linkOnly: true,
     description:
       'A complete archive of 032c — every article and image ever posted, indexed by every name mentioned. Browsable views to infinitely dig in and appreciate the beauty it has to offer.',
     tags: 'web, design, engineering',
@@ -149,6 +150,7 @@ export const PROJECTS: Project[] = [
     year: '2025',
     href: 'https://aleksandramichalska.com',
     external: true,
+    linkOnly: true,
     description: 'Portfolio site for Aleksandra Michalska, an artist I deeply admire.',
     tags: 'web, design, engineering',
     media: [],
@@ -256,6 +258,7 @@ export const PROJECTS: Project[] = [
     year: '2024',
     href: 'https://www.ekran.ai',
     external: true,
+    linkOnly: true,
     description:
       'Video editor with a chat. reads transcripts, visually annotates videos + performs vector search.',
     tags: 'web, engineering',
@@ -270,6 +273,7 @@ export const PROJECTS: Project[] = [
     year: '2023',
     href: 'https://www.makeklips.ai',
     external: true,
+    linkOnly: true,
     description: 'AI shorts generator.',
     tags: 'web, engineering',
     media: [],

@@ -11,6 +11,9 @@ const WORK_PROJECTS = PROJECTS.filter((p) => p.kind === 'work');
 const TOOL_PROJECTS = PROJECTS.filter((p) => p.kind === 'tool');
 const JOB_PROJECTS = PROJECTS.filter((p) => p.kind === 'job');
 
+const DEFAULT_PROJECT =
+  PROJECTS.find((p) => !p.linkOnly && p.kind !== 'job') ?? PROJECTS[0];
+
 function formatIndex(i: number) {
   return `${i + 1}.`;
 }
@@ -24,12 +27,12 @@ type ListProps = {
 };
 
 const ITEM_CLASS_BASE =
-  'text-left w-full transition-colors text-xl leading-tight flex flex-row gap-8 cursor-pointer uppercase';
+  'feed-item text-left w-full transition-[color,filter] duration-200 text-sm leading-tight flex flex-row gap-8 cursor-pointer uppercase';
 
 function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
   return (
     <div className="flex flex-col">
-      <div className="text-xl leading-tight text-red-600 mb-2">{title}</div>
+      <div className="text-sm leading-tight text-red-600 mb-2">{title}</div>
       <ol className="flex flex-col">
         {items.map((p, i) => {
           const isActive = p.id === activeId;
@@ -51,28 +54,20 @@ function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
             </>
           );
 
+          const showsPreview = !asLinks && !p.linkOnly;
+
           return (
             <li key={p.id}>
-              {asLinks || p.linkOnly ? (
-                <a
-                  href={p.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${ITEM_CLASS_BASE} ${colorClass}`}
-                >
-                  {content}
-                </a>
-              ) : (
-                <button
-                  type="button"
-                  onMouseEnter={() => onSelect(p.id)}
-                  onFocus={() => onSelect(p.id)}
-                  onClick={() => onSelect(p.id)}
-                  className={`${ITEM_CLASS_BASE} ${colorClass}`}
-                >
-                  {content}
-                </button>
-              )}
+              <a
+                href={p.href}
+                target={p.external ? '_blank' : undefined}
+                rel={p.external ? 'noopener noreferrer' : undefined}
+                onMouseEnter={showsPreview ? () => onSelect(p.id) : undefined}
+                onFocus={showsPreview ? () => onSelect(p.id) : undefined}
+                className={`${ITEM_CLASS_BASE} ${colorClass}`}
+              >
+                {content}
+              </a>
             </li>
           );
         })}
@@ -82,8 +77,8 @@ function ProjectList({ title, items, activeId, onSelect, asLinks }: ListProps) {
 }
 
 export function HomeFeed() {
-  const [activeId, setActiveId] = useState<string>(PROJECTS[0].id);
-  const active = PROJECTS.find((p) => p.id === activeId) ?? PROJECTS[0];
+  const [activeId, setActiveId] = useState<string>(DEFAULT_PROJECT.id);
+  const active = PROJECTS.find((p) => p.id === activeId) ?? DEFAULT_PROJECT;
 
   return (
     <div className="min-h-screen w-full px-8 py-8 text-sm text-black">
@@ -92,27 +87,29 @@ export function HomeFeed() {
           <SiteHeader />
           <SiteNav />
 
-          <ProjectList
-            title="Selected"
-            items={WORK_PROJECTS}
-            activeId={active.id}
-            onSelect={setActiveId}
-          />
+          <div className="home-feed-lists flex flex-col gap-8">
+            <ProjectList
+              title="Selected"
+              items={WORK_PROJECTS}
+              activeId={active.id}
+              onSelect={setActiveId}
+            />
 
-          <ProjectList
-            title="Tools"
-            items={TOOL_PROJECTS}
-            activeId={active.id}
-            onSelect={setActiveId}
-          />
+            <ProjectList
+              title="Tools"
+              items={TOOL_PROJECTS}
+              activeId={active.id}
+              onSelect={setActiveId}
+            />
 
-          <ProjectList
-            title="Work"
-            items={JOB_PROJECTS}
-            activeId={active.id}
-            onSelect={setActiveId}
-            asLinks
-          />
+            <ProjectList
+              title="Work"
+              items={JOB_PROJECTS}
+              activeId={active.id}
+              onSelect={setActiveId}
+              asLinks
+            />
+          </div>
 
           <SiteContact />
         </aside>

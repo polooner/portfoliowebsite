@@ -95,6 +95,13 @@
   }
 }
 
+@layer components {
+  /* Hovering one homepage list item softly blurs its siblings across all lists. */
+  .home-feed-lists:has(.feed-item:hover) .feed-item:not(:hover) {
+    filter: blur(1.5px);
+  }
+}
+
 /* just easing animations from Emil Kowalski's course */
 :root {
   --ease-in-quad: cubic-bezier(0.55, 0.085, 0.68, 0.53);
