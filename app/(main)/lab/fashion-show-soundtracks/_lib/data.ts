@@ -9,8 +9,9 @@ export type ShowRow = {
   label: string; // "FW25 WOMEN'S", "FW18 DEBUT"
   seasonYear: number | null;
   spotifyUrl: string | null; // only set when the playlist is posted (public)
+  appleMusicUrl: string | null; // only set once metadata.applePublic confirms the pl.u- link is live
   youtubeUrl: string | null;
-  musicLine: string | null; // "Commissioned score — not on Spotify · <note>"
+  musicLine: string | null; // "Commissioned score · <note>"
   editorialNote: string | null;
 };
 
@@ -79,15 +80,16 @@ const AGGREGATE_COLS = "name, playlist_url, apple_playlist_url, seed_key, metada
 // Vocab from show-curator's jobs.metadata.musicStatus (db/09). Statuses without an entry
 // (RECOGNIZED, DOWNLOAD_FAILED, RESEARCH_PENDING) are internal states and render nothing.
 const MUSIC_STATUS_LABELS: Record<string, string> = {
-  CUSTOM_SCORE: "Commissioned score — not on Spotify",
-  CUSTOM_MIX: "Custom mix — not on Spotify",
-  LIVE: "Live performance — not on Spotify",
-  SOUND_DESIGN: "Sound design — not on Spotify",
+  CUSTOM_SCORE: "Commissioned score",
+  CUSTOM_MIX: "Custom mix",
+  LIVE: "Live performance",
+  SOUND_DESIGN: "Sound design",
   COMMERCIAL_UNRECOGNIZED: "Not identified on Spotify",
 };
 
 // Brands render in this order; anything new lands after, alphabetically.
 const BRAND_ORDER = [
+  "enfants-riches-d-prim-s",
   "celine",
   "saint-laurent",
   "rick-owens",
@@ -184,18 +186,21 @@ function toShowRow(job: JobRow): ShowRow | null {
     typeof meta.editorialNote === "string" && meta.editorialNote.trim() ? meta.editorialNote.trim() : null;
 
   const spotifyUrl = job.playlist_url && job.playlist_public ? job.playlist_url : null;
+  const applePublic = meta.applePublic === true;
+  const appleMusicUrl = applePublic && job.apple_playlist_url ? job.apple_playlist_url : null;
   const statusLabel = status ? (MUSIC_STATUS_LABELS[status] ?? null) : null;
   const musicLine = statusLabel ? [statusLabel, musicNote].filter(Boolean).join(" · ") : null;
 
   // A row earns its place with a posted playlist or a music-provenance story; otherwise it's
   // simply not ready for the public archive yet.
-  if (!spotifyUrl && !musicLine) return null;
+  if (!spotifyUrl && !appleMusicUrl && !musicLine) return null;
 
   return {
     id: job.id,
     label: rowLabel(job),
     seasonYear: job.season_year,
     spotifyUrl,
+    appleMusicUrl,
     youtubeUrl: !spotifyUrl && musicLine ? job.url : null,
     musicLine,
     editorialNote,

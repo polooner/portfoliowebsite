@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
+import { ArchiveShell } from './_components/archive-shell';
 import { BrandLogo } from './_components/brand-logo';
-import { HeaderNav } from './_components/header-nav';
 import { getArchive } from './_lib/data';
 
 // ISR: visitors get CDN-cached static HTML; the Supabase queries run once an hour at most.
@@ -25,26 +25,42 @@ function ArrowUpRight() {
   );
 }
 
+const PLAYLIST_LINK_CLASSES =
+  'text-[10px] font-normal uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black';
+
+// Spotify/Apple Music badge shown top-right of a show row; both can appear side by side.
+function PlaylistLink({ href, label, ariaLabel }: { href: string; label: string; ariaLabel: string }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className={PLAYLIST_LINK_CLASSES}>
+      {label}
+      <ArrowUpRight />
+    </a>
+  );
+}
+
 export default async function Page() {
   const archive = await getArchive();
+  const isEmpty = archive === null || archive.length === 0;
 
   return (
     <div className="min-h-screen bg-white text-black tracking-normal" style={{ fontFamily: FONT_STACK }}>
-      <header className="sticky top-0 z-10 bg-white">
-        <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 md:px-8">
-          <a href="#top" className="text-[13px] font-normal uppercase tracking-[0.14em]">
-            Runway Soundtracks
-          </a>
-          <HeaderNav brands={(archive ?? []).map((b) => ({ name: b.brand.toUpperCase(), slug: b.slug }))} />
-        </div>
-      </header>
-
-      <main id="top" className="mx-auto max-w-5xl px-5 pb-32 md:px-8">
-        {archive === null || archive.length === 0 ? (
-          <p className="pt-32 text-[13px] font-normal uppercase tracking-[0.14em] text-neutral-400">
-            The archive is being assembled — check back soon.
-          </p>
-        ) : (
+      {isEmpty ? (
+        <>
+          <header className="sticky top-0 z-10 bg-white">
+            <div className="mx-auto flex h-14 max-w-6xl items-center px-5 md:px-8">
+              <a href="#top" className="text-[13px] font-normal uppercase tracking-[0.14em]">
+                Runway Soundtracks
+              </a>
+            </div>
+          </header>
+          <main id="top" className="mx-auto max-w-6xl px-5 pb-32 md:px-8">
+            <p className="pt-32 text-[13px] font-normal uppercase tracking-[0.14em] text-neutral-400">
+              The archive is being assembled. Check back soon.
+            </p>
+          </main>
+        </>
+      ) : (
+        <ArchiveShell brands={archive.map((b) => ({ name: b.brand.toUpperCase(), slug: b.slug }))}>
           <>
             {archive.map((brand, index) => (
               <section key={brand.slug} id={brand.slug} data-brand-section className="scroll-mt-20 pt-16 md:pt-20">
@@ -92,22 +108,29 @@ export default async function Page() {
                         <li
                           key={show.id}
                           data-row
+                          data-brand={brand.slug}
                           data-q={`${brand.brand} ${director.director ?? ''} ${show.label}`.toLowerCase()}
                           className="py-1.5"
                         >
                           <div className="flex items-baseline justify-between gap-4">
                             <span className="text-[12px] font-normal uppercase tracking-[0.04em]">{show.label}</span>
-                            {show.spotifyUrl && (
-                              <a
-                                href={show.spotifyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                aria-label={`${brand.brand} ${show.label} playlist on Spotify`}
-                                className="shrink-0 text-[10px] font-normal uppercase tracking-[0.16em] text-neutral-400 transition-colors hover:text-black"
-                              >
-                                Spotify
-                                <ArrowUpRight />
-                              </a>
+                            {(show.spotifyUrl || show.appleMusicUrl) && (
+                              <div className="flex shrink-0 items-baseline gap-3">
+                                {show.spotifyUrl && (
+                                  <PlaylistLink
+                                    href={show.spotifyUrl}
+                                    label="Spotify"
+                                    ariaLabel={`${brand.brand} ${show.label} playlist on Spotify`}
+                                  />
+                                )}
+                                {show.appleMusicUrl && (
+                                  <PlaylistLink
+                                    href={show.appleMusicUrl}
+                                    label="Apple Music"
+                                    ariaLabel={`${brand.brand} ${show.label} playlist on Apple Music`}
+                                  />
+                                )}
+                              </div>
                             )}
                           </div>
                           {(show.musicLine || show.editorialNote) && (
@@ -150,8 +173,8 @@ export default async function Page() {
               </a>
             </footer>
           </>
-        )}
-      </main>
+        </ArchiveShell>
+      )}
     </div>
   );
 }
