@@ -90,6 +90,7 @@ const MUSIC_STATUS_LABELS: Record<string, string> = {
 // Brands render in this order; anything new lands after, alphabetically.
 const BRAND_ORDER = [
   "enfants-riches-d-prim-s",
+  "ann-demeulemeester",
   "celine",
   "saint-laurent",
   "rick-owens",

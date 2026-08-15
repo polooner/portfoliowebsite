@@ -33,7 +33,6 @@ function PlaylistLink({ href, label, ariaLabel }: { href: string; label: string;
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" aria-label={ariaLabel} className={PLAYLIST_LINK_CLASSES}>
       {label}
-      <ArrowUpRight />
     </a>
   );
 }
