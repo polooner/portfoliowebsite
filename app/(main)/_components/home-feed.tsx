@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { PROJECTS, type Project } from '../_data/projects';
+import { DEFAULT_PROJECT_ID, PROJECTS, type Project } from '../_data/projects';
 import { ProjectDetail } from './project-detail';
 import { SiteContact } from './site-contact';
 import { SiteHeader } from './site-header';
@@ -12,7 +12,7 @@ const TOOL_PROJECTS = PROJECTS.filter((p) => p.kind === 'tool');
 const JOB_PROJECTS = PROJECTS.filter((p) => p.kind === 'job');
 
 const DEFAULT_PROJECT =
-  PROJECTS.find((p) => !p.linkOnly && p.kind !== 'job') ?? PROJECTS[0];
+  PROJECTS.find((p) => p.id === DEFAULT_PROJECT_ID) ?? PROJECTS[0];
 
 function formatIndex(i: number) {
   return `${i + 1}.`;

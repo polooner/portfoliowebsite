@@ -38,6 +38,9 @@ export type Project = {
   linkOnly?: boolean;
 };
 
+/** Project shown in the detail pane on load, before any hover selection. */
+export const DEFAULT_PROJECT_ID = 'ange-passe';
+
 export const PROJECTS: Project[] = [
   {
     id: 'fashion-show-soundtracks',
@@ -145,13 +148,12 @@ export const PROJECTS: Project[] = [
     id: 'ange-passe',
     kind: 'work',
     name: 'Ange Passe',
-    subtext: 'portfolio',
     role: 'design + engineering',
     year: '2026',
     href: 'https://ange-passe.vercel.app/',
     external: true,
     linkOnly: true,
-    description: 'Bilingual portfolio site for Ange Passe, a stylist and creative director.',
+    description: 'Bilingual EN/KR site for Ange Passe, a creative studio working in fashion and styling.',
     tags: 'web, design, engineering',
     media: [],
   },
@@ -263,35 +265,6 @@ export const PROJECTS: Project[] = [
         mime: 'video/mp4',
       },
     ],
-  },
-  {
-    id: 'ekran',
-    kind: 'work',
-    name: 'Ekran',
-    role: 'creator',
-    year: '2024',
-    href: 'https://www.ekran.ai',
-    external: true,
-    linkOnly: true,
-    description:
-      'Video editor with a chat. reads transcripts, visually annotates videos + performs vector search.',
-    tags: 'web, engineering',
-    media: [],
-    defunct: true,
-  },
-  {
-    id: 'makeklips',
-    kind: 'work',
-    name: 'makeklips.ai',
-    role: 'creator',
-    year: '2023',
-    href: 'https://www.makeklips.ai',
-    external: true,
-    linkOnly: true,
-    description: 'AI shorts generator.',
-    tags: 'web, engineering',
-    media: [],
-    defunct: true,
   },
   {
     id: 'paysponge',
